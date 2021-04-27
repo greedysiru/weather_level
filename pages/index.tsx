@@ -3,7 +3,7 @@
 export default function Home() {
   return (
     <div >
-      React-Next.js-TypeScript
+      메인
     </div>
   )
 }
