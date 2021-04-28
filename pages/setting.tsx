@@ -1,5 +1,3 @@
-import { AppProps } from 'next/app'
-
 
 const Setting = (props) => {
   return (
