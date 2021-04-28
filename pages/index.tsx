@@ -1,9 +1,10 @@
+import React from 'react';
 
 
 export default function Home() {
   return (
-    <div >
+    <React.Fragment >
       메인
-    </div>
+    </React.Fragment>
   )
 }
