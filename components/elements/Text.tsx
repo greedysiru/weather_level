@@ -1,7 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Text = (props) => {
+// 타입 지정
+type TextType = {
+  color: string;
+  size: string;
+  bold: string;
+  margin: string;
+  children: any;
+}
+
+const Text = (props: TextType) => {
 
   const { bold, color, size, children, margin } = props;
 
@@ -21,7 +30,8 @@ Text.defaultProps = {
   margin: false,
 }
 
-const P = styled.p`
+
+const P = styled.p<TextType>`
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
   font-weight: ${(props) => (props.bold ? "600" : "400")};
