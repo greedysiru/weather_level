@@ -3,7 +3,10 @@ import { createWrapper } from 'next-redux-wrapper';
 import rootReducer from './modules';
 
 const store = () => {
-  const store = configureStore({ reducer: rootReducer, middleware: [...getDefaultMiddleware()] });
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware: [...getDefaultMiddleware()]
+  });
   return store;
 };
 
