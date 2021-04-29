@@ -14,11 +14,6 @@ type weatherType = {
   longitude: number;
 }
 
-// 액션 payload 타입
-type weatherPayload = {
-  weatherInfo: object;
-}
-
 
 export const initialState: weatherType = {
   // 날씨 정보
@@ -28,12 +23,12 @@ export const initialState: weatherType = {
 }
 
 // 날씨 정보를 받아오는 액션 함수
-const getWeather = createAction<weatherPayload>('weather/GETWEATHER');
+const getWeather = createAction<object>('weather/GETWEATHER');
 // 현재 위치를 가져오는 액션 함수
 const getPosition = createAction('weather/GETPOSITION');
 
 const weather = createReducer(initialState, {
-  [getWeather.type]: (state: weatherType, action: PayloadAction<weatherPayload>) => {
+  [getWeather.type]: (state: weatherType, action: PayloadAction<object>) => {
     state.weatherInfo = action.payload;
   }
 })
