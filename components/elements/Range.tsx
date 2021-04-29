@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Text, Grid } from './index';
@@ -6,18 +6,26 @@ import { Text, Grid } from './index';
 // 타입 지정
 type RangeType = {
   label: string;
-  _onChange: () => void;
 }
 
 
 const Range = (props: RangeType) => {
-  const { label, _onChange } = props;
-
+  const { label } = props;
+  const [count, setCount] = React.useState<string>('');
+  useEffect(() => {
+    console.log(count)
+  }, [count])
   return (
     <React.Fragment>
       <Grid>
         {label && <Text margin="0px">{label}</Text>}
-        <ElRange type="range" />
+        <Text>{count}</Text>
+        <ElRange
+          type="range"
+          min='0'
+          max='100'
+          onChange={(e) => { setCount(e.target.value) }}
+        />
       </Grid>
     </React.Fragment>
   )
@@ -26,7 +34,6 @@ const Range = (props: RangeType) => {
 Range.defaultProps = {
   label: "",
   value: "",
-  _onChange: () => { },
 }
 
 const ElRange = styled.input`
