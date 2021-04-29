@@ -13,17 +13,9 @@ type ButtonType = {
 
 const Button = (props:ButtonType) => {
   const { disabled, children, margin, width, padding,color, _onClick} = props;
-  console.log(_onClick)
- const styles = {
-    margin,
-    width,
-    padding,
-    disabled,
-    color
-  };
  
   return (
-      <ElButton {...styles} onClick={_onClick}>
+      <ElButton {...props} onClick={_onClick}>
         {children}
       </ElButton>
   );

@@ -22,7 +22,7 @@ const Grid = ({width, height,is_column, jc, ai, bg, margin, children}:GridType) 
 Grid.defaultProps = {
   width:'100%',
   height:'',
-  is_column:'row',
+  is_column:false,
   jc:'center',
   ai:'cetner',
   bg:'white',
