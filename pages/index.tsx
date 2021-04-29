@@ -10,7 +10,8 @@ import { useDispatch } from 'react-redux';
 const Main = (props) => {
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(weatherActions.getWeatherInfo());
+    // 사용자 위치(위도, 경도) state에 기록 후 날씨 정보 불러오기
+    dispatch(weatherActions.getLocation());
   }, [])
 
 
