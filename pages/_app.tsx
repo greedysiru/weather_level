@@ -8,22 +8,13 @@ import styled from 'styled-components';
 import wrapper from '../redux/configureStore'
 import theme from 'styles/theme';
 
-import { weatherAPI } from '../shared/api';
+
 
 function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    getWeather()
-  }, [])
 
-  const getWeather = async () => {
-    console.log('getWeather')
-    const res = await weatherAPI.getWeather(37.6027, 126.9291)
-    console.log(res.data)
-  }
   return (
     <ThemeProvider theme={theme} >
       <React.Fragment>
-        <h1>리액트</h1>
         <Component {...pageProps} />
       </React.Fragment>
     </ThemeProvider>
