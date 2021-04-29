@@ -2,7 +2,7 @@ import React from 'react';
 import { AppProps } from 'next/app'
 import { ThemeProvider } from 'styled-components';
 import '../styles/reset.css';
-import styled from 'styled-components';
+
 
 // store
 import wrapper from '../redux/configureStore'
@@ -18,7 +18,6 @@ function App({ Component, pageProps }: AppProps) {
     </ThemeProvider>
   )
 }
-
 
 
 export default wrapper.withRedux(App);

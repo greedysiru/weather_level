@@ -1,13 +1,17 @@
 import styled from 'styled-components';
 import React from 'react';
 
-const Image = (props) => {
+type ImageType = {  
+  src:string;
+  size:number ;
+  shape:string;
+}
+
+const Image = (props:ImageType) => {
   const { shape, src, size } = props;
 
-  const styles = {
-    src: src,
-    size: size,
-  }
+  const styles = { src,size,shape }
+  
   if (shape === 'circle') {
     return (
       <ImageCircle {...styles}></ImageCircle>
@@ -35,7 +39,7 @@ Image.defaultProps = {
   size: 36,
 };
 
-const ImageDefault = styled.div`
+const ImageDefault = styled.div<ImageType>`
     --size: ${(props) => props.size}px;
     width: var(--size);
     height: var(--size);
@@ -48,7 +52,7 @@ const AspectOutter = styled.div`
   min-width: 250px;
 `;
 
-const AspectInner = styled.div`
+const AspectInner = styled.div<ImageType>`
   position: relative;
   padding-top: 75%;
   overflow: hidden;
@@ -56,7 +60,7 @@ const AspectInner = styled.div`
   background-size: cover;
 `;
 
-const ImageCircle = styled.div`
+const ImageCircle = styled.div<ImageType>`
     --size: ${(props) => props.size}px;
     width: var(--size);
     height: var(--size);

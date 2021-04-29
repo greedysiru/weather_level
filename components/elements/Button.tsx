@@ -1,50 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = (props) => {
-  const {
-    disabled,
-    _onClick,
-    is_float,
-    children,
-    margin,
-    width,
-    padding
-  } = props;
+type ButtonType = {
+  disabled:boolean;   
+  children: any;
+  margin:boolean;
+  width:string;
+  padding:string;
+  _onClick:()=>void;
+}
 
-  if (is_float) {
-    return (
-      <React.Fragment>
-        <FloatButton onClick={_onClick}>{children}</FloatButton>
-      </React.Fragment>
-    );
-  }
+const Button = (props:ButtonType) => {
+  const { disabled, children, margin, width, padding, _onClick } = props;
 
-  const styles = {
+ const styles = {
     margin: margin,
     width: width,
-    padding: padding
+    padding: padding    
   };
-
+ 
   return (
-    <React.Fragment>
-      <ElButton disabled={disabled} {...styles} onClick={_onClick}>
+      <ElButton disabled={disabled} {...styles} onClick={_onClick} >
         {children}
       </ElButton>
-    </React.Fragment>
   );
 };
 
 Button.defaultProps = {
   children: null,
-  _onClick: () => { },
+  _onClick: () => {},
   is_float: false,
-  margin: false,
+  margin: '0',
   width: '100%',
   padding: '12px 0px'
 };
 
-const ElButton = styled.button`
+
+const ElButton = styled.button<ButtonType>`
   width: ${(props) => props.width};
   background-color: ${(props) => props.theme.main_color};
   color: #ffffff;
@@ -63,21 +55,5 @@ const ElButton = styled.button`
   `}
 `;
 
-const FloatButton = styled.button`
-  width: 50px;
-  height: 50px;
-  background-color: ${(props) => props.theme.theme_yellow};
-  color: #ffffff;
-  box-sizing: border-box;
-  font-size: 36px;
-  font-weight: 800;
-  position: absolute;
-  bottom: 50px;
-  right: 16px;
-  text-align: center;
-  vertical-align: middle;
-  border: none;
-  border-radius: 50px;
-`;
 
 export default Button;
