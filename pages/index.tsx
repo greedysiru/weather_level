@@ -13,6 +13,7 @@ const Main = (props) => {
       <Grid>
         <Range />
       </Grid>
+      <Button />
     </React.Fragment >
   )
 }

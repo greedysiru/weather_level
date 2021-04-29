@@ -6,21 +6,24 @@ type ButtonType = {
   children: any;
   margin:boolean;
   width:string;
-  padding:string;
+  padding:string;    
   _onClick:()=>void;
+  color:string;
 }
 
 const Button = (props:ButtonType) => {
-  const { disabled, children, margin, width, padding, _onClick } = props;
-
+  const { disabled, children, margin, width, padding,color, _onClick} = props;
+  console.log(_onClick)
  const styles = {
-    margin: margin,
-    width: width,
-    padding: padding    
+    margin,
+    width,
+    padding,
+    disabled,
+    color
   };
  
   return (
-      <ElButton disabled={disabled} {...styles} onClick={_onClick} >
+      <ElButton {...styles} onClick={_onClick}>
         {children}
       </ElButton>
   );
@@ -52,7 +55,8 @@ const ElButton = styled.button<ButtonType>`
       ? `background-color:gray; color:white`
       : `
   background-color:#212121; color:white
-  `}
+  `} 
+  color:${props=>props.color}
 `;
 
 
