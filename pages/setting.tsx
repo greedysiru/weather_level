@@ -22,7 +22,7 @@ const Setting = (props) => {
   })
 
   const RangeList = list.map((ele,idx)=>{
-          return <Range isHidden={ele.value==="0"? isHidden:false} value={ele.value} label={ele.label} />
+          return <Range key={idx} isHidden={ele.value==="0"? isHidden:false} value={ele.value} label={ele.label} />
     
   })
 
@@ -36,30 +36,20 @@ const Setting = (props) => {
   }
   
   return (
-    <Container>
-      <Contents>
+    <Container>      
         {RangeList}
+        <Grid>
+          <Button _onClick={()=>{setIsHidden(!isHidden)}}>{isHidden?'더보기':'숨기기'}</Button>
+        </Grid>
         <Grid>
           <Button _onClick={onSave}>저장</Button>
           <Button>취소</Button>
-        </Grid>
-      </Contents>      
+        </Grid>         
     </Container>
   )
 }
 
-const Container = styled.div`    
-  width:100%;
-  height:100%;
-  ${props=>props.theme.flex.row};  
-  ${props=>props.theme.border_box};  
-  justify-content:center;  
-  align-items:center;
-  overflow:hidden;
-  
-`
-
-const Contents = styled.div`
+const Container = styled.div`
   width:50%;
   border:1px solid black;   
 `

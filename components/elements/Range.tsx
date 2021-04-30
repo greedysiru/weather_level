@@ -48,7 +48,8 @@ const Container = styled.div<{isHidden:boolean}>`
 display:${props=>props.isHidden?'none':'block'};
 `
 const Label = styled.span<LabelProps>`  
-  margin: ${props=>props.margin? props.margin:0};    
+  margin: ${props=>props.margin? props.margin:0}; 
+  width:${props=>props.width};
 `
 
 const ElRange = styled.input`
