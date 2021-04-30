@@ -9,8 +9,12 @@ import { weatherAPI } from '../../shared/api';
 // 초기 상태 type
 type weatherType = {
   weatherInfo: {
-    bigRegion?: string;
-    smallRegion?: string;
+    region?: {
+      bigRegion: string;
+      smallRegion: string;
+      longitude: string;
+      latitude: string;
+    }
     livingHealthWeather?: {
       uvToday: string;
       uvTomorrow: string;
@@ -46,9 +50,6 @@ type weatherType = {
       rainPer: string[];
     }
   };
-  // 위도, 경도
-  latitude: number;
-  longitude: number;
   // 날씨 정보 로드 상태
   is_loaded: boolean;
 }
@@ -57,8 +58,6 @@ type weatherType = {
 export const initialState: weatherType = {
   // 날씨 정보
   weatherInfo: null,
-  latitude: null,
-  longitude: null,
   // 날씨 정보 로드 상태
   is_loaded: false,
 }
@@ -66,7 +65,7 @@ export const initialState: weatherType = {
 // 날씨 정보를 받아오는 액션 함수
 const getWeather = createAction<object>('weather/GETWEATHER');
 // 현재 위치를 가져오는 액션 함수
-const getPosition = createAction<object>('weather/GETPOSITION');
+// const getPosition = createAction<object>('weather/GETPOSITION');
 // 로드 상태를 변경하는 함수
 const setLoad = createAction<boolean>('weather/SETLOAD');
 
@@ -74,13 +73,13 @@ const weather = createReducer(initialState, {
   [getWeather.type]: (state: weatherType, action: PayloadAction<object>) => {
     state.weatherInfo = action.payload;
   },
-  [getPosition.type]: (state: weatherType, action: PayloadAction<{ latitude: number, longitude: number }>) => {
-    state.latitude = action.payload.latitude;
-    state.longitude = action.payload.longitude;
-  },
   [setLoad.type]: (state: weatherType, action: PayloadAction<boolean>) => {
     state.is_loaded = action.payload;
-  }
+  },
+  // [getPosition.type]: (state: weatherType, action: PayloadAction<{ latitude: number, longitude: number }>) => {
+  //   state.latitude = action.payload.latitude;
+  //   state.longitude = action.payload.longitude;
+  // },
 })
 
 // 날씨 정보 호출 후 리덕스 state에 저장
@@ -110,14 +109,13 @@ const getLocation = () => (dispatch) => {
           latitude: latitude,
           longitude: longitude
         }
-        dispatch(getPosition(positionInfo));
         // 현재 위치정보를 기반으로 날씨 정보 불러오기
         dispatch(getWeatherInfo(latitude, longitude));
       },
       // error
       function (error) {
-        alert('위치 정보 제공을 허용해주세요.')
-        console.log(error)
+        alert('위치 정보 제공을 허용해주세요.');
+        console.log(error);
       });
   } else {
     alert('GPS를 지원하지 않습니다.')

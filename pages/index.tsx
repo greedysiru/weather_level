@@ -19,21 +19,22 @@ const Main = (props) => {
     dispatch(weatherActions.getLocation());
   }, [])
   // 날씨 정보 로드 여부 가져오기
-  const is_loaded = useSelector((state: RootState) => state.weather.is_loaded)
+  const is_loaded = useSelector((state: RootState) => state.weather.is_loaded);
 
-  // 사용자의 지역 정보 가져오기
-  const bigRegion = useSelector((state: RootState) => state.weather.weatherInfo?.bigRegion);
-  const smallRegion = useSelector((state: RootState) => state.weather.weatherInfo?.smallRegion);
-  // 이번주의 최고 온도, 최저 온도, 평균 온도 가져오기
-  const { maxTmp, minTmp, tmp } = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo);
+  // 날씨정보 로드 전
+  if (!is_loaded) {
+    return null
 
-
-  return (
-    <React.Fragment >
-      <Header />
-    </React.Fragment >
-  )
+  }
+  // 날씨정보 로드 후
+  else {
+    return (
+      <React.Fragment >
+        {/* 헤더 */}
+        <Header />
+      </React.Fragment >
+    )
+  }
 }
-
 
 export default Main
