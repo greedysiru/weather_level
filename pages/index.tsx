@@ -26,20 +26,12 @@ const Main = (props) => {
         <Range />
       </Grid>
       <Grid width="50%">
-        <Button _onClick={()=>console.log('호호')}>버튼버튼</Button>
+        <Button is_float={false}  _onClick={()=>console.log('호호')}>버튼버튼</Button>
       </Grid>
       
     </React.Fragment >
   )
 }
 
-/* width: string;
-        height: string;
-        is_column: boolean;
-        jc: string;
-        ai: string;
-        bg: string;
-        margin: string;
-        children: any; */
 
 export default Main
