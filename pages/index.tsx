@@ -21,14 +21,14 @@ const Main = (props) => {
       <Text>
         props
       </Text>
-      <Input label="하" />
+      <Input label="하" is_submit _onChange={() => console.log('ㅎ')} />
       <Grid>
         <Range />
       </Grid>
       <Grid width="50%">
-        <Button _onClick={()=>console.log('호호')}>버튼버튼</Button>
+        <Button _onClick={() => console.log('호호')}>버튼버튼</Button>
       </Grid>
-      
+
     </React.Fragment >
   )
 }

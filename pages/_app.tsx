@@ -3,6 +3,8 @@ import { AppProps } from 'next/app'
 import { ThemeProvider } from 'styled-components';
 import '../styles/reset.css';
 
+import AppLayout from '../components/AppLayout';
+
 
 // store
 import wrapper from '../redux/configureStore'
@@ -14,9 +16,9 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider theme={theme} >
-      <React.Fragment>
+      <AppLayout>
         <Component {...pageProps} />
-      </React.Fragment>
+      </AppLayout>
     </ThemeProvider>
   )
 }
