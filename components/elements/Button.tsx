@@ -2,28 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 
 type ButtonType = {
-  disabled:boolean;   
+  disabled?: boolean;
   children: any;
-  margin:boolean;
-  width:string;
-  padding:string;    
-  _onClick:()=>void;
-  color:string;
+  margin: boolean;
+  width: string;
+  padding: string;
+  _onClick: () => void;
+  color?: string;
 }
 
-const Button = (props:ButtonType) => {
-  const { disabled, children, margin, width, padding,color, _onClick} = props;
- 
+const Button = (props: ButtonType) => {
+  const { disabled, children, margin, width, padding, color, _onClick } = props;
+
   return (
-      <ElButton {...props} onClick={_onClick}>
-        {children}
-      </ElButton>
+    <ElButton {...props} onClick={_onClick}>
+      {children}
+    </ElButton>
   );
 };
 
 Button.defaultProps = {
   children: null,
-  _onClick: () => {},
+  _onClick: () => { },
   is_float: false,
   margin: '0',
   width: '100%',
@@ -48,7 +48,7 @@ const ElButton = styled.button<ButtonType>`
       : `
   background-color:#212121; color:white
   `} 
-  color:${props=>props.color}
+  color:${props => props.color}
 `;
 
 
