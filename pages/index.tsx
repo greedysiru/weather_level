@@ -22,8 +22,7 @@ const Main = (props) => {
   const is_loaded = useSelector((state: RootState) => state.weather.is_loaded);
 
   // 사용자의 지역 정보 가져오기
-  const bigRegion = useSelector((state: RootState) => state.weather.weatherInfo?.bigRegion);
-  const smallRegion = useSelector((state: RootState) => state.weather.weatherInfo?.smallRegion);
+  const region = useSelector((state: RootState) => state.weather.weatherInfo?.region);
   // 이번주의 날씨 정보 가져오기
   const weekInfo = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo);
   // 날씨정보 로드 전
@@ -35,10 +34,11 @@ const Main = (props) => {
   else {
     return (
       <React.Fragment >
+        {/* 헤더 */}
         <Header
           // 현재 사용자의 위치정보
-          bigRegion={bigRegion}
-          smallRegion={smallRegion}
+          bigRegion={region.bigRegion}
+          smallRegion={region.smallRegion}
           // 오늘의 최대, 최소, 평균 기온
           todayMaxTmp={weekInfo?.maxTmp[0]}
           todayMinTmp={weekInfo?.minTmp[0]}

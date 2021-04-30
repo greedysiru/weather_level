@@ -3,7 +3,7 @@ import React from 'react';
 // elements
 import { Grid, Text } from './elements'
 
-
+// 헤더 컴포넌트
 const Header = (props) => {
   // 사용자의 현재 지역 정보
   const { bigRegion, smallRegion } = props;
@@ -15,8 +15,8 @@ const Header = (props) => {
   todayTmp = Math.round(Number(todayTmp));
   return (
     <React.Fragment>
-      <Grid>
-        <Grid is_column width="50%">
+      <Grid height="5%" ai="center">
+        <Grid is_column width="50%" height="100%">
           <Text size="1.8rem" >
             현재 위치
           </Text>
@@ -24,20 +24,26 @@ const Header = (props) => {
             {bigRegion} {smallRegion}
           </Text>
         </Grid>
-        <Grid width="50%">
-          <Grid is_column width="50%" ai="flex-end">
+        <Grid width="50%" ai="center" height="100%">
+          <Grid
+            is_column
+            width="50%"
+            ai="flex-end"
+            height="100%"
+          >
             <Text>
               {todayMaxTmp}
             </Text>
-            <Text>
+            <Text margin="0.5rem 0 0 0">
               {todayMinTmp}
             </Text>
           </Grid>
-          <Grid width="50%" jc="flex-start">
-            <Text>
+          <Grid width="50%" height="100%" jc="flex-start" ai="flex-end" >
+            <Text size="4rem">
               {todayTmp}
             </Text>
           </Grid>
+          그림
         </Grid>
       </Grid>
     </React.Fragment>
