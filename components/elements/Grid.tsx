@@ -41,7 +41,7 @@ const Container = styled.div<GridType>`
   align-items: ${(props) => (props.ai ? props.ai : 'center')};
   background-color: ${(props) => props.bg};
   margin: ${(props) => props.margin};
-  margin: ${(props) => props.margin};
+  padding: ${(props) => props.padding};
 `;
 
 export default Grid;

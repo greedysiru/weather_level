@@ -26,7 +26,7 @@ const Header = (props) => {
   const todayTmp = Math.round(Number(tmp[0]));
   return (
     <React.Fragment>
-      <Grid height="5%" ai="center">
+      <Grid height="5%" ai="center" margin="0 0 1rem 0" >
         <Grid is_column width="50%" height="100%">
           <Text size="1.8rem" >
             현재 위치
@@ -49,7 +49,12 @@ const Header = (props) => {
               {todayMinTmp}
             </Text>
           </Grid>
-          <Grid width="50%" height="100%" jc="flex-start" ai="flex-end" >
+          <Grid
+            width="50%"
+            height="100%"
+            jc="flex-start"
+            ai="flex-end"
+          >
             <Text size="4rem">
               {todayTmp}
             </Text>
