@@ -33,7 +33,7 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   width: 100vw;
-  padding: 20px;
+  padding: 2rem;
   }
 `;
 

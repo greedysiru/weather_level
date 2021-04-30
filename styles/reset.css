@@ -24,6 +24,11 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+/* html 기본 폰트 사이즈 */
+/* 62.5% -> 10px */
+html { 
+	font-size: 62.5%;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
