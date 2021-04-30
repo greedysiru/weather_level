@@ -1,9 +1,10 @@
-import { Range } from 'components/elements';
-import React from 'react';
+import { Button, Grid, Range } from 'components/elements';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components'
+// TODO : value 값 기준으로 정렬, 0인거 숨기기, 숨기기-펼침처리, 
 
 const Setting = (props) => {
-  
+  const [isHidden, setIsHidden] = useState(true)
   const list = [
     {type:'mise',value:'10', label:'미세먼지'},
     {type:'corona',value:'6', label:'코로나'},
@@ -20,15 +21,28 @@ const Setting = (props) => {
     return parseInt(b.value) - parseInt(a.value)
   })
 
-  console.log(list)
+  const RangeList = list.map((ele,idx)=>{
+          return <Range isHidden={ele.value==="0"? isHidden:false} value={ele.value} label={ele.label} />
+    
+  })
 
+  console.log(list)
+  const onSave = ()=>{
+    console.log('하이')
+  }
+
+  const onCancle = ()=>{
+
+  }
   
   return (
     <Container>
       <Contents>
-        {list.map((ele,idx)=>{
-          return <Range key={idx} label={ele.label} value={ele.value}  />
-        })}
+        {RangeList}
+        <Grid>
+          <Button _onClick={onSave}>저장</Button>
+          <Button>취소</Button>
+        </Grid>
       </Contents>      
     </Container>
   )

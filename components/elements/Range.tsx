@@ -1,22 +1,21 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-
 import { Text, Grid } from './index';
 
 // 타입 지정
 type RangeType = {
   label: string;
   value:string;
-  _onChange?:()=>void;
+  _onChange:()=>void;
+  isHidden:boolean;
 }
 
-
 const Range = (props: RangeType) => {
-  const { label,value,_onChange } = props;
+  const { label,value,_onChange,isHidden } = props;
   const [rangeValue, setRangeValue] = React.useState<string>(value);
 
   return (
-    <React.Fragment>      
+    <Container isHidden={isHidden}>      
       <Grid ai="center" jc="space-between">
         {label && <Label width="100px">{label}</Label>}
         
@@ -26,11 +25,18 @@ const Range = (props: RangeType) => {
           max='10'
           defaultValue={rangeValue}
           onChange={_onChange}
-        />
+                  />
         <Label margin="5px">{rangeValue}</Label>
         </Grid>      
-    </React.Fragment>
+    </Container>
   )
+}
+
+Range.defaultProps = {
+  label: "",
+  value: "0",
+  _onChange:(e)=>{e.target.value},
+  isHidden:false
 }
 
 type LabelProps = {
@@ -38,17 +44,11 @@ type LabelProps = {
   width?:string;
 }
 
-
-Range.defaultProps = {
-  label: "",
-  value: "0",
-  _onChange:(e)=>{e.target.value}
-}
-
-const Label = styled.span<LabelProps>`
-  
-  margin: ${props=>props.margin? props.margin:0};
-  width: ${props=>props.width? props.width:''};
+const Container = styled.div<{isHidden:boolean}>`
+display:${props=>props.isHidden?'none':'block'};
+`
+const Label = styled.span<LabelProps>`  
+  margin: ${props=>props.margin? props.margin:0};    
 `
 
 const ElRange = styled.input`
