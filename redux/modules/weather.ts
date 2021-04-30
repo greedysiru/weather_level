@@ -8,10 +8,49 @@ import { weatherAPI } from '../../shared/api';
 // type 선언
 // 초기 상태 type
 type weatherType = {
-  weatherInfo: object;
+  weatherInfo: {
+    bigRegion?: string;
+    smallRegion?: string;
+    livingHealthWeather?: {
+      uvToday: string;
+      uvTomorrow: string;
+      uvTheDayAfterTomorrow: string;
+      oakPollenRiskToday: string;
+      oakPollenRiskTomorrow: string;
+      oakPollenRiskTheDayAfterTomorrow: string;
+      pinePollenRiskToday: string;
+      pinePollenRiskTomorrow: string;
+      pinePollenRiskTheDayAfterTomorrow: string;
+      coldToday: string;
+      coldTomorrow: string;
+      coldTheDayAfterTomorrow: string;
+      foodPoisonToday: string;
+      foodPoisonTomorrow: string;
+      foodPoisonTheDayAfterTomorrow: string;
+      asthmaToday: string;
+      asthmaTomorrow: string;
+      asthmaTheDayAfterTomorrow: string;
+    };
+    weekInfo?: {
+      maxTmp: string[];
+      minTmp: string[];
+      tmp: string[];
+      humidity: string[];
+      weather: string[];
+      weatherDes: string[];
+      rainPer: string[];
+    };
+    dayInfo?: {
+      tmp: string[];
+      weather: string[];
+      rainPer: string[];
+    }
+  };
   // 위도, 경도
   latitude: number;
   longitude: number;
+  // 날씨 정보 로드 상태
+  is_loaded: boolean;
 }
 
 
@@ -20,12 +59,16 @@ export const initialState: weatherType = {
   weatherInfo: null,
   latitude: null,
   longitude: null,
+  // 날씨 정보 로드 상태
+  is_loaded: false,
 }
 
 // 날씨 정보를 받아오는 액션 함수
 const getWeather = createAction<object>('weather/GETWEATHER');
 // 현재 위치를 가져오는 액션 함수
 const getPosition = createAction<object>('weather/GETPOSITION');
+// 로드 상태를 변경하는 함수
+const setLoad = createAction<boolean>('weather/SETLOAD');
 
 const weather = createReducer(initialState, {
   [getWeather.type]: (state: weatherType, action: PayloadAction<object>) => {
@@ -35,6 +78,9 @@ const weather = createReducer(initialState, {
     state.latitude = action.payload.latitude;
     state.longitude = action.payload.longitude;
   },
+  [setLoad.type]: (state: weatherType, action: PayloadAction<boolean>) => {
+    state.is_loaded = action.payload;
+  }
 })
 
 // 날씨 정보 호출 후 리덕스 state에 저장
@@ -42,6 +88,8 @@ const getWeatherInfo = (latitude: number, longitude: number) => async (dispatch)
   try {
     const res = await weatherAPI.getWeather(latitude, longitude);
     dispatch(getWeather(res.data));
+    // 로드 상태 ture(로딩 완료)
+    dispatch(setLoad(true))
   }
   catch (error) {
     console.log(error)
