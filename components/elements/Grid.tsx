@@ -37,11 +37,11 @@ const Container = styled.div<GridType>`
   display: flex;
   height: ${(props) => (props.height ? props.height : '')};
   flex-direction: ${(props) => (props.is_column ? 'column' : 'row')};
-  justify-content: ${(props) => props.jc };
-  align-items: ${(props) => props.ai };
+  justify-content: ${(props) => props.jc};
+  align-items: ${(props) => props.ai};
   background-color: ${(props) => props.bg};
-  margin: ${(props) => props.margin };
-  box-sizing:border-box;
+  margin: ${(props) => props.margin};
+  padding: ${(props) => props.padding};
 `;
 
 export default Grid;

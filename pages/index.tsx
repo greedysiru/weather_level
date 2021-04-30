@@ -2,7 +2,9 @@ import React from 'react';
 // elements
 import { Grid, Button, Image, Input, Text, Range } from '../components/elements'
 // components
-import Header from '../components/Header'
+import Header from '../components/Header';
+import Score from '../components/Score';
+import Cards from '../components/Cards';
 // 날씨 관련 모듈
 import { weatherActions } from '../redux/modules/weather';
 
@@ -32,6 +34,10 @@ const Main = (props) => {
       <React.Fragment >
         {/* 헤더 */}
         <Header />
+        {/* 점수 */}
+        <Score />
+        {/* 카드 (4열) */}
+        <Cards />
       </React.Fragment >
     )
   }
