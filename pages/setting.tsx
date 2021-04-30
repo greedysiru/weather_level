@@ -1,38 +1,96 @@
 import { Button, Grid, Range } from 'components/elements';
 import React, { useCallback, useState } from 'react';
+import useInput from 'shared/useInput';
 import styled from 'styled-components'
 // TODO : value 값 기준으로 정렬, 0인거 숨기기, 숨기기-펼침처리, 
-
+// 각 Range 컴포넌트에 value와 onchange를 어떻게 주입하지? 하드코딩?
 const Setting = (props) => {
+  // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
   const [isHidden, setIsHidden] = useState(true)
+  
+  // 각 range의 상태관리
+  const [temp,setTemp,onChangeTemp] = useInput();
+  const [rainPer,setRainPer,onChangeRainPer] = useInput();
+  const [weather,setWeather,onChangeWeather] = useInput();
+  const [humidiy,setHumidiy,onChangeHumidiy] = useInput();
+  const [wind,setWind,onChangeWind] = useInput();
+  const [pm10,setPm10,onChangePm10] = useInput();
+  const [pm25,setPm25,onChangePm25] = useInput();
+  const [corona,setCorona,onChangeCorona] = useInput();
+  const [uv,setUv,onChangeUv] = useInput();
+  const [pollenRisk,setPollenRisk,onChangePollenRisk] = useInput();
+  const [cold,setCold,onChangeCold] = useInput();
+  const [asthma,setAsthma,onChangeAsthma] = useInput();
+  const [foodPoison,setFoodPoison,onChangeFoodPoison] = useInput();
+
+  // type에 맞게 props 넣어주려고
+  const data = {
+    temp: {label:'기온',rangeValue:temp,setRangeValue:setTemp,_onChange:onChangeTemp},
+    rainPer:{label:'강수확률',rangeValue:rainPer,setRangeValue:setRainPer,_onChange:onChangeRainPer},
+    weather:{label:'하늘',rangeValue:weather,setRangeValue:setWeather,_onChange:onChangeWeather},
+    humidiy:{label:'습도',rangeValue:humidiy,setRangeValue:setHumidiy,_onChange:onChangeWind},
+    wind:{label:'바람',rangeValue:wind,setRangeValue:setWind,_onChange:onChangeHumidiy},
+    pm10:{label:'미세먼지',rangeValue:pm10,setRangeValue:setPm10,_onChange:onChangePm10},
+    pm25:{label:'초미세먼지',rangeValue:pm25,setRangeValue:setPm25,_onChange:onChangePm25},
+    corona:{label:'코로나',rangeValue:corona,setRangeValue:setCorona,_onChange:onChangeCorona},
+    uv:{label:'자외선',rangeValue:uv,setRangeValue:setUv,_onChange:onChangeUv},
+    pollenRisk:{label:'꽃가루농도',rangeValue:pollenRisk,setRangeValue:setPollenRisk,_onChange:onChangePollenRisk},
+    cold:{label:'감기 가능성',rangeValue:cold,setRangeValue:setCold,_onChange:onChangeCold},
+    asthma:{label:'폐질환위험',rangeValue:asthma,setRangeValue:setAsthma,_onChange:onChangeAsthma},
+    foodPoison:{label:'식중독위험',rangeValue:foodPoison,setRangeValue:setFoodPoison,_onChange:onChangeFoodPoison}
+  }
+  //  샘플데이터
   const list = [
-    {type:'mise',value:'10', label:'미세먼지'},
-    {type:'corona',value:'6', label:'코로나'},
-    {type:'temp',value:'9', label:'기온'},
-    {type:'rainPer',value:'3', label:'강수확률'},
-    {type:'uv',value:'0', label:'자외선 지수'},
-    {type:'flower',value:'0', label:'꽃가루 농도 지수'},
-    {type:'wind',value:'0', label:'바람세기'},
-    {type:'foodPoisoning',value:'0', label:'식중독 지수'},
+    {type:'temp',value:'10', label:'미세먼지'},
+    {type:'rainPer',value:'6', label:'코로나'},
+    {type:'weather',value:'9', label:'기온'},
+    {type:'humidiy',value:'3', label:'강수확률'},
+    {type:'wind',value:'0', label:'자외선 지수'},
+    {type:'pm25',value:'0', label:'꽃가루 농도 지수'},
+    {type:'corona',value:'0', label:'바람세기'},
+    {type:'uv',value:'0', label:'식중독 지수'},
+    {type:'pollenRisk',value:'0', label:'천식폐 지수'},
+    {type:'cold',value:'0', label:'천식폐 지수'},
     {type:'asthma',value:'0', label:'천식폐 지수'},
+    {type:'foodPoison',value:'0', label:'천식폐 지수'},
   ]
-  // 정렬잘됨ㅇㅇ
+  // 정렬
   list.sort((a,b)=>{
     return parseInt(b.value) - parseInt(a.value)
   })
 
   const RangeList = list.map((ele,idx)=>{
-          return <Range key={idx} isHidden={ele.value==="0"? isHidden:false} value={ele.value} label={ele.label} />
+
+          return <Range key={idx} 
+                        isHidden={ele.value==="0"? isHidden:false} 
+                        value={ele.value}                         
+                        label={data[ele.type].label} 
+                        _onChange={data[ele.type]._onChange}
+                        rangeValue={data[ele.type].rangeValue}
+                        setRangeValue={data[ele.type].setRangeValue}
+                        />
     
   })
 
-  console.log(list)
+  
   const onSave = ()=>{
-    console.log('하이')
+    console.log('temp',temp,
+      'rainPer',rainPer,
+      'weather',weather,
+      'humidiy',humidiy,
+      'wind',wind,
+      'pm10',pm10,
+      'pm25',pm25,
+      'corona',corona,
+      'uv',uv,
+      'pollenRisk',pollenRisk,
+      'cold',cold,
+      'asthma',asthma,
+      'foodPoison',foodPoison,)
   }
 
   const onCancle = ()=>{
-
+    // 데이터 다시 불러오기..? 렌더링 수가 너무 많나?껄껄껄    
   }
   
   return (
@@ -43,7 +101,7 @@ const Setting = (props) => {
         </Grid>
         <Grid>
           <Button _onClick={onSave}>저장</Button>
-          <Button>취소</Button>
+          <Button _onClick={onCancle}>취소</Button>
         </Grid>         
     </Container>
   )

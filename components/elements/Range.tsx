@@ -8,12 +8,15 @@ type RangeType = {
   value:string;
   _onChange:()=>void;
   isHidden:boolean;
+  rangeValue:string;
+  setRangeValue:(string)=>void;
 }
 
 const Range = (props: RangeType) => {
-  const { label,value,_onChange,isHidden } = props;
-  const [rangeValue, setRangeValue] = React.useState<string>(value);
-
+  const { label,value,_onChange,isHidden,rangeValue,setRangeValue } = props;
+  useEffect(()=>{    
+    setRangeValue(value)
+  })
   return (
     <Container isHidden={isHidden}>      
       <Grid ai="center" jc="space-between">
@@ -23,9 +26,9 @@ const Range = (props: RangeType) => {
           type="range"
           min='0'
           max='10'
-          defaultValue={rangeValue}
+          defaultValue={value}
           onChange={_onChange}
-                  />
+          />
         <Label margin="5px">{rangeValue}</Label>
         </Grid>      
     </Container>
