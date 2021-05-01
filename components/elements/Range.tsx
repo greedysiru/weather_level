@@ -6,18 +6,21 @@ import { Text, Grid } from './index';
 type RangeType = {
   label: string;
   value:string;
-  _onChange:()=>void;
   isHidden:boolean;
   rangeValue:string;
   setRangeValue:(string)=>void;
+  _onChange:(any)=>void;
 }
 
 const Range = (props: RangeType) => {
-  const { label,value,_onChange,isHidden,rangeValue,setRangeValue } = props;
-  useEffect(()=>{    
-    setRangeValue(value)
-  })
-  return (
+  const { label,value,isHidden,rangeValue,setRangeValue,_onChange } = props;
+  useEffect(()=>{ 
+    if(!rangeValue){
+      setRangeValue(value)
+    }
+  }) 
+
+    return (
     <Container isHidden={isHidden}>      
       <Grid ai="center" jc="space-between">
         {label && <Label width="100px">{label}</Label>}

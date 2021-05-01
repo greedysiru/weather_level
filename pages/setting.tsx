@@ -12,7 +12,7 @@ const Setting = (props) => {
   const [temp,setTemp,onChangeTemp] = useInput();
   const [rainPer,setRainPer,onChangeRainPer] = useInput();
   const [weather,setWeather,onChangeWeather] = useInput();
-  const [humidiy,setHumidiy,onChangeHumidiy] = useInput();
+  const [humidity,setHumidity,onChangeHumidity] = useInput();
   const [wind,setWind,onChangeWind] = useInput();
   const [pm10,setPm10,onChangePm10] = useInput();
   const [pm25,setPm25,onChangePm25] = useInput();
@@ -28,8 +28,8 @@ const Setting = (props) => {
     temp: {label:'기온',rangeValue:temp,setRangeValue:setTemp,_onChange:onChangeTemp},
     rainPer:{label:'강수확률',rangeValue:rainPer,setRangeValue:setRainPer,_onChange:onChangeRainPer},
     weather:{label:'하늘',rangeValue:weather,setRangeValue:setWeather,_onChange:onChangeWeather},
-    humidiy:{label:'습도',rangeValue:humidiy,setRangeValue:setHumidiy,_onChange:onChangeWind},
-    wind:{label:'바람',rangeValue:wind,setRangeValue:setWind,_onChange:onChangeHumidiy},
+    humidity:{label:'습도',rangeValue:humidity,setRangeValue:setHumidity,_onChange:onChangeHumidity},
+    wind:{label:'바람',rangeValue:wind,setRangeValue:setWind,_onChange:onChangeWind},
     pm10:{label:'미세먼지',rangeValue:pm10,setRangeValue:setPm10,_onChange:onChangePm10},
     pm25:{label:'초미세먼지',rangeValue:pm25,setRangeValue:setPm25,_onChange:onChangePm25},
     corona:{label:'코로나',rangeValue:corona,setRangeValue:setCorona,_onChange:onChangeCorona},
@@ -41,18 +41,19 @@ const Setting = (props) => {
   }
   //  샘플데이터
   const list = [
-    {type:'temp',value:'10', label:'미세먼지'},
-    {type:'rainPer',value:'6', label:'코로나'},
-    {type:'weather',value:'9', label:'기온'},
-    {type:'humidiy',value:'3', label:'강수확률'},
-    {type:'wind',value:'0', label:'자외선 지수'},
-    {type:'pm25',value:'0', label:'꽃가루 농도 지수'},
-    {type:'corona',value:'0', label:'바람세기'},
-    {type:'uv',value:'0', label:'식중독 지수'},
-    {type:'pollenRisk',value:'0', label:'천식폐 지수'},
-    {type:'cold',value:'0', label:'천식폐 지수'},
-    {type:'asthma',value:'0', label:'천식폐 지수'},
-    {type:'foodPoison',value:'0', label:'천식폐 지수'},
+    {type:'temp',value:'10'},
+    {type:'rainPer',value:'6'},
+    {type:'weather',value:'9'},
+    {type:'humidity',value:'3'},
+    {type:'wind',value:'0'},
+    {type:'pm10',value:'0'},
+    {type:'pm25',value:'0'},
+    {type:'corona',value:'0'},
+    {type:'uv',value:'0'},
+    {type:'pollenRisk',value:'0'},
+    {type:'cold',value:'0'},
+    {type:'asthma',value:'0'},
+    {type:'foodPoison',value:'0'},
   ]
   // 정렬
   list.sort((a,b)=>{
@@ -77,7 +78,7 @@ const Setting = (props) => {
     console.log('temp',temp,
       'rainPer',rainPer,
       'weather',weather,
-      'humidiy',humidiy,
+      'humidiy',humidity,
       'wind',wind,
       'pm10',pm10,
       'pm25',pm25,
