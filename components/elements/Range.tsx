@@ -15,14 +15,12 @@ type RangeType = {
 const Range = (props: RangeType) => {
   const { label,value,isHidden,rangeValue,setRangeValue,_onChange } = props;
   useEffect(()=>{ 
-    setRangeValue(value)
-  })
+    if(!rangeValue){
+      setRangeValue(value)
+    }
+  }) 
 
-  const onChangeRange = (e)=>{
-    console.log(label,typeof e.target.value)
-    setRangeValue(e.target.value)
-  }
-  return (
+    return (
     <Container isHidden={isHidden}>      
       <Grid ai="center" jc="space-between">
         {label && <Label width="100px">{label}</Label>}
