@@ -15,7 +15,7 @@ type GridType = {
 }
 const Grid = ({ width, height, is_column, jc, ai, bg, margin, padding, children, wrap }: GridType) => {
   const style = {
-    width, height, is_column, jc, ai, bg, margin, padding, wrap
+    width, height, is_column, jc, ai, bg, margin, padding
   }
   return <Container {...style}>{children}</Container>;
 };

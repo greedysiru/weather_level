@@ -5,5 +5,6 @@ import Button from './Button';
 import Image from './Image';
 import Range from './Range';
 import Card from './Card';
+import LongCard from './LongCard';
 
-export { Grid, Text, Input, Button, Image, Range, Card };
+export { Grid, Text, Input, Button, Image, Range, Card, LongCard };

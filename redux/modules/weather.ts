@@ -5,6 +5,9 @@ import { createReducer, createAction, PayloadAction } from '@reduxjs/toolkit';
 // api 가져오기
 import { weatherAPI } from '../../shared/api';
 
+// timeActions
+import { timeActions } from './time';
+
 // type 선언
 // 초기 상태 type
 type weatherType = {
@@ -22,12 +25,6 @@ type weatherType = {
       oakPollenRiskToday: string;
       oakPollenRiskTomorrow: string;
       oakPollenRiskTheDayAfterTomorrow: string;
-      pinePollenRiskToday: string;
-      pinePollenRiskTomorrow: string;
-      pinePollenRiskTheDayAfterTomorrow: string;
-      coldToday: string;
-      coldTomorrow: string;
-      coldTheDayAfterTomorrow: string;
       foodPoisonToday: string;
       foodPoisonTomorrow: string;
       foodPoisonTheDayAfterTomorrow: string;
@@ -61,12 +58,20 @@ type weatherType = {
       id: number;
       bigRegion: string;
       date: string;
-      pm10Value: number,
-      pm25Value: number
+      newLocalCaseCount: number;
+      newForeignCaseCount: number;
+    };
+    coronaTotal?: {
+      id: number;
+      bigRegion: string;
+      date: string;
+      newLocalCaseCount: number;
+      newForeignCaseCount: number;
     }
   };
   // 날씨 정보 로드 상태
-  is_loaded: boolean;
+  isLoaded: boolean;
+
 }
 
 
@@ -74,23 +79,25 @@ export const initialState: weatherType = {
   // 날씨 정보
   weatherInfo: null,
   // 날씨 정보 로드 상태
-  is_loaded: false,
+  isLoaded: false,
 }
 
-// 날씨 정보를 받아오는 액션 함수
-const getWeather = createAction<object>('weather/GETWEATHER');
+// 날씨 정보를 받아오는 액션 생성 함수
+const setWeatherInfo = createAction<object>('weather/SETWEATHERINFO');
 // 현재 위치를 가져오는 액션 함수
 // const getPosition = createAction<object>('weather/GETPOSITION');
-// 로드 상태를 변경하는 함수
+// 로드 상태를 변경하는 액션 생성 함수
 const setLoad = createAction<boolean>('weather/SETLOAD');
 
+
 const weather = createReducer(initialState, {
-  [getWeather.type]: (state: weatherType, action: PayloadAction<object>) => {
+  [setWeatherInfo.type]: (state: weatherType, action: PayloadAction<object>) => {
     state.weatherInfo = action.payload;
   },
   [setLoad.type]: (state: weatherType, action: PayloadAction<boolean>) => {
-    state.is_loaded = action.payload;
+    state.isLoaded = action.payload;
   },
+
   // [getPosition.type]: (state: weatherType, action: PayloadAction<{ latitude: number, longitude: number }>) => {
   //   state.latitude = action.payload.latitude;
   //   state.longitude = action.payload.longitude;
@@ -101,7 +108,9 @@ const weather = createReducer(initialState, {
 const getWeatherInfo = (latitude: number, longitude: number) => async (dispatch) => {
   try {
     const res = await weatherAPI.getWeather(latitude, longitude);
-    dispatch(getWeather(res.data));
+    dispatch(setWeatherInfo(res.data));
+    // 현재 시간 기록하기
+    dispatch(timeActions.getMonthDayTime());
     // 로드 상태 ture(로딩 완료)
     dispatch(setLoad(true))
   }
@@ -132,6 +141,7 @@ const getLocation = () => (dispatch) => {
     alert('GPS를 지원하지 않습니다.')
   }
 }
+
 
 
 export const weatherActions = {

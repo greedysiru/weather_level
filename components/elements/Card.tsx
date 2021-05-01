@@ -35,7 +35,7 @@ const Card = (props: CardType & CardInfoType) => {
           is_column
           height="85%"
           ai="center"
-          jc=""
+          jc="space-between"
         >
           <Grid>
             <Text bold>
@@ -74,7 +74,7 @@ height: ${(props) => props.height};
 margin: ${(props) => props.margin};
 padding: ${(props) => props.padding};
 background-color: ${(props) => props.bg};
-border-radius: 15px;
+border-radius: 20px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `
 export default Card;

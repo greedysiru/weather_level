@@ -2,10 +2,12 @@ import { combineReducers } from 'redux';
 
 // modules
 import weather from './weather';
+import time from './time';
 
 // root reducer
 const rootReducer = combineReducers({
-  weather: weather
+  weather: weather,
+  time: time
 });
 
 export default rootReducer;

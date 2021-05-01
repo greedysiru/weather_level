@@ -4,7 +4,7 @@ import { Grid, Button, Image, Input, Text, Range } from '../components/elements'
 // components
 import Header from '../components/Header';
 import Score from '../components/Score';
-import Cards from '../components/Cards';
+import MainContents from '../components/MainContents';
 // 날씨 관련 모듈
 import { weatherActions } from '../redux/modules/weather';
 
@@ -21,10 +21,10 @@ const Main = (props) => {
     dispatch(weatherActions.getLocation());
   }, [])
   // 날씨 정보 로드 여부 가져오기
-  const is_loaded = useSelector((state: RootState) => state.weather.is_loaded);
+  const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
 
   // 날씨정보 로드 전
-  if (!is_loaded) {
+  if (!isLoaded) {
     return null
 
   }
@@ -42,7 +42,7 @@ const Main = (props) => {
           {/* 점수 */}
           <Score />
           {/* 카드 (4열) */}
-          <Cards />
+          <MainContents />
         </Grid>
       </React.Fragment >
     )
