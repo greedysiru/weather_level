@@ -48,6 +48,21 @@ type weatherType = {
       tmp: string[];
       weather: string[];
       rainPer: string[];
+      weatherDes: string[];
+      dailyTime: string[]
+    }
+    airPollution?: {
+      id: number;
+      dateTime: string;
+      pm10Value: number;
+      pm25Value: number;
+    };
+    corona?: {
+      id: number;
+      bigRegion: string;
+      date: string;
+      pm10Value: number,
+      pm25Value: number
     }
   };
   // 날씨 정보 로드 상태
@@ -105,10 +120,6 @@ const getLocation = () => (dispatch) => {
         // 현재 사용자 위치의 위도, 경도 정보를 가져오기
         const latitude: number = position.coords.latitude
         const longitude: number = position.coords.longitude
-        const positionInfo = {
-          latitude: latitude,
-          longitude: longitude
-        }
         // 현재 위치정보를 기반으로 날씨 정보 불러오기
         dispatch(getWeatherInfo(latitude, longitude));
       },

@@ -33,7 +33,8 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   width: 100vw;
-  padding: 2rem;  
+  padding: 2rem;
+  background-color: ${(props) => props.theme.color.main};
 `;
 
 

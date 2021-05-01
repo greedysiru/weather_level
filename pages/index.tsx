@@ -32,12 +32,18 @@ const Main = (props) => {
   else {
     return (
       <React.Fragment >
-        {/* 헤더 */}
-        <Header />
-        {/* 점수 */}
-        <Score />
-        {/* 카드 (4열) */}
-        <Cards />
+        <Grid
+          is_column width="100%"
+          height="100%"
+          jc="flex-start"
+        >
+          {/* 헤더 */}
+          <Header />
+          {/* 점수 */}
+          <Score />
+          {/* 카드 (4열) */}
+          <Cards />
+        </Grid>
       </React.Fragment >
     )
   }

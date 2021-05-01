@@ -11,10 +11,11 @@ type GridType = {
   margin?: string;
   padding?: string;
   children?: any;
+  wrap?: boolean;
 }
-const Grid = ({ width, height, is_column, jc, ai, bg, margin, padding, children }: GridType) => {
+const Grid = ({ width, height, is_column, jc, ai, bg, margin, padding, children, wrap }: GridType) => {
   const style = {
-    width, height, is_column, jc, ai, bg, margin, padding,
+    width, height, is_column, jc, ai, bg, margin, padding, wrap
   }
   return <Container {...style}>{children}</Container>;
 };
@@ -25,10 +26,11 @@ Grid.defaultProps = {
   is_column: false,
   jc: 'center',
   ai: 'cetner',
-  bg: 'white',
+  bg: '',
   margin: '0px',
   paddig: '0px',
-  children: null
+  children: null,
+  wrap: false,
 }
 
 
@@ -42,6 +44,7 @@ const Container = styled.div<GridType>`
   background-color: ${(props) => props.bg};
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
+  flex-wrap: ${(props) => props.wrap ? 'wrap' : ''};
 `;
 
 export default Grid;
