@@ -11,7 +11,7 @@ const Score = (props) => {
         is_column
         padding="2rem"
         margin="1rem 0 1rem 0"
-        height="42%"
+        height="50%"
         jc="flex-start"
         ai="center"
       >

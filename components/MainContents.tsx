@@ -22,9 +22,10 @@ const MainContents = (props) => {
   return (
     <React.Fragment>
       {/* 카드 콘텐츠(4열) */}
+
       <Grid
         margin="1rem 0 1rem 0"
-        height="14%"
+        height="17%"
         jc="space-between"
         wrap
       >
@@ -51,7 +52,7 @@ const MainContents = (props) => {
       </Grid>
       <Grid
         margin="1rem 0 1rem 0"
-        height="16%"
+        height="23%"
       >
         <LongCard
           info={weatherInfo.dayInfo.tmp}

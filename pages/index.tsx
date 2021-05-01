@@ -53,16 +53,36 @@ const Main = (props) => {
         >
           {/* 헤더 */}
           <Header />
-          {/* 점수 */}
-          <Score />
-          {/* 카드 (4열) */}
-          <MainContents />
-          <Grid height="4%">
-            스와이프
+          <Swiper
+            pagination={true} className="mySwiper"
+            style={{
+              width: '100%',
+              height: '75%',
+              display: 'flex',
+              flexDirection: 'column-reverse',
+            }}
+          >
+            <SwiperSlide
+              style={{
+                width: '100%',
+                height: '100%',
+                padding: '2rem 2rem 0 2rem',
+              }}
+            >
+              {/* 점수 */}
+              <Score />
+              {/* 카드 (4열) */}
+              <MainContents />
+            </SwiperSlide>
+
+          </Swiper>
+          <Grid
+            height="5%"
+            margin="1rem 0 0 0"
+            padding="0 2rem"
+          >
+            <Footer />
           </Grid>
-          <Footer
-            height="6%"
-          />
           {/* <Grid height="4%" ai="center">
             공백
           </Grid> */}
