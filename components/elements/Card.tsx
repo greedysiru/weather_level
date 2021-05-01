@@ -5,7 +5,7 @@ import styled, { withTheme } from 'styled-components';
 // elements
 import { Grid, Text } from './index';
 
-type CardType = {
+type cardType = {
   width?: string;
   height?: string;
   margin?: string;
@@ -19,7 +19,7 @@ type CardInfoType = {
 }
 
 // 날씨 정보를 표시하는 카드
-const Card = (props: CardType & CardInfoType) => {
+const Card = (props: cardType & CardInfoType) => {
   const { width, height, margin, padding, bg } = props;
   // 카드 정보
   const { cardTitle, cardText } = props;
@@ -63,10 +63,10 @@ Card.defaultProps = {
   height: '100%',
   margin: '0px',
   paddig: '0px',
-  bg: 'whitesmoke',
+  bg: 'white',
 }
 
-const ElCard = styled.div<CardType>`
+const ElCard = styled.div<cardType>`
 display:flex;
 align-items: center;
 width: ${(props) => props.width};

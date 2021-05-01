@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 
 // RootState
 import { RootState } from '../redux/modules';
-import { time } from 'node:console';
 
 // 메인 화면의 콘텐츠를 보여주는 컴포넌트
 const MainContents = (props) => {
