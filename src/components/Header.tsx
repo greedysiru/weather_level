@@ -11,11 +11,9 @@ import { RootState } from '../redux/modules';
 // 헤더 컴포넌트
 const Header = (props) => {
   // 사용자의 지역 정보 가져오기
-  const region = useSelector((state: RootState) => state.weather.weatherInfo?.region);
+  const { bigRegion, smallRegion } = useSelector((state: RootState) => state.weather?.weatherInfo);
   // 이번주의 날씨 정보 가져오기
   const weekInfo = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo);
-  // 사용자의 현재 지역 정보
-  const { bigRegion, smallRegion } = region;
   // 오늘 최대, 최저, 평균 기온
   const { maxTmp, minTmp, tmp } = weekInfo;
   // 정수화 후 반올림 하기
@@ -35,7 +33,7 @@ const Header = (props) => {
           현재 위치
           </Text>
         <Text size="1.8rem" bold>
-          {bigRegion} {smallRegion}
+          {bigRegion.bigRegionName} {smallRegion.smallRegionName}
         </Text>
       </Grid>
       <Grid width="50%" ai="center" height="100%">

@@ -12,12 +12,15 @@ import { timeActions } from './time';
 // 초기 상태 type
 type weatherType = {
   weatherInfo: {
-    region?: {
-      bigRegion: string;
-      smallRegion: string;
+    bigRegion?: {
+      bigRegionName: string;
+    },
+    smallRegion?: {
+      smallRegionName: string;
       longitude: string;
       latitude: string;
     }
+    ;
     livingHealthWeather?: {
       uvToday: string;
       uvTomorrow: string;
@@ -40,13 +43,16 @@ type weatherType = {
       weather: string[];
       weatherDes: string[];
       rainPer: string[];
+      windSpeed: string[];
+      weatherIcon: string[];
     };
     dayInfo?: {
       tmp: string[];
       weather: string[];
       rainPer: string[];
       weatherDes: string[];
-      dailyTime: string[]
+      dailyTime: string[];
+      weatherIcon: string[];
     }
     airPollution?: {
       id: number;
@@ -56,18 +62,12 @@ type weatherType = {
     };
     corona?: {
       id: number;
-      bigRegion: string;
       date: string;
       newLocalCaseCount: number;
       newForeignCaseCount: number;
     };
-    coronaTotal?: {
-      id: number;
-      bigRegion: string;
-      date: string;
-      newLocalCaseCount: number;
-      newForeignCaseCount: number;
-    }
+    coronaTotalNewCaseCount?: number;
+    score?: number;
   };
   // 날씨 정보 로드 상태
   isLoaded: boolean;
