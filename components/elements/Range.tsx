@@ -8,17 +8,21 @@ type RangeType = {
   value:string;
   isHidden:boolean;
   rangeValue:string;
-  setRangeValue:(string)=>void;
-  _onChange:(any)=>void;
+  setRangeValue:(string)=>void;  
 }
 
+
 const Range = (props: RangeType) => {
-  const { label,value,isHidden,rangeValue,setRangeValue,_onChange } = props;
+  const { label,value,isHidden,rangeValue,setRangeValue } = props;
   useEffect(()=>{ 
     if(!rangeValue){
       setRangeValue(value)
     }
   }) 
+
+  const onChangeRange = (e)=>{
+    setRangeValue(e.target.value)
+  }
 
     return (
     <Container isHidden={isHidden}>      
@@ -30,7 +34,7 @@ const Range = (props: RangeType) => {
           min='0'
           max='10'
           defaultValue={value}
-          onChange={_onChange}
+          onChange={onChangeRange}
           />
         <Label margin="5px">{rangeValue}</Label>
         </Grid>      

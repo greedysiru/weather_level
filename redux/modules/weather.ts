@@ -71,8 +71,36 @@ type weatherType = {
   };
   // 날씨 정보 로드 상태
   isLoaded: boolean;
-  
+  // setting의 preference
+  preference?:{
+    coronaRange:string;
+    pm10Range:string;
+    pm24Range:string;
+    tempRange:string;
+    rainPerRange:string;
+    weatherRange:string;
+    humidityRange:string;
+    windRange:string;
+    uvRange:string;
+    pollenRiskRange:string;
+    asthmaRange:string;
+    foodPoisonRange:string;
+  }
+}
 
+type preferenceType = {
+  coronaRange:string,
+  pm10Range:string,
+  pm24Range:string,
+  tempRange:string,
+  rainPerRange:string,
+  weatherRange:string,
+  humidityRange:string,
+  windRange:string,
+  uvRange:string,
+  pollenRiskRange:string,
+  asthmaRange:string,
+  foodPoisonRange:string
 }
 
 
@@ -81,6 +109,7 @@ export const initialState: weatherType = {
   weatherInfo: null,
   // 날씨 정보 로드 상태
   isLoaded: false,
+  preference:null
 }
 
 // 날씨 정보를 받아오는 액션 생성 함수
@@ -89,6 +118,8 @@ const setWeatherInfo = createAction<object>('weather/SETWEATHERINFO');
 // const getPosition = createAction<object>('weather/GETPOSITION');
 // 로드 상태를 변경하는 액션 생성 함수
 const setLoad = createAction<boolean>('weather/SETLOAD');
+// preference 상태
+const setPreference = createAction<object>('weather/SET_PREFERENCE');
 
 
 const weather = createReducer(initialState, {
@@ -97,6 +128,9 @@ const weather = createReducer(initialState, {
   },
   [setLoad.type]: (state: weatherType, action: PayloadAction<boolean>) => {
     state.isLoaded = action.payload;
+  },
+  [setPreference.type]: (state: weatherType, action: PayloadAction<object>) => {
+    state.preference = action.payload;
   },
 
   // [getPosition.type]: (state: weatherType, action: PayloadAction<{ latitude: number, longitude: number }>) => {
@@ -143,23 +177,10 @@ const getLocation = () => (dispatch) => {
   }
 }
 
-type preferenceType = {
-  coronaRange:string,
-  pm10Range:string,
-  pm24Range:string,
-  tempRange:string,
-  rainPerRange:string,
-  weatherRange:string,
-  humidityRange:string,
-  windRange:string,
-  uvRange:string,
-  pollenRiskRange:string,
-  asthmaRange:string,
-  foodPoisonRange:string
-}
+
 
 // setting preference 생성
-const fetchCreatePreference = (id:string,data:preferenceType) => async (dispatch, getState, { history }) => {
+const fetchCreatePreference = (id:string,data:preferenceType) => async (dispatch, getState) => {
   try {
     const res = await weatherAPI.createPreference(id,data);
     console.log(res)
@@ -171,7 +192,7 @@ const fetchCreatePreference = (id:string,data:preferenceType) => async (dispatch
   }
 };
 
-const fetchUpdatePreference = (id:string,data:preferenceType) => async (dispatch, getState, { history }) => {
+const fetchUpdatePreference = (id:string,data:preferenceType) => async (dispatch, getState) => {
   try {
     const res = await weatherAPI.updatePreference(id,data);
     console.log(res)
@@ -183,7 +204,7 @@ const fetchUpdatePreference = (id:string,data:preferenceType) => async (dispatch
   }
 };
 
-const fetchPreference = (id:string) => async (dispatch, getState, { history }) => {
+const fetchPreference = (id:string) => async (dispatch, getState) => {
   try {
     const res = await weatherAPI.fetchPreference(id);
     console.log(res)

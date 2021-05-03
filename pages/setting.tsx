@@ -13,19 +13,19 @@ const Setting = (props) => {
   const [userId, setUserId] = useState<string>(null)
   const dispatch = useDispatch()
   // 각 range의 상태관리
-  const [temp,setTemp,onChangeTemp] = useInput();
-  const [rainPer,setRainPer,onChangeRainPer] = useInput();
-  const [weather,setWeather,onChangeWeather] = useInput();
-  const [humidity,setHumidity,onChangeHumidity] = useInput();
-  const [wind,setWind,onChangeWind] = useInput();
-  const [pm10,setPm10,onChangePm10] = useInput();
-  const [pm25,setPm25,onChangePm25] = useInput();
-  const [corona,setCorona,onChangeCorona] = useInput();
-  const [uv,setUv,onChangeUv] = useInput();
-  const [pollenRisk,setPollenRisk,onChangePollenRisk] = useInput();
-  const [cold,setCold,onChangeCold] = useInput();
-  const [asthma,setAsthma,onChangeAsthma] = useInput();
-  const [foodPoison,setFoodPoison,onChangeFoodPoison] = useInput();
+  const [temp,setTemp] = useState();
+  const [rainPer,setRainPer] = useState();
+  const [weather,setWeather] = useState();
+  const [humidity,setHumidity] = useState();
+  const [wind,setWind] = useState();
+  const [pm10,setPm10] = useState();
+  const [pm25,setPm25] = useState();
+  const [corona,setCorona] = useState();
+  const [uv,setUv] = useState();
+  const [pollenRisk,setPollenRisk] = useState();
+  const [cold,setCold] = useState();
+  const [asthma,setAsthma] = useState();
+  const [foodPoison,setFoodPoison] = useState();
 
   // localstorage에 저장된 식별자를 가져옴
   useEffect(() => {
@@ -45,19 +45,19 @@ const Setting = (props) => {
 
   // type에 맞게 props 넣어주려고
   const data = {
-    temp: {label:'기온',rangeValue:temp,setRangeValue:setTemp,_onChange:onChangeTemp},
-    rainPer:{label:'강수확률',rangeValue:rainPer,setRangeValue:setRainPer,_onChange:onChangeRainPer},
-    weather:{label:'하늘',rangeValue:weather,setRangeValue:setWeather,_onChange:onChangeWeather},
-    humidity:{label:'습도',rangeValue:humidity,setRangeValue:setHumidity,_onChange:onChangeHumidity},
-    wind:{label:'바람',rangeValue:wind,setRangeValue:setWind,_onChange:onChangeWind},
-    pm10:{label:'미세먼지',rangeValue:pm10,setRangeValue:setPm10,_onChange:onChangePm10},
-    pm25:{label:'초미세먼지',rangeValue:pm25,setRangeValue:setPm25,_onChange:onChangePm25},
-    corona:{label:'코로나',rangeValue:corona,setRangeValue:setCorona,_onChange:onChangeCorona},
-    uv:{label:'자외선',rangeValue:uv,setRangeValue:setUv,_onChange:onChangeUv},
-    pollenRisk:{label:'꽃가루농도',rangeValue:pollenRisk,setRangeValue:setPollenRisk,_onChange:onChangePollenRisk},
-    cold:{label:'감기 가능성',rangeValue:cold,setRangeValue:setCold,_onChange:onChangeCold},
-    asthma:{label:'폐질환위험',rangeValue:asthma,setRangeValue:setAsthma,_onChange:onChangeAsthma},
-    foodPoison:{label:'식중독위험',rangeValue:foodPoison,setRangeValue:setFoodPoison,_onChange:onChangeFoodPoison}
+    temp: {label:'기온',rangeValue:temp,setRangeValue:setTemp},
+    rainPer:{label:'강수확률',rangeValue:rainPer,setRangeValue:setRainPer},
+    weather:{label:'하늘',rangeValue:weather,setRangeValue:setWeather},
+    humidity:{label:'습도',rangeValue:humidity,setRangeValue:setHumidity},
+    wind:{label:'바람',rangeValue:wind,setRangeValue:setWind},
+    pm10:{label:'미세먼지',rangeValue:pm10,setRangeValue:setPm10},
+    pm25:{label:'초미세먼지',rangeValue:pm25,setRangeValue:setPm25},
+    corona:{label:'코로나',rangeValue:corona,setRangeValue:setCorona},
+    uv:{label:'자외선',rangeValue:uv,setRangeValue:setUv},
+    pollenRisk:{label:'꽃가루농도',rangeValue:pollenRisk,setRangeValue:setPollenRisk},
+    cold:{label:'감기 가능성',rangeValue:cold,setRangeValue:setCold},
+    asthma:{label:'폐질환위험',rangeValue:asthma,setRangeValue:setAsthma},
+    foodPoison:{label:'식중독위험',rangeValue:foodPoison,setRangeValue:setFoodPoison}
   }
   //  샘플데이터
   const list = [
@@ -109,10 +109,14 @@ const Setting = (props) => {
       asthmaRange:asthma,
       foodPoisonRange:foodPoison
     }
-    
-    if(isNewUser){
+
+    dispatch(weatherActions.fetchCreatePreference(userId,data))
+        
+    /* if(isNewUser){
       dispatch(weatherActions.fetchCreatePreference(userId,data))
-    }
+    }else{
+      dispatch(weatherActions.fetchUpdatePreference(userId,data))
+    }  */
    
   }
 
