@@ -95,9 +95,10 @@ flex-direction: column;
 align-items: center;
 jutify-contents: center;
 width: 100%;
-hegiht: 100%;
+height: 100%;
 border-radius: 20px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+margin: 1rem 0;
 `
 
 

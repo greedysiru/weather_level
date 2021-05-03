@@ -28,7 +28,7 @@ Grid.defaultProps = {
   ai: 'cetner',
   bg: '',
   margin: '0px',
-  paddig: '0px',
+  padding: '0px',
   children: null,
   wrap: false,
 }
