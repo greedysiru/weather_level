@@ -71,7 +71,7 @@ type weatherType = {
   };
   // 날씨 정보 로드 상태
   isLoaded: boolean;
-  
+
 
 }
 
@@ -144,51 +144,51 @@ const getLocation = () => (dispatch) => {
 }
 
 type preferenceType = {
-  coronaRange:string,
-  pm10Range:string,
-  pm24Range:string,
-  tempRange:string,
-  rainPerRange:string,
-  weatherRange:string,
-  humidityRange:string,
-  windRange:string,
-  uvRange:string,
-  pollenRiskRange:string,
-  asthmaRange:string,
-  foodPoisonRange:string
+  coronaRange: string,
+  pm10Range: string,
+  pm24Range: string,
+  tempRange: string,
+  rainPerRange: string,
+  weatherRange: string,
+  humidityRange: string,
+  windRange: string,
+  uvRange: string,
+  pollenRiskRange: string,
+  asthmaRange: string,
+  foodPoisonRange: string
 }
 
 // setting preference 생성
-const fetchCreatePreference = (id:string,data:preferenceType) => async (dispatch, getState, { history }) => {
+const fetchCreatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
-    const res = await weatherAPI.createPreference(id,data);
+    const res = await weatherAPI.createPreference(id, data);
     console.log(res)
     // 회원가입 페이지에서 벨리데이션 표시
-    //dispatch(setIsValidEmailMultiple(true));
+    // dispatch(setIsValidEmailMultiple(true));
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error)
   }
 };
 
-const fetchUpdatePreference = (id:string,data:preferenceType) => async (dispatch, getState, { history }) => {
+const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
-    const res = await weatherAPI.updatePreference(id,data);
+    const res = await weatherAPI.updatePreference(id, data);
     console.log(res)
     // 회원가입 페이지에서 벨리데이션 표시
-    //dispatch(setIsValidEmailMultiple(true));
+    // dispatch(setIsValidEmailMultiple(true));
   } catch (error) {
     // 에러페이지로 이동?
     console.error(error)
   }
 };
 
-const fetchPreference = (id:string) => async (dispatch, getState, { history }) => {
+const fetchPreference = (id: string) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.fetchPreference(id);
     console.log(res)
     // 회원가입 페이지에서 벨리데이션 표시
-    //dispatch(setIsValidEmailMultiple(true));
+    // dispatch(setIsValidEmailMultiple(true));
   } catch (error) {
     // 에러페이지로 이동?
     console.error(error)
