@@ -37,7 +37,7 @@ const MainContents = (props) => {
         <Card
           width="22.5%"
           cardTitle="확진자 수"
-          cardText={weatherInfo.coronaTotal.newLocalCaseCount}
+          cardText={weatherInfo.coronaTotalNewCaseCount}
         />
         <Card
           width="22.5%"
