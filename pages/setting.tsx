@@ -1,13 +1,17 @@
 import { Button, Grid, Range } from 'components/elements';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useInput from 'shared/useInput';
 import styled from 'styled-components'
-// TODO : value 값 기준으로 정렬, 0인거 숨기기, 숨기기-펼침처리, 
-// 각 Range 컴포넌트에 value와 onchange를 어떻게 주입하지? 하드코딩?
+import moment from 'moment'
+import { useDispatch } from 'react-redux';
+import { weatherActions } from 'redux/modules/weather';
+
 const Setting = (props) => {
   // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
-  const [isHidden, setIsHidden] = useState(true)
-  
+  const [isHidden, setIsHidden] = useState<boolean>(true)
+  const [isNewUser, setIsNewUser] = useState<boolean>(true)
+  const [userId, setUserId] = useState<string>(null)
+  const dispatch = useDispatch()
   // 각 range의 상태관리
   const [temp,setTemp,onChangeTemp] = useInput();
   const [rainPer,setRainPer,onChangeRainPer] = useInput();
@@ -22,6 +26,22 @@ const Setting = (props) => {
   const [cold,setCold,onChangeCold] = useInput();
   const [asthma,setAsthma,onChangeAsthma] = useInput();
   const [foodPoison,setFoodPoison,onChangeFoodPoison] = useInput();
+
+  // localstorage에 저장된 식별자를 가져옴
+  useEffect(() => {
+    let id = localStorage.getItem('weather-level')
+    
+    if(id){
+      setIsNewUser(false)      
+      
+    }else{
+      id = `wl${moment().format('YYMMdhhmmsss')+Math.floor(Math.random()*10000)}`      
+      localStorage.setItem('weather-level',id)      
+    }
+
+    setUserId(id)
+    
+  }, [])
 
   // type에 맞게 props 넣어주려고
   const data = {
@@ -75,19 +95,25 @@ const Setting = (props) => {
 
   
   const onSave = ()=>{
-    console.log('temp',temp,
-      'rainPer',rainPer,
-      'weather',weather,
-      'humidiy',humidity,
-      'wind',wind,
-      'pm10',pm10,
-      'pm25',pm25,
-      'corona',corona,
-      'uv',uv,
-      'pollenRisk',pollenRisk,
-      'cold',cold,
-      'asthma',asthma,
-      'foodPoison',foodPoison,)
+    const data = {
+      coronaRange:corona,
+      pm10Range:pm10,
+      pm24Range:pm25,
+      tempRange:temp,
+      rainPerRange:rainPer,
+      weatherRange:weather,
+      humidityRange:humidity,
+      windRange:wind,
+      uvRange:uv,
+      pollenRiskRange:pollenRisk,
+      asthmaRange:asthma,
+      foodPoisonRange:foodPoison
+    }
+    
+    if(isNewUser){
+      dispatch(weatherActions.fetchCreatePreference(userId,data))
+    }
+   
   }
 
   const onCancle = ()=>{
