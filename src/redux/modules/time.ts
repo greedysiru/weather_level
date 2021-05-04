@@ -5,7 +5,7 @@ import { createReducer, createAction, PayloadAction } from '@reduxjs/toolkit';
 
 // type 선언
 // 초기 상태 type
-type weatherType = {
+type timeType = {
   monthDayTime?: string;
   timeIndex?: number[];
   hours?: number;
@@ -13,7 +13,7 @@ type weatherType = {
 }
 
 
-export const initialState: weatherType = {
+export const initialState: timeType = {
   // 현재 월, 일, 시간
   monthDayTime: null,
   // 현재 시간으로부터 필요한 dailyTime index
@@ -29,7 +29,7 @@ const setTimeInfo = createAction<unknown>('time/setTimeInfo');
 
 const time = createReducer(initialState, {
 
-  [setTimeInfo.type]: (state: weatherType, action: PayloadAction<{ monthDayTime: string, timeIndex: number[], hours: number, dayOfWeek: string[] }>) => {
+  [setTimeInfo.type]: (state: timeType, action: PayloadAction<{ monthDayTime: string, timeIndex: number[], hours: number, dayOfWeek: string[] }>) => {
     state.monthDayTime = action.payload.monthDayTime;
     state.timeIndex = action.payload.timeIndex;
     state.hours = action.payload.hours;
@@ -60,7 +60,13 @@ const getTimeInfo = () => (dispatch, getState) => {
   const dayOfWeek: string[] = [];
   for (let i = 0; i < 8; i += 1) {
     timeIndex[i] = idx;
-    dayOfWeek[i] = WEEKDAY[day + i];
+    // 요일 배열 만들기
+    //  day + i 가 넘어가면 인덱스를 초과하므로 -7을하여 일요일부터 순회
+    if (day + i > 6) {
+      dayOfWeek[i] = WEEKDAY[day + i - 7];
+    } else {
+      dayOfWeek[i] = WEEKDAY[day + i];
+    }
     idx += 3;
   }
   dispatch(setTimeInfo({ monthDayTime, timeIndex, hours, dayOfWeek }));

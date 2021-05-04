@@ -53,7 +53,7 @@ type weatherType = {
       weatherDes: string[];
       dailyTime: string[];
       weatherIcon: string[];
-    }
+    };
     airPollution?: {
       id: number;
       dateTime: string;
@@ -109,7 +109,7 @@ const weather = createReducer(initialState, {
 const getWeatherInfo = (latitude: number, longitude: number) => async (dispatch) => {
   try {
     const res = await weatherAPI.getWeather(latitude, longitude);
-    
+
     dispatch(setWeatherInfo(res.data));
     // 현재 시간 기록하기
     dispatch(timeActions.getTimeInfo());
@@ -123,7 +123,7 @@ const getWeatherInfo = (latitude: number, longitude: number) => async (dispatch)
 
 // 위도, 경도 정보 가져오는 함수
 const getLocation = () => (dispatch) => {
-  
+
   // GPS를 지원하면
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -132,7 +132,7 @@ const getLocation = () => (dispatch) => {
         // 현재 사용자 위치의 위도, 경도 정보를 가져오기
 
         const { latitude, longitude } = position.coords
-        console.log(latitude,longitude)
+        console.log(latitude, longitude)
         // 현재 위치정보를 기반으로 날씨 정보 불러오기
         dispatch(getWeatherInfo(latitude, longitude));
       },

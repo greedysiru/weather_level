@@ -39,12 +39,12 @@ export const weatherAPI = {
     axios.defaults.headers.common.token = `${id}`;// 여기 들어가는거 괜찮나?
     return axios.put('/api/user/preferences', preferece)
   },
-  getLocation(query:string){
-    
+  getLocation(query: string) {
+
     const mapAxios = axios.create();
     mapAxios.defaults.withCredentials = false;
     return mapAxios.get(`http://api.vworld.kr/req/search?service=search&request=search&version=2.0&crs=EPSG:4326&size=10&page=1&query=${query}&type=district&category=L4&format=json&errorformat=json&key=${MAP_KEY}`)
-    
+
     /* return mapAxios.get(`http://api.vworld.kr/req/search`,{
       params:{
         service:'search',

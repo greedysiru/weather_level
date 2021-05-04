@@ -17,6 +17,7 @@ import Header from '../components/Header';
 import Score from '../components/Score';
 import MainContents from '../components/MainContents';
 import Footer from '../components/Footer';
+
 // 날씨 관련 모듈
 import { weatherActions } from '../redux/modules/weather';
 
@@ -56,8 +57,7 @@ const Main = (props) => {
           pagination className="mySwiper"
           style={{
             width: '100%',
-            height: '78%',
-
+            height: '80%',
           }}
         >
           {/* 첫번째 슬라이드 */}
@@ -78,7 +78,6 @@ const Main = (props) => {
             style={{
               width: '100%',
               height: '100%',
-              padding: '2rem 2rem 0 2rem',
             }}
           >
             {/* 카드 (4열) */}

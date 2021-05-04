@@ -12,13 +12,18 @@ type TimeInfoType = {
   timeIndex?: number[];
   hours?: number;
   dailyTime?: string[];
+  dayOfWeek?: string[];
   label: string;
   score?: boolean;
+  height?: string;
 }
 
 // 시간대별 정보를 보여주는 긴 카드
 const TimeInfo = (props: TimeInfoType) => {
-  const { info, timeIndex, hours, dailyTime, label, score } = props;
+  const { info, timeIndex, hours, dailyTime, dayOfWeek, label, score, height } = props;
+  const style = {
+    height
+  }
   // 요일 배열
   const dayArray = []
   // 스피닝
@@ -29,10 +34,12 @@ const TimeInfo = (props: TimeInfoType) => {
   if (score) {
     return (
       <>
-        <ElTimeInfo>
+        <ElTimeInfo
+          {...style}
+        >
           <Grid
             width="100%"
-            height="30%"
+            height="35%"
             ai="center"
           >
             <Text
@@ -48,27 +55,40 @@ const TimeInfo = (props: TimeInfoType) => {
             height="70%"
           >
             {info.map((x, idx) => {
+              console.log(x)
               return (
                 <Grid
                   key={idx}
                   isColumn
-                  height="85%"
-                  width="12.5%"
+                  jc="space-between"
+                  height="50%"
+                  width="14.28%"
                 >
                   <Grid
                     height="15%"
                   >
-                    <Text
-                      size="1rem"
-                      bold
-                    >
-                      요일
+                    {idx === 0 ? (
+                      <Text
+                        size="1.2rem"
+                        bold
+                      >
+                        {dayOfWeek[idx]}
                       </Text>
+                    ) : (
+                      <Text
+                        size="1rem"
+                      >
+                        {dayOfWeek[idx]}
+                      </Text>
+                    )}
+
                   </Grid>
                   <Grid
                     height="15%"
                   >
-                    {x}
+                    <Text>
+                      {x}
+                    </Text>
                   </Grid>
                 </Grid>
               )
@@ -85,7 +105,7 @@ const TimeInfo = (props: TimeInfoType) => {
       <ElTimeInfo>
         <Grid
           width="100%"
-          height="30%"
+          height="35%"
           ai="center"
         >
           <Text
@@ -130,7 +150,17 @@ const TimeInfo = (props: TimeInfoType) => {
                   <Grid
                     height="15%"
                   >
-                    {Math.round(Number(x))}
+
+                    {/* 강수확률인 경우 백분율로 나타내기 */}
+                    {x <= 1 ? (
+                      <Text>
+                        {x * 100}
+                      </Text>
+                    ) : (
+                      <Text>
+                        { Math.round(x)}
+                      </Text>
+                    )}
                   </Grid>
                 </Grid>
               )
@@ -149,7 +179,9 @@ TimeInfo.defaultProps = {
   timeIndex: [],
   hours: null,
   dailyTime: null,
+  dayOfWeek: null,
   score: false,
+  height: '',
 }
 
 const ElTimeInfo = styled.div`
@@ -158,7 +190,7 @@ flex-direction: column;
 align-items: center;
 jutify-contents: center;
 width: 100%;
-height: 100%;
+height: ${(props) => (props.height ? props.height : '18%')};
 border-radius: 20px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 margin: 1rem 0;
