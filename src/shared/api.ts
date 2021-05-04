@@ -23,8 +23,8 @@ type preferenceType = {
 export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     axios.defaults.headers.common.token = '';
-    return axios.get(`/api/weather/data?longitude=${longitude}&latitude=${latitude}`);
-    // return axios.get(`/api/weather/data?longitude=126.9996417&latitude=37.56100278`);
+    // return axios.get(`/api/weather/data?longitude=${longitude}&latitude=${latitude}`);
+     return axios.get(`/api/weather/data?longitude=126.9996417&latitude=37.56100278`);
   },
   fetchPreference() {
     // axios.defaults.headers.common.token = `${id}`;
@@ -40,7 +40,7 @@ export const weatherAPI = {
     return axios.put('/api/user/preferences', preferece)
   },
   getLocation(query:string){
-    
+    console.log(query,MAP_KEY)
     const mapAxios = axios.create();
     mapAxios.defaults.withCredentials = false;
     return mapAxios.get(`http://api.vworld.kr/req/search?service=search&request=search&version=2.0&crs=EPSG:4326&size=10&page=1&query=${query}&type=district&category=L4&format=json&errorformat=json&key=${MAP_KEY}`)
