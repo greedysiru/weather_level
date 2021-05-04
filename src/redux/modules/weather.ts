@@ -109,6 +109,7 @@ const weather = createReducer(initialState, {
 const getWeatherInfo = (latitude: number, longitude: number) => async (dispatch) => {
   try {
     const res = await weatherAPI.getWeather(latitude, longitude);
+    
     dispatch(setWeatherInfo(res.data));
     // 현재 시간 기록하기
     dispatch(timeActions.getMonthDayTime());
@@ -131,6 +132,7 @@ const getLocation = () => (dispatch) => {
         // 현재 사용자 위치의 위도, 경도 정보를 가져오기
 
         const { latitude, longitude } = position.coords
+        console.log(latitude,longitude)
         // 현재 위치정보를 기반으로 날씨 정보 불러오기
         dispatch(getWeatherInfo(latitude, longitude));
       },

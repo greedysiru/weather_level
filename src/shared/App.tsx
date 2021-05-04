@@ -25,9 +25,9 @@ function App() {
       <AppLayout>
         <Switch>
           <Route path="/" exact component={Main} />
-          <Route path="/setting" exact component={Setting} />
+          <Route path="/setting/preference" exact component={Setting} />
           <Route path="/mypage" exact component={Mypage} />
-          <Route path="/locationSetting" exact component={LocationSetting} />
+          <Route path="/setting/location" exact component={LocationSetting} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </AppLayout>

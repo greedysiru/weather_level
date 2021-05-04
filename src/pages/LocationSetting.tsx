@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Button, Input } from 'src/components/elements';
 import { weatherActions } from 'src/redux/modules/weather';
+import { weatherAPI } from 'src/shared/api';
 import useInput from 'src/shared/useInput';
 import styled from 'styled-components';
 
@@ -41,8 +42,15 @@ const LocationSetting = props => {
 
     }
 
-    const searchLocation = ()=>{
-        console.log(query)
+    const searchLocation = async()=>{
+        try {
+            const res = await weatherAPI.getLocation(query)    
+            console.log(res)
+        } catch (error) {
+            console.error(error)
+        }
+
+        
     }
     return (
         <div>
