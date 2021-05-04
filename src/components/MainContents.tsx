@@ -4,7 +4,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // elements
-import { Grid, Card, LongCard } from './elements';
+import { Grid, Card } from './elements';
+
+// componetns
+import TimeInfo from './TimeInfo';
 
 // RootState
 import { RootState } from '../redux/modules';
@@ -54,7 +57,7 @@ const MainContents = (props) => {
         margin="1rem 0 1rem 0"
         height="23%"
       >
-        <LongCard
+        <TimeInfo
           info={weatherInfo.dayInfo.tmp}
           timeIndex={timeIndex}
           hours={hours}
