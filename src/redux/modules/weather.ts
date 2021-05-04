@@ -122,6 +122,7 @@ const getWeatherInfo = (latitude: number, longitude: number) => async (dispatch)
 
 // 위도, 경도 정보 가져오는 함수
 const getLocation = () => (dispatch) => {
+  
   // GPS를 지원하면
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -142,6 +143,7 @@ const getLocation = () => (dispatch) => {
     alert('GPS를 지원하지 않습니다.')
   }
 }
+
 
 type preferenceType = {
   coronaRange: string,
@@ -183,9 +185,9 @@ const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispa
   }
 };
 
-const fetchPreference = (id: string) => async (dispatch, getState, { history }) => {
+const fetchPreference = () => async (dispatch, getState, { history }) => {
   try {
-    const res = await weatherAPI.fetchPreference(id);
+    const res = await weatherAPI.fetchPreference();
     console.log(res)
     // 회원가입 페이지에서 벨리데이션 표시
     // dispatch(setIsValidEmailMultiple(true));

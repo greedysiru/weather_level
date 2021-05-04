@@ -11,7 +11,7 @@ type InputType = {
   multiLine?: boolean;
   value?: string;
   isSubmit?: boolean;
-  _onChange?: () => void;
+  _onChange?: (e) => void;
   onSubmit?: () => void;
 }
 

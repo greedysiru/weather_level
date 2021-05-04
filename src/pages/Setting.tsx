@@ -35,11 +35,12 @@ const Setting = (props) => {
      setIsNewUser(false)      
      
    }else{
-     id = `wl${moment().format('YYMMdhhmmsss')+Math.floor(Math.random()*10000)}`      
+     id = `wl${moment().format('YYMMDDhhmmsss')+Math.floor(Math.random()*10000)}`      
      localStorage.setItem('weather-level',id)      
    }
-
+   
    setUserId(id)
+   dispatch(weatherActions.fetchPreference())
    
  }, [])
 
