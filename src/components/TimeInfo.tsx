@@ -188,7 +188,7 @@ const ElTimeInfo = styled.div`
 display:flex;
 flex-direction: column;
 align-items: center;
-jutify-contents: center;
+justify-content: center;
 width: 100%;
 height: ${(props) => (props.height ? props.height : '18%')};
 border-radius: 20px;
