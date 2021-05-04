@@ -2,7 +2,7 @@ import axios from 'axios';
 import { MAP_KEY } from './secrete';
 
 // axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://54.180.160.165:8080';
+axios.defaults.baseURL = 'http://13.125.127.68:8080';
 
 type preferenceType = {
   coronaRange: React.SetStateAction<string>,
@@ -24,7 +24,7 @@ export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     axios.defaults.headers.common.token = '';
     return axios.get(`/api/weather/data?longitude=${longitude}&latitude=${latitude}`);
-    // return axios.get(`/api/weather/data?longitude=127.0543&latitude=37.5394&temp=0&rainPer=100&weather=0&humidity=0&wind=0&pm10=0&pm25=0&corona=0&uv=0&pollenRisk=0&cold=0&asthma=0&foodPoison=0`)
+    // return axios.get(`/api/weather/data?longitude=126.9996417&latitude=37.56100278`);
   },
   fetchPreference() {
     // axios.defaults.headers.common.token = `${id}`;

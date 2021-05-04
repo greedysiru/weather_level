@@ -50,17 +50,17 @@ const Main = (props) => {
         height="100%"
         jc="flex-start"
       >
-        {/* 헤더 */}
+        {/* 헤더 height: 10% */}
         <Header />
         <Swiper
           pagination className="mySwiper"
           style={{
             width: '100%',
-            height: '75%',
-            display: 'flex',
-            flexDirection: 'column-reverse',
+            height: '78%',
+
           }}
         >
+          {/* 첫번째 슬라이드 */}
           <SwiperSlide
             style={{
               width: '100%',
@@ -71,16 +71,21 @@ const Main = (props) => {
             {/* 점수 */}
             <Score />
             {/* 카드 (4열) */}
+            <MainContents isFirst />
+          </SwiperSlide>
+          {/* 두번째 슬라이드 */}
+          <SwiperSlide
+            style={{
+              width: '100%',
+              height: '100%',
+              padding: '2rem 2rem 0 2rem',
+            }}
+          >
+            {/* 카드 (4열) */}
             <MainContents />
           </SwiperSlide>
         </Swiper>
-        <Grid
-          height="5%"
-          margin="1rem 0 0 0"
-          padding="0 2rem"
-        >
-          <Footer />
-        </Grid>
+        <Footer />
         {/* <Grid height="4%" ai="center">
             공백
           </Grid> */}
