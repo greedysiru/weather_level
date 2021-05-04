@@ -24,7 +24,7 @@ export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     axios.defaults.headers.common.token = '';
     // return axios.get(`/api/weather/data?longitude=${longitude}&latitude=${latitude}`);
-     return axios.get(`/api/weather/data?longitude=126.9996417&latitude=37.56100278`);
+    return axios.get(`/api/weather/data?longitude=126.9996417&latitude=37.56100278`);
   },
   fetchPreference() {
     // axios.defaults.headers.common.token = `${id}`;

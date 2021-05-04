@@ -25,7 +25,6 @@ const Header = (props) => {
       height="10%"
       ai="center"
       width="100%"
-      margin="0 0 1rem 0"
       padding="2rem 2rem 0 2rem"
     >
       <Grid isColumn width="50%" height="100%">
