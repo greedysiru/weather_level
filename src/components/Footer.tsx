@@ -5,15 +5,11 @@ import styled from 'styled-components';
 // elements
 import { Grid } from './elements';
 
-type footerType = {
-  height?: string;
-}
-
 // 푸터 컴포넌트
-const Footer = (props: footerType) => {
-  const { height } = props;
+const Footer = (props) => {
+  const { height, margin } = props;
   const style = {
-    height
+    height, margin
   }
   return (
 
@@ -28,16 +24,18 @@ const Footer = (props: footerType) => {
 }
 
 Footer.defaultProps = {
-  height: ' 100%'
+  height: ' 100%',
+  margin: '',
 }
 
-const ElFooter = styled.div<footerType>`
+const ElFooter = styled.div`
+position: absolute;
+bottom: 0;
 display:flex;
 align-items: center;
 jutify-contents: center;
 width: 100%;
-height: ${(props) => props.height};
-border-radius: 20px;
+height: 10%;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `
 

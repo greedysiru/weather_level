@@ -67,7 +67,7 @@ type weatherType = {
       newForeignCaseCount: number;
     };
     coronaTotalNewCaseCount?: number;
-    score?: number;
+    dayScoreList?: number[];
   };
   // 날씨 정보 로드 상태
   isLoaded: boolean;
@@ -111,7 +111,7 @@ const getWeatherInfo = (latitude: number, longitude: number) => async (dispatch)
     const res = await weatherAPI.getWeather(latitude, longitude);
     dispatch(setWeatherInfo(res.data));
     // 현재 시간 기록하기
-    dispatch(timeActions.getMonthDayTime());
+    dispatch(timeActions.getTimeInfo());
     // 로드 상태 ture(로딩 완료)
     dispatch(setLoad(true))
   }

@@ -8,17 +8,25 @@ import { Grid, Text } from './elements';
 
 
 type TimeInfoType = {
-  info?: string[];
+  info?: string[] | number[];
   timeIndex?: number[];
   hours?: number;
   dailyTime?: string[];
+  label: string;
+  score?: boolean;
 }
 
 // 시간대별 정보를 보여주는 긴 카드
 const TimeInfo = (props: TimeInfoType) => {
-  const { info, timeIndex, hours, dailyTime } = props;
-  // timeIndex가 있는 경우
-  if (timeIndex) {
+  const { info, timeIndex, hours, dailyTime, label, score } = props;
+  // 요일 배열
+  const dayArray = []
+  // 스피닝
+  if (info === null) {
+    return null
+  }
+  // score 표시인 경우
+  if (score) {
     return (
       <>
         <ElTimeInfo>
@@ -31,50 +39,39 @@ const TimeInfo = (props: TimeInfoType) => {
               size="1.4rem"
               bold
             >
-              시간대별 날씨
-          </Text>
+              {label}
+            </Text>
           </Grid>
-          {/* 날씨 정보 */}
+          {/* 점수 정보 */}
           <Grid
             width="100%"
             height="70%"
           >
             {info.map((x, idx) => {
-              if (timeIndex.includes(idx)) {
-                const time: string = dailyTime[idx].split(' ')[2]
-                return (
+              return (
+                <Grid
+                  key={idx}
+                  isColumn
+                  height="85%"
+                  width="12.5%"
+                >
                   <Grid
-                    key={idx}
-                    isColumn
-                    height="85%"
-                    width="12.5%"
+                    height="15%"
                   >
-                    <Grid
-                      height="15%"
+                    <Text
+                      size="1rem"
+                      bold
                     >
-                      {time === String(hours) ?
-                        <Text
-                          size="1rem"
-                          bold
-                        >
-                          지금
+                      요일
                       </Text>
-                        : time}
-                    </Grid>
-                    <Grid
-                      height="70%"
-                    >
-                      그림
-                    </Grid>
-                    <Grid
-                      height="15%"
-                    >
-                      {Math.round(Number(x))}
-                    </Grid>
                   </Grid>
-                )
-              }
-              return null;
+                  <Grid
+                    height="15%"
+                  >
+                    {x}
+                  </Grid>
+                </Grid>
+              )
             }, {})
             }
           </Grid>
@@ -82,14 +79,77 @@ const TimeInfo = (props: TimeInfoType) => {
       </>
     )
   }
-  return null;
+  // 날씨 정보 또는 강수확률인 경우
+  return (
+    <>
+      <ElTimeInfo>
+        <Grid
+          width="100%"
+          height="30%"
+          ai="center"
+        >
+          <Text
+            size="1.4rem"
+            bold
+          >
+            {label}
+          </Text>
+        </Grid>
+        {/* 날씨 정보 */}
+        <Grid
+          width="100%"
+          height="70%"
+        >
+          {info.map((x, idx) => {
+            if (timeIndex.includes(idx)) {
+              const time: string = dailyTime[idx].split(' ')[2]
+              return (
+                <Grid
+                  key={idx}
+                  isColumn
+                  height="85%"
+                  width="12.5%"
+                >
+                  <Grid
+                    height="15%"
+                  >
+                    {time === String(hours) ?
+                      <Text
+                        size="1rem"
+                        bold
+                      >
+                        지금
+                    </Text>
+                      : time}
+                  </Grid>
+                  <Grid
+                    height="70%"
+                  >
+                    그림
+                  </Grid>
+                  <Grid
+                    height="15%"
+                  >
+                    {Math.round(Number(x))}
+                  </Grid>
+                </Grid>
+              )
+            }
+            return null;
+          }, {})
+          }
+        </Grid>
+      </ElTimeInfo>
+    </>
+  )
 }
 
 TimeInfo.defaultProps = {
   info: null,
-  timeIndex: false,
-  hours: false,
-  dailyTime: false,
+  timeIndex: [],
+  hours: null,
+  dailyTime: null,
+  score: false,
 }
 
 const ElTimeInfo = styled.div`
