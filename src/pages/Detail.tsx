@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux';
 import DetailDaily from 'src/components/DetailDaily';
 import DetailThreeDays from 'src/components/DetailThreeDays';
 import DetailWeekly from 'src/components/DetailWeekly';
 import { Button, Grid } from 'src/components/elements';
 import Header from 'src/components/Header';
 import styled from 'styled-components'
+import { RootState } from '../redux/modules';
 
 const Detail = props => {
     const {match,history} = props;
-    console.log(match.params.category)
-
+    const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
+    
+    const weatherInfo = useSelector((state:RootState) => state.weather.weatherInfo)
     const components = {
         daily: DetailDaily,
         weekly: DetailWeekly,
@@ -21,11 +24,9 @@ const Detail = props => {
     const goBack = ()=>{
         history.push('/')
     }
-
-    const mainStyle = {
-        width:'100%',
-        height:'100%',
-        backgroundColor:'yellow'
+    
+    if (!isLoaded) {
+        return null
     }
     return (
         <Grid
