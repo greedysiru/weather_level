@@ -72,7 +72,7 @@ type weatherType = {
   };
   // 날씨 정보 로드 상태
   isLoaded: boolean;
-  preference:{    
+  preference: {
     asthma?: number;
     corona?: number;
     foodPoison?: number;
@@ -97,7 +97,7 @@ export const initialState: weatherType = {
   weatherInfo: null,
   // 날씨 정보 로드 상태
   isLoaded: false,
-  preference:{identification:null}
+  preference: { identification: null }
 }
 
 // 날씨 정보를 받아오는 액션 생성 함수
@@ -116,7 +116,7 @@ const weather = createReducer(initialState, {
   [setLoad.type]: (state: weatherType, action: PayloadAction<boolean>) => {
     state.isLoaded = action.payload;
   },
-  [setPreference.type]: (state: weatherType, action: PayloadAction<any>) => {    
+  [setPreference.type]: (state: weatherType, action: PayloadAction<any>) => {
     state.preference = action.payload;
   },
 
@@ -189,24 +189,24 @@ type preferenceType = {
 
 // setting preference 생성
 
-const fetchPreference = (id:string) => async (dispatch, getState, { history }) => {
+const fetchPreference = (id: string) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.fetchPreference(id)
     const defaultPreference = {
       temp: 50,
-      rainPer:50,
-      weather:50,
-      humidity:50,
-      wind:0,
-      pm10:0,
-      pm25:0,
-      corona:0,
-      uv:0,
-      pollenRisk:0,
-      asthma:0,
-      foodPoison:0
+      rainPer: 50,
+      weather: 50,
+      humidity: 50,
+      wind: 0,
+      pm10: 0,
+      pm25: 0,
+      corona: 0,
+      uv: 0,
+      pollenRisk: 0,
+      asthma: 0,
+      foodPoison: 0
     }
-    dispatch(setPreference(res.data||defaultPreference))
+    dispatch(setPreference(res.data || defaultPreference))
 
   } catch (error) {
     // 에러페이지로 이동?
@@ -217,10 +217,9 @@ const fetchPreference = (id:string) => async (dispatch, getState, { history }) =
 const fetchCreatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.createPreference(id, data);
-    
     dispatch(setPreference(res.data))
     alert('선호도를 저장했습니다 :)')
-    
+
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error)
@@ -232,7 +231,7 @@ const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispa
     const res = await weatherAPI.updatePreference(id, data);
     dispatch(setPreference(res.data))
     alert('선호도를 수정했습니다 :)')
-    
+
   } catch (error) {
     // 에러페이지로 이동?
     console.error(error)
