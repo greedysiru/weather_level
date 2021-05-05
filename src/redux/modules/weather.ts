@@ -154,19 +154,19 @@ const getLocation = () => (dispatch) => {
 }
 
 
-type preferenceType = {
-  coronaRange: string,
-  pm10Range: string,
-  pm24Range: string,
-  tempRange: string,
-  rainPerRange: string,
-  weatherRange: string,
-  humidityRange: string,
-  windRange: string,
-  uvRange: string,
-  pollenRiskRange: string,
-  asthmaRange: string,
-  foodPoisonRange: string
+export type preferenceType = {
+  coronaRange: string;
+  pm10Range: string;
+  pm25Range: string;
+  tempRange: string;
+  rainPerRange: string;
+  weatherRange: string;
+  humidityRange: string;
+  windRange: string;
+  uvRange: string;
+  pollenRiskRange: string;
+  asthmaRange: string;
+  foodPoisonRange: string;
 }
 
 // setting preference 생성

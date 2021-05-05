@@ -1,23 +1,10 @@
 import axios from 'axios';
+import { preferenceType } from 'src/redux/modules/weather';
 import { CLIENT_SECRET, CLIENT_ID } from './secrete';
 
 // axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://13.125.127.68:8080';
 
-type preferenceType = {
-  coronaRange: React.SetStateAction<string>,
-  pm10Range: React.SetStateAction<string>,
-  pm24Range: React.SetStateAction<string>,
-  tempRange: React.SetStateAction<string>,
-  rainPerRange: React.SetStateAction<string>,
-  weatherRange: React.SetStateAction<string>,
-  humidityRange: React.SetStateAction<string>,
-  windRange: React.SetStateAction<string>,
-  uvRange: React.SetStateAction<string>,
-  pollenRiskRange: React.SetStateAction<string>,
-  asthmaRange: React.SetStateAction<string>,
-  foodPoisonRange: React.SetStateAction<string>
-}
 
 // 날씨 정보 관련 api
 export const weatherAPI = {
@@ -32,11 +19,11 @@ export const weatherAPI = {
     return axios.get('/api/user/preferences')
   },
   createPreference(id: string, preferece: preferenceType) {
-    axios.defaults.headers.common.token = `${id}`;// 여기 들어가는거 괜찮나?
+    axios.defaults.headers.common.token = `${id}`;
     return axios.post('/api/user/preferences', preferece)
   },
   updatePreference(id: string, preferece: preferenceType) {
-    axios.defaults.headers.common.token = `${id}`;// 여기 들어가는거 괜찮나?
+    axios.defaults.headers.common.token = `${id}`;
     return axios.put('/api/user/preferences', preferece)
   },
   getLocation(query: string) {

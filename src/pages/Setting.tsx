@@ -24,7 +24,7 @@ const Setting = (props) => {
   const [corona,setCorona] = useState<string>();
   const [uv,setUv] = useState<string>();
   const [pollenRisk,setPollenRisk] = useState<string>();
-  const [cold,setCold] = useState<string>();
+  
   const [asthma,setAsthma] = useState<string>();
   const [foodPoison,setFoodPoison] = useState<string>();
 
@@ -40,7 +40,7 @@ const Setting = (props) => {
   const propsData = {
    temp: {label:'기온',rangeValue:temp,setRangeValue:setTemp},
    rainPer:{label:'강수확률',rangeValue:rainPer,setRangeValue:setRainPer},
-   weather:{label:'하늘',rangeValue:weather,setRangeValue:setWeather},
+   weather:{label:'날씨',rangeValue:weather,setRangeValue:setWeather},
    humidity:{label:'습도',rangeValue:humidity,setRangeValue:setHumidity},
    wind:{label:'바람',rangeValue:wind,setRangeValue:setWind},
    pm10:{label:'미세먼지',rangeValue:pm10,setRangeValue:setPm10},
@@ -53,8 +53,9 @@ const Setting = (props) => {
  }
 
 
- const rangeList = preference.map((pre,idx)=>{
-    const key = pre.type
+ const rangeList = preference?.map((pre,idx)=>{
+    
+    const key = pre.type    
     const value = pre.value.toString()
     return <Range key={idx} 
                 isHidden={value==="0"? isHidden:false} 
@@ -70,7 +71,7 @@ const Setting = (props) => {
    const data = {
      coronaRange:corona,
      pm10Range:pm10,
-     pm24Range:pm25,
+     pm25Range:pm25,
      tempRange:temp,
      rainPerRange:rainPer,
      weatherRange:weather,
@@ -81,7 +82,7 @@ const Setting = (props) => {
      asthmaRange:asthma,
      foodPoisonRange:foodPoison
    }
-
+   
    if(userId){     
      dispatch(weatherActions.fetchUpdatePreference(userId,data))
    }else{
