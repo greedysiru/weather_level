@@ -128,9 +128,10 @@ const Setting = (props) => {
       </Container>
     )
   }
+}
 
-  const Container = styled.div`
+const Container = styled.div`
   width:50%;
   border:1px solid black;   
 `
-  export default Setting;
+export default Setting;
