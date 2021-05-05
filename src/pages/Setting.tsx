@@ -23,7 +23,7 @@ const Setting = (props) => {
   const [corona, setCorona] = useState<string>();
   const [uv, setUv] = useState<string>();
   const [pollenRisk, setPollenRisk] = useState<string>();
-  const [cold, setCold] = useState<string>();
+
   const [asthma, setAsthma] = useState<string>();
   const [foodPoison, setFoodPoison] = useState<string>();
 
@@ -40,7 +40,7 @@ const Setting = (props) => {
   const propsData = {
     temp: { label: '기온', rangeValue: temp, setRangeValue: setTemp },
     rainPer: { label: '강수확률', rangeValue: rainPer, setRangeValue: setRainPer },
-    weather: { label: '하늘', rangeValue: weather, setRangeValue: setWeather },
+    weather: { label: '날씨', rangeValue: weather, setRangeValue: setWeather },
     humidity: { label: '습도', rangeValue: humidity, setRangeValue: setHumidity },
     wind: { label: '바람', rangeValue: wind, setRangeValue: setWind },
     pm10: { label: '미세먼지', rangeValue: pm10, setRangeValue: setPm10 },
@@ -54,6 +54,7 @@ const Setting = (props) => {
 
 
   const rangeList = preference?.map((pre, idx) => {
+
     const key = pre.type
     const value = pre.value.toString()
     return <Range key={idx}
@@ -82,38 +83,54 @@ const Setting = (props) => {
       foodPoisonRange: foodPoison
     }
 
-    if (userId) {
-      dispatch(weatherActions.fetchUpdatePreference(userId, data))
-    } else {
-      const id = `wl${moment().format('YYMMDDhhmmsss') + Math.floor(Math.random() * 10000)}`
-      localStorage.setItem('weather-level', id)
-      dispatch(weatherActions.fetchCreatePreference(id, data))
+
+    const onSave = () => {
+      const data = {
+        coronaRange: corona,
+        pm10Range: pm10,
+        pm25Range: pm25,
+        tempRange: temp,
+        rainPerRange: rainPer,
+        weatherRange: weather,
+        humidityRange: humidity,
+        windRange: wind,
+        uvRange: uv,
+        pollenRiskRange: pollenRisk,
+        asthmaRange: asthma,
+        foodPoisonRange: foodPoison
+      }
+
+      if (userId) {
+        dispatch(weatherActions.fetchUpdatePreference(userId, data))
+      } else {
+        const id = `wl${moment().format('YYMMDDhhmmsss') + Math.floor(Math.random() * 10000)}`
+        localStorage.setItem('weather-level', id)
+        dispatch(weatherActions.fetchCreatePreference(id, data))
+      }
+
     }
 
+    const onCancle = () => {
+      setIsHidden(true)
+      dispatch(weatherActions.fetchPreference(userId))
+    }
 
+    return (
+      <Container>
+        {rangeList}
+        <Grid>
+          <Button _onClick={() => { setIsHidden(!isHidden) }}>{isHidden ? '더보기' : '숨기기'}</Button>
+        </Grid>
+        <Grid>
+          <Button _onClick={onSave}>저장</Button>
+          <Button _onClick={onCancle}>취소</Button>
+        </Grid>
+      </Container>
+    )
   }
 
-  const onCancle = () => {
-    setIsHidden(true)
-    dispatch(weatherActions.fetchPreference(userId))
-  }
-
-  return (
-    <Container>
-      {rangeList}
-      <Grid>
-        <Button _onClick={() => { setIsHidden(!isHidden) }}>{isHidden ? '더보기' : '숨기기'}</Button>
-      </Grid>
-      <Grid>
-        <Button _onClick={onSave}>저장</Button>
-        <Button _onClick={onCancle}>취소</Button>
-      </Grid>
-    </Container>
-  )
-}
-
-const Container = styled.div`
+  const Container = styled.div`
   width:50%;
   border:1px solid black;   
 `
-export default Setting;
+  export default Setting;

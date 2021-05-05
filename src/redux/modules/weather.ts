@@ -184,19 +184,19 @@ const getLocation = () => (dispatch) => {
 }
 
 
-type preferenceType = {
-  coronaRange: string,
-  pm10Range: string,
-  pm24Range: string,
-  tempRange: string,
-  rainPerRange: string,
-  weatherRange: string,
-  humidityRange: string,
-  windRange: string,
-  uvRange: string,
-  pollenRiskRange: string,
-  asthmaRange: string,
-  foodPoisonRange: string
+export type preferenceType = {
+  coronaRange: string;
+  pm10Range: string;
+  pm25Range: string;
+  tempRange: string;
+  rainPerRange: string;
+  weatherRange: string;
+  humidityRange: string;
+  windRange: string;
+  uvRange: string;
+  pollenRiskRange: string;
+  asthmaRange: string;
+  foodPoisonRange: string;
 }
 
 // preference의 순서대로 카드 정보를 받아오는 함수

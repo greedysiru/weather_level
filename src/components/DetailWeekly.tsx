@@ -4,42 +4,45 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'src/redux/modules'
 import { timeActions } from 'src/redux/modules/time'
 import styled from 'styled-components'
-import TimeInfo from './TimeInfo'
+import { weatherActions } from 'src/redux/modules/weather'
+
 import { LongCard } from './elements'
+import TimeInfo from './TimeInfo'
 
 const DetailWeekly = props => {
     const {category} = props
     const dispatch = useDispatch()
     const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
-    const state = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo)
-
-    useEffect(()=>{        
-        dispatch(timeActions.getTimeInfo());                
-    },[])
+    const weekInfo = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo)
+      
     
-    const {humidity,maxTmp,minTmp,rainPer,tmp,weather,weatherDes,windSpeed} = state
-
-    const titles = {
-        humidity:'습도',
-        temp:'기온',
-        rainPer:'강수확률',
-        weather:'날씨',
-        windSpeed:'바람'
-    }
+    const {humidity,maxTmp,minTmp,rainPer,tmp,weather,weatherDes,windSpeed} = weekInfo
 
     // temp정보
 
     // 날씨정보
 
-    // 나머지
-    const EtcCompo = state[category].map((data,idx)=>{
-        console.log(data)
+    // 나머지    
+    const Content = weekInfo?.[category]?.map((data,idx)=>{        
+        
         return <LongCard key={idx} day={dayOfWeek?.[idx]} data={data} />
-    })
+    }) 
+
+    const title = {
+        tmp:'기온',
+        weather:'날씨',
+        humidity:'습도',
+        rainPer:'강수확률',
+        windSpeed:'바람'
+    }
+
+
+
+   
     return (
         <Container>
-            <Title>{titles[category]}</Title>
-            {EtcCompo}
+            <Title>{title[category]}</Title>
+            {Content}
             {/* <Contents>                
                 <TimeInfo
                     info={humidity}

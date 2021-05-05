@@ -32,7 +32,6 @@ const Main = (props) => {
   // 날씨정보 로드 전
   if (!isLoaded) {
     return null
-
   }
   // 날씨정보 로드 후
   return (

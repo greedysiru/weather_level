@@ -13,11 +13,19 @@ type RangeType = {
 
 const Range = (props: RangeType) => {
   const { label, value, isHidden, rangeValue, setRangeValue } = props;
-  useEffect(() => {
-    if (!rangeValue) {
+  useEffect(() => {    
+    console.log('고냥 effect',label,rangeValue)  
+    if (!rangeValue) {      
       setRangeValue(value)
     }
-  })
+  },[]) 
+
+  useEffect(()=>{    
+    if (rangeValue!==value) {  
+      console.log(label,rangeValue)    
+      setRangeValue(value)
+    }
+  },[value])
 
   const onChangeRange = (e)=>{
     setRangeValue(e.target.value)
