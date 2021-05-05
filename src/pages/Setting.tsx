@@ -52,7 +52,6 @@ const Setting = (props) => {
     foodPoison: { label: '식중독위험', rangeValue: foodPoison, setRangeValue: setFoodPoison }
   }
 
-
   const rangeList = preference?.map((pre, idx) => {
 
     const key = pre.type
@@ -71,7 +70,7 @@ const Setting = (props) => {
     const data = {
       coronaRange: corona,
       pm10Range: pm10,
-      pm24Range: pm25,
+      pm25Range: pm25,
       tempRange: temp,
       rainPerRange: rainPer,
       weatherRange: weather,
@@ -84,51 +83,35 @@ const Setting = (props) => {
     }
 
 
-    const onSave = () => {
-      const data = {
-        coronaRange: corona,
-        pm10Range: pm10,
-        pm25Range: pm25,
-        tempRange: temp,
-        rainPerRange: rainPer,
-        weatherRange: weather,
-        humidityRange: humidity,
-        windRange: wind,
-        uvRange: uv,
-        pollenRiskRange: pollenRisk,
-        asthmaRange: asthma,
-        foodPoisonRange: foodPoison
-      }
-
-      if (userId) {
-        dispatch(weatherActions.fetchUpdatePreference(userId, data))
-      } else {
-        const id = `wl${moment().format('YYMMDDhhmmsss') + Math.floor(Math.random() * 10000)}`
-        localStorage.setItem('weather-level', id)
-        dispatch(weatherActions.fetchCreatePreference(id, data))
-      }
-
+    if (userId) {
+      dispatch(weatherActions.fetchUpdatePreference(userId, data))
+    } else {
+      const id = `wl${moment().format('YYMMDDhhmmsss') + Math.floor(Math.random() * 10000)}`
+      localStorage.setItem('weather-level', id)
+      dispatch(weatherActions.fetchCreatePreference(id, data))
     }
 
-    const onCancle = () => {
-      setIsHidden(true)
-      dispatch(weatherActions.fetchPreference(userId))
-    }
-
-    return (
-      <Container>
-        {rangeList}
-        <Grid>
-          <Button _onClick={() => { setIsHidden(!isHidden) }}>{isHidden ? '더보기' : '숨기기'}</Button>
-        </Grid>
-        <Grid>
-          <Button _onClick={onSave}>저장</Button>
-          <Button _onClick={onCancle}>취소</Button>
-        </Grid>
-      </Container>
-    )
   }
+
+  const onCancle = () => {
+    setIsHidden(true)
+    dispatch(weatherActions.fetchPreference(userId))
+  }
+
+  return (
+    <Container>
+      {rangeList}
+      <Grid>
+        <Button _onClick={() => { setIsHidden(!isHidden) }}>{isHidden ? '더보기' : '숨기기'}</Button>
+      </Grid>
+      <Grid>
+        <Button _onClick={onSave}>저장</Button>
+        <Button _onClick={onCancle}>취소</Button>
+      </Grid>
+    </Container>
+  )
 }
+
 
 const Container = styled.div`
   width:50%;

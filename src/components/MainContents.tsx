@@ -30,8 +30,8 @@ const MainContents = (props: mainContentsType) => {
   const dailyTime = useSelector((state: RootState) => state.weather.weatherInfo.dayInfo.dailyTime);
   // dayOfWeek
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
-  // preference
-  const preference = useSelector((state: RootState) => state.weather.preference);
+  // cardsInfo
+  const cardsInfo = useSelector((state: RootState) => state.weather.cardsInfo);
   // isFirst
   const { isFirst } = props;
 
@@ -49,7 +49,7 @@ const MainContents = (props: mainContentsType) => {
           <Cards
             isFirst
             weatherInfo={weatherInfo}
-            preference={preference}
+            cardsInfo={cardsInfo}
           />
         </Grid>
         {/* 시간별 기온 정보 */}
@@ -96,11 +96,7 @@ const MainContents = (props: mainContentsType) => {
       >
         <Cards
           weatherInfo={weatherInfo}
-          preference={preference}
-        />
-        <Cards
-          weatherInfo={weatherInfo}
-          preference={preference}
+          cardsInfo={cardsInfo}
         />
       </Grid>
     </Grid>
