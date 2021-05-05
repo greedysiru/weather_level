@@ -23,8 +23,8 @@ type preferenceType = {
 export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     axios.defaults.headers.common.token = '';
-    // return axios.get(`/api/weather/data?longitude=${longitude}&latitude=${latitude}`);
-    return axios.get(`/api/weather/data?longitude=126.9996417&latitude=37.56100278`);
+    return axios.get(`/api/weather/data?longitude=${longitude}&latitude=${latitude}`);
+    // return axios.get(`/api/weather/data?longitude=126.9996417&latitude=37.56100278`);
   },
   fetchPreference(id:string) {    
     axios.defaults.headers.common.token = `${id}`;
@@ -39,16 +39,17 @@ export const weatherAPI = {
     axios.defaults.headers.common.token = `${id}`;// 여기 들어가는거 괜찮나?
     return axios.put('/api/user/preferences', preferece)
   },
-  getLocation(query:string){
-    
+  getLocation(query: string) {
+
     const mapAxios = axios.create();
     mapAxios.defaults.headers.common['X-NCP-APIGW-API-KEY-ID'] = CLIENT_ID;
     mapAxios.defaults.headers.common['X-NCP-APIGW-API-KEY'] = CLIENT_SECRET;
     mapAxios.defaults.withCredentials = false;
-    return mapAxios.get('https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode',{
-      params:{
-        query:'인계동'
-    }}) 
+    return mapAxios.get('https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode', {
+      params: {
+        query: '인계동'
+      }
+    })
 
     /* return axios({
       url:`https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=${query}`,
@@ -57,7 +58,7 @@ export const weatherAPI = {
                  'X-NCP-APIGW-API-KEY':CLIENT_SECRET
       }
     }) */
-    
+
     /* return mapAxios.get(`http://api.vworld.kr/req/search`,{
       params:{
         service:'search',

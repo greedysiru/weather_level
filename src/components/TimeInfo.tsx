@@ -55,7 +55,6 @@ const TimeInfo = (props: TimeInfoType) => {
             height="70%"
           >
             {info.map((x, idx) => {
-              console.log(x)
               return (
                 <Grid
                   key={idx}
