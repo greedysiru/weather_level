@@ -11,12 +11,12 @@ type GridType = {
   margin?: string;
   padding?: string;
   children?: any;
-  wrap?: boolean;
+  $wrap?: boolean;
   overFlow?: boolean;
 }
-const Grid = ({ width, height, isColumn, jc, ai, bg, margin, padding, children, wrap, overFlow }: GridType) => {
+const Grid = ({ width, height, isColumn, jc, ai, bg, margin, padding, children, $wrap, overFlow }: GridType) => {
   const style = {
-    width, height, isColumn, jc, ai, bg, margin, padding, wrap, overFlow
+    width, height, isColumn, jc, ai, bg, margin, padding, $wrap, overFlow
   }
   return <Container {...style}>{children}</Container>;
 };
@@ -31,7 +31,7 @@ Grid.defaultProps = {
   margin: '0px',
   padding: '0px',
   children: null,
-  wrap: false,
+  $wrap: false,
   overFlow: false,
 }
 
@@ -46,7 +46,7 @@ const Container = styled.div<GridType>`
   background-color: ${(props) => props.bg};
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
-  flex-wrap: ${(props) => props.wrap ? 'wrap' : ''};
+  flex-wrap: ${(props) => props.$wrap ? 'wrap' : ''};
   overflow: ${(props) => props.overFlow ? 'scroll' : ''};
 `;
 

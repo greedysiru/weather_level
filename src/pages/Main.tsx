@@ -7,7 +7,7 @@ import SwiperCore, { Pagination } from 'swiper/core';
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 // 리덕스
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // elements
 import { Grid, Button, Image, Input, Text, Range } from '../components/elements'
@@ -18,10 +18,6 @@ import Score from '../components/Score';
 import MainContents from '../components/MainContents';
 import Footer from '../components/Footer';
 
-// 날씨 관련 모듈
-import { weatherActions } from '../redux/modules/weather';
-
-
 // RootState
 import { RootState } from '../redux/modules';
 
@@ -29,11 +25,7 @@ import { RootState } from '../redux/modules';
 SwiperCore.use([Pagination]);
 
 const Main = (props) => {
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    // 사용자 위치(위도, 경도) state에 기록 후 날씨 정보 불러오기
-    dispatch(weatherActions.getLocation());
-  }, [])
+
   // 날씨 정보 로드 여부 가져오기
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
 

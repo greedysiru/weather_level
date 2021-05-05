@@ -45,7 +45,7 @@ const Cards = (props: cardsType) => {
       height="100%"
     >
       <Grid
-        wrap
+        $wrap
         height="100%"
         jc="space-between"
       >
