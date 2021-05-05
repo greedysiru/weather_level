@@ -52,12 +52,11 @@ const Setting = (props) => {
    foodPoison:{label:'식중독위험',rangeValue:foodPoison,setRangeValue:setFoodPoison}
  }
 
- const rangeList = Object.keys(preference).map((key,idx)=>{
-   
-  if(key === 'identification') return null;
-  const value = preference[key].toString()
-  
-  return <Range key={idx} 
+
+ const rangeList = preference.map((pre,idx)=>{
+    const key = pre.type
+    const value = pre.value.toString()
+    return <Range key={idx} 
                 isHidden={value==="0"? isHidden:false} 
                 value={value}                         
                 label={propsData[key].label}                        
