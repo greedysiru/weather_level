@@ -73,9 +73,20 @@ type weatherType = {
   // 날씨 정보 로드 상태
   isLoaded: boolean;
   preference: any;
-
+  //  카드 정보들
+  cardsInfo: any;
 }
 
+
+
+// export const initialState: weatherType = {
+//   // 날씨 정보
+//   weatherInfo: null,
+//   // 날씨 정보 로드 상태
+//   isLoaded: false,
+//   preference: [],
+//   cardsInfo: [],
+// }
 
 
 export const initialState: weatherType = {
@@ -83,16 +94,31 @@ export const initialState: weatherType = {
   weatherInfo: null,
   // 날씨 정보 로드 상태
   isLoaded: false,
-  preference: []
+  preference: [
+    { type: "temp", value: 50 },
+    { type: "rainPer", value: 50 },
+    { type: "weather", value: 50 },
+    { type: "humidity", value: 50 },
+    { type: "wind", value: 0 },
+    { type: "pm10", value: 0 },
+    { type: "pm25", value: 0 },
+    { type: "corona", value: 0 },
+    { type: "uv", value: 0 },
+    { type: "pollenRisk", value: 0 },
+    { type: "asthma", value: 0 },
+    { type: "foodPoison", value: 0 }],
+  cardsInfo: [],
 }
 
+
 // 날씨 정보를 받아오는 액션 생성 함수
-const setWeatherInfo = createAction<unknown>('weather/SETWEATHERINFO');
-// 현재 위치를 가져오는 액션 함수
-// const getPosition = createAction<Object>('weather/GETPOSITION');
+const setWeatherInfo = createAction<unknown>('weather/SET_WEATHERINFO');
 // 로드 상태를 변경하는 액션 생성 함수
-const setLoad = createAction<boolean>('weather/SETLOAD');
+const setLoad = createAction<boolean>('weather/SET_LOAD');
+// preference를 저장하는 함수
 const setPreference = createAction<unknown>('weather/SET_PREFERENCE');
+// preference의 순서대로 카드 정보를 가져오는 함수
+const setCardsInfo = createAction<unknown>('weather/SET_CARDSINFO');
 
 
 const weather = createReducer(initialState, {
@@ -105,7 +131,9 @@ const weather = createReducer(initialState, {
   [setPreference.type]: (state: weatherType, action: PayloadAction<any>) => {
     state.preference = action.payload;
   },
-
+  [setCardsInfo.type]: (state: weatherType, action: PayloadAction<any>) => {
+    state.cardsInfo = action.payload;
+  }
 })
 
 // 날씨 정보 호출 후 리덕스 state에 저장
@@ -119,7 +147,9 @@ const getWeatherInfo = () => async (dispatch) => {
     // 현재 시간 기록하기
     dispatch(timeActions.getTimeInfo());
     // 로드 상태 ture(로딩 완료)
-    dispatch(setLoad(true))
+    dispatch(setLoad(true));
+    // 카드 정보 만들기
+    dispatch(getCardsInfo());
   }
   catch (error) {
     console.log(error)
@@ -169,27 +199,72 @@ type preferenceType = {
   foodPoisonRange: string
 }
 
-// setting preference 생성
+// preference의 순서대로 카드 정보를 받아오는 함수
+const getCardsInfo = () => async (dispatch, getState) => {
+  try {
+    // weatherInfo
+    const {
+      weekInfo, livingHealthWeather, coronaTotalNewCaseCount, airPollution,
+    } = getState().weather.weatherInfo;
+    // preference
+    const { preference } = getState().weather;
+    // 기본 카드 정보
+    const defaultCardData = {
+      temp: { label: '기온', value: weekInfo.tmp[0] },
+      rainPer: { label: '강수확률', value: weekInfo.rainPer[0] },
+      weather: { label: '하늘', value: weekInfo.weather[0] },
+      humidity: { label: '습도', value: weekInfo.humidity[0] },
+      wind: { label: '바람', value: weekInfo.windSpeed[0] },
+      pm10: { label: '미세먼지', value: airPollution.pm10Value },
+      pm25: { label: '초미세먼지', value: airPollution.pm25Value },
+      corona: { label: '코로나', value: coronaTotalNewCaseCount },
+      uv: { label: '자외선', value: livingHealthWeather.uvToday },
+      pollenRisk: { label: '꽃가루농도', value: livingHealthWeather.oakPollenRiskToday },
+      asthma: { label: '폐질환위험', value: livingHealthWeather.asthmaToday },
+      foodPoison: { label: '식중독위험', value: livingHealthWeather.foodPoisonToday }
+    }
+    // 첫번째, 두번째 슬라이드 카드
+    const first = [];
+    const second = [];
+    // preference를 참조하여 데이터 넣기
+    for (let i = 0; i < 12; i += 1) {
+      if (i < 4) {
+        const { type } = preference[i];
+        const { label, value } = defaultCardData[type];
+        first.push({ type, label, value })
+      } else {
+        const { type } = preference[i];
+        const { label, value } = defaultCardData[type];
+        second.push({ type, label, value })
+      }
+    }
+    // 카드 정보 넣기
+    dispatch(setCardsInfo({ first, second }));
 
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// setting preference 생성
 const fetchPreference = (id: string) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.fetchPreference(id)
     const preferectDic = res.data
-
-    const defaultPreference = [
-      { type: "temp", value: 50 },
-      { type: "rainPer", value: 50 },
-      { type: "weather", value: 50 },
-      { type: "humidity", value: 50 },
-      { type: "wind", value: 0 },
-      { type: "pm10", value: 0 },
-      { type: "pm25", value: 0 },
-      { type: "corona", value: 0 },
-      { type: "uv", value: 0 },
-      { type: "pollenRisk", value: 0 },
-      { type: "asthma", value: 0 },
-      { type: "foodPoison", value: 0 }]
-
+    // const defaultPreference = [
+    //   { type: "temp", value: 50 },
+    //   { type: "rainPer", value: 50 },
+    //   { type: "weather", value: 50 },
+    //   { type: "humidity", value: 50 },
+    //   { type: "wind", value: 0 },
+    //   { type: "pm10", value: 0 },
+    //   { type: "pm25", value: 0 },
+    //   { type: "corona", value: 0 },
+    //   { type: "uv", value: 0 },
+    //   { type: "pollenRisk", value: 0 },
+    //   { type: "asthma", value: 0 },
+    //   { type: "foodPoison", value: 0 }]
+    const defaultPreference = getState().weather.preferece;
     let preference = []
 
     if (!preferectDic) {
@@ -244,7 +319,8 @@ export const weatherActions = {
   getLocation,
   fetchCreatePreference,
   fetchUpdatePreference,
-  fetchPreference
+  fetchPreference,
+  getCardsInfo
 }
 
 export default weather;

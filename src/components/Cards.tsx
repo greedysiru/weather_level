@@ -6,10 +6,11 @@ import { Card, Grid } from './elements';
 type cardsType = {
   isFirst?: boolean;
   weatherInfo: any;
+  preference: any;
 }
 // 카드목록 컴포넌트
 const Cards = (props: cardsType) => {
-  const { isFirst, weatherInfo } = props;
+  const { isFirst, weatherInfo, preference } = props;
   // 첫 슬라이드의 카드 목록이면 4열로 보여주기
   if (isFirst) {
     return (
