@@ -3,10 +3,13 @@ import { DefaultTheme } from "styled-components";
 const theme: DefaultTheme = {
   color: {
     main: '#F6F7FB',
-    yellow: '#F9964f',
-    gray: '#EEEDED',
-    mainBlur: '#E7F0F9',
-    mainThick: '#121B46',
+    typo: '#DCDCDC',
+    icon: '#C4C4C4',
+    black: '#000000',
+    good: '#FFD459',
+    usually: '#73ABFF',
+    bad: '#738FFF',
+    veryBad: '#395580',
   },
   view: {
     mobile: `(max-width: 767px)`,
