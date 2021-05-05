@@ -1,4 +1,5 @@
 import { createReducer, createAction, PayloadAction } from '@reduxjs/toolkit';
+import { loadavg } from 'node:os';
 
 // 날씨 정보를 관리하는 모듈
 
@@ -126,8 +127,10 @@ const weather = createReducer(initialState, {
 })
 
 // 날씨 정보 호출 후 리덕스 state에 저장
-const getWeatherInfo = (latitude: number, longitude: number) => async (dispatch) => {
+const getWeatherInfo = () => async (dispatch) => {
   try {
+    const latitude = Number(localStorage.getItem('latitude'));
+    const longitude = Number(localStorage.getItem('longitude'));
     const res = await weatherAPI.getWeather(latitude, longitude);
 
     dispatch(setWeatherInfo(res.data));
@@ -152,9 +155,11 @@ const getLocation = () => (dispatch) => {
         // 현재 사용자 위치의 위도, 경도 정보를 가져오기
 
         const { latitude, longitude } = position.coords
-        console.log(latitude, longitude)
+        // localstorage에 저장
+        localStorage.setItem('latitude', String(latitude));
+        localStorage.setItem('longitude', String(longitude));
         // 현재 위치정보를 기반으로 날씨 정보 불러오기
-        dispatch(getWeatherInfo(latitude, longitude));
+        dispatch(getWeatherInfo());
       },
       // error
       function (error) {

@@ -42,7 +42,7 @@ const MainContents = (props: mainContentsType) => {
           margin="1rem 0 1rem 0"
           height="17%"
           jc="space-between"
-          wrap
+          $wrap
         >
           <Cards
             isFirst
@@ -89,7 +89,7 @@ const MainContents = (props: mainContentsType) => {
         margin="1rem 0 1rem 0"
         height="45.8%"
         jc="space-between"
-        wrap
+        $wrap
       >
         <Cards
           weatherInfo={weatherInfo}
