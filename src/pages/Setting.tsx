@@ -9,7 +9,6 @@ import { Button, Grid, Range } from '../components/elements';
 const Setting = (props) => {
  // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
  const [isHidden, setIsHidden] = useState<boolean>(true)
- const [isNewUser, setIsNewUser] = useState<boolean>(true)
  const [userId, setUserId] = useState<string>(null)
  const dispatch = useDispatch()
  // 각 range의 상태관리
@@ -29,18 +28,9 @@ const Setting = (props) => {
 
  // localstorage에 저장된 식별자를 가져옴
  useEffect(() => {
-   let id = localStorage.getItem('weather-level')
-   
-   if(id){
-     setIsNewUser(false)      
-     
-   }else{
-     id = `wl${moment().format('YYMMDDhhmmsss')+Math.floor(Math.random()*10000)}`      
-     localStorage.setItem('weather-level',id)      
-   }
-   
-   setUserId(id)
-   dispatch(weatherActions.fetchPreference())
+   const id = localStorage.getItem('weather-level')
+   setUserId(id)   
+   dispatch(weatherActions.fetchPreference(id))
    
  }, [])
 
@@ -110,14 +100,16 @@ const Setting = (props) => {
      foodPoisonRange:foodPoison
    }
 
-   dispatch(weatherActions.fetchCreatePreference(userId,data))
-       
-   /* if(isNewUser){
-     dispatch(weatherActions.fetchCreatePreference(userId,data))
-   }else{
+   if(userId){
+     console.log('userId put',userId)
      dispatch(weatherActions.fetchUpdatePreference(userId,data))
-   }  */
-  
+   }else{
+      const id = `wl${moment().format('YYMMDDhhmmsss')+Math.floor(Math.random()*10000)}`      
+      localStorage.setItem('weather-level',id)            
+      dispatch(weatherActions.fetchCreatePreference(id,data))
+   }
+
+
  }
 
  const onCancle = ()=>{

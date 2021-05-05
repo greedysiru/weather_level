@@ -71,7 +71,21 @@ type weatherType = {
   };
   // 날씨 정보 로드 상태
   isLoaded: boolean;
-
+  preference:{
+    asthma: number;
+    corona: number;
+    foodPoison: number;
+    humidity: number;
+    identification: string;
+    pm10: number;
+    pm25: number;
+    pollenRisk: number;
+    rainPer: number;
+    temp: number;
+    uv: number;
+    weather: number;
+    wind: number;
+  }
 
 }
 
@@ -521,6 +535,7 @@ export const initialState: weatherType = {
   ,
   // 날씨 정보 로드 상태
   isLoaded: false,
+  preference:null
 }
 
 // 날씨 정보를 받아오는 액션 생성 함수
@@ -529,6 +544,7 @@ const setWeatherInfo = createAction<unknown>('weather/SETWEATHERINFO');
 // const getPosition = createAction<Object>('weather/GETPOSITION');
 // 로드 상태를 변경하는 액션 생성 함수
 const setLoad = createAction<boolean>('weather/SETLOAD');
+const setPreference = createAction<unknown>('weather/SET_PREFERENCE');
 
 
 const weather = createReducer(initialState, {
@@ -537,6 +553,9 @@ const weather = createReducer(initialState, {
   },
   [setLoad.type]: (state: weatherType, action: PayloadAction<boolean>) => {
     state.isLoaded = action.payload;
+  },
+  [setPreference.type]: (state: weatherType, action: PayloadAction<any>) => {
+    state.preference = action.payload;
   },
 
   // [getPosition.type]: (state: weatherType, action: PayloadAction<{ latitude: number, longitude: number }>) => {
@@ -627,9 +646,9 @@ const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispa
   }
 };
 
-const fetchPreference = () => async (dispatch, getState, { history }) => {
+const fetchPreference = (id:string) => async (dispatch, getState, { history }) => {
   try {
-    const res = await weatherAPI.fetchPreference();
+    const res = await weatherAPI.fetchPreference(id);
     console.log(res)
     // 회원가입 페이지에서 벨리데이션 표시
     // dispatch(setIsValidEmailMultiple(true));

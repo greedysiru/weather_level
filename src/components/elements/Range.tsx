@@ -31,7 +31,7 @@ const Range = (props: RangeType) => {
         <ElRange
           type="range"
           min='0'
-          max='10'
+          max='100'
           defaultValue={value}
           onChange={onChangeRange}
         />
