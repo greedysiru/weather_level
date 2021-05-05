@@ -83,7 +83,7 @@ export const initialState: weatherType = {
   weatherInfo: null,
   // 날씨 정보 로드 상태
   isLoaded: false,
-  preference:[]
+  preference: []
 }
 
 // 날씨 정보를 받아오는 액션 생성 함수
@@ -102,7 +102,7 @@ const weather = createReducer(initialState, {
   [setLoad.type]: (state: weatherType, action: PayloadAction<boolean>) => {
     state.isLoaded = action.payload;
   },
-  [setPreference.type]: (state: weatherType, action: PayloadAction<any>) => {    
+  [setPreference.type]: (state: weatherType, action: PayloadAction<any>) => {
     state.preference = action.payload;
   },
 
@@ -171,43 +171,43 @@ export type preferenceType = {
 
 // setting preference 생성
 
-const fetchPreference = (id:string) => async (dispatch, getState, { history }) => {
+const fetchPreference = (id: string) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.fetchPreference(id)
     const preferectDic = res.data
-    
+
     const defaultPreference = [
-      {type: "temp", value: 50},
-      {type: "rainPer", value: 50},
-      {type: "weather", value: 50},
-      {type: "humidity", value: 50},
-      {type: "wind", value: 0},
-      {type: "pm10", value: 0},
-      {type: "pm25", value: 0},
-      {type: "corona", value: 0},
-      {type: "uv", value: 0},
-      {type: "pollenRisk", value: 0},
-      {type: "asthma", value: 0},
-      {type: "foodPoison", value: 0}]
+      { type: "temp", value: 50 },
+      { type: "rainPer", value: 50 },
+      { type: "weather", value: 50 },
+      { type: "humidity", value: 50 },
+      { type: "wind", value: 0 },
+      { type: "pm10", value: 0 },
+      { type: "pm25", value: 0 },
+      { type: "corona", value: 0 },
+      { type: "uv", value: 0 },
+      { type: "pollenRisk", value: 0 },
+      { type: "asthma", value: 0 },
+      { type: "foodPoison", value: 0 }]
 
     let preference = []
 
-    if(!preferectDic){
+    if (!preferectDic) {
       preference = defaultPreference
-    }else{
-      Object.keys(preferectDic).forEach((key,idx)=>{
-        if(key !== 'identification'){
-          preference.push({type: key, value:preferectDic[key]})       
-        }      
+    } else {
+      Object.keys(preferectDic).forEach((key, idx) => {
+        if (key !== 'identification') {
+          preference.push({ type: key, value: preferectDic[key] })
+        }
       })
-  
-      preference.sort((a,b)=>{            
-        return b.value-a.value
-      })       
+
+      preference.sort((a, b) => {
+        return b.value - a.value
+      })
     }
-      
+
     dispatch(setPreference(preference))
-  }catch (error) {
+  } catch (error) {
     // 에러페이지로 이동?
     console.error(error)
   }
@@ -216,10 +216,10 @@ const fetchPreference = (id:string) => async (dispatch, getState, { history }) =
 const fetchCreatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.createPreference(id, data);
-    
+
     dispatch(fetchPreference(id))
     alert('선호도를 저장했습니다 :)')
-    
+
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error)
@@ -231,7 +231,7 @@ const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispa
     const res = await weatherAPI.updatePreference(id, data);
     dispatch(fetchPreference(id))
     alert('선호도를 수정했습니다 :)')
-    
+
   } catch (error) {
     // 에러페이지로 이동?
     console.error(error)
