@@ -25,26 +25,21 @@ const DetailWeekly = props => {
     // 나머지    
     const Content = weekInfo?.[category]?.map((data,idx)=>{   
         let propsData = data
-        if(category === 'tmp'){
+        if(category === 'tmp' || category === 'weather' ){
             propsData = {
                 max:maxTmp[idx],
                 min:minTmp[idx],
-                tmp:data
-            }
-        }
-
-        if(category === 'weather'){
-            propsData = {
-                weather:data,
+                tmp:tmp[idx],
+                weather:weather[idx],
                 des:weatherDes[idx]
             }
         }
-        
+                
         return <LongCard type={category} key={idx} day={dayOfWeek?.[idx]} data={propsData} />
     }) 
 
     const title = {
-        tmp:'기온',
+        tmp:'날씨',
         weather:'날씨',
         humidity:'습도',
         rainPer:'강수확률',

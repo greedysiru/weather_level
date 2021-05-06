@@ -19,20 +19,33 @@ const LongCard = (props: LongCardType) => {
   const style = {
     height
   }
+
+  const unit = {
+    humidity:'%',
+    rainPer:'%',
+    windSpeed:'m/s'
+  }
+  
   return (
 
     <ElLongCard
       {...style}
     >  <Text>{day}</Text>
-        <Icon>아이콘</Icon>
-        {type==='etc' && <Text>{data}</Text>}
-        {type==='tmp' && <Temp>
+        
+        {/* data 내용 */}
+        {type!=='tmp'&&type!=='weather'  && (<><Icon>아이콘</Icon><Text>{data}{unit[type]}</Text></>)}
+        {type==='tmp'||type==='weather' && 
+                          <>
+                          <Icon>{data.weather}</Icon>
+                          <Temp>
                             <Grid isColumn>
                               <TempText max>{data.max}</TempText>
                               <TempText>{data.min}</TempText>
                             </Grid>
                             <Text>{data.tmp}°C</Text>
-                          </Temp>}
+                          </Temp>
+                          </>}
+        
     </ElLongCard>
   )
 }
