@@ -13,7 +13,6 @@ type LongCardType = {
   isFirst?: boolean;
 };
 
-// 푸터 컴포넌트
 const LongCard = (props: LongCardType) => {
   const { height, day, data, type, isFirst } = props;
   const style = {
@@ -29,31 +28,31 @@ const LongCard = (props: LongCardType) => {
 
   return (
     <ElLongCard {...style}>
-      {' '}
-      <Text>{day}</Text>
+      <Grid width="30%">
+        <Text>{day}</Text>
+      </Grid>
       {/* data 내용 */}
       {type !== 'tmp' && type !== 'weather' && (
-        <>
+        <Grid width="30%">
           <Icon>아이콘</Icon>
           <Text>
             {data}
             {unit[type]}
           </Text>
+        </Grid>
+      )}
+      {type === 'weather' && (
+        <>
+          <Icon>{data.weather}</Icon>
+          <Temp>
+            <Grid isColumn>
+              <TempText max="true">{data.max}</TempText>
+              <TempText>{data.min}</TempText>
+            </Grid>
+            <Text>{data.tmp}</Text>
+          </Temp>
         </>
       )}
-      {type === 'tmp' ||
-        (type === 'weather' && (
-          <>
-            <Icon>{data.weather}</Icon>
-            <Temp>
-              <Grid isColumn>
-                <TempText max>{data.max}</TempText>
-                <TempText>{data.min}</TempText>
-              </Grid>
-              <Text>{data.tmp}°C</Text>
-            </Temp>
-          </>
-        ))}
     </ElLongCard>
   );
 };
@@ -65,9 +64,9 @@ LongCard.defaultProps = {
 
 const ElLongCard = styled.div<LongCardType>`
   ${(props) => props.theme.flex.row};
-  justify-content: space-around;
+  justify-content: space-between;
   width: 60%;
-  padding: 1rem;
+  padding: 1rem 3rem;
   height: ${(props) => (props.isFirst ? `15%` : `10%`)};
   border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -76,6 +75,8 @@ const ElLongCard = styled.div<LongCardType>`
 const Text = styled.div`
   font-weight: bold;
   font-size: 1.5rem;
+  width: 80px;
+  text-align: center;
 `;
 
 const Icon = styled.div``;
@@ -85,7 +86,7 @@ const Temp = styled.div`
   width: 100px;
 `;
 
-const TempText = styled.span<{ max: string }>`
+const TempText = styled.span<{ max?: boolean }>`
   color: ${(props) => (props.max ? props.theme.color.veryBad : props.theme.color.usually)};
 `;
 

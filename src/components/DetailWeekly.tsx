@@ -11,9 +11,8 @@ import TimeInfo from './TimeInfo';
 
 const DetailWeekly = (props) => {
   const { category } = props;
-  const dispatch = useDispatch();
+
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
-  const time = useSelector((state: RootState) => state.time);
 
   const weekInfo = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo);
 
