@@ -52,7 +52,7 @@ const getTimeInfo = () => (dispatch, getState) => {
   const monthDayTime = `${month} ${date} ${hours}`;
   // 필요한 dailyTime 인덱스 찾기
   const { dailyTime } = getState().weather.weatherInfo.dayInfo;
-  let idx: number = dailyTime.indexOf('05 05 01');
+  let idx: number = dailyTime.indexOf(monthDayTime);
   // let idx: number = dailyTime.indexOf(monthDayTime);
   // 현재 시간으로부터 필요한 인덱스 배열 만들기
   const timeIndex: number[] = [];

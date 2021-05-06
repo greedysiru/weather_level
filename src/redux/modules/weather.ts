@@ -1,5 +1,4 @@
 import { createReducer, createAction, PayloadAction } from '@reduxjs/toolkit';
-import { loadavg } from 'node:os';
 
 // 날씨 정보를 관리하는 모듈
 
@@ -146,8 +145,7 @@ const getWeatherInfo = () => async (dispatch) => {
     dispatch(setWeatherInfo(res.data));
     // 현재 시간 기록하기
     dispatch(timeActions.getTimeInfo());
-    // 로드 상태 ture(로딩 완료)
-    dispatch(setLoad(true));
+
     // 카드 정보 만들기
     dispatch(getCardsInfo());
   }
@@ -240,7 +238,8 @@ const getCardsInfo = () => async (dispatch, getState) => {
     }
     // 카드 정보 넣기
     dispatch(setCardsInfo({ first, second }));
-
+    // 로드 상태 ture(로딩 완료)
+    dispatch(setLoad(true));
   } catch (error) {
     console.log(error);
   }

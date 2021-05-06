@@ -13,9 +13,6 @@ import theme from './styles/theme';
 import reportWebVitals from './reportWebVitals';
 
 
-// AppLayout
-import AppLayout from './components/AppLayout';
-
 import App from './shared/App';
 
 ReactDOM.render(
