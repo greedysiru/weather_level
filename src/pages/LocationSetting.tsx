@@ -39,7 +39,7 @@ const LocationSetting = props => {
     // 위도 경도 localStorage에 저장
     const setLocation = (latitude:string, longitude:string)=>{
         localStorage.setItem('longitude',longitude)
-        localStorage.setItem('latitue',latitude)
+        localStorage.setItem('latitude',latitude)
     }
 
     // 현재위치 설정

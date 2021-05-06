@@ -1,113 +1,60 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'src/redux/modules'
-import { timeActions } from 'src/redux/modules/time'
-import styled from 'styled-components'
-import { weatherActions } from 'src/redux/modules/weather'
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'src/redux/modules';
+import { timeActions } from 'src/redux/modules/time';
+import styled from 'styled-components';
+import { weatherActions } from 'src/redux/modules/weather';
 
-import { LongCard } from './elements'
-import TimeInfo from './TimeInfo'
+import { LongCard } from './elements';
+import TimeInfo from './TimeInfo';
 
-const DetailWeekly = props => {
-    const {category} = props
-    const dispatch = useDispatch()
-    const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
-    const weekInfo = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo)
-      
-    
-    const {humidity,maxTmp,minTmp,rainPer,tmp,weather,weatherDes,windSpeed} = weekInfo
-    
-    // temp정보
+const DetailWeekly = (props) => {
+  const { category } = props;
+  const dispatch = useDispatch();
+  const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
+  const time = useSelector((state: RootState) => state.time);
 
-    // 날씨정보
+  const weekInfo = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo);
 
-    // 나머지    
-    const Content = weekInfo?.[category]?.map((data,idx)=>{   
-        let propsData = data
-        if(category === 'tmp' || category === 'weather' ){
-            propsData = {
-                max:maxTmp[idx],
-                min:minTmp[idx],
-                tmp:tmp[idx],
-                weather:weather[idx],
-                des:weatherDes[idx]
-            }
-        }
-                
-        return <LongCard type={category} key={idx} day={dayOfWeek?.[idx]} data={propsData} />
-    }) 
+  const { humidity, maxTmp, minTmp, rainPer, tmp, weather, weatherDes, windSpeed } = weekInfo;
 
-    const title = {
-        tmp:'날씨',
-        weather:'날씨',
-        humidity:'습도',
-        rainPer:'강수확률',
-        windSpeed:'바람'
-    }
+  const Content = weekInfo?.[category]?.map((data, idx) => {
+    return <LongCard isFirst={idx === 0} type={category} key={idx} day={dayOfWeek?.[idx]} data={data} />;
+  });
 
+  const title = {
+    tmp: '날씨',
+    weather: '날씨',
+    humidity: '습도',
+    rainPer: '강수확률',
+    windSpeed: '바람',
+  };
 
-
-   
-    return (
-        <Container>
-            <Title>{title[category]}</Title>
-            <Contents>
-                {Content}
-            </Contents>
-            
-            {/* <Contents>                
-                <TimeInfo
-                    info={humidity}
-                    label="습도"
-                    dayOfWeek={dayOfWeek}
-                    score
-                />
-                <TimeInfo
-                    info={weather}
-                    label="날씨"
-                    dayOfWeek={dayOfWeek}
-                    score
-                />
-                <TimeInfo
-                    info={rainPer}
-                    label="강수확률"
-                    dayOfWeek={dayOfWeek}
-                    score
-                />
-                <TimeInfo
-                    info={windSpeed}
-                    label="풍속"
-                    dayOfWeek={dayOfWeek}
-                    score
-                /> 
-            </Contents> */}
-        </Container>
-    )
-}
+  return (
+    <Container>
+      <Title>{title[category]}</Title>
+      <Contents>{Content}</Contents>
+    </Container>
+  );
+};
 const Container = styled.div`
-    width:100%;
-    height:100%;    
-    ${props=>props.theme.flex.column};
-
-  
-`
+  width: 100%;
+  height: 100%;
+  ${(props) => props.theme.flex.column};
+`;
 
 const Title = styled.div`
-    font-size:2rem;
-`
+  font-size: 2rem;
+  margin: 1rem;
+`;
 
 const Contents = styled.div`
-    width:100%;
-    height:100%;    
-    ${props=>props.theme.flex.column};
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  ${(props) => props.theme.flex.column};
+`;
 
-    &:first-child{
-        background-color:yellow
-    }
-`
-
-const Card = styled.div`
-      
-`
-export default DetailWeekly
+const Card = styled.div``;
+export default DetailWeekly;
