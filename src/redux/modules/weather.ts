@@ -74,6 +74,8 @@ type weatherType = {
   preference: any;
   //  카드 정보들
   cardsInfo: any;
+  // 오늘 날씨
+  todayWeather: string[];
 }
 
 
@@ -107,6 +109,7 @@ export const initialState: weatherType = {
     { type: "asthma", value: 0 },
     { type: "foodPoison", value: 0 }],
   cardsInfo: [],
+  todayWeather: [],
 }
 
 
@@ -118,6 +121,8 @@ const setLoad = createAction<boolean>('weather/SET_LOAD');
 const setPreference = createAction<unknown>('weather/SET_PREFERENCE');
 // preference의 순서대로 카드 정보를 가져오는 함수
 const setCardsInfo = createAction<unknown>('weather/SET_CARDSINFO');
+// 오늘 날씨를 저장하는 함수
+const setTodayWeather = createAction<unknown>('weather/SET_TODAY_WEATHER');
 
 
 const weather = createReducer(initialState, {
@@ -132,6 +137,9 @@ const weather = createReducer(initialState, {
   },
   [setCardsInfo.type]: (state: weatherType, action: PayloadAction<any>) => {
     state.cardsInfo = action.payload;
+  },
+  [setTodayWeather.type]: (state: weatherType, action: PayloadAction<[]>) => {
+    state.todayWeather = action.payload;
   }
 })
 
@@ -232,60 +240,60 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
   // 식중독 지수
   if (type === "foodPoison") {
     if (value <= 55) {
-      return ['good', '좋음']
+      return ['good', '낮음']
     }
     if (value <= 70) {
       return ['usually', '보통']
     }
     if (value <= 85) {
-      return ['bad', '나쁨']
+      return ['bad', '높음']
     }
     if (value > 85) {
-      return ['veryBad', '매우나쁨']
+      return ['veryBad', '매우높음']
     }
   }
   // 자외선 지수
   if (type === "uv") {
     if (value <= 2) {
-      return ['good', '좋음']
+      return ['good', '낮음']
     }
     if (value <= 5) {
       return ['usually', '보통']
     }
     if (value <= 7) {
-      return ['bad', '나쁨']
+      return ['bad', '높음']
     }
     if (value > 7) {
-      return ['veryBad', '매우나쁨']
+      return ['veryBad', '매우높음']
     }
   }
   // 천식폐질환
   if (type === "asthma") {
-    if (value === 0) {
+    if (value === '0') {
       return ['good', '낮음']
     }
-    if (value === 1) {
+    if (value === '1') {
       return ['usually', '보통']
     }
-    if (value === 2) {
+    if (value === '2') {
       return ['bad', '높음']
     }
-    if (value === 3) {
+    if (value === '3') {
       return ['veryBad', '매우높음']
     }
   }
   // 꽃가루
   if (type === "pollenRisk") {
-    if (value === 0) {
+    if (value === '0') {
       return ['good', '낮음']
     }
-    if (value === 1) {
+    if (value === '1') {
       return ['usually', '보통']
     }
-    if (value === 2) {
+    if (value === '2') {
       return ['bad', '높음']
     }
-    if (value === 3) {
+    if (value === '3') {
       return ['veryBad', '매우높음']
     }
   }
@@ -342,6 +350,9 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
     if (value === 'overcast clouds') {
       return ['bad', '흐림']
     }
+    if (value === 'moderate rain') {
+      return ['bad', '적당한 비']
+    }
     if (value === 'rain') {
       return ['bad', '비']
     }
@@ -373,25 +384,25 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
   // 습도
   if (type === "humidity") {
     if (value >= 0 && value < 20) {
-      return ['veryBad', '매우 건조']
+      return ['veryBad', '매우건조']
     }
     if (value >= 20 && value < 30) {
       return ['bad', '건조']
     }
     if (value >= 30 && value < 40) {
-      return ['usually', '약간 건조']
+      return ['usually', '약간건조']
     }
     if (value >= 40 && value < 60) {
       return ['good', '쾌적']
     }
     if (value >= 60 && value < 70) {
-      return ['usually', '약간 습함']
+      return ['usually', '약간습함']
     }
     if (value >= 70 && value < 80) {
       return ['bad', '습함']
     }
     if (value >= 80) {
-      return ['veryBad', '매우 습함']
+      return ['veryBad', '매우습함']
     }
   }
   // 기온
@@ -450,11 +461,17 @@ const getCardsInfo = () => async (dispatch, getState) => {
         const { type } = preference[i];
         const { label, value } = defaultCardData[type];
         description = dispatch(convertWeaterInfo(type, value));
+        if (type === 'weather') {
+          dispatch(setTodayWeather([...description, value]));
+        }
         first.push({ type, label, value, description });
       } else {
         const { type } = preference[i];
         const { label, value } = defaultCardData[type];
         description = dispatch(convertWeaterInfo(type, value));
+        if (type === 'weather') {
+          dispatch(setTodayWeather([...description, value]));
+        }
         second.push({ type, label, value, description });
       }
     }
@@ -472,7 +489,6 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
   try {
     const id = localStorage.getItem('weather-level');
     const res = await weatherAPI.fetchPreference(id);
-    console.log(res)
     const preferectDic = res.data
     
     const defaultPreference = [

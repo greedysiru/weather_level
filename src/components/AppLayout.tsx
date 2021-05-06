@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
+
 function AppLayout(props) {
   const { children } = props
   useEffect(() => {

@@ -9,6 +9,7 @@ import "swiper/components/pagination/pagination.min.css";
 // 리덕스
 import { useSelector } from 'react-redux';
 
+
 // elements
 import { Grid, Button, Image, Input, Text, Range } from '../components/elements'
 
@@ -21,19 +22,21 @@ import Footer from '../components/Footer';
 // RootState
 import { RootState } from '../redux/modules';
 
+
+
 // install Swiper modules
 SwiperCore.use([Pagination]);
 
 const Main = (props) => {
   // 날씨 정보 로드 여부 가져오기
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
-  const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
   // 날씨정보 로드 전
   if (!isLoaded) {
     return null
   }
   // 날씨정보 로드 후
   return (
+
     <>
       <Grid
         isColumn
@@ -63,9 +66,7 @@ const Main = (props) => {
             }}
           >
             {/* 점수 */}
-            <Score
-              todayScore={todayScore}
-            />
+            <Score />
             {/* 카드 (4열) */}
             <MainContents isFirst />
           </SwiperSlide>
