@@ -32,7 +32,7 @@ const Setting = (props) => {
   useEffect(() => {
     const id = localStorage.getItem('weather-level')
     setUserId(id)
-    dispatch(weatherActions.fetchPreference(id))
+    dispatch(weatherActions.fetchPreference())
 
   }, [])
 
@@ -95,7 +95,7 @@ const Setting = (props) => {
 
   const onCancle = () => {
     setIsHidden(true)
-    dispatch(weatherActions.fetchPreference(userId))
+    dispatch(weatherActions.fetchPreference())
   }
 
   return (

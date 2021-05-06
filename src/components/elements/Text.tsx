@@ -13,7 +13,6 @@ type TextType = {
 const Text = (props: TextType) => {
 
   const { bold, color, size, children, margin } = props;
-
   const styles = { bold, color, size, margin };
   return (
     <P {...styles}>
