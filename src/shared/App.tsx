@@ -32,8 +32,7 @@ function App() {
     dispatch(weatherActions.getLocation());
 
     // preference
-    dispatch(weatherActions.fetchPreference());
-    
+    // dispatch(weatherActions.fetchPreference());
   }, [])
   return (
     <ConnectedRouter history={history}>

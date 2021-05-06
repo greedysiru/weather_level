@@ -41,7 +41,7 @@ const MainContents = (props: mainContentsType) => {
       <>
         {/* 카드 콘텐츠(4열) */}
         <Grid
-          margin="1rem 0 1rem 0"
+          margin="1rem 0 2rem 0"
           height="17%"
           jc="space-between"
           $wrap
@@ -58,7 +58,7 @@ const MainContents = (props: mainContentsType) => {
           timeIndex={timeIndex}
           hours={hours}
           dailyTime={dailyTime}
-          label='시간대별 기온 날씨'
+          label='시간대별 날씨'
         />
       </>
     )
@@ -70,7 +70,8 @@ const MainContents = (props: mainContentsType) => {
       height="100%"
       overFlow
       isColumn
-      padding="2rem 2rem 0 2rem"
+      jc="flex-start"
+      padding="0 2rem 0 2rem"
     >
       {/* 이번주 외출 점수 */}
       <TimeInfo
@@ -89,7 +90,7 @@ const MainContents = (props: mainContentsType) => {
         label='시간대별 강수 확률'
       />
       <Grid
-        margin="1rem 0 1rem 0"
+        margin="0 0 2rem 0"
         height="45.8%"
         jc="space-between"
         $wrap

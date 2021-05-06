@@ -250,6 +250,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
   try {
     const id = localStorage.getItem('weather-level');
     const res = await weatherAPI.fetchPreference(id);
+    console.log(res)
     const preferectDic = res.data
     
     const defaultPreference = [

@@ -33,12 +33,15 @@ const Card = (props: cardType & CardInfoType) => {
       >
         <Grid
           isColumn
-          height="85%"
+          height="70%"
           ai="center"
           jc="space-between"
         >
           <Grid>
-            <Text bold>
+            <Text
+              bold="700"
+              size="1.4rem"
+            >
               {cardTitle}
             </Text>
           </Grid>
@@ -48,7 +51,10 @@ const Card = (props: cardType & CardInfoType) => {
           <Grid
             ai="flex-end"
           >
-            <Text bold>
+            <Text
+              bold="700"
+              size="1.4rem"
+            >
               {cardText}
             </Text>
           </Grid>

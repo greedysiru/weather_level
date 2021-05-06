@@ -27,7 +27,7 @@ SwiperCore.use([Pagination]);
 const Main = (props) => {
   // 날씨 정보 로드 여부 가져오기
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
-
+  const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
   // 날씨정보 로드 전
   if (!isLoaded) {
     return null
@@ -41,13 +41,17 @@ const Main = (props) => {
         height="100%"
         jc="flex-start"
       >
+        <Grid
+          width='100%'
+          height='2rem'
+        />
         {/* 헤더 height: 10% */}
         <Header />
         <Swiper
           pagination className="mySwiper"
           style={{
             width: '100%',
-            height: '80%',
+            height: '78%',
           }}
         >
           {/* 첫번째 슬라이드 */}
@@ -59,7 +63,9 @@ const Main = (props) => {
             }}
           >
             {/* 점수 */}
-            <Score />
+            <Score
+              todayScore={todayScore}
+            />
             {/* 카드 (4열) */}
             <MainContents isFirst />
           </SwiperSlide>
