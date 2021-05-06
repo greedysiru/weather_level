@@ -42,7 +42,10 @@ const DetailWeekly = props => {
     return (
         <Container>
             <Title>{title[category]}</Title>
-            {Content}
+            <Contents>
+                {Content}
+            </Contents>
+            
             {/* <Contents>                
                 <TimeInfo
                     info={humidity}
@@ -74,8 +77,10 @@ const DetailWeekly = props => {
 }
 const Container = styled.div`
     width:100%;
-    height:100%;
+    height:100%;    
     ${props=>props.theme.flex.column};
+
+  
 `
 
 const Title = styled.div`
@@ -84,10 +89,15 @@ const Title = styled.div`
 
 const Contents = styled.div`
     width:100%;
-    height:100%;
+    height:100%;    
+    ${props=>props.theme.flex.column};
+
+    &:nth-child(1){
+        background-color:yellow
+    }
 `
 
 const Card = styled.div`
-
+      
 `
 export default DetailWeekly
