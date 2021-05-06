@@ -48,7 +48,6 @@ const MainContents = (props: mainContentsType) => {
         >
           <Cards
             isFirst
-            weatherInfo={weatherInfo}
             cardsInfo={cardsInfo}
           />
         </Grid>
@@ -96,7 +95,6 @@ const MainContents = (props: mainContentsType) => {
         $wrap
       >
         <Cards
-          weatherInfo={weatherInfo}
           cardsInfo={cardsInfo}
         />
       </Grid>

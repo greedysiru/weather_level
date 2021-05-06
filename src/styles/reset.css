@@ -59,6 +59,9 @@ table {
 .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{
 	background-color: black;
 }
+#root > div > div > div.swiper-container.swiper-container-initialized.swiper-container-horizontal.swiper-container-ios.mySwiper > div.swiper-pagination.swiper-pagination-bullets{
+
+}
 
 /* 폰트 설정 */
 @font-face {

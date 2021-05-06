@@ -42,8 +42,8 @@ const Header = (props) => {
       <Grid width="50%" ai="center" jc='flex-end' height="100%">
         <Grid
           isColumn
-          width="40%"
-          ai="flex-end"
+          width="14%"
+          ai="center"
           jc="space-between"
           height="44%"
           margin="0 0.5rem 0 0"
@@ -67,7 +67,7 @@ const Header = (props) => {
           jc="flex-end"
           ai="center"
         >
-          <Text size="5rem">
+          <Text size="4.4rem">
             {todayTmp}°
           </Text>
         </Grid>
