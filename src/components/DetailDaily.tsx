@@ -16,7 +16,7 @@ SwiperCore.use([Pagination]);
 
 const DetailDaily = (props) => {
   const { category } = props;
-  // category : rainPer, tmp, weather
+
   const { dayInfo, weekInfo } = useSelector((state: RootState) => state.weather.weatherInfo);
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
 
