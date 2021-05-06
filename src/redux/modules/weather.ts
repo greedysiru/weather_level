@@ -246,9 +246,10 @@ const getCardsInfo = () => async (dispatch, getState) => {
 }
 
 // setting preference 생성
-const fetchPreference = (id: string) => async (dispatch, getState, { history }) => {
+const fetchPreference = () => async (dispatch, getState, { history }) => {
   try {
-    const res = await weatherAPI.fetchPreference(id)
+    const id = localStorage.getItem('weather-level');
+    const res = await weatherAPI.fetchPreference(id);
     const preferectDic = res.data
     // const defaultPreference = [
     //   { type: "temp", value: 50 },
@@ -291,7 +292,7 @@ const fetchCreatePreference = (id: string, data: preferenceType) => async (dispa
   try {
     const res = await weatherAPI.createPreference(id, data);
 
-    dispatch(fetchPreference(id))
+    dispatch(fetchPreference())
     alert('선호도를 저장했습니다 :)')
 
   } catch (error) {
@@ -303,7 +304,7 @@ const fetchCreatePreference = (id: string, data: preferenceType) => async (dispa
 const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.updatePreference(id, data);
-    dispatch(fetchPreference(id))
+    dispatch(fetchPreference())
     alert('선호도를 수정했습니다 :)')
 
   } catch (error) {

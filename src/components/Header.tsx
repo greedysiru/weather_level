@@ -8,6 +8,7 @@ import { Grid, Text } from './elements'
 // RootState
 import { RootState } from '../redux/modules';
 
+
 // 헤더 컴포넌트
 const Header = (props) => {
   // 사용자의 지역 정보 가져오기
@@ -28,41 +29,45 @@ const Header = (props) => {
       padding="2rem 2rem 0 2rem"
     >
       <Grid isColumn width="50%" height="100%">
-        <Text size="1.8rem" >
+        <Text size="1.6rem" >
           현재 위치
           </Text>
-        <Text size="1.8rem" bold>
+        <Text size="1.6rem" bold margin="0.5rem 0 0 0">
           {bigRegion.bigRegionName} {smallRegion.smallRegionName}
         </Text>
       </Grid>
-      <Grid width="50%" ai="center" height="100%">
+      <Grid width="50%" ai="center" jc='flex-end' height="100%">
         <Grid
           isColumn
-          width="50%"
+          width="40%"
           ai="flex-end"
-          jc="center"
-          height="100%"
+          jc="space-between"
+          height="55%"
         >
-          <Text>
+          <Text
+            color="#FF3E00"
+            bold
+          >
             {todayMaxTmp}
           </Text>
           <Text
+            bold
+            color="#1496CC"
             margin="0.5rem 0 0 0">
             {todayMinTmp}
           </Text>
         </Grid>
         <Grid
-          width="50%"
+          width="40%"
           height="100%"
-          jc="flex-start"
+          jc="flex-end"
           ai="center"
         >
-          <Text size="4rem">
-            {todayTmp}
+          <Text size="4.4rem">
+            {todayTmp}°
           </Text>
         </Grid>
-          그림
-        </Grid>
+      </Grid>
     </Grid>
   )
 }
