@@ -5,7 +5,7 @@ import styled from 'styled-components';
 type TextType = {
   color?: string;
   size?: string;
-  bold?: boolean;
+  bold?: string;
   margin?: string;
   children?: any;
 }
@@ -23,7 +23,7 @@ const Text = (props: TextType) => {
 
 Text.defaultProps = {
   children: null,
-  bold: false,
+  bold: '400',
   color: '#222831',
   size: '1.2rem',
   margin: false,
@@ -33,7 +33,7 @@ Text.defaultProps = {
 const P = styled.p<TextType>`
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
-  font-weight: ${(props) => (props.bold ? "700" : "400")};
+  font-weight: ${(props) => props.bold};
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
 `;
 

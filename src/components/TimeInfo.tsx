@@ -1,7 +1,7 @@
 import React from 'react';
 
 // styled-components
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 
 // elements
 import { Grid, Text } from './elements';
@@ -43,8 +43,8 @@ const TimeInfo = (props: TimeInfoType) => {
             ai="center"
           >
             <Text
-              size="1.4rem"
-              bold
+              size="1.5rem"
+              bold="700"
             >
               {label}
             </Text>
@@ -52,7 +52,7 @@ const TimeInfo = (props: TimeInfoType) => {
           {/* 점수 정보 */}
           <Grid
             width="100%"
-            height="70%"
+            height="50%"
           >
             {info.map((x, idx) => {
               return (
@@ -69,7 +69,7 @@ const TimeInfo = (props: TimeInfoType) => {
                     {idx === 0 ? (
                       <Text
                         size="1.2rem"
-                        bold
+                        bold="700"
                       >
                         {dayOfWeek[idx]}
                       </Text>
@@ -108,8 +108,8 @@ const TimeInfo = (props: TimeInfoType) => {
           ai="center"
         >
           <Text
-            size="1.4rem"
-            bold
+            size="1.5rem"
+            bold="700"
           >
             {label}
           </Text>
@@ -117,7 +117,7 @@ const TimeInfo = (props: TimeInfoType) => {
         {/* 날씨 정보 */}
         <Grid
           width="100%"
-          height="70%"
+          height="50%"
         >
           {info.map((x, idx) => {
             if (timeIndex.includes(idx)) {
@@ -134,15 +134,23 @@ const TimeInfo = (props: TimeInfoType) => {
                   >
                     {time === String(hours) ?
                       <Text
-                        size="1rem"
-                        bold
+                        size="1.1rem"
+                        bold="900"
                       >
                         지금
                     </Text>
-                      : time}
+                      :
+                      <Text
+                        size="1.1rem"
+                        bold="500"
+                      >
+                        {time}시
+                        </Text>
+                    }
                   </Grid>
                   <Grid
                     height="70%"
+                    ai="center"
                   >
                     그림
                   </Grid>
@@ -152,12 +160,18 @@ const TimeInfo = (props: TimeInfoType) => {
 
                     {/* 강수확률인 경우 백분율로 나타내기 */}
                     {x <= 1 ? (
-                      <Text>
-                        {x * 100}
+                      <Text
+                        size="1.3rem"
+                        bold={time === String(hours) ? '900' : '500'}
+                      >
+                        {Math.round(x * 100)}
                       </Text>
                     ) : (
-                      <Text>
-                        { Math.round(x)}
+                      <Text
+                        size="1.3rem"
+                        bold={time === String(hours) ? '900' : '500'}
+                      >
+                        { Math.round(x)}°
                       </Text>
                     )}
                   </Grid>
@@ -186,13 +200,14 @@ TimeInfo.defaultProps = {
 const ElTimeInfo = styled.div`
 display:flex;
 flex-direction: column;
-align-items: center;
+align-items: space-between;
 justify-content: center;
 width: 100%;
-height: ${(props) => (props.height ? props.height : '18%')};
-border-radius: 20px;
+height: ${(props) => (props.height ? props.height : '20%')};
+border-radius: 15px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-margin: 1rem 0;
+margin: 0 0 2rem 0;
+background-color: white;
 `
 
 

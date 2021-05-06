@@ -8,6 +8,7 @@ import { Grid, Text } from './elements'
 // RootState
 import { RootState } from '../redux/modules';
 
+import theme from '../styles/theme';
 
 // 헤더 컴포넌트
 const Header = (props) => {
@@ -17,6 +18,8 @@ const Header = (props) => {
   const weekInfo = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo);
   // 오늘 최대, 최저, 평균 기온
   const { maxTmp, minTmp, tmp } = weekInfo;
+  // 테마 색상
+  const { color } = theme;
   // 정수화 후 반올림 하기
   const todayMaxTmp = Math.round(Number(maxTmp[0]));
   const todayMinTmp = Math.round(Number(minTmp[0]));
@@ -26,13 +29,13 @@ const Header = (props) => {
       height="10%"
       ai="center"
       width="100%"
-      padding="2rem 2rem 0 2rem"
+      padding="0 2rem 0 2rem"
     >
       <Grid isColumn width="50%" height="100%">
         <Text size="1.6rem" >
           현재 위치
           </Text>
-        <Text size="1.6rem" bold margin="0.5rem 0 0 0">
+        <Text size="1.6rem" bold="700" margin="0.5rem 0 0 0">
           {bigRegion.bigRegionName} {smallRegion.smallRegionName}
         </Text>
       </Grid>
@@ -42,28 +45,29 @@ const Header = (props) => {
           width="40%"
           ai="flex-end"
           jc="space-between"
-          height="55%"
+          height="44%"
+          margin="0 0.5rem 0 0"
         >
           <Text
-            color="#FF3E00"
-            bold
+            color={color.veryBad}
+            bold="700"
           >
             {todayMaxTmp}
           </Text>
           <Text
-            bold
-            color="#1496CC"
+            bold="700"
+            color={color.good}
             margin="0.5rem 0 0 0">
             {todayMinTmp}
           </Text>
         </Grid>
         <Grid
-          width="40%"
+          width="35%"
           height="100%"
           jc="flex-end"
           ai="center"
         >
-          <Text size="4.4rem">
+          <Text size="5rem">
             {todayTmp}°
           </Text>
         </Grid>
