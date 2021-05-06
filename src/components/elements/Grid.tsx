@@ -50,7 +50,8 @@ const Container = styled.div<GridType>`
   padding: ${(props) => props.padding};
   flex-wrap: ${(props) => props.$wrap ? 'wrap' : ''};
   overflow: ${(props) => props.overFlow ? 'scroll' : ''};
-  border-radius: ${(props) => props.radius}
+  border-radius: ${(props) => props.radius};
+  
 `;
 
 export default Grid;

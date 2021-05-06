@@ -74,6 +74,8 @@ type weatherType = {
   preference: any;
   //  카드 정보들
   cardsInfo: any;
+  // 오늘 날씨
+  todayWeather: string[];
 }
 
 
@@ -107,6 +109,7 @@ export const initialState: weatherType = {
     { type: "asthma", value: 0 },
     { type: "foodPoison", value: 0 }],
   cardsInfo: [],
+  todayWeather: [],
 }
 
 
@@ -118,6 +121,8 @@ const setLoad = createAction<boolean>('weather/SET_LOAD');
 const setPreference = createAction<unknown>('weather/SET_PREFERENCE');
 // preference의 순서대로 카드 정보를 가져오는 함수
 const setCardsInfo = createAction<unknown>('weather/SET_CARDSINFO');
+// 오늘 날씨를 저장하는 함수
+const setTodayWeather = createAction<unknown>('weather/SET_TODAY_WEATHER');
 
 
 const weather = createReducer(initialState, {
@@ -132,6 +137,9 @@ const weather = createReducer(initialState, {
   },
   [setCardsInfo.type]: (state: weatherType, action: PayloadAction<any>) => {
     state.cardsInfo = action.payload;
+  },
+  [setTodayWeather.type]: (state: weatherType, action: PayloadAction<[]>) => {
+    state.todayWeather = action.payload;
   }
 })
 
@@ -342,6 +350,9 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
     if (value === 'overcast clouds') {
       return ['bad', '흐림']
     }
+    if (value === 'moderate rain') {
+      return ['bad', '적당한 비']
+    }
     if (value === 'rain') {
       return ['bad', '비']
     }
@@ -450,11 +461,17 @@ const getCardsInfo = () => async (dispatch, getState) => {
         const { type } = preference[i];
         const { label, value } = defaultCardData[type];
         description = dispatch(convertWeaterInfo(type, value));
+        if (type === 'weather') {
+          dispatch(setTodayWeather([...description, value]));
+        }
         first.push({ type, label, value, description });
       } else {
         const { type } = preference[i];
         const { label, value } = defaultCardData[type];
         description = dispatch(convertWeaterInfo(type, value));
+        if (type === 'weather') {
+          dispatch(setTodayWeather([...description, value]));
+        }
         second.push({ type, label, value, description });
       }
     }
@@ -472,7 +489,6 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
   try {
     const id = localStorage.getItem('weather-level');
     const res = await weatherAPI.fetchPreference(id);
-    console.log(res)
     const preferectDic = res.data
     // const defaultPreference = [
     //   { type: "temp", value: 50 },

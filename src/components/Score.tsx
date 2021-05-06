@@ -1,14 +1,26 @@
 import React from 'react';
-
+// 리덕스
+import { useSelector } from 'react-redux';
+// RootState
+import { RootState } from '../redux/modules';
 // elements
 import { Grid, Text, Image } from './elements';
+// weather image
+import weather from '../static/images/weather/11d.png';
 
 import theme from '../styles/theme';
 
 // 외출 점수와 캐릭터를 보여주는 컴포넌트
 const Score = (props) => {
-  const { todayScore } = props
-  const { color } = theme
+  const { color } = theme;
+  const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
+  const todayWeather = useSelector((state: RootState) => state.weather.todayWeather);
+  const { hours } = useSelector((state: RootState) => state.time);
+  // file url
+  const fileUrl = '';
+  // if (hours >= 19){
+  //   fileUrl = ''
+  // }
   return (
     <>
       <Grid
@@ -19,12 +31,13 @@ const Score = (props) => {
         ai="center"
       >
         <Image
-          size={196}
+          size={240}
+          src={weather}
         />
         <Grid
           isColumn
           width="100%"
-          margin="2rem 0 0 0 "
+
           ai="center"
         >
           <Grid
@@ -51,7 +64,7 @@ const Score = (props) => {
               size="1.4rem"
               color={color.gray3}
             >
-              오늘 날씨는 구름 조금
+              오늘 날씨는 {todayWeather[1]}
             </Text>
           </Grid>
         </Grid>
