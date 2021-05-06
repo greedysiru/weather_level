@@ -65,7 +65,7 @@ LongCard.defaultProps = {
 const ElLongCard = styled.div<LongCardType>`
   ${(props) => props.theme.flex.row};
   justify-content: space-between;
-  width: 60%;
+  width: 100%;
   padding: 1rem 3rem;
   height: ${(props) => (props.isFirst ? `15%` : `10%`)};
   border-radius: 20px;

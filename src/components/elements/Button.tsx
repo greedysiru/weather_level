@@ -10,7 +10,7 @@ type ButtonType = {
   padding?: string;
   disabled?: boolean;
   color?: string;
-}
+};
 
 const Button = (props: ButtonType) => {
   const { disabled, children, margin, width, padding, color, _onClick } = props;
@@ -24,7 +24,7 @@ const Button = (props: ButtonType) => {
 
 Button.defaultProps = {
   children: null,
-  _onClick: () => { },
+  _onClick: () => {},
   isFloat: false,
   margin: '0',
   width: '100%',
@@ -32,7 +32,6 @@ Button.defaultProps = {
   disabled: false,
   color: null,
 };
-
 
 const ElButton = styled.button<ButtonType>`
   width: ${(props) => props.width};
@@ -50,9 +49,8 @@ const ElButton = styled.button<ButtonType>`
       ? `background-color:gray; color:white`
       : `
   background-color:#212121; color:white
-  `} 
-  color:${props => props.color}
+  `}
+  color:${(props) => props.color}
 `;
-
 
 export default Button;
