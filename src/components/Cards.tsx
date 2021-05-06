@@ -5,12 +5,11 @@ import { Card, Grid } from './elements';
 
 type cardsType = {
   isFirst?: boolean;
-  weatherInfo: any;
   cardsInfo: any;
 }
 // 카드목록 컴포넌트
 const Cards = (props: cardsType) => {
-  const { isFirst, weatherInfo, cardsInfo } = props;
+  const { isFirst, cardsInfo } = props;
   const { first, second } = cardsInfo;
   // 첫 슬라이드의 카드 목록이면 4열로 보여주기
   if (isFirst) {
@@ -21,7 +20,7 @@ const Cards = (props: cardsType) => {
             key={idx}
             width="22.5%"
             cardTitle={info.label}
-            cardText={info.value}
+            cardDescription={info.description}
           />
         })}
       </>
@@ -46,7 +45,7 @@ const Cards = (props: cardsType) => {
             width="30.8%"
             height="23%"
             cardTitle={info.label}
-            cardText={info.value}
+            cardDescription={info.description}
           />
         })}
         {second.map((info, idx) => {
@@ -55,7 +54,7 @@ const Cards = (props: cardsType) => {
             width="30.8%"
             height="23%"
             cardTitle={info.label}
-            cardText={info.value}
+            cardDescription={info.description}
           />
         })}
 

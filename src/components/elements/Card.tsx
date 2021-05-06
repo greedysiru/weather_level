@@ -5,6 +5,9 @@ import styled, { withTheme } from 'styled-components';
 // elements
 import { Grid, Text } from './index';
 
+// Theme
+import theme from '../../styles/theme';
+
 type cardType = {
   width?: string;
   height?: string;
@@ -15,14 +18,23 @@ type cardType = {
 
 type CardInfoType = {
   cardTitle: string;
-  cardText: string | number;
+  cardDescription: [string, number | string];
 }
 
 // 날씨 정보를 표시하는 카드
 const Card = (props: cardType & CardInfoType) => {
   const { width, height, margin, padding, bg } = props;
   // 카드 정보
-  const { cardTitle, cardText } = props;
+  const { cardTitle, cardDescription } = props;
+  // 테마 컬러
+  const { color } = theme
+  let state = '';
+  let value: string | number = '';
+  // 카드 설명이 있을 경우 정보 가져오기
+  if (cardDescription != null) {
+    state = cardDescription[0];
+    value = cardDescription[1];
+  }
   const style = {
     width, height, margin, padding, bg
   }
@@ -41,6 +53,7 @@ const Card = (props: cardType & CardInfoType) => {
             <Text
               bold="700"
               size="1.4rem"
+
             >
               {cardTitle}
             </Text>
@@ -54,8 +67,9 @@ const Card = (props: cardType & CardInfoType) => {
             <Text
               bold="700"
               size="1.4rem"
+              color={color[state]}
             >
-              {cardText}
+              {value}
             </Text>
           </Grid>
         </Grid>
