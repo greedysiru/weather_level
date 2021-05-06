@@ -17,15 +17,30 @@ const DetailWeekly = props => {
       
     
     const {humidity,maxTmp,minTmp,rainPer,tmp,weather,weatherDes,windSpeed} = weekInfo
-
+    
     // temp정보
 
     // 날씨정보
 
     // 나머지    
-    const Content = weekInfo?.[category]?.map((data,idx)=>{        
+    const Content = weekInfo?.[category]?.map((data,idx)=>{   
+        let propsData = data
+        if(category === 'tmp'){
+            propsData = {
+                max:maxTmp[idx],
+                min:minTmp[idx],
+                tmp:data
+            }
+        }
+
+        if(category === 'weather'){
+            propsData = {
+                weather:data,
+                des:weatherDes[idx]
+            }
+        }
         
-        return <LongCard key={idx} day={dayOfWeek?.[idx]} data={data} />
+        return <LongCard type={category} key={idx} day={dayOfWeek?.[idx]} data={propsData} />
     }) 
 
     const title = {
@@ -92,7 +107,7 @@ const Contents = styled.div`
     height:100%;    
     ${props=>props.theme.flex.column};
 
-    &:nth-child(1){
+    &:first-child{
         background-color:yellow
     }
 `

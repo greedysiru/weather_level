@@ -251,20 +251,21 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
     const id = localStorage.getItem('weather-level');
     const res = await weatherAPI.fetchPreference(id);
     const preferectDic = res.data
-    // const defaultPreference = [
-    //   { type: "temp", value: 50 },
-    //   { type: "rainPer", value: 50 },
-    //   { type: "weather", value: 50 },
-    //   { type: "humidity", value: 50 },
-    //   { type: "wind", value: 0 },
-    //   { type: "pm10", value: 0 },
-    //   { type: "pm25", value: 0 },
-    //   { type: "corona", value: 0 },
-    //   { type: "uv", value: 0 },
-    //   { type: "pollenRisk", value: 0 },
-    //   { type: "asthma", value: 0 },
-    //   { type: "foodPoison", value: 0 }]
-    const defaultPreference = getState().weather.preferece;
+    
+    const defaultPreference = [
+      { type: "temp", value: 50 },
+      { type: "rainPer", value: 50 },
+      { type: "weather", value: 50 },
+      { type: "humidity", value: 50 },
+      { type: "wind", value: 0 },
+      { type: "pm10", value: 0 },
+      { type: "pm25", value: 0 },
+      { type: "corona", value: 0 },
+      { type: "uv", value: 0 },
+      { type: "pollenRisk", value: 0 },
+      { type: "asthma", value: 0 },
+      { type: "foodPoison", value: 0 }]
+    // const defaultPreference = getState().weather.preferece;
     let preference = []
 
     if (!preferectDic) {
