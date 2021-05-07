@@ -210,218 +210,218 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
   // 미세먼지
   if (type === "pm10") {
     if (value <= 30) {
-      return ['good', '좋음']
+      return ['good', '좋음', type]
     }
     if (value <= 80) {
-      return ['usually', '보통']
+      return ['usually', '보통', type]
     }
     if (value <= 150) {
-      return ['bad', '나쁨']
+      return ['bad', '나쁨', type]
     }
     if (value > 150) {
-      return ['veryBad', '매우나쁨']
+      return ['veryBad', '매우나쁨', type]
     }
   }
   // 초미세먼지
   if (type === "pm25") {
     if (value <= 15) {
-      return ['good', '좋음']
+      return ['good', '좋음', type]
     }
     if (value <= 35) {
-      return ['usually', '보통']
+      return ['usually', '보통', type]
     }
     if (value <= 75) {
-      return ['bad', '나쁨']
+      return ['bad', '나쁨', type]
     }
     if (value > 75) {
-      return ['veryBad', '매우나쁨']
+      return ['veryBad', '매우나쁨', type]
     }
   }
   // 식중독 지수
   if (type === "foodPoison") {
     if (value <= 55) {
-      return ['good', '낮음']
+      return ['good', '낮음', `three/${type}`]
     }
     if (value <= 70) {
-      return ['usually', '보통']
+      return ['usually', '보통', `three/${type}`]
     }
     if (value <= 85) {
-      return ['bad', '높음']
+      return ['bad', '높음', `three/${type}`]
     }
     if (value > 85) {
-      return ['veryBad', '매우높음']
+      return ['veryBad', '매우높음', `three/${type}`]
     }
   }
   // 자외선 지수
   if (type === "uv") {
     if (value <= 2) {
-      return ['good', '낮음']
+      return ['good', '낮음', `three/${type}`]
     }
     if (value <= 5) {
-      return ['usually', '보통']
+      return ['usually', '보통', `three/${type}`]
     }
     if (value <= 7) {
-      return ['bad', '높음']
+      return ['bad', '높음', `three/${type}`]
     }
     if (value > 7) {
-      return ['veryBad', '매우높음']
+      return ['veryBad', '매우높음', `three/${type}`]
     }
   }
   // 천식폐질환
   if (type === "asthma") {
     if (value === '0') {
-      return ['good', '낮음']
+      return ['good', '낮음', `three/${type}`]
     }
     if (value === '1') {
-      return ['usually', '보통']
+      return ['usually', '보통', `three/${type}`]
     }
     if (value === '2') {
-      return ['bad', '높음']
+      return ['bad', '높음', `three/${type}`]
     }
     if (value === '3') {
-      return ['veryBad', '매우높음']
+      return ['veryBad', '매우높음', `three/${type}`]
     }
   }
   // 꽃가루
   if (type === "pollenRisk") {
     if (value === '0') {
-      return ['good', '낮음']
+      return ['good', '낮음', `three/${type}`]
     }
     if (value === '1') {
-      return ['usually', '보통']
+      return ['usually', '보통', `three/${type}`]
     }
     if (value === '2') {
-      return ['bad', '높음']
+      return ['bad', '높음', `three/${type}`]
     }
     if (value === '3') {
-      return ['veryBad', '매우높음']
+      return ['veryBad', '매우높음', `three/${type}`]
     }
   }
   // 코로나
   if (type === "corona") {
     if (value <= 300) {
-      return ['good', value]
+      return ['good', value, type]
     }
     if (value <= 400) {
-      return ['usually', value]
+      return ['usually', value, type]
     }
     if (value <= 800) {
-      return ['bad', value]
+      return ['bad', value, type]
     }
     if (value > 800) {
-      return ['veryBad', value]
+      return ['veryBad', value, type]
     }
   }
   // 바람
   if (type === "wind") {
     if (value <= 3.3) {
-      return ['good', '남실바람']
+      return ['good', '남실바람', `weekly/${type}`]
     }
     if (value <= 5.4) {
-      return ['good', '산들바람']
+      return ['good', '산들바람', `weekly/${type}`]
     }
     if (value <= 10.7) {
-      return ['usually', '흔들바람']
+      return ['usually', '흔들바람', `weekly/${type}`]
     }
     if (value <= 13.8) {
-      return ['bad', '된바람']
+      return ['bad', '된바람', `weekly/${type}`]
     }
     if (value > 13.8) {
-      return ['veryBad', '센바람']
+      return ['veryBad', '센바람', `weekly/${type}`]
     }
   }
   // 하늘
   if (type === "weather") {
     if (value === 'clear sky') {
-      return ['good', '맑음']
+      return ['good', '맑음', `daily/${type}`]
     }
     if (value === 'few clouds') {
-      return ['good', '구름 조금']
+      return ['good', '구름 조금', `daily/${type}`]
     }
     if (value === 'scattered clouds') {
-      return ['usually', '구름 약간']
+      return ['usually', '구름 약간', `daily/${type}`]
     }
     if (value === 'broken clouds') {
-      return ['usually', '구름 많음']
+      return ['usually', '구름 많음', `daily/${type}`]
     }
     if (value === 'shower rain') {
-      return ['bad', '소나기']
+      return ['bad', '소나기', `daily/${type}`]
     }
     if (value === 'overcast clouds') {
-      return ['bad', '흐림']
+      return ['bad', '흐림', `daily/${type}`]
     }
     if (value === 'moderate rain') {
-      return ['bad', '적당한 비']
+      return ['bad', '적당한 비', `daily/${type}`]
     }
     if (value === 'rain') {
-      return ['bad', '비']
+      return ['bad', '비', `daily/${type}`]
     }
     if (value === 'snow') {
-      return ['bad', '눈']
+      return ['bad', '눈', `daily/${type}`]
     }
     if (value === 'thunderstorm') {
-      return ['veryBad', '천둥번개']
+      return ['veryBad', '천둥번개', `daily/${type}`]
     }
     if (value === 'mist') {
-      return ['veryBad', '안개']
+      return ['veryBad', '안개', `daily/${type}`]
     }
   }
   // 강수확률
   if (type === "rainPer") {
     if (value <= 2) {
-      return ['good', '낮음']
+      return ['good', '낮음', `daily/${type}`]
     }
     if (value <= 400) {
-      return ['usually', '보통']
+      return ['usually', '보통', `daily/${type}`]
     }
     if (value <= 800) {
-      return ['bad', '높음']
+      return ['bad', '높음', `daily/${type}`]
     }
     if (value > 800) {
-      return ['veryBad', '매우높음']
+      return ['veryBad', '매우높음', `daily/${type}`]
     }
   }
   // 습도
   if (type === "humidity") {
     if (value >= 0 && value < 20) {
-      return ['veryBad', '매우건조']
+      return ['veryBad', '매우건조', `weekly/${type}`]
     }
     if (value >= 20 && value < 30) {
-      return ['bad', '건조']
+      return ['bad', '건조', `weekly/${type}`]
     }
     if (value >= 30 && value < 40) {
-      return ['usually', '약간건조']
+      return ['usually', '약간건조', `weekly/${type}`]
     }
     if (value >= 40 && value < 60) {
-      return ['good', '쾌적']
+      return ['good', '쾌적', `weekly/${type}`]
     }
     if (value >= 60 && value < 70) {
-      return ['usually', '약간습함']
+      return ['usually', '약간습함', `weekly/${type}`]
     }
     if (value >= 70 && value < 80) {
-      return ['bad', '습함']
+      return ['bad', '습함', `weekly/${type}`]
     }
     if (value >= 80) {
-      return ['veryBad', '매우습함']
+      return ['veryBad', '매우습함', `weekly/${type}`]
     }
   }
   // 기온
   if (type === "temp") {
     const temperature = Math.round(value)
     if (value < 5) {
-      return ['veryBad', temperature]
+      return ['veryBad', temperature, `daily/${type}`]
     }
     if (value < 10) {
-      return ['usually', temperature]
+      return ['usually', temperature, `daily/${type}`]
     }
     if (value < 24) {
-      return ['good', temperature]
+      return ['good', temperature, `daily/${type}`]
     }
     if (value < 28) {
-      return ['bad', temperature]
+      return ['bad', temperature, `daily/${type}`]
     }
     if (value >= 24) {
-      return ['veryBad', temperature]
+      return ['veryBad', temperature, `daily/${type}`]
     }
   }
   return null;
@@ -490,7 +490,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
     const id = localStorage.getItem('weather-level');
     const res = await weatherAPI.fetchPreference(id);
     const preferectDic = res.data
-    
+
     const defaultPreference = [
       { type: "temp", value: 50 },
       { type: "rainPer", value: 50 },

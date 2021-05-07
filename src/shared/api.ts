@@ -9,7 +9,9 @@ axios.defaults.baseURL = 'http://13.125.127.68:8080';
 export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     axios.defaults.headers.common.token = '';
-    return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
+    // return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
+    return axios.get(`https://b5843381-97c3-4bfa-b943-4a50c66fa397.mock.pstmn.io/test`);
+
   },
   fetchPreference(id: string) {
     axios.defaults.headers.common.token = `${id}`;
