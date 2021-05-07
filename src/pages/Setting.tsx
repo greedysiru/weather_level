@@ -1,11 +1,55 @@
 import React from 'react';
+
+
 import { Button, Grid } from 'src/components/elements';
 import styled from 'styled-components';
 
-import logo from '../static/images/logo.png';
+// 리덕스
+import { useSelector } from 'react-redux';
+// RootState
+import { RootState } from '../redux/modules';
 
+import initialize from '../shared/kakao';
+
+// 로고
+const logo = '/assets/logo.png';
 const Setting = (props) => {
+  const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
+  const weatherDiscription = useSelector((state: RootState) => state.weather?.todayWeather[1]);
+  const { Kakao } = window;
   const { history } = props;
+
+  // 카카오
+  React.useEffect(() => {
+    initialize();
+  }, [])
+  const description = `오늘 날씨는 ${weatherDiscription}, 외출 점수는 ${todayScore}점 입니다!`
+  // 카카오 공유
+  const shareKakao = (imageUrl, description) => {
+    Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '오늘의 외출 점수는?',
+        description,
+        imageUrl,
+        link: {
+          webUrl: 'https://github.com/greedysiru',
+          mobileWebUrl: 'https://github.com/greedysiru',
+        },
+      },
+      buttons: [
+        {
+          title: '나의 외출 점수 보기',
+          link: {
+            webUrl: 'https://github.com/greedysiru',
+            mobileWebUrl: 'https://github.com/greedysiru',
+          },
+        },
+      ],
+    });
+  };
+
+
 
   const push = (path: string) => {
     history.push(path);
@@ -16,7 +60,7 @@ const Setting = (props) => {
       <Logo />
       <Grid width="100%" isColumn ai="center">
         <Menu onClick={() => history.push('/setting/preference')}>나만의 외출 난이도 설정하기</Menu>
-        <Menu>외출 점수 공유하기</Menu>
+        <Menu onClick={() => shareKakao(logo, description)}>외출 점수 공유하기</Menu>
         <Menu>불편/개선 사항 보내기</Menu>
       </Grid>
       <Button

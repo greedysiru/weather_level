@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import logo from '../static/images/logo.png'
-
 // 로고 컴포넌트
+const logo = '/assets/logo.png';
 const Logo = (props) => {
   const { history } = props;
   // main 페이지로 넘어가는 함수

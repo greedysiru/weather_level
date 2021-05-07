@@ -15,6 +15,7 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './shared/App';
 
+
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
