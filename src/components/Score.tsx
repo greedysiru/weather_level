@@ -5,13 +5,12 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/modules';
 // elements
 import { Grid, Text, Image } from './elements';
-// weather image
-import weather from '../static/images/weather/11d.png';
 
 import theme from '../styles/theme';
 
 // 외출 점수와 캐릭터를 보여주는 컴포넌트
 const Score = (props) => {
+  const weather = '/assets/weather/11d.png';
   const { color } = theme;
   const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
   const todayWeather = useSelector((state: RootState) => state.weather.todayWeather);

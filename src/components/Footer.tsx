@@ -7,7 +7,7 @@ import { Grid } from './elements';
 
 // 푸터 컴포넌트
 const Footer = (props) => {
-  const { height, margin } = props;
+  const { height, margin, history } = props;
   const style = {
     height, margin
   }
@@ -16,9 +16,34 @@ const Footer = (props) => {
     <ElFooter
       {...style}
     >
-      <Grid>
-        Footer
-        </Grid>
+
+      <Grid
+        width='30%'
+        height='90%'
+        ai="center"
+        jc="center"
+        _onClick={() => { history.push('/setting/location') }}
+      >
+        위치
+      </Grid>
+      <Grid
+        width='30%'
+        height='90%'
+        ai="center"
+        jc="center"
+        _onClick={() => { history.push('/main') }}
+      >
+        메인
+      </Grid>
+      <Grid
+        width='30%'
+        height='90%'
+        ai="center"
+        jc="center"
+        _onClick={() => { history.push('/setting') }}
+      >
+        설정
+      </Grid>
     </ElFooter>
   )
 }
@@ -29,11 +54,11 @@ Footer.defaultProps = {
 }
 
 const ElFooter = styled.div`
-position: absolute;
+position: fixed;
 bottom: 0;
 display:flex;
 align-items: center;
-jutify-contents: center;
+justify-content: center;
 width: 100%;
 height: 9%;
 background-color: white;

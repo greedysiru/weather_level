@@ -2,6 +2,8 @@ import React from 'react';
 
 import styled, { withTheme } from 'styled-components';
 
+import { history } from '../../redux/configureStore';
+
 // elements
 import { Grid, Text } from './index';
 
@@ -18,22 +20,24 @@ type cardType = {
 
 type CardInfoType = {
   cardTitle: string;
-  cardDescription: [string, number | string];
+  cardDescription: [string, number | string, string];
 }
 
 // 날씨 정보를 표시하는 카드
 const Card = (props: cardType & CardInfoType) => {
-  const { width, height, margin, padding, bg } = props;
+  const { width, height, margin, padding, bg, } = props;
   // 카드 정보
   const { cardTitle, cardDescription } = props;
   // 테마 컬러
   const { color } = theme
   let state = '';
   let value: string | number = '';
+  let historyPath = '';
   // 카드 설명이 있을 경우 정보 가져오기
   if (cardDescription != null) {
     state = cardDescription[0];
     value = cardDescription[1];
+    historyPath = cardDescription[2];
   }
   const style = {
     width, height, margin, padding, bg
@@ -42,6 +46,7 @@ const Card = (props: cardType & CardInfoType) => {
     <>
       <ElCard
         {...style}
+        onClick={() => { history.push(`/detail/${historyPath}`) }}
       >
         <Grid
           isColumn

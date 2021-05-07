@@ -14,15 +14,24 @@ type GridType = {
   $wrap?: boolean;
   overFlow?: boolean;
   radius?: string;
+  _onClick?: () => void;
 }
-const Grid = ({ width, height, isColumn, jc, ai, bg, margin, padding, children, $wrap, overFlow, radius }: GridType) => {
+const Grid = ({ width, height, isColumn, jc, ai, bg, margin, padding, children, $wrap, overFlow, radius, _onClick }: GridType) => {
   const style = {
     width, height, isColumn, jc, ai, bg, margin, padding, $wrap, overFlow, radius
   }
-  return <Container {...style}>{children}</Container>;
+  return (
+    <Container
+      {...style}
+      onClick={_onClick}
+    >
+      {children}
+    </Container>
+  );
 };
 
 Grid.defaultProps = {
+  _onClick: () => { },
   width: '100%',
   height: '',
   isColumn: false,
