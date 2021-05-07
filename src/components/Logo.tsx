@@ -5,7 +5,6 @@ import logo from '../static/images/logo.png'
 
 // 로고 컴포넌트
 const Logo = (props) => {
-  console.log(props)
   const { history } = props;
   // main 페이지로 넘어가는 함수
   const moveToMain = () => {

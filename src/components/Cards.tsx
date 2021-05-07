@@ -27,11 +27,6 @@ const Cards = (props: cardsType) => {
   return (
     <Grid height="100%">
       <Grid $wrap height="200%" jc="space-between" padding="0 0 2rem 0">
-        {first.map((info, idx) => {
-          return (
-            <Card key={idx} width="30.8%" height="23%" cardTitle={info.label} cardDescription={info.description} />
-          );
-        })}
         {second.map((info, idx) => {
           return (
             <Card key={idx} width="30.8%" height="23%" cardTitle={info.label} cardDescription={info.description} />

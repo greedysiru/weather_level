@@ -210,31 +210,31 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
   // 미세먼지
   if (type === "pm10") {
     if (value <= 30) {
-      return ['good', '좋음', type]
+      return ['good', '좋음', 'airPollution']
     }
     if (value <= 80) {
-      return ['usually', '보통', type]
+      return ['usually', '보통', 'airPollution']
     }
     if (value <= 150) {
-      return ['bad', '나쁨', type]
+      return ['bad', '나쁨', 'airPollution']
     }
     if (value > 150) {
-      return ['veryBad', '매우나쁨', type]
+      return ['veryBad', '매우나쁨', 'airPollution']
     }
   }
   // 초미세먼지
   if (type === "pm25") {
     if (value <= 15) {
-      return ['good', '좋음', type]
+      return ['good', '좋음', 'airPollution']
     }
     if (value <= 35) {
-      return ['usually', '보통', type]
+      return ['usually', '보통', 'airPollution']
     }
     if (value <= 75) {
-      return ['bad', '나쁨', type]
+      return ['bad', '나쁨', 'airPollution']
     }
     if (value > 75) {
-      return ['veryBad', '매우나쁨', type]
+      return ['veryBad', '매우나쁨', 'airPollution']
     }
   }
   // 식중독 지수
@@ -285,16 +285,16 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
   // 꽃가루
   if (type === "pollenRisk") {
     if (value === '0') {
-      return ['good', '낮음', `three/${type}`]
+      return ['good', '낮음', `three/oakPollenRisk`]
     }
     if (value === '1') {
-      return ['usually', '보통', `three/${type}`]
+      return ['usually', '보통', `three/oakPollenRisk`]
     }
     if (value === '2') {
-      return ['bad', '높음', `three/${type}`]
+      return ['bad', '높음', `three/oakPollenRisk`]
     }
     if (value === '3') {
-      return ['veryBad', '매우높음', `three/${type}`]
+      return ['veryBad', '매우높음', `three/oakPollenRisk`]
     }
   }
   // 코로나
@@ -409,19 +409,19 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
   if (type === "temp") {
     const temperature = Math.round(value)
     if (value < 5) {
-      return ['veryBad', temperature, `daily/${type}`]
+      return ['veryBad', temperature, `daily/tmp`]
     }
     if (value < 10) {
-      return ['usually', temperature, `daily/${type}`]
+      return ['usually', temperature, `daily/tmp`]
     }
     if (value < 24) {
-      return ['good', temperature, `daily/${type}`]
+      return ['good', temperature, `daily/tmp`]
     }
     if (value < 28) {
-      return ['bad', temperature, `daily/${type}`]
+      return ['bad', temperature, `daily/tmp`]
     }
     if (value >= 24) {
-      return ['veryBad', temperature, `daily/${type}`]
+      return ['veryBad', temperature, `daily/tmp`]
     }
   }
   return null;
@@ -441,39 +441,38 @@ const getCardsInfo = () => async (dispatch, getState) => {
       temp: { label: '기온', value: weekInfo.tmp[0] },
       rainPer: { label: '강수확률', value: weekInfo.rainPer[0] },
       weather: { label: '하늘', value: weekInfo.weatherDes[0] },
-      humidity: { label: '습도', value: weekInfo.humidity[0] },
-      wind: { label: '바람', value: weekInfo.windSpeed[0] },
+      corona: { label: '코로나', value: coronaTotalNewCaseCount },
       pm10: { label: '미세먼지', value: airPollution.pm10Value },
       pm25: { label: '초미세먼지', value: airPollution.pm25Value },
-      corona: { label: '코로나', value: coronaTotalNewCaseCount },
+      humidity: { label: '습도', value: weekInfo.humidity[0] },
+      wind: { label: '바람', value: weekInfo.windSpeed[0] },
       uv: { label: '자외선', value: livingHealthWeather.uvToday },
-      pollenRisk: { label: '꽃가루농도', value: livingHealthWeather.oakPollenRiskToday },
       asthma: { label: '폐질환위험', value: livingHealthWeather.asthmaToday },
-      foodPoison: { label: '식중독위험', value: livingHealthWeather.foodPoisonToday }
+      foodPoison: { label: '식중독위험', value: livingHealthWeather.foodPoisonToday },
+      pollenRisk: { label: '꽃가루농도', value: livingHealthWeather.oakPollenRiskToday },
     }
+    // 카드 정보 키
+    const defaultCardDataKeys = Object.keys(defaultCardData);
     // 첫번째, 두번째 슬라이드 카드
     const first = [];
     const second = [];
     let description = [];
     // preference를 참조하여 데이터 넣기
     for (let i = 0; i < 12; i += 1) {
+      // 중요도 높은 카드 정보
       if (i < 4) {
         const { type } = preference[i];
         const { label, value } = defaultCardData[type];
         description = dispatch(convertWeaterInfo(type, value));
-        if (type === 'weather') {
-          dispatch(setTodayWeather([...description, value]));
-        }
         first.push({ type, label, value, description });
-      } else {
-        const { type } = preference[i];
-        const { label, value } = defaultCardData[type];
-        description = dispatch(convertWeaterInfo(type, value));
-        if (type === 'weather') {
-          dispatch(setTodayWeather([...description, value]));
-        }
-        second.push({ type, label, value, description });
       }
+      const type = defaultCardDataKeys[i];
+      const { label, value } = defaultCardData[type];
+      description = dispatch(convertWeaterInfo(type, value));
+      if (type === 'weather') {
+        dispatch(setTodayWeather([...description, value]));
+      }
+      second.push({ type, label, value, description });
     }
     // 카드 정보 넣기
     dispatch(setCardsInfo({ first, second }));
