@@ -44,6 +44,7 @@ function App() {
           <Route path="/setting/location" exact component={LocationSetting} />
           <Route path="/setting/location/add" exact component={LocationAdd} />
           <Route path="/detail/:type/:category" exact component={Detail} />
+          <Route path="/detail/:type" exact component={Detail} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </AppLayout>
