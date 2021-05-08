@@ -5,10 +5,7 @@ import thunk from 'redux-thunk';
 
 import rootReducer from './modules';
 
-
 export const history = createBrowserHistory();
-
-
 
 // 미들웨어 적용
 // history  넣기
@@ -35,6 +32,5 @@ const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 // 미들웨어와 리듀서를 엮어 store 생성
 // const store = (initialStore) => createStore(rootReducer, enhancer);
 const store = createStore(rootReducer, enhancer);
-
 
 export default store;

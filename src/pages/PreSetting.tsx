@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import { createNewUserId } from 'src/shared/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { weatherActions } from '../redux/modules/weather';
 import { Button, Grid, Range } from '../components/elements';
@@ -84,7 +85,7 @@ const PreSetting = (props) => {
     if (userId) {
       dispatch(weatherActions.fetchUpdatePreference(userId, data));
     } else {
-      const id = `wl${moment().format('YYMMDDhhmmsss') + Math.floor(Math.random() * 10000)}`;
+      const id = createNewUserId();
       localStorage.setItem('weather-level', id);
       dispatch(weatherActions.fetchCreatePreference(id, data));
     }
