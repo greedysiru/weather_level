@@ -178,15 +178,14 @@ const getLocation = () => (dispatch) => {
       function (error) {
         alert('위치 정보를 가져올 수 없습니다.');
         console.log(error);
+        // 강남구 위경도로 불러오기
+        const longitude = 127.027610;
+        const latitude = 37.498095;
+        localStorage.setItem('latitude', String(latitude));
+        localStorage.setItem('longitude', String(longitude));
       },
     );
   } else {
-    // 강남구 위경도로 불러오기
-    const longitude = 127.027610;
-    const latitude = 37.498095;
-    // localstorage에 저장
-    localStorage.setItem('latitude', String(latitude));
-    localStorage.setItem('longitude', String(longitude));
     alert('GPS를 지원하지 않습니다.');
   }
 };
