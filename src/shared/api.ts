@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { regionType } from 'src/redux/modules/location';
 import { preferenceType } from 'src/redux/modules/weather';
 
 // axios.defaults.withCredentials = true;
@@ -11,7 +12,6 @@ export const weatherAPI = {
     axios.defaults.headers.common.token = '';
     return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
     // return axios.get(`https://b5843381-97c3-4bfa-b943-4a50c66fa397.mock.pstmn.io/test`);
-
   },
   fetchPreference(id: string) {
     axios.defaults.headers.common.token = `${id}`;
@@ -25,5 +25,27 @@ export const weatherAPI = {
   updatePreference(id: string, preferece: preferenceType) {
     axios.defaults.headers.common.token = `${id}`;
     return axios.put('/api/user/preferences', preferece);
+  },
+};
+
+// 위치 정보 관련 api
+export const locationAPI = {
+  fetchAllRegions() {
+    return axios.get('/api/region/smallregions');
+  },
+  getUserRegion() {
+    const id = localStorage.getItem('weather-level');
+    axios.defaults.headers.common.token = `${id}`;
+    return axios.get('/api/user/regions');
+  },
+  createUserRegion(data) {
+    const id = localStorage.getItem('weather-level');
+    axios.defaults.headers.common.token = `${id}`;
+    return axios.post('/api/user/regions', data);
+  },
+  updateUserRegion(data) {
+    const id = localStorage.getItem('weather-level');
+    axios.defaults.headers.common.token = `${id}`;
+    return axios.put('/api/user/regions', data);
   },
 };

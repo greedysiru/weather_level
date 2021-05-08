@@ -1,7 +1,8 @@
 import React from 'react';
 
-import LocationSetting from 'src/pages/LocationSetting';
 import Detail from 'src/pages/Detail';
+import LocationAdd from 'src/pages/LocationAdd';
+import LocationSetting from 'src/pages/LocationSetting';
 import Setting from 'src/pages/Setting';
 // Router
 
@@ -41,7 +42,9 @@ function App() {
           <Route path="/setting" exact component={Setting} />
           <Route path="/setting/preference" exact component={PreSetting} />
           <Route path="/setting/location" exact component={LocationSetting} />
+          <Route path="/setting/location/add" exact component={LocationAdd} />
           <Route path="/detail/:type/:category" exact component={Detail} />
+          <Route path="/detail/:type" exact component={Detail} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </AppLayout>

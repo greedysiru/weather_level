@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import AirPollution from 'src/components/AirPollution';
+import Corona from 'src/components/Corona';
 import DetailDaily from 'src/components/DetailDaily';
 import DetailThreeDays from 'src/components/DetailThreeDays';
 import DetailWeekly from 'src/components/DetailWeekly';
@@ -10,6 +12,7 @@ import { RootState } from '../redux/modules';
 
 const Detail = (props) => {
   const { match, history } = props;
+
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
 
   const weatherInfo = useSelector((state: RootState) => state.weather.weatherInfo);
@@ -17,6 +20,8 @@ const Detail = (props) => {
     daily: DetailDaily,
     weekly: DetailWeekly,
     three: DetailThreeDays,
+    corona: Corona,
+    airPollution: AirPollution,
   };
 
   const Component = components[match.params.type];
