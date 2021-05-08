@@ -108,6 +108,7 @@ const Title = styled.div``;
 
 const SelectBox = styled.div`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: solid 0.5px ${(props) => props.theme.color.purple};
   background-color: white;
   width: 100%;
   height: 50%;

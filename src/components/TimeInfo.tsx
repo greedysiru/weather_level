@@ -232,9 +232,11 @@ justify-content: center;
 width: 100%;
 height: ${(props) => (props.height ? props.height : '20%')};
 border-radius: 15px;
-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+${(props) => props.theme.shadow};
 margin: 0 0 2rem 0;
 background-color: white;
+border: solid 0.5px ${(props) => props.theme.color.purple};
+
 `
 
 

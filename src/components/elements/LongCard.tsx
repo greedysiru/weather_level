@@ -69,7 +69,9 @@ const ElLongCard = styled.div<LongCardType>`
   padding: 1rem 3rem;
   height: ${(props) => (props.isFirst ? `15%` : `10%`)};
   border-radius: 20px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  ${(props) => props.theme.shadow};
+  border: solid 0.5px ${(props) => props.theme.color.purple};
+
 `;
 
 const Text = styled.div`

@@ -176,7 +176,7 @@ const getLocation = () => (dispatch) => {
       },
       // error
       function (error) {
-        alert('위치 정보 제공을 허용해주세요.');
+        alert('위치 정보를 가져올 수 없습니다.');
         console.log(error);
       },
     );

@@ -1,16 +1,18 @@
 import React from 'react';
 
+
 import Detail from 'src/pages/Detail';
 import LocationAdd from 'src/pages/LocationAdd';
 import LocationSetting from 'src/pages/LocationSetting';
 import Setting from 'src/pages/Setting';
 // Router
-
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 // 리덕스
 import { useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
+
+import initialize from '../shared/kakao';
 
 // Pages
 import Main from '../pages/Main';
@@ -32,6 +34,9 @@ function App() {
 
     // preference
     dispatch(weatherActions.fetchPreference());
+
+    // 카카오
+    initialize();
   }, []);
   return (
     <ConnectedRouter history={history}>

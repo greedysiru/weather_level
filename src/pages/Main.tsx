@@ -17,7 +17,6 @@ import { Grid, Button, Image, Input, Text, Range } from '../components/elements'
 import Header from '../components/Header';
 import Score from '../components/Score';
 import MainContents from '../components/MainContents';
-import Footer from '../components/Footer';
 
 // RootState
 import { RootState } from '../redux/modules';
@@ -82,9 +81,6 @@ const Main = (props) => {
             <MainContents />
           </SwiperSlide>
         </Swiper>
-        <Footer
-          history={history}
-        />
         {/* <Grid height="4%" ai="center">
             공백
           </Grid> */}

@@ -100,6 +100,7 @@ margin: ${(props) => props.margin};
 padding: ${(props) => props.padding};
 background-color: ${(props) => props.bg};
 border-radius: 20px;
-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+${(props) => props.theme.shadow};
+border: solid 0.5px ${(props) => props.theme.color.purple};
 `
 export default Card;
