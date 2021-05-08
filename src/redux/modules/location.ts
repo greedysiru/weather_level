@@ -16,15 +16,8 @@ type smallRegion = {
 };
 type locationType = {
   userLocationInfo: {
-    currentRegion: {
-      bigRegionName?: string;
-      smallRegionName?: string;
-    };
-    latestRequestRegion: {
-      bigRigionName?: string;
-      smallRegionName?: string;
-    };
-    oftenSeenRegions: string[];
+    currentRegion: string;
+    saveRegions: string[];
   };
   allRegion: region[];
 };
