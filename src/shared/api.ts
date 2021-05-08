@@ -10,7 +10,8 @@ axios.defaults.baseURL = 'http://13.125.127.68:8080';
 export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     const id = localStorage.getItem('weather-level');
-    axios.defaults.headers.common.token = 1234;
+
+    axios.defaults.headers.common.token = id === null ? '' : id;
 
     const selectRegion = localStorage.getItem('current-region');
 

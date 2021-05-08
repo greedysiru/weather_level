@@ -6,6 +6,9 @@ import SwiperCore, { Pagination } from 'swiper/core';
 // Swipter styles
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
+
+import styled from 'styled-components';
+
 // 리덕스
 import { useSelector } from 'react-redux';
 
@@ -79,16 +82,22 @@ const Main = (props) => {
           >
             {/* 카드 (4열) */}
             <MainContents />
+            <PagenationWrap />
           </SwiperSlide>
         </Swiper>
-        {/* <Grid height="4%" ai="center">
-            공백
-          </Grid> */}
       </Grid>
     </>
   )
-
-  return null;
 }
+
+const PagenationWrap = styled.div`
+  position: fixed;
+  bottom:0;
+  width: 100%;
+  height: 6%;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.47) 0%, #FFFFFF 100%);
+
+`
 
 export default Main;
