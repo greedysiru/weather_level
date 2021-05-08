@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import AirPollution from 'src/components/AirPollution';
-import Corona from 'src/components/Corona';
+import AirPollution from 'src/components/DetailAirPollution';
+import Corona from 'src/components/DetailCorona';
 import DetailDaily from 'src/components/DetailDaily';
 import DetailThreeDays from 'src/components/DetailThreeDays';
 import DetailWeekly from 'src/components/DetailWeekly';
@@ -46,7 +46,9 @@ const Container = styled.div`
   padding: 1.5rem;
   width: 100%;
   height: 90%;
-  ${(props) => props.theme.border_box}
+  ${(props) => props.theme.border_box};
+  ${(props) => props.theme.flex.column};
+  justify-content: center;
 `;
 
 export default Detail;

@@ -5,32 +5,52 @@ import { locationAPI } from 'src/shared/api';
 
 // type 선언
 // 초기 상태 type
+type region = {
+  bigRegionName: string;
+  smallRegionList: smallRegion[];
+};
+type smallRegion = {
+  latitude: string;
+  longitude: string;
+  smallRegionName: string;
+};
 type locationType = {
-  location: any;
+  userLocationInfo: {
+    currentRegion: {
+      bigRegionName?: string;
+      smallRegionName?: string;
+    };
+    latestRequestRegion: {
+      bigRigionName?: string;
+      smallRegionName?: string;
+    };
+    oftenSeenRegions: string[];
+  };
+  allRegion: region[];
 };
 
 export const initialState: locationType = {
-  location: null,
+  userLocationInfo: null, // 사용자 위치정보
+  allRegion: [], // 전체 지역 목록
 };
 
-// 현재 월, 일, 시간 정보와 필요한 dailyTime index를 가져오는 액션 생성 함수
-const setTimeInfo = createAction<unknown>('time/SET_TIMEINFO');
+const setUserLocationInfo = createAction<unknown>('location/SET_USER_LOCATION_INFO');
+const setAllRegion = createAction<unknown>('location/SET_ALL_REGION');
 
-const time = createReducer(initialState, {
-  [setTimeInfo.type]: (
-    state: locationType,
-    action: PayloadAction<{ monthDayTime: string; timeIndex: number[]; hours: number; dayOfWeek: string[] }>,
-  ) => {
-    state.location = action.payload.monthDayTime;
+const location = createReducer(initialState, {
+  [setUserLocationInfo.type]: (state: locationType, action: PayloadAction<any>) => {
+    state.userLocationInfo = action.payload;
+  },
+  [setAllRegion.type]: (state: locationType, action: PayloadAction<any>) => {
+    state.allRegion = action.payload;
   },
 });
 
-// 시간 정보를 만드는 함수
+// 전체 지역정보
 const fetchAllResions = () => async (dispatch, getState, { history }) => {
   try {
     const res = await locationAPI.fetchAllRegions();
-
-    console.log('fetch all region', res);
+    dispatch(setAllRegion(res.data));
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
@@ -40,8 +60,7 @@ const fetchAllResions = () => async (dispatch, getState, { history }) => {
 const fetchUserRegion = () => async (dispatch, getState, { history }) => {
   try {
     const res = await locationAPI.getUserRegion();
-
-    console.log('fetch user region', res);
+    dispatch(setUserLocationInfo(res.data));
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
@@ -53,9 +72,10 @@ export type regionType = {
 };
 const fetchCreateUserRegion = (data) => async (dispatch, getState, { history }) => {
   try {
+    console.log(data);
     const res = await locationAPI.createUserRegion(data);
-
-    console.log('fetch user region', res);
+    alert('선택한 지역을 추가했습니다');
+    history.push('/setting/location');
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
@@ -80,4 +100,4 @@ export const locationActions = {
   fetchUpdateUserRegion,
 };
 
-export default time;
+export default location;

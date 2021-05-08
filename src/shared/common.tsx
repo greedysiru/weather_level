@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const convertWeaterInfo = (type, value) => {
   // 미세먼지
   if (type === 'pm10') {
@@ -214,4 +216,8 @@ export const convertWeaterInfo = (type, value) => {
     }
   }
   return null;
+};
+
+export const createNewUserId = () => {
+  return `wl${moment().format('YYMMDDhhmmsss') + Math.floor(Math.random() * 10000)}`;
 };

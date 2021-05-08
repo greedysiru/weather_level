@@ -31,12 +31,14 @@ export const weatherAPI = {
 // 위치 정보 관련 api
 export const locationAPI = {
   fetchAllRegions() {
-    return axios.get('/api/region/smallregions');
+    return axios.get('/api/regions');
   },
   getUserRegion() {
     const id = localStorage.getItem('weather-level');
     axios.defaults.headers.common.token = `${id}`;
-    return axios.get('/api/user/regions');
+    const longitude = localStorage.getItem('longitude');
+    const latitude = localStorage.getItem('latitude');
+    return axios.get(`/api/user/regions?longitude=${longitude}&latitude=${latitude}`);
   },
   createUserRegion(data) {
     const id = localStorage.getItem('weather-level');

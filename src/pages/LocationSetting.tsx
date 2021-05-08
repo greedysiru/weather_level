@@ -1,3 +1,4 @@
+import { current } from 'immer';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid } from 'src/components/elements';
@@ -7,15 +8,21 @@ import { RootState } from '../redux/modules';
 
 const LocationSetting = (props) => {
   const { history } = props;
-
   const dispatch = useDispatch();
 
-  const weatherInfo = useSelector((state: RootState) => state.weather.weatherInfo);
-
+  const [currentRegion, setCurrentRegion] = useState(null);
+  const userLocationInfo = useSelector((state: RootState) => state.location.userLocationInfo);
   useEffect(() => {
     dispatch(locationActions.fetchUserRegion());
-    dispatch(locationActions.fetchAllResions());
   }, []);
+
+  useEffect(() => {
+    if (userLocationInfo) {
+      const current = userLocationInfo.currentRegion;
+      setCurrentRegion(`${current.bigRegionName} ${current.smallRegionName}`);
+    }
+    console.log(userLocationInfo);
+  }, [userLocationInfo]);
 
   // 위도 경도 localStorage에 저장
   const setLocation = (latitude: string, longitude: string) => {
@@ -35,7 +42,6 @@ const LocationSetting = (props) => {
   const setSearchedLocation = () => {};
 
   const goAddPage = () => {
-    console.log('ㅎㅎ');
     history.push('/setting/location/add');
   };
   return (
@@ -47,7 +53,10 @@ const LocationSetting = (props) => {
         </button>
       </Grid>
       <Wrapper>
-        <LocationCard>현재 위치 : 하동군 진교면</LocationCard>
+        <LocationCard>
+          현재 위치
+          <br /> {currentRegion}
+        </LocationCard>
         <LocationCard>경남 하동군</LocationCard>
         <LocationCard>수원시 팔달구</LocationCard>
         <LocationCard>서울시 중구</LocationCard>
@@ -79,5 +88,6 @@ const LocationCard = styled.div`
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.row};
   padding: 1rem;
+  cursor: pointer;
 `;
 export default LocationSetting;

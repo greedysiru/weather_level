@@ -14,13 +14,12 @@ type weatherType = {
   weatherInfo: {
     bigRegion?: {
       bigRegionName: string;
-    },
+    };
     smallRegion?: {
       smallRegionName: string;
       longitude: string;
       latitude: string;
-    }
-    ;
+    };
     livingHealthWeather?: {
       uvToday: string;
       uvTomorrow: string;
@@ -67,6 +66,8 @@ type weatherType = {
       newForeignCaseCount: number;
     };
     coronaTotalNewCaseCount?: number;
+    coronaAllNewCaseCount?: number;
+    coronaCurrentBigRegionNewCaseCount?: number;
     dayScoreList?: number[];
   };
   // 날씨 정보 로드 상태
@@ -76,9 +77,7 @@ type weatherType = {
   cardsInfo: any;
   // 오늘 날씨
   todayWeather: string[];
-}
-
-
+};
 
 // export const initialState: weatherType = {
 //   // 날씨 정보
@@ -89,29 +88,28 @@ type weatherType = {
 //   cardsInfo: [],
 // }
 
-
 export const initialState: weatherType = {
   // 날씨 정보
   weatherInfo: null,
   // 날씨 정보 로드 상태
   isLoaded: false,
   preference: [
-    { type: "temp", value: 50 },
-    { type: "rainPer", value: 50 },
-    { type: "weather", value: 50 },
-    { type: "humidity", value: 50 },
-    { type: "wind", value: 0 },
-    { type: "pm10", value: 0 },
-    { type: "pm25", value: 0 },
-    { type: "corona", value: 0 },
-    { type: "uv", value: 0 },
-    { type: "pollenRisk", value: 0 },
-    { type: "asthma", value: 0 },
-    { type: "foodPoison", value: 0 }],
+    { type: 'temp', value: 50 },
+    { type: 'rainPer', value: 50 },
+    { type: 'weather', value: 50 },
+    { type: 'humidity', value: 50 },
+    { type: 'wind', value: 0 },
+    { type: 'pm10', value: 0 },
+    { type: 'pm25', value: 0 },
+    { type: 'corona', value: 0 },
+    { type: 'uv', value: 0 },
+    { type: 'pollenRisk', value: 0 },
+    { type: 'asthma', value: 0 },
+    { type: 'foodPoison', value: 0 },
+  ],
   cardsInfo: [],
   todayWeather: [],
-}
-
+};
 
 // 날씨 정보를 받아오는 액션 생성 함수
 const setWeatherInfo = createAction<unknown>('weather/SET_WEATHERINFO');
@@ -123,7 +121,6 @@ const setPreference = createAction<unknown>('weather/SET_PREFERENCE');
 const setCardsInfo = createAction<unknown>('weather/SET_CARDSINFO');
 // 오늘 날씨를 저장하는 함수
 const setTodayWeather = createAction<unknown>('weather/SET_TODAY_WEATHER');
-
 
 const weather = createReducer(initialState, {
   [setWeatherInfo.type]: (state: weatherType, action: PayloadAction<unknown>) => {
@@ -140,8 +137,8 @@ const weather = createReducer(initialState, {
   },
   [setTodayWeather.type]: (state: weatherType, action: PayloadAction<[]>) => {
     state.todayWeather = action.payload;
-  }
-})
+  },
+});
 
 // 날씨 정보 호출 후 리덕스 state에 저장
 const getWeatherInfo = () => async (dispatch) => {
@@ -156,15 +153,13 @@ const getWeatherInfo = () => async (dispatch) => {
 
     // 카드 정보 만들기
     dispatch(getCardsInfo());
-  }
-  catch (error) {
-    console.log(error)
+  } catch (error) {
+    console.log(error);
   }
 };
 
 // 위도, 경도 정보 가져오는 함수
 const getLocation = () => (dispatch) => {
-
   // GPS를 지원하면
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -172,7 +167,7 @@ const getLocation = () => (dispatch) => {
       function (position) {
         // 현재 사용자 위치의 위도, 경도 정보를 가져오기
 
-        const { latitude, longitude } = position.coords
+        const { latitude, longitude } = position.coords;
         // localstorage에 저장
         localStorage.setItem('latitude', String(latitude));
         localStorage.setItem('longitude', String(longitude));
@@ -183,12 +178,12 @@ const getLocation = () => (dispatch) => {
       function (error) {
         alert('위치 정보 제공을 허용해주세요.');
         console.log(error);
-      });
+      },
+    );
   } else {
-    alert('GPS를 지원하지 않습니다.')
+    alert('GPS를 지원하지 않습니다.');
   }
-}
-
+};
 
 export type preferenceType = {
   coronaRange: string;
@@ -203,236 +198,240 @@ export type preferenceType = {
   pollenRiskRange: string;
   asthmaRange: string;
   foodPoisonRange: string;
-}
+};
 
 // weatherInfo 를 기준값으로 바꾸는 함수
 const convertWeaterInfo = (type, value) => (dispatch) => {
   // 미세먼지
-  if (type === "pm10") {
+  if (type === 'pm10') {
     if (value <= 30) {
-      return ['good', '좋음', 'airPollution']
+      return ['good', '좋음', 'airPollution'];
     }
     if (value <= 80) {
-      return ['usually', '보통', 'airPollution']
+      return ['usually', '보통', 'airPollution'];
     }
     if (value <= 150) {
-      return ['bad', '나쁨', 'airPollution']
+      return ['bad', '나쁨', 'airPollution'];
     }
     if (value > 150) {
-      return ['veryBad', '매우나쁨', 'airPollution']
+      return ['veryBad', '매우나쁨', 'airPollution'];
     }
   }
   // 초미세먼지
-  if (type === "pm25") {
+  if (type === 'pm25') {
     if (value <= 15) {
-      return ['good', '좋음', 'airPollution']
+      return ['good', '좋음', 'airPollution'];
     }
     if (value <= 35) {
-      return ['usually', '보통', 'airPollution']
+      return ['usually', '보통', 'airPollution'];
     }
     if (value <= 75) {
-      return ['bad', '나쁨', 'airPollution']
+      return ['bad', '나쁨', 'airPollution'];
     }
     if (value > 75) {
-      return ['veryBad', '매우나쁨', 'airPollution']
+      return ['veryBad', '매우나쁨', 'airPollution'];
     }
   }
   // 식중독 지수
-  if (type === "foodPoison") {
+  if (type === 'foodPoison') {
     if (value <= 55) {
-      return ['good', '낮음', `three/${type}`]
+      return ['good', '낮음', `three/${type}`];
     }
     if (value <= 70) {
-      return ['usually', '보통', `three/${type}`]
+      return ['usually', '보통', `three/${type}`];
     }
     if (value <= 85) {
-      return ['bad', '높음', `three/${type}`]
+      return ['bad', '높음', `three/${type}`];
     }
     if (value > 85) {
-      return ['veryBad', '매우높음', `three/${type}`]
+      return ['veryBad', '매우높음', `three/${type}`];
     }
   }
   // 자외선 지수
-  if (type === "uv") {
+  if (type === 'uv') {
     if (value <= 2) {
-      return ['good', '낮음', `three/${type}`]
+      return ['good', '낮음', `three/${type}`];
     }
     if (value <= 5) {
-      return ['usually', '보통', `three/${type}`]
+      return ['usually', '보통', `three/${type}`];
     }
     if (value <= 7) {
-      return ['bad', '높음', `three/${type}`]
+      return ['bad', '높음', `three/${type}`];
     }
     if (value > 7) {
-      return ['veryBad', '매우높음', `three/${type}`]
+      return ['veryBad', '매우높음', `three/${type}`];
     }
   }
   // 천식폐질환
-  if (type === "asthma") {
+  if (type === 'asthma') {
     if (value === '0') {
-      return ['good', '낮음', `three/${type}`]
+      return ['good', '낮음', `three/${type}`];
     }
     if (value === '1') {
-      return ['usually', '보통', `three/${type}`]
+      return ['usually', '보통', `three/${type}`];
     }
     if (value === '2') {
-      return ['bad', '높음', `three/${type}`]
+      return ['bad', '높음', `three/${type}`];
     }
     if (value === '3') {
-      return ['veryBad', '매우높음', `three/${type}`]
+      return ['veryBad', '매우높음', `three/${type}`];
     }
   }
   // 꽃가루
-  if (type === "pollenRisk") {
+  if (type === 'pollenRisk') {
     if (value === '0') {
-      return ['good', '낮음', `three/oakPollenRisk`]
+      return ['good', '낮음', `three/oakPollenRisk`];
     }
     if (value === '1') {
-      return ['usually', '보통', `three/oakPollenRisk`]
+      return ['usually', '보통', `three/oakPollenRisk`];
     }
     if (value === '2') {
-      return ['bad', '높음', `three/oakPollenRisk`]
+      return ['bad', '높음', `three/oakPollenRisk`];
     }
     if (value === '3') {
-      return ['veryBad', '매우높음', `three/oakPollenRisk`]
+      return ['veryBad', '매우높음', `three/oakPollenRisk`];
     }
   }
   // 코로나
-  if (type === "corona") {
+  if (type === 'corona') {
     if (value <= 300) {
-      return ['good', value, type]
+      return ['good', value, type];
     }
     if (value <= 400) {
-      return ['usually', value, type]
+      return ['usually', value, type];
     }
     if (value <= 800) {
-      return ['bad', value, type]
+      return ['bad', value, type];
     }
     if (value > 800) {
-      return ['veryBad', value, type]
+      return ['veryBad', value, type];
     }
   }
   // 바람
-  if (type === "wind") {
+  if (type === 'wind') {
     if (value <= 3.3) {
-      return ['good', '남실바람', `weekly/${type}`]
+      return ['good', '남실바람', `weekly/${type}`];
     }
     if (value <= 5.4) {
-      return ['good', '산들바람', `weekly/${type}`]
+      return ['good', '산들바람', `weekly/${type}`];
     }
     if (value <= 10.7) {
-      return ['usually', '흔들바람', `weekly/${type}`]
+      return ['usually', '흔들바람', `weekly/${type}`];
     }
     if (value <= 13.8) {
-      return ['bad', '된바람', `weekly/${type}`]
+      return ['bad', '된바람', `weekly/${type}`];
     }
     if (value > 13.8) {
-      return ['veryBad', '센바람', `weekly/${type}`]
+      return ['veryBad', '센바람', `weekly/${type}`];
     }
   }
   // 하늘
-  if (type === "weather") {
+  if (type === 'weather') {
     if (value === 'clear sky') {
-      return ['good', '맑음', `daily/${type}`]
+      return ['good', '맑음', `daily/${type}`];
     }
     if (value === 'few clouds') {
-      return ['good', '구름 조금', `daily/${type}`]
+      return ['good', '구름 조금', `daily/${type}`];
     }
     if (value === 'scattered clouds') {
-      return ['usually', '구름 약간', `daily/${type}`]
+      return ['usually', '구름 약간', `daily/${type}`];
     }
     if (value === 'broken clouds') {
-      return ['usually', '구름 많음', `daily/${type}`]
+      return ['usually', '구름 많음', `daily/${type}`];
     }
     if (value === 'shower rain') {
-      return ['bad', '소나기', `daily/${type}`]
+      return ['bad', '소나기', `daily/${type}`];
     }
     if (value === 'overcast clouds') {
-      return ['bad', '흐림', `daily/${type}`]
+      return ['bad', '흐림', `daily/${type}`];
     }
     if (value === 'moderate rain') {
-      return ['bad', '적당한 비', `daily/${type}`]
+      return ['bad', '적당한 비', `daily/${type}`];
     }
     if (value === 'rain') {
-      return ['bad', '비', `daily/${type}`]
+      return ['bad', '비', `daily/${type}`];
     }
     if (value === 'snow') {
-      return ['bad', '눈', `daily/${type}`]
+      return ['bad', '눈', `daily/${type}`];
     }
     if (value === 'thunderstorm') {
-      return ['veryBad', '천둥번개', `daily/${type}`]
+      return ['veryBad', '천둥번개', `daily/${type}`];
     }
     if (value === 'mist') {
-      return ['veryBad', '안개', `daily/${type}`]
+      return ['veryBad', '안개', `daily/${type}`];
     }
   }
   // 강수확률
-  if (type === "rainPer") {
+  if (type === 'rainPer') {
     if (value <= 2) {
-      return ['good', '낮음', `daily/${type}`]
+      return ['good', '낮음', `daily/${type}`];
     }
     if (value <= 400) {
-      return ['usually', '보통', `daily/${type}`]
+      return ['usually', '보통', `daily/${type}`];
     }
     if (value <= 800) {
-      return ['bad', '높음', `daily/${type}`]
+      return ['bad', '높음', `daily/${type}`];
     }
     if (value > 800) {
-      return ['veryBad', '매우높음', `daily/${type}`]
+      return ['veryBad', '매우높음', `daily/${type}`];
     }
   }
   // 습도
-  if (type === "humidity") {
+  if (type === 'humidity') {
     if (value >= 0 && value < 20) {
-      return ['veryBad', '매우건조', `weekly/${type}`]
+      return ['veryBad', '매우건조', `weekly/${type}`];
     }
     if (value >= 20 && value < 30) {
-      return ['bad', '건조', `weekly/${type}`]
+      return ['bad', '건조', `weekly/${type}`];
     }
     if (value >= 30 && value < 40) {
-      return ['usually', '약간건조', `weekly/${type}`]
+      return ['usually', '약간건조', `weekly/${type}`];
     }
     if (value >= 40 && value < 60) {
-      return ['good', '쾌적', `weekly/${type}`]
+      return ['good', '쾌적', `weekly/${type}`];
     }
     if (value >= 60 && value < 70) {
-      return ['usually', '약간습함', `weekly/${type}`]
+      return ['usually', '약간습함', `weekly/${type}`];
     }
     if (value >= 70 && value < 80) {
-      return ['bad', '습함', `weekly/${type}`]
+      return ['bad', '습함', `weekly/${type}`];
     }
     if (value >= 80) {
-      return ['veryBad', '매우습함', `weekly/${type}`]
+      return ['veryBad', '매우습함', `weekly/${type}`];
     }
   }
   // 기온
-  if (type === "temp") {
-    const temperature = Math.round(value)
+  if (type === 'temp') {
+    const temperature = Math.round(value);
     if (value < 5) {
-      return ['veryBad', temperature, `daily/tmp`]
+      return ['veryBad', temperature, `daily/tmp`];
     }
     if (value < 10) {
-      return ['usually', temperature, `daily/tmp`]
+      return ['usually', temperature, `daily/tmp`];
     }
     if (value < 24) {
-      return ['good', temperature, `daily/tmp`]
+      return ['good', temperature, `daily/tmp`];
     }
     if (value < 28) {
-      return ['bad', temperature, `daily/tmp`]
+      return ['bad', temperature, `daily/tmp`];
     }
     if (value >= 24) {
-      return ['veryBad', temperature, `daily/tmp`]
+      return ['veryBad', temperature, `daily/tmp`];
     }
   }
   return null;
-}
+};
 
 // preference의 순서대로 카드 정보를 받아오는 함수
 const getCardsInfo = () => async (dispatch, getState) => {
   try {
     // weatherInfo
     const {
-      weekInfo, livingHealthWeather, corona, airPollution, coronaTotalNewCaseCount,
+      weekInfo,
+      livingHealthWeather,
+      corona,
+      airPollution,
+      coronaTotalNewCaseCount,
     } = getState().weather.weatherInfo;
     // preference
     const { preference } = getState().weather;
@@ -450,7 +449,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
       asthma: { label: '폐질환위험', value: livingHealthWeather.asthmaToday },
       foodPoison: { label: '식중독위험', value: livingHealthWeather.foodPoisonToday },
       pollenRisk: { label: '꽃가루농도', value: livingHealthWeather.oakPollenRiskToday },
-    }
+    };
     // 카드 정보 키
     const defaultCardDataKeys = Object.keys(defaultCardData);
     // 첫번째, 두번째 슬라이드 카드
@@ -481,49 +480,50 @@ const getCardsInfo = () => async (dispatch, getState) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 // setting preference 생성
 const fetchPreference = () => async (dispatch, getState, { history }) => {
   try {
     const id = localStorage.getItem('weather-level');
     const res = await weatherAPI.fetchPreference(id);
-    const preferectDic = res.data
+    const preferectDic = res.data;
 
     const defaultPreference = [
-      { type: "temp", value: 50 },
-      { type: "rainPer", value: 50 },
-      { type: "weather", value: 50 },
-      { type: "humidity", value: 50 },
-      { type: "wind", value: 0 },
-      { type: "pm10", value: 0 },
-      { type: "pm25", value: 0 },
-      { type: "corona", value: 0 },
-      { type: "uv", value: 0 },
-      { type: "pollenRisk", value: 0 },
-      { type: "asthma", value: 0 },
-      { type: "foodPoison", value: 0 }]
+      { type: 'temp', value: 50 },
+      { type: 'rainPer', value: 50 },
+      { type: 'weather', value: 50 },
+      { type: 'humidity', value: 50 },
+      { type: 'wind', value: 0 },
+      { type: 'pm10', value: 0 },
+      { type: 'pm25', value: 0 },
+      { type: 'corona', value: 0 },
+      { type: 'uv', value: 0 },
+      { type: 'pollenRisk', value: 0 },
+      { type: 'asthma', value: 0 },
+      { type: 'foodPoison', value: 0 },
+    ];
     // const defaultPreference = getState().weather.preferece;
-    let preference = []
+    let preference = [];
 
     if (!preferectDic) {
-      preference = defaultPreference
+      preference = defaultPreference;
     } else {
       Object.keys(preferectDic).forEach((key, idx) => {
         if (key !== 'identification') {
-          preference.push({ type: key, value: preferectDic[key] })
+          preference.push({ type: key, value: preferectDic[key] });
         }
-      })
+      });
 
       preference.sort((a, b) => {
-        return b.value - a.value
-      })
+        return b.value - a.value;
+      });
     }
 
-    dispatch(setPreference(preference))
+    dispatch(setPreference(preference));
   } catch (error) {
     // 에러페이지로 이동?
-    console.error(error)
+    console.error(error);
   }
 };
 
@@ -531,27 +531,24 @@ const fetchCreatePreference = (id: string, data: preferenceType) => async (dispa
   try {
     const res = await weatherAPI.createPreference(id, data);
 
-    dispatch(fetchPreference())
-    alert('선호도를 저장했습니다 :)')
-
+    dispatch(fetchPreference());
+    alert('선호도를 저장했습니다 :)');
   } catch (error) {
     // 에러페이지로 이동??
-    console.error(error)
+    console.error(error);
   }
 };
 
 const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.updatePreference(id, data);
-    dispatch(fetchPreference())
-    alert('선호도를 수정했습니다 :)')
-
+    dispatch(fetchPreference());
+    alert('선호도를 수정했습니다 :)');
   } catch (error) {
     // 에러페이지로 이동?
-    console.error(error)
+    console.error(error);
   }
 };
-
 
 export const weatherActions = {
   getWeatherInfo,
@@ -559,7 +556,7 @@ export const weatherActions = {
   fetchCreatePreference,
   fetchUpdatePreference,
   fetchPreference,
-  getCardsInfo
-}
+  getCardsInfo,
+};
 
 export default weather;
