@@ -10,19 +10,21 @@ axios.defaults.baseURL = 'http://13.125.127.68:8080';
 export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     const id = localStorage.getItem('weather-level');
-    axios.defaults.headers.common.token = id;
+    axios.defaults.headers.common.token = 1234;
 
     const selectRegion = localStorage.getItem('current-region');
 
     if (selectRegion) {
       const bigRegionName = selectRegion.split(' ')[0];
-      const smailResionName = selectRegion.split(' ')[1];
-      return axios.get(`/api/total/data/regionname`, {
+      const smallRegionName = selectRegion.split(' ')[1];
+      console.log(bigRegionName, smallRegionName);
+
+      /* return axios.get(`/api/total/data/regionname`, {
         params: {
           bigRegionName,
-          smailResionName,
+          smallRegionName,
         },
-      });
+      }); */
     }
 
     return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
@@ -45,6 +47,7 @@ export const weatherAPI = {
 // 위치 정보 관련 api
 export const locationAPI = {
   fetchAllRegions() {
+    axios.defaults.headers.common.token = 1234;
     return axios.get('/api/regions');
   },
   getUserRegion() {
