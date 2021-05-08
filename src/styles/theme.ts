@@ -11,6 +11,7 @@ const theme: DefaultTheme = {
     bad: '#FF900D',
     veryBad: '#FF3E00',
     gray3: '#939393',
+    purple: '#EBEBF9',
   },
   view: {
     mobile: `(max-width: 767px)`,
@@ -21,6 +22,7 @@ const theme: DefaultTheme = {
     column: 'display: flex; flex-direction:column; align-items: center; justify-content: space-between; ',
     row: 'display: flex; align-items: center; justify-content: space-between;',
   },
+  shadow: `box-shadow: 8px 8px 16px 4px rgba(133, 139, 146, 0.06)`,
   border_box: `box-sizing:border-box;`
 };
 

@@ -95,7 +95,7 @@ const Menu = styled.div`
   font-weight: 550;
   padding: 0 2rem;
   border-radius: 12px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  ${(props) => props.theme.shadow};
   margin: 0.5rem;
   cursor: pointer;
   ${(props) => props.theme.border_box}
