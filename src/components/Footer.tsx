@@ -60,7 +60,7 @@ display:flex;
 align-items: center;
 justify-content: center;
 width: 100%;
-height: 9%;
+height: 9.5%;
 background-color: white;
 
 ${(props) => props.theme.shadow};
