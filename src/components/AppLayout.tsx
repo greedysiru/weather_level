@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import Footer from './Footer';
 
+import { history } from '../redux/configureStore';
+
 function AppLayout(props) {
   const { children } = props
   useEffect(() => {
@@ -26,6 +28,7 @@ function AppLayout(props) {
   return (
     <Container>
       {children}
+      <Footer history={history} />
     </Container>
   );
 }
