@@ -181,6 +181,12 @@ const getLocation = () => (dispatch) => {
       },
     );
   } else {
+    // 강남구 위경도로 불러오기
+    const longitude = 127.027610;
+    const latitude = 37.498095;
+    // localstorage에 저장
+    localStorage.setItem('latitude', String(latitude));
+    localStorage.setItem('longitude', String(longitude));
     alert('GPS를 지원하지 않습니다.');
   }
 };
@@ -422,7 +428,7 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
   return null;
 };
 
-// preference의 순서대로 카드 정보를 받아오는 함수
+// preference의 우선순위를 적용한 카드 4개를 선택하고 카드 정보를 생성하는 함수
 const getCardsInfo = () => async (dispatch, getState) => {
   try {
     // weatherInfo

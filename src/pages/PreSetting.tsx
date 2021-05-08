@@ -89,6 +89,8 @@ const PreSetting = (props) => {
       localStorage.setItem('weather-level', id);
       dispatch(weatherActions.fetchCreatePreference(id, data));
     }
+
+    dispatch(weatherActions.getWeatherInfo());
   };
 
   const onCancle = () => {

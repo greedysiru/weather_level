@@ -9,7 +9,7 @@ import Setting from 'src/pages/Setting';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 // 리덕스
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 
 import initialize from '../shared/kakao';
