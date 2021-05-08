@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { createNewUserId } from 'src/shared/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { weatherActions } from '../redux/modules/weather';
 import { Button, Grid, Range } from '../components/elements';
+
 import { RootState } from '../redux/modules';
 
 const PreSetting = (props) => {
@@ -66,6 +68,19 @@ const PreSetting = (props) => {
     );
   });
 
+  const resetRangeValue = () => {
+    setTemp(null);
+    setRainPer(null);
+    setWeather(null);
+    setHumidity(null);
+    setWind(null);
+    setPm10(null);
+    setPm25(null);
+    setCorona(null);
+    setUv(null);
+    setPollenRisk(null);
+  };
+
   const onSave = () => {
     const data = {
       coronaRange: corona,
@@ -96,28 +111,76 @@ const PreSetting = (props) => {
     dispatch(weatherActions.fetchPreference());
   };
 
+  const handleRangeHidden = () => {
+    setIsHidden(!isHidden);
+  };
   return (
     <Container>
-      {rangeList}
-      <Grid>
-        <Button
-          _onClick={() => {
-            setIsHidden(!isHidden);
-          }}
-        >
-          {isHidden ? '더보기' : '숨기기'}
+      <Title>
+        당신이 외출할 때 <br />
+        중요하게 여기는 것을 알려주세요!
+      </Title>
+      <RangeWrapper>
+        {rangeList}
+        <ShowButton onClick={handleRangeHidden}>
+          {isHidden ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
+        </ShowButton>
+      </RangeWrapper>
+
+      <Grid jc="space-between">
+        <Button width="45%" _onClick={onSave}>
+          저장
         </Button>
-      </Grid>
-      <Grid>
-        <Button _onClick={onSave}>저장</Button>
-        <Button _onClick={onCancle}>취소</Button>
+        <Button width="45%" _onClick={onCancle}>
+          취소
+        </Button>
       </Grid>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 50%;
+  width: 360px;
+  height: 100%;
   border: 1px solid black;
+  padding: 1rem;
+  ${(props) => props.theme.flex.column};
+
+  justify-content: center;
+`;
+
+const RangeWrapper = styled.div`
+  ${(props) => props.theme.flex.column};
+  margin: 1rem;
+  background-color: white;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 14px;
+  border: solid 0.5px ${(props) => props.theme.color.purple};
+  box-shadow: ${(props) => props.theme.shadow};
+`;
+
+const Title = styled.div`
+  font-size: 1.7rem;
+  text-align: center;
+  margin: 1rem;
+`;
+
+const ShowButton = styled.div`
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
+  position: relative;
+  top: 15px;
+  cursor: pointer;
+
+  &:hover svg {
+    color: black;
+  }
+  & svg {
+    font-size: 18px;
+    color: ${(props) => props.theme.color.gray3};
+    transition: 0.3s;
+  }
 `;
 export default PreSetting;
