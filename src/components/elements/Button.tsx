@@ -35,22 +35,25 @@ Button.defaultProps = {
 
 const ElButton = styled.button<ButtonType>`
   width: ${(props) => props.width};
-  background-color: ${(props) => props.theme.main_color};
-  color: #ffffff;
+  background-color: #ffffff;
+  color: black;
   padding: ${(props) => props.padding};
   box-sizing: border-box;
-  border-radius: 12px;
+  border-radius: 14px;
   border: none;
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')};
   cursor: pointer;
-  border-color: ${(props) => (props.disabled ? 'gray' : '#ffffff')};
+  border: solid 0.5px ${(props) => props.theme.color.purple};
+  box-shadow: ${(props) => props.theme.shadow};
   ${(props) =>
     props.disabled
       ? `background-color:gray; color:white`
       : `
-  background-color:#212121; color:white
+  background-color:#ffffff; color:black
   `}
-  color:${(props) => props.color}
+  color:${(props) => props.color};
+  font-size: 1rem;
+  font-weight: bold;
 `;
 
 export default Button;

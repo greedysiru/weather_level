@@ -6,7 +6,7 @@ import Footer from './Footer';
 import { history } from '../redux/configureStore';
 
 function AppLayout(props) {
-  const { children } = props
+  const { children } = props;
   useEffect(() => {
     // 가로모드 감지, 경고창
     window.addEventListener(
@@ -16,18 +16,15 @@ function AppLayout(props) {
           if (window.innerWidth > 375) {
             return;
           }
-          window.alert(
-            '이 웹사이트는 세로모드를 권장합니다. 세로모드로 전환해주세요 🙏'
-          );
+          window.alert('이 웹사이트는 세로모드를 권장합니다. 세로모드로 전환해주세요 🙏');
         }
       },
-      false
+      false,
     );
-
   }, []);
   return (
     <Container>
-      {children}
+      <Contents>{children}</Contents>
       <Footer history={history} />
     </Container>
   );
@@ -42,5 +39,11 @@ const Container = styled.div`
   background-color: ${(props) => props.theme.color.main};
 `;
 
+const Contents = styled.div`
+  height: 100%;
+  width: 100vw;
+  ${(props) => props.theme.flex.row};
+  justify-content: center;
+`;
 
 export default AppLayout;
