@@ -32,16 +32,20 @@ const DetailThreeDays = (props) => {
         const day = key.split(category)[1];
         const value = livingHealthWeather[key];
 
+        let type = category;
+        if (category === 'oakPollenRisk') {
+          type = 'pollenRisk';
+        }
         if (day === 'Today') {
-          setTodayDes(convertWeaterInfo(category, parseInt(value, 10)));
+          setTodayDes(convertWeaterInfo(type, parseInt(value, 10)));
         }
 
         if (day === 'Tomorrow') {
-          setTomorrowDes(convertWeaterInfo(category, parseInt(value, 10)));
+          setTomorrowDes(convertWeaterInfo(type, parseInt(value, 10)));
         }
 
         if (day === 'TheDayAfterTomorrow') {
-          setAfterTomorrow(convertWeaterInfo(category, parseInt(value, 10)));
+          setAfterTomorrow(convertWeaterInfo(type, parseInt(value, 10)));
         }
       }
     }, []);
@@ -68,6 +72,7 @@ const DetailThreeDays = (props) => {
 
 const Container = styled.div`
   height: 100%;
+  width: 100%;
   ${(props) => props.theme.flex.column};
 `;
 

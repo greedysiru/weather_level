@@ -16,20 +16,20 @@ type cardType = {
   margin?: string;
   padding?: string;
   bg?: string;
-}
+};
 
 type CardInfoType = {
   cardTitle: string;
   cardDescription: [string, number | string, string];
-}
+};
 
 // 날씨 정보를 표시하는 카드
 const Card = (props: cardType & CardInfoType) => {
-  const { width, height, margin, padding, bg, } = props;
+  const { width, height, margin, padding, bg } = props;
   // 카드 정보
   const { cardTitle, cardDescription } = props;
   // 테마 컬러
-  const { color } = theme
+  const { color } = theme;
   let state = '';
   let value: string | number = '';
   let historyPath = '';
@@ -40,48 +40,38 @@ const Card = (props: cardType & CardInfoType) => {
     historyPath = cardDescription[2];
   }
   const style = {
-    width, height, margin, padding, bg
-  }
+    width,
+    height,
+    margin,
+    padding,
+    bg,
+  };
+
+  const movePage = () => {
+    if (historyPath) {
+      history.push(`/detail/${historyPath}`);
+    }
+  };
   return (
     <>
-      <ElCard
-        {...style}
-        onClick={() => { history.push(`/detail/${historyPath}`) }}
-      >
-        <Grid
-          isColumn
-          height="70%"
-          ai="center"
-          jc="space-between"
-        >
+      <ElCard {...style} onClick={movePage}>
+        <Grid isColumn height="70%" ai="center" jc="space-between">
           <Grid>
-            <Text
-              bold="700"
-              size="1.4rem"
-
-            >
+            <Text bold="700" size="1.4rem">
               {cardTitle}
             </Text>
           </Grid>
-          <Grid>
-            그림
-        </Grid>
-          <Grid
-            ai="flex-end"
-          >
-            <Text
-              bold="700"
-              size="1.4rem"
-              color={color[state]}
-            >
+          <Grid>그림</Grid>
+          <Grid ai="flex-end">
+            <Text bold="700" size="1.4rem" color={color[state]}>
               {value}
             </Text>
           </Grid>
         </Grid>
       </ElCard>
     </>
-  )
-}
+  );
+};
 
 Card.defaultProps = {
   width: '',
@@ -89,18 +79,18 @@ Card.defaultProps = {
   margin: '0px',
   padding: '0px',
   bg: 'white',
-}
+};
 
 const ElCard = styled.div<cardType>`
-display:flex;
-align-items: center;
-width: ${(props) => props.width};
-height: ${(props) => props.height};
-margin: ${(props) => props.margin};
-padding: ${(props) => props.padding};
-background-color: ${(props) => props.bg};
-border-radius: 2rem;
-${(props) => props.theme.shadow};
-border: solid 0.5px ${(props) => props.theme.color.purple};
-`
+  display: flex;
+  align-items: center;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  margin: ${(props) => props.margin};
+  padding: ${(props) => props.padding};
+  background-color: ${(props) => props.bg};
+  border-radius: 2rem;
+  ${(props) => props.theme.shadow};
+  border: solid 0.5px ${(props) => props.theme.color.purple};
+`;
 export default Card;
