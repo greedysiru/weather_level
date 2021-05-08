@@ -70,6 +70,8 @@ const ElLongCard = styled.div<LongCardType>`
   height: ${(props) => (props.isFirst ? `15%` : `10%`)};
   border-radius: 20px;
   ${(props) => props.theme.shadow};
+  border: solid 0.5px ${(props) => props.theme.color.purple};
+
 `;
 
 const Text = styled.div`

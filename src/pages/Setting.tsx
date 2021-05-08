@@ -9,8 +9,6 @@ import { useSelector } from 'react-redux';
 // RootState
 import { RootState } from '../redux/modules';
 
-import initialize from '../shared/kakao';
-
 // 로고
 const logo = '/assets/logo.png';
 const Setting = (props) => {
@@ -19,9 +17,8 @@ const Setting = (props) => {
   const { Kakao } = window;
   const { history } = props;
 
-  // 카카오
+
   React.useEffect(() => {
-    initialize();
   }, [])
   const description = `오늘 날씨는 ${weatherDiscription}, 외출 점수는 ${todayScore}점 입니다!`
   // 카카오 공유
@@ -96,6 +93,7 @@ const Menu = styled.div`
   padding: 0 2rem;
   border-radius: 12px;
   ${(props) => props.theme.shadow};
+  border: solid 0.5px ${(props) => props.theme.color.purple};
   margin: 0.5rem;
   cursor: pointer;
   ${(props) => props.theme.border_box}

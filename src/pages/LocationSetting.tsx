@@ -24,7 +24,7 @@ const LocationSetting = (props) => {
   };
 
   // 현재위치 설정
-  const setCurrentLocation = () => {};
+  const setCurrentLocation = () => { };
 
   const onEnter = (e) => {
     if (e.code === 'Enter') {
@@ -32,7 +32,7 @@ const LocationSetting = (props) => {
     }
   };
 
-  const setSearchedLocation = () => {};
+  const setSearchedLocation = () => { };
 
   const goAddPage = () => {
     console.log('ㅎㅎ');
@@ -75,6 +75,7 @@ const LocationCard = styled.div`
   height: 50px;
   border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: solid 0.5px ${(props) => props.theme.color.purple};
   margin: 1rem 0;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.row};

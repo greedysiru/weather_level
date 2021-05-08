@@ -62,6 +62,7 @@ justify-content: center;
 width: 100%;
 height: 9%;
 background-color: white;
+
 ${(props) => props.theme.shadow};
 `
 
