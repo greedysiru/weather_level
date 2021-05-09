@@ -4,6 +4,8 @@ import { preferenceType } from 'src/redux/modules/weather';
 
 // axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://13.125.127.68:8080';
+// axios.defaults.baseURL = 'http://13.125.127.68:8080';
+
 // axios.defaults.baseURL = 'https://b5843381-97c3-4bfa-b943-4a50c66fa397.mock.pstmn.io';
 
 // 날씨 정보 관련 api
