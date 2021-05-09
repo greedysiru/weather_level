@@ -178,15 +178,15 @@ const getLocation = () => (dispatch) => {
       function (error) {
         alert('위치 정보를 가져올 수 없습니다.');
         console.log(error);
+        // 강남구 위경도로 불러오기
+        const longitude = 127.027610;
+        const latitude = 37.498095;
+        // localstorage에 저장
+        localStorage.setItem('latitude', String(latitude));
+        localStorage.setItem('longitude', String(longitude));
       },
     );
   } else {
-    // 강남구 위경도로 불러오기
-    const longitude = 127.027610;
-    const latitude = 37.498095;
-    // localstorage에 저장
-    localStorage.setItem('latitude', String(latitude));
-    localStorage.setItem('longitude', String(longitude));
     alert('GPS를 지원하지 않습니다.');
   }
 };
@@ -345,6 +345,9 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
     if (value === 'broken clouds') {
       return ['usually', '구름 많음', `daily/${type}`];
     }
+    if (value === 'light rain') {
+      return ['usually', '가벼운 비', `daily/${type}`];
+    }
     if (value === 'shower rain') {
       return ['bad', '소나기', `daily/${type}`];
     }
@@ -425,7 +428,7 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
       return ['veryBad', temperature, `daily/tmp`];
     }
   }
-  return null;
+  return ['정보없음', '정보 없음', '정보 없음'];
 };
 
 // preference의 우선순위를 적용한 카드 4개를 선택하고 카드 정보를 생성하는 함수

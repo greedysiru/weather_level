@@ -81,7 +81,7 @@ const PreSetting = (props) => {
     setPollenRisk(null);
   };
 
-  const onSave = () => {
+  const onSave = async () => {
     const data = {
       coronaRange: corona,
       pm10Range: pm10,
@@ -98,13 +98,13 @@ const PreSetting = (props) => {
     };
 
     if (userId) {
-      dispatch(weatherActions.fetchUpdatePreference(userId, data));
+      await dispatch(weatherActions.fetchUpdatePreference(userId, data));
     } else {
       const id = createNewUserId();
       localStorage.setItem('weather-level', id);
-      dispatch(weatherActions.fetchCreatePreference(id, data));
+      await dispatch(weatherActions.fetchCreatePreference(id, data));
     }
-
+    // preference에 맞게 날씨 정보 가져오기
     dispatch(weatherActions.getWeatherInfo());
   };
 

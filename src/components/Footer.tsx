@@ -20,10 +20,10 @@ const Footer = (props) => {
         ai="center"
         jc="center"
         _onClick={() => {
-          history.push('/setting/location');
+          history.replace('/setting/location');
         }}
       >
-        위치
+        위치 아이콘
       </Grid>
       <Grid
         width="30%"
@@ -31,10 +31,10 @@ const Footer = (props) => {
         ai="center"
         jc="center"
         _onClick={() => {
-          history.push('/main');
+          history.replace('/main');
         }}
       >
-        메인
+        메인 아이콘
       </Grid>
       <Grid
         width="30%"
@@ -42,10 +42,10 @@ const Footer = (props) => {
         ai="center"
         jc="center"
         _onClick={() => {
-          history.push('/setting');
+          history.replace('/setting');
         }}
       >
-        설정
+        설정 아이콘
       </Grid>
     </ElFooter>
   );

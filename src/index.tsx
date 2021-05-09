@@ -11,6 +11,7 @@ import store from './redux/configureStore';
 import theme from './styles/theme';
 
 import reportWebVitals from './reportWebVitals';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 
 import App from './shared/App';
@@ -24,6 +25,8 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+serviceWorkerRegistration.register();
 
 
 reportWebVitals();
