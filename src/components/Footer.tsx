@@ -20,7 +20,7 @@ const Footer = (props) => {
         ai="center"
         jc="center"
         _onClick={() => {
-          history.push('/setting/location');
+          history.replace('/setting/location');
         }}
       >
         위치
@@ -31,7 +31,7 @@ const Footer = (props) => {
         ai="center"
         jc="center"
         _onClick={() => {
-          history.push('/main');
+          history.replace('/main');
         }}
       >
         메인
@@ -42,7 +42,7 @@ const Footer = (props) => {
         ai="center"
         jc="center"
         _onClick={() => {
-          history.push('/setting');
+          history.replace('/setting');
         }}
       >
         설정

@@ -104,7 +104,7 @@ const PreSetting = (props) => {
       localStorage.setItem('weather-level', id);
       dispatch(weatherActions.fetchCreatePreference(id, data));
     }
-
+    // preference에 맞게 날씨 정보 가져오기
     dispatch(weatherActions.getWeatherInfo());
   };
 
