@@ -20,12 +20,12 @@ export const weatherAPI = {
       const smallRegionName = selectRegion.split(' ')[1];
       console.log(bigRegionName, smallRegionName);
 
-      /* return axios.get(`/api/total/data/regionname`, {
+      return axios.get(`/api/total/data/regionname`, {
         params: {
           bigRegionName,
           smallRegionName,
         },
-      }); */
+      });
     }
 
     return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
@@ -48,7 +48,6 @@ export const weatherAPI = {
 // 위치 정보 관련 api
 export const locationAPI = {
   fetchAllRegions() {
-    axios.defaults.headers.common.token = 1234;
     return axios.get('/api/regions');
   },
   getUserRegion() {

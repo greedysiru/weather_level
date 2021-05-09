@@ -17,6 +17,7 @@ const LocationSetting = (props) => {
   const [selectedRegion, setSelectedRegion] = useState(null); // 마지막위치
   const [isShowToast, setIsShowToast] = useState<boolean>(false);
   const userLocationInfo = useSelector((state: RootState) => state.location.userLocationInfo);
+
   useEffect(() => {
     dispatch(locationActions.fetchUserRegion());
   }, []);
@@ -24,9 +25,11 @@ const LocationSetting = (props) => {
   useEffect(() => {
     if (userLocationInfo) {
       const current = userLocationInfo.currentRegion;
-      setCurrentRegion(current);
 
-      setSelectedRegion(localStorage.getItem('current-region') || current);
+      const fullResionName = `${current.bigRegionName} ${current.smallRegionName}`;
+      setCurrentRegion(fullResionName);
+
+      setSelectedRegion(localStorage.getItem('current-region') || fullResionName);
     }
   }, [userLocationInfo]);
 

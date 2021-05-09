@@ -16,7 +16,10 @@ type smallRegion = {
 };
 type locationType = {
   userLocationInfo: {
-    currentRegion: string;
+    currentRegion: {
+      bigRegionName: string;
+      smallRegionName: string;
+    };
     saveRegions: string[];
   };
   allRegion: region[];
