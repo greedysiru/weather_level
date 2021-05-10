@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 // Swiper
@@ -22,7 +22,7 @@ const DetailDaily = (props) => {
 
   const timeListComponent = dayInfo.dailyTime.reduce((acc, cur, idx) => {
     // 2시간 간격 24시간
-    if (idx < 24 && (idx + 1) % 2 === 1) {
+    if (idx < 20 && (idx + 1) % 2 === 1) {
       const dateTime = cur.split(' ');
       // category 별로 데이터 다르게
       let data;
@@ -34,7 +34,15 @@ const DetailDaily = (props) => {
         data = `${dayInfo.tmp[idx]}°C`;
       }
 
-      acc.push(<LongCard type="etc" key={idx} day={`${dateTime[0]}/${dateTime[1]} ${dateTime[2]}시`} data={data} />);
+      acc.push(
+        <LongCard
+          height="7%"
+          type="etc"
+          key={idx}
+          day={`${dateTime[2]}:00`} /* ${dateTime[0]}/${dateTime[1]} */
+          data={data}
+        />,
+      );
     }
 
     return acc;
@@ -57,19 +65,31 @@ const DetailDaily = (props) => {
       };
     }
 
-    acc.push(<LongCard type={category === 'rainPer' ? 'etc' : 'weather'} key={idx} day={dayOfWeek[idx]} data={data} />);
+    acc.push(
+      <LongCard
+        height="9%"
+        isFirst={idx === 0}
+        type={category === 'rainPer' ? 'etc' : 'weather'}
+        key={idx}
+        day={dayOfWeek[idx]}
+        data={data}
+      />,
+    );
 
     return acc;
   }, []);
+  const swipeStyle = {
+    width: '100%',
+    height: '100%',
+  };
   const slideStyle = {
     width: '100%',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
     alignItems: 'center',
-    padding: '1rem 0',
-    boxSizing: 'border-box',
+    justifyContent: 'space-around',
+    paddingBottom: '2rem',
   };
 
   const title = {
@@ -79,7 +99,7 @@ const DetailDaily = (props) => {
   };
   return (
     <Container>
-      <Swiper pagination className="mySwiper" style={slideStyle as React.CSSProperties}>
+      <Swiper pagination className="mySwiper" style={swipeStyle as React.CSSProperties}>
         {/* 첫번째 슬라이드 */}
 
         <SwiperSlide style={slideStyle as React.CSSProperties}>
@@ -90,7 +110,7 @@ const DetailDaily = (props) => {
         {/* 두번째 슬라이드 */}
 
         <SwiperSlide style={slideStyle as React.CSSProperties}>
-          <Title>주간 {title[category]} </Title>
+          <Title> 일별 {title[category]} </Title>
           {weeklyListComponent}
         </SwiperSlide>
       </Swiper>
@@ -99,10 +119,10 @@ const DetailDaily = (props) => {
 };
 
 const Container = styled.div`
-  height: 100%;
   width: 100%;
+  height: 100%;
   ${(props) => props.theme.flex.column};
-  justify-content: center;
+  justify-content: space-around;
 `;
 
 const Title = styled.div`

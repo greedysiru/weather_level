@@ -497,7 +497,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
     const id = localStorage.getItem('weather-level');
     const res = await weatherAPI.fetchPreference(id);
     const preferectDic = res.data;
-    console.log('preferectDic', preferectDic);
+
     const defaultPreference = [
       { type: 'temp', value: 50 },
       { type: 'rainPer', value: 50 },
@@ -539,9 +539,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
 const fetchCreatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.createPreference(id, data);
-
     dispatch(fetchPreference());
-    alert('선호도를 저장했습니다 :)');
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
@@ -552,7 +550,6 @@ const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispa
   try {
     const res = await weatherAPI.updatePreference(id, data);
     dispatch(fetchPreference());
-    alert('선호도를 수정했습니다 :)');
   } catch (error) {
     // 에러페이지로 이동?
     console.error(error);
