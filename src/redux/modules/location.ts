@@ -74,7 +74,7 @@ const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) 
   try {
     console.log(data);
     const res = await locationAPI.updateUserRegion(data);
-    alert('선택한 지역을 추가했습니다');
+
     history.push('/setting/location');
   } catch (error) {
     // 에러페이지로 이동??
@@ -85,8 +85,6 @@ const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) 
 const fetchDeleteUserRegion = (data) => async (dispatch, getState, { history }) => {
   try {
     const res = await locationAPI.deleteUserRegion(data);
-
-    console.log('fetch user region', res);
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);

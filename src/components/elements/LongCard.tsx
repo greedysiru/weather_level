@@ -31,10 +31,10 @@ const LongCard = (props: LongCardType) => {
       <Grid width="30%">
         <Text>{day}</Text>
       </Grid>
+      <Icon>아이콘</Icon>
       {/* data 내용 */}
       {type !== 'tmp' && type !== 'weather' && (
         <Grid width="30%">
-          <Icon>아이콘</Icon>
           <Text>
             {data}
             {unit[type]}
@@ -67,16 +67,14 @@ const ElLongCard = styled.div<LongCardType>`
   justify-content: space-between;
   width: 100%;
   padding: 1rem 3rem;
-  height: ${(props) => (props.isFirst ? `15%` : `10%`)};
-  border-radius: 20px;
+  height: ${(props) => (props.isFirst ? `15%` : props.height)};
+  border-radius: 14px;
   ${(props) => props.theme.shadow};
   border: solid 0.5px ${(props) => props.theme.color.purple};
-
+  background-color: white;
 `;
 
 const Text = styled.div`
-  font-weight: bold;
-  font-size: 1.5rem;
   width: 80px;
   text-align: center;
 `;

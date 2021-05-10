@@ -1,33 +1,30 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/redux/modules';
-import { timeActions } from 'src/redux/modules/time';
 import styled from 'styled-components';
-import { weatherActions } from 'src/redux/modules/weather';
 
 import { LongCard } from './elements';
 import TimeInfo from './TimeInfo';
 
 const DetailWeekly = (props) => {
   const { category } = props;
-
+  const [type, setType] = useState(category);
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
 
   const weekInfo = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo);
 
-  const { humidity, maxTmp, minTmp, rainPer, tmp, weather, weatherDes, windSpeed } = weekInfo;
-
-  const Content = weekInfo?.[category]?.map((data, idx) => {
-    return <LongCard isFirst={idx === 0} type={category} key={idx} day={dayOfWeek?.[idx]} data={data} />;
+  useEffect(() => {
+    if (category === 'wind') {
+      setType('windSpeed');
+    }
+  }, []);
+  const Content = weekInfo?.[type]?.map((data, idx) => {
+    return <LongCard isFirst={idx === 0} type={type} key={idx} day={dayOfWeek?.[idx]} data={data} />;
   });
 
   const title = {
-    tmp: '날씨',
-    weather: '날씨',
     humidity: '습도',
-    rainPer: '강수확률',
-    windSpeed: '바람',
+    wind: '바람',
   };
 
   return (

@@ -15,7 +15,6 @@ const Detail = (props) => {
 
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
 
-  const weatherInfo = useSelector((state: RootState) => state.weather.weatherInfo);
   const components = {
     daily: DetailDaily,
     weekly: DetailWeekly,
@@ -44,11 +43,11 @@ const Detail = (props) => {
 
 const Container = styled.div`
   padding: 1.5rem;
-  width: 100%;
-  height: 90%;
+  width: ${(props) => props.theme.view.width};
+  height: 80%;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.column};
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 export default Detail;

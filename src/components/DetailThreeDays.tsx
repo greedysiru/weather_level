@@ -7,10 +7,10 @@ import { convertWeaterInfo } from 'src/shared/common';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/modules';
 
-import { Card, Grid } from './elements';
+import { Button, Card, Grid, Title } from './elements';
 
 const DetailThreeDays = (props) => {
-  const { category } = props;
+  const { category, history } = props;
   const { livingHealthWeather } = useSelector((state: RootState) => state.weather.weatherInfo);
 
   const [todayDes, setTodayDes] = useState(null);
@@ -54,31 +54,27 @@ const DetailThreeDays = (props) => {
     if (!livingHealthWeather) return;
     setAllDesData();
   }, []);
-
+  const goBack = () => {
+    history.replace('/');
+  };
   return (
     <Container>
       <Title>{title[category]}</Title>
-      <Grid isColumn width="100%" height="100%">
-        <div>그림</div>
-        <CardWrapper>
-          <Card width="30%" height="150px" cardTitle="오늘" cardDescription={todayDes} />
-          <Card width="30%" height="150px" cardTitle="내일" cardDescription={tomorrowDes} />
-          <Card width="30%" height="150px" cardTitle="모레" cardDescription={afterTomorrow} />
-        </CardWrapper>
-      </Grid>
+      <div>그림</div>
+      <CardWrapper>
+        <Card width="30%" height="150px" cardTitle="오늘" cardDescription={todayDes} />
+        <Card width="30%" height="150px" cardTitle="내일" cardDescription={tomorrowDes} />
+        <Card width="30%" height="150px" cardTitle="모레" cardDescription={afterTomorrow} />
+      </CardWrapper>
     </Container>
   );
 };
 
 const Container = styled.div`
+  width: ${(props) => props.theme.view.width};
   height: 100%;
-  width: 100%;
   ${(props) => props.theme.flex.column};
-`;
-
-const Title = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
+  justify-content: space-around;
 `;
 
 const CardWrapper = styled.div`

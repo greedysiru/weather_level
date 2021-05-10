@@ -26,7 +26,7 @@ const modalFade = keyframes`
 `;
 const Modal = styled.div`
   position: absolute;
-  width: 150px;
+  padding: 15px;
   height: 30px;
   bottom: 90px;
   border-radius: 20px;

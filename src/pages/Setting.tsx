@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Grid } from 'src/components/elements';
+import { Button, Grid, Title } from 'src/components/elements';
 import styled from 'styled-components';
 
 // 리덕스
@@ -67,10 +67,6 @@ const Container = styled.div`
   justify-content: space-around;
 `;
 
-const Title = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-`;
 const Menu = styled.div`
   ${(props) => props.theme.flex.row};
   justify-content: space-between;

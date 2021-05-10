@@ -32,10 +32,9 @@ const PreSetting = (props) => {
 
   // localstorage에 저장된 식별자를 가져옴
   useEffect(() => {
-    console.log('use Effect');
     const id = localStorage.getItem('weather-level');
     setUserId(id);
-    dispatch(weatherActions.fetchPreference());
+    // dispatch(weatherActions.fetchPreference());
   }, []);
 
   // type에 맞게 props 넣어주려고
@@ -107,6 +106,7 @@ const PreSetting = (props) => {
       localStorage.setItem('weather-level', id);
       await dispatch(weatherActions.fetchCreatePreference(id, data));
     }
+    console.log('여깃');
     // preference에 맞게 날씨 정보 가져오기
     dispatch(weatherActions.getWeatherInfo());
   };
