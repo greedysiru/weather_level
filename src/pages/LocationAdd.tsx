@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid, Title } from 'src/components/elements';
+import { Button, Grid, Title, Toast } from 'src/components/elements';
 import { history, RootState } from 'src/redux/modules';
 import { locationActions } from 'src/redux/modules/location';
 import { createNewUserId } from 'src/shared/common';
@@ -12,14 +12,33 @@ const LocationAdd = (props) => {
   const [selectedBigRegion, setSelectedBigRegion] = useState<string>();
   const [selectedSmallRegion, setSelectedSmallRegion] = useState<string>();
   const [smallRegionList, setSmallRegionList] = useState<any>();
+  const [toastMsg, setToastMsg] = useState<string>(null); // 토스트 메시지
+  const [isShowToast, setIsShowToast] = useState<boolean>(false);
+  const [timerState, setTimerState] = useState(null);
+
   const { allRegion, userLocationInfo } = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
     dispatch(locationActions.fetchAllResions());
   }, []);
 
+  const openToast = (msg) => {
+    if (timerState) {
+      clearTimeout(timerState);
+    }
+    setIsShowToast(true);
+    setToastMsg(msg);
+
+    const timer = setTimeout(() => {
+      setIsShowToast(false);
+    }, 3000);
+
+    setTimerState(timer);
+  };
+
   const onClickBigRegion = (region) => () => {
     setSelectedBigRegion(region);
+    setSelectedSmallRegion(null);
   };
 
   const onClickSmallRegion = (region) => () => {
@@ -66,10 +85,11 @@ const LocationAdd = (props) => {
       const id = createNewUserId();
       localStorage.setItem('weather-level', id);
     }
-    /* if (userLocationInfo?.oftenSeenRegions.length > 5) {
-      alert('최대 5개 지역까지만 추가할 수 있습니다');
+    if (userLocationInfo?.oftenSeenRegions?.length >= 5) {
+      openToast('최대 5개 지역까지만 추가할 수 있습니다');
+
       return;
-    } */
+    }
 
     const region = [`${selectedBigRegion} ${selectedSmallRegion}`];
     dispatch(locationActions.fetchUpdateUserRegion({ region }));
@@ -94,13 +114,13 @@ const LocationAdd = (props) => {
           추가하기
         </Button>
       </Grid>
+      {isShowToast && <Toast>{toastMsg}</Toast>}
     </Container>
   );
 };
 
 const Container = styled.div`
   width: 360px;
-  border: 1px solid black;
   height: 80%;
   ${(props) => props.theme.flex.column};
   justify-content: flex-start;

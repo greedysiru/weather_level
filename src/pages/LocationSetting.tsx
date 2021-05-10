@@ -14,10 +14,11 @@ const LocationSetting = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
 
+  const [toastMsg, setToastMsg] = useState(null); // 토스트 메시지
+  const [isShowToast, setIsShowToast] = useState<boolean>(false); // 토스트 보이기
+  const [timerState, setTimerState] = useState(null); // 토스트 timeout
   const [currentRegion, setCurrentRegion] = useState(null); // 현재위치
   const [selectedRegion, setSelectedRegion] = useState(null); // 마지막위치
-  const [toastMsg, setToastMsg] = useState(null); // 마지막위치
-  const [isShowToast, setIsShowToast] = useState<boolean>(false);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [deleteList, setDeleteList] = useState([]);
 
@@ -45,21 +46,37 @@ const LocationSetting = (props) => {
   };
 
   const openToast = (msg) => {
+    if (timerState) {
+      clearTimeout(timerState);
+    }
     setIsShowToast(true);
     setToastMsg(msg);
 
     const timer = setTimeout(() => {
       setIsShowToast(false);
     }, 3000);
+
+    setTimerState(timer);
   };
 
+  const addDeleteList = (region) => {
+    if (selectedRegion === region) {
+      openToast('선택한 위치는 삭제할 수 없습니다');
+      return;
+    }
+    setDeleteList([...deleteList, region]);
+  };
+
+  const selectRegion = (region) => {
+    localStorage.setItem('current-region', region);
+    setSelectedRegion(region);
+    openToast('선택한 위치로 변경했습니다');
+  };
   const onClickRegionCard = (region) => () => {
     if (isEditMode) {
-      setDeleteList([...deleteList, region]);
+      addDeleteList(region);
     } else {
-      localStorage.setItem('current-region', region);
-      setSelectedRegion(region);
-      openToast('현재 위치로 변경했습니다');
+      selectRegion(region);
     }
   };
 
@@ -120,7 +137,7 @@ const LocationSetting = (props) => {
 
   const removeLocationList = () => {
     console.log(deleteList);
-    // dispatch(locationActions.fetchUpdateUserRegion({ region: deleteList }));
+    dispatch(locationActions.fetchDeleteUserRegion({ region: deleteList }));
     toggleEditMode();
     openToast('선택한 위치를 삭제했습니다');
   };
