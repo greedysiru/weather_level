@@ -1,9 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
-// elements
-import { Grid } from './elements';
 
 // 푸터 컴포넌트
 const Footer = (props) => {
@@ -12,42 +10,42 @@ const Footer = (props) => {
     height,
     margin,
   };
+  // Footer 활성화 표시
+  const [selectedMenu, setSelectedMenu] = useState('');
+  // 새로고침시 효과 유지위해서 pathname을 selectedMenu에 넣기
+  useEffect(() => {
+    setSelectedMenu(history.location.pathname);
+  }, [])
   return (
-    <ElFooter {...style}>
-      <Grid
-        width="30%"
-        height="90%"
-        ai="center"
-        jc="center"
-        _onClick={() => {
+    <FooterWrap {...style}>
+      <ElFooter
+        onClick={() => {
           history.replace('/setting/location');
+          setSelectedMenu('/setting/location');
         }}
+        isSelected={selectedMenu === '/setting/location'}
       >
         위치 아이콘
-      </Grid>
-      <Grid
-        width="30%"
-        height="90%"
-        ai="center"
-        jc="center"
-        _onClick={() => {
+      </ElFooter>
+      <ElFooter
+        onClick={() => {
           history.replace('/main');
+          setSelectedMenu('/main');
         }}
+        isSelected={selectedMenu === '/main'}
       >
         메인 아이콘
-      </Grid>
-      <Grid
-        width="30%"
-        height="90%"
-        ai="center"
-        jc="center"
-        _onClick={() => {
+      </ElFooter>
+      <ElFooter
+        onClick={() => {
           history.replace('/setting');
+          setSelectedMenu('/setting');
         }}
+        isSelected={selectedMenu === '/setting'}
       >
         설정 아이콘
-      </Grid>
-    </ElFooter>
+      </ElFooter>
+    </FooterWrap>
   );
 };
 
@@ -56,7 +54,7 @@ Footer.defaultProps = {
   margin: '',
 };
 
-const ElFooter = styled.div`
+const FooterWrap = styled.div`
   position: fixed;
   bottom: 0;
   display: flex;
@@ -65,8 +63,16 @@ const ElFooter = styled.div`
   width: 100%;
   height: 9.5%;
   background-color: white;
-
   ${(props) => props.theme.shadow};
 `;
+
+const ElFooter = styled.div`
+  width:30%;
+  height:90%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color: ${(props) => props.isSelected ? 'red' : ''};
+`
 
 export default Footer;
