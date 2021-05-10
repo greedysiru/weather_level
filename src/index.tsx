@@ -10,7 +10,6 @@ import { ThemeProvider } from 'styled-components';
 import store from './redux/configureStore';
 import theme from './styles/theme';
 
-import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 
@@ -26,7 +25,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-serviceWorkerRegistration.register();
+serviceWorkerRegistration.unregister();
 
-
-reportWebVitals();

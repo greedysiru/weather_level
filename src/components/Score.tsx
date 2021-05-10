@@ -13,9 +13,8 @@ const Score = (props) => {
   const { color } = theme;
   const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
   const todayWeather = useSelector((state: RootState) => state.weather.todayWeather);
-  // 날씨 이미지를 불러올 파일 경로
-  const fileUrl = `/assets/weather/${todayWeather[3]}.png`;
-  console.log(fileUrl)
+  // 날씨 이미지를 불러올 경로
+  const imgUrl = `/assets/weather/${todayWeather[3]}.png`;
   return (
     <>
       <Grid
@@ -27,7 +26,7 @@ const Score = (props) => {
       >
         <Image
           size={240}
-          src={fileUrl}
+          src={imgUrl}
         />
         <Grid
           isColumn
