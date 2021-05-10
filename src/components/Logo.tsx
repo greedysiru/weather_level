@@ -9,9 +9,10 @@ const Logo = (props) => {
   const moveToMain = () => {
     history.push('/main')
   }
+  // 1.5초뒤에 /main으로 이동
   React.useEffect(() => {
     setTimeout(moveToMain, 1500);
-  }, [])
+  }, []);
   return (
     <ElLogo />
   )

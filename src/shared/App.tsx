@@ -1,10 +1,11 @@
 import React from 'react';
 
-
+// pages
 import Detail from 'src/pages/Detail';
 import LocationAdd from 'src/pages/LocationAdd';
 import LocationSetting from 'src/pages/LocationSetting';
 import Setting from 'src/pages/Setting';
+import NotFound from 'src/pages/NotFound';
 // Router
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
@@ -18,7 +19,6 @@ import initialize from '../shared/kakao';
 import Main from '../pages/Main';
 import PreSetting from '../pages/PreSetting';
 
-// import NotFound from '../pages/NotFound';
 // component
 import AppLayout from '../components/AppLayout';
 import Logo from '../components/Logo';
@@ -50,7 +50,7 @@ function App() {
           <Route path="/setting/location/add" exact component={LocationAdd} />
           <Route path="/detail/:type/:category" exact component={Detail} />
           <Route path="/detail/:type" exact component={Detail} />
-          {/* <Route component={NotFound} /> */}
+          <Route component={NotFound} />
         </Switch>
       </AppLayout>
     </ConnectedRouter>
