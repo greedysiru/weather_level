@@ -7,8 +7,6 @@ axios.defaults.baseURL = 'http://13.125.127.68:8080';
 const id = localStorage.getItem('weather-level');
 axios.defaults.headers.common.token = id === null ? '' : id;
 
-// axios.defaults.baseURL = 'http://13.125.127.68:8080';
-
 // axios.defaults.baseURL = 'https://b5843381-97c3-4bfa-b943-4a50c66fa397.mock.pstmn.io';
 
 // 날씨 정보 관련 api
@@ -27,9 +25,9 @@ export const weatherAPI = {
         },
       });
     }
+    // return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
     return axios.get(`/api/total/data/coordinate?longitude=126.9084&latitude=37.5638`);
 
-    // return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
     // return axios.get(`/test`);
   },
   fetchPreference(id: string) {

@@ -22,7 +22,7 @@ const LocationSetting = (props) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [deleteList, setDeleteList] = useState([]);
 
-  const userLocationInfo = useSelector((state: RootState) => state.location.userLocationInfo);
+  const { userLocationInfo } = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
     dispatch(locationActions.fetchUserRegion());
@@ -31,7 +31,6 @@ const LocationSetting = (props) => {
   useEffect(() => {
     if (userLocationInfo) {
       const current = userLocationInfo.currentRegion;
-
       const fullResionName = `${current.bigRegionName} ${current.smallRegionName}`;
       setCurrentRegion(fullResionName);
 

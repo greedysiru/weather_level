@@ -10,17 +10,12 @@ import theme from '../styles/theme';
 
 // 외출 점수와 캐릭터를 보여주는 컴포넌트
 const Score = (props) => {
-  const weather = '/assets/weather/11d.png';
   const { color } = theme;
   const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
   const todayWeather = useSelector((state: RootState) => state.weather.todayWeather);
-  const { hours } = useSelector((state: RootState) => state.time);
-  // file url
-  const fileUrl = '';
-  // if (hours >= 19){
-  //   fileUrl = ''
-  // }
-  // file
+  // 날씨 이미지를 불러올 파일 경로
+  const fileUrl = `/assets/weather/${todayWeather[3]}.png`;
+  console.log(fileUrl)
   return (
     <>
       <Grid
@@ -32,7 +27,7 @@ const Score = (props) => {
       >
         <Image
           size={240}
-          src={weather}
+          src={fileUrl}
         />
         <Grid
           isColumn
