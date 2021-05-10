@@ -179,7 +179,7 @@ const getLocation = () => (dispatch) => {
         alert('위치 정보를 가져올 수 없습니다.');
         console.log(error);
         // 강남구 위경도로 불러오기
-        const longitude = 127.027610;
+        const longitude = 127.02761;
         const latitude = 37.498095;
         // localstorage에 저장
         localStorage.setItem('latitude', String(latitude));
@@ -497,7 +497,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
     const id = localStorage.getItem('weather-level');
     const res = await weatherAPI.fetchPreference(id);
     const preferectDic = res.data;
-
+    console.log('preferectDic', preferectDic);
     const defaultPreference = [
       { type: 'temp', value: 50 },
       { type: 'rainPer', value: 50 },
@@ -512,7 +512,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
       { type: 'asthma', value: 0 },
       { type: 'foodPoison', value: 0 },
     ];
-    // const defaultPreference = getState().weather.preferece;
+
     let preference = [];
 
     if (!preferectDic) {
@@ -523,7 +523,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
           preference.push({ type: key, value: preferectDic[key] });
         }
       });
-
+      // 선호도 점수 별로 내림차순 정렬
       preference.sort((a, b) => {
         return b.value - a.value;
       });

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import axios from 'axios';
 
 export const convertWeaterInfo = (type, value) => {
   // 미세먼지
@@ -220,4 +221,9 @@ export const convertWeaterInfo = (type, value) => {
 
 export const createNewUserId = () => {
   return `wl${moment().format('YYMMDDhhmmsss') + Math.floor(Math.random() * 10000)}`;
+};
+
+// 토큰이 생성되는 시점 - preference 초기 저장, 지역 초기 저장
+export const setHeaderToken = (id: string) => {
+  axios.defaults.headers.common.token = id;
 };

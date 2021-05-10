@@ -32,6 +32,7 @@ const PreSetting = (props) => {
 
   // localstorage에 저장된 식별자를 가져옴
   useEffect(() => {
+    console.log('use Effect');
     const id = localStorage.getItem('weather-level');
     setUserId(id);
     dispatch(weatherActions.fetchPreference());
@@ -55,7 +56,9 @@ const PreSetting = (props) => {
 
   const rangeList = preference?.map((pre, idx) => {
     const key = pre.type;
+
     const value = pre.value.toString();
+
     return (
       <Range
         key={idx}
@@ -144,10 +147,8 @@ const PreSetting = (props) => {
 const Container = styled.div`
   width: 360px;
   height: 100%;
-  border: 1px solid black;
   padding: 1rem;
   ${(props) => props.theme.flex.column};
-
   justify-content: center;
 `;
 

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { Button, Grid } from 'src/components/elements';
 import styled from 'styled-components';
 
@@ -17,10 +16,8 @@ const Setting = (props) => {
   const { Kakao } = window;
   const { history } = props;
 
-
-  React.useEffect(() => {
-  }, [])
-  const description = `오늘 날씨는 ${weatherDiscription}, 외출 점수는 ${todayScore}점 입니다!`
+  React.useEffect(() => {}, []);
+  const description = `오늘 날씨는 ${weatherDiscription}, 외출 점수는 ${todayScore}점 입니다!`;
   // 카카오 공유
   const shareKakao = (imageUrl, description) => {
     Kakao.Link.sendDefault({
@@ -46,8 +43,6 @@ const Setting = (props) => {
     });
   };
 
-
-
   const push = (path: string) => {
     history.push(path);
   };
@@ -60,20 +55,13 @@ const Setting = (props) => {
         <Menu onClick={() => shareKakao(logo, description)}>외출 점수 공유하기</Menu>
         <Menu>불편/개선 사항 보내기</Menu>
       </Grid>
-      <Button
-        _onClick={() => {
-          history.push('/');
-        }}
-      >
-        이전으로
-      </Button>
     </Container>
   );
 };
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 80%;
   padding: 1.5rem;
   ${(props) => props.theme.flex.column};
   justify-content: space-around;

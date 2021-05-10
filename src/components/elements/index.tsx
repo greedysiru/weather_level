@@ -7,5 +7,6 @@ import Range from './Range';
 import Card from './Card';
 import LongCard from './LongCard';
 import Toast from './Toast';
+import Title from './Title';
 
-export { Grid, Text, Input, Button, Image, Range, Card, LongCard, Toast };
+export { Grid, Text, Input, Button, Image, Range, Card, LongCard, Toast, Title };

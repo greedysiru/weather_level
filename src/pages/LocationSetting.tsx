@@ -1,10 +1,11 @@
 import { current } from 'immer';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid, Toast } from 'src/components/elements';
+import { Button, Grid, Title, Toast } from 'src/components/elements';
 import { locationActions } from 'src/redux/modules/location';
 import styled from 'styled-components';
-import { HiCheck } from 'react-icons/hi';
+import { HiCheck, HiXCircle } from 'react-icons/hi';
+
 import Footer from 'src/components/Footer';
 
 import { RootState } from '../redux/modules';
@@ -15,7 +16,11 @@ const LocationSetting = (props) => {
 
   const [currentRegion, setCurrentRegion] = useState(null); // 현재위치
   const [selectedRegion, setSelectedRegion] = useState(null); // 마지막위치
+  const [toastMsg, setToastMsg] = useState(null); // 마지막위치
   const [isShowToast, setIsShowToast] = useState<boolean>(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [deleteList, setDeleteList] = useState([]);
+
   const userLocationInfo = useSelector((state: RootState) => state.location.userLocationInfo);
 
   useEffect(() => {
@@ -39,45 +44,109 @@ const LocationSetting = (props) => {
     localStorage.setItem('latitude', latitude);
   };
 
-  const openToast = () => {
+  const openToast = (msg) => {
     setIsShowToast(true);
+    setToastMsg(msg);
+
     const timer = setTimeout(() => {
       setIsShowToast(false);
     }, 3000);
   };
 
-  const goAddPage = () => {
+  const onClickRegionCard = (region) => () => {
+    if (isEditMode) {
+      setDeleteList([...deleteList, region]);
+    } else {
+      localStorage.setItem('current-region', region);
+      setSelectedRegion(region);
+      openToast('현재 위치로 변경했습니다');
+    }
+  };
+
+  const onClickCurrentRegion = () => {
+    localStorage.removeItem('currnet-region');
+    setSelectedRegion(currentRegion);
+    openToast('현재 위치로 변경했습니다');
+  };
+  const IconComponent = () => {
+    if (isEditMode) {
+      return <HiXCircle className="cancel" />;
+    }
+
+    return <HiCheck className="check" />;
+  };
+
+  const locationCardList = userLocationInfo?.oftenSeenRegions?.reduce((acc, cur, idx) => {
+    if (!deleteList.includes(cur)) {
+      acc.push(
+        <LocationCard onClick={onClickRegionCard(cur)} key={idx} isSelected={!isEditMode && selectedRegion === cur}>
+          {cur}
+          <IconComponent />
+        </LocationCard>,
+      );
+    }
+
+    return acc;
+  }, []);
+
+  const onClickEditButton = () => {
+    if (isEditMode) {
+      cancleEdit();
+    } else {
+      toggleEditMode();
+    }
+  };
+
+  const toggleEditMode = () => {
+    setIsEditMode(!isEditMode);
+  };
+
+  const cancleEdit = () => {
+    setDeleteList([]);
+    toggleEditMode();
+  };
+
+  const onClickAddButton = () => {
+    if (isEditMode) {
+      removeLocationList();
+    } else {
+      goToAddPage();
+    }
+  };
+
+  const goToAddPage = () => {
     history.push('/setting/location/add');
   };
-  const onClickRegionCard = (region) => () => {
-    localStorage.setItem('current-region', region);
-    setSelectedRegion(region);
-    openToast();
+
+  const removeLocationList = () => {
+    console.log(deleteList);
+    // dispatch(locationActions.fetchUpdateUserRegion({ region: deleteList }));
+    toggleEditMode();
+    openToast('선택한 위치를 삭제했습니다');
   };
-  const locationCardList = userLocationInfo?.saveRegions?.map((loc, idx) => {
-    return (
-      <LocationCard onClick={onClickRegionCard(loc)} key={idx} isSelected={selectedRegion === loc}>
-        {loc} <HiCheck />
-      </LocationCard>
-    );
-  });
 
   return (
     <>
       <Container>
-        <Grid width="100%">
-          <span>위치 설정</span>
-          <button type="button" onClick={goAddPage}>
-            추가
+        <Header width="100%">
+          <button type="button" onClick={onClickEditButton}>
+            {isEditMode ? '취소' : '편집'}
           </button>
-        </Grid>
+          <Title>위치 설정</Title>
+          <button type="button" onClick={onClickAddButton}>
+            {isEditMode ? '완료' : '추가'}
+          </button>
+        </Header>
         <Wrapper>
-          <LocationCard isSelected={selectedRegion === currentRegion}>
+          <LocationCard
+            onClick={onClickCurrentRegion}
+            isSelected={!isEditMode && (!userLocationInfo?.latestRequestRegion || selectedRegion === currentRegion)}
+          >
             <Grid isColumn>
               <span>현재 위치</span>
               <span>{currentRegion}</span>
             </Grid>
-            <HiCheck />
+            <HiCheck className="check" />
           </LocationCard>
           {locationCardList}
         </Wrapper>
@@ -85,7 +154,7 @@ const LocationSetting = (props) => {
 
       <Footer history={history} />
 
-      {isShowToast && <Toast>위치가 변경되었습니다</Toast>}
+      {isShowToast && <Toast>{toastMsg}</Toast>}
     </>
   );
 };
@@ -93,9 +162,22 @@ const LocationSetting = (props) => {
 const Container = styled.div`
   width: 360px;
   height: 100%;
+  padding: 1rem;
 `;
 
-const Title = styled.div``;
+const Header = styled.div`
+  ${(props) => props.theme.flex.row};
+
+  padding: 0 1rem;
+
+  & button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: ${(props) => props.theme.color.sky3};
+    font-weight: 500;
+  }
+`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -118,9 +200,15 @@ const LocationCard = styled.div`
   color: ${(props) => (props.isSelected ? 'white' : 'black')};
   transition: 0.3s ease;
 
-  & svg {
+  & svg.check {
     visibility: ${(props) => (props.isSelected ? 'visible' : 'hidden')};
     color: white;
+    font-size: 2rem;
+  }
+
+  & svg.cancel {
+    color: #ff3e00;
+    font-size: 1.5rem;
   }
 
   &:hover {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid } from 'src/components/elements';
+import { Button, Grid, Title } from 'src/components/elements';
 import { history, RootState } from 'src/redux/modules';
 import { locationActions } from 'src/redux/modules/location';
 import { createNewUserId } from 'src/shared/common';
@@ -70,11 +70,13 @@ const LocationAdd = (props) => {
       alert('최대 5개 지역까지만 추가할 수 있습니다');
       return;
     } */
-    dispatch(locationActions.fetchCreateUserRegion({ region: `${selectedBigRegion} ${selectedSmallRegion}` }));
+
+    const region = [`${selectedBigRegion} ${selectedSmallRegion}`];
+    dispatch(locationActions.fetchUpdateUserRegion({ region }));
   };
 
   const goBack = () => {
-    history.push('/setting/location');
+    history.replace('/setting/location');
   };
   return (
     <Container>
@@ -84,9 +86,11 @@ const LocationAdd = (props) => {
         <Line />
         {selectedBigRegion && smallRegionListCompo}
       </SelectBox>
-      <Grid>
-        <Button _onClick={goBack}>이전</Button>
-        <Button disabled={!(selectedBigRegion && selectedSmallRegion)} _onClick={addUserRegion}>
+      <Grid jc="space-between">
+        <Button width="46%" _onClick={goBack}>
+          이전
+        </Button>
+        <Button width="46%" disabled={!(selectedBigRegion && selectedSmallRegion)} _onClick={addUserRegion}>
           추가하기
         </Button>
       </Grid>
@@ -97,23 +101,21 @@ const LocationAdd = (props) => {
 const Container = styled.div`
   width: 360px;
   border: 1px solid black;
-  height: 100%;
+  height: 80%;
   ${(props) => props.theme.flex.column};
-  justify-content: space-around;
+  justify-content: flex-start;
   padding: 1rem;
   background-color: ${(props) => props.theme.color.background};
 `;
-
-const Title = styled.div``;
 
 const SelectBox = styled.div`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border: solid 0.5px ${(props) => props.theme.color.purple};
   background-color: white;
   width: 100%;
-  height: 50%;
   padding: 1rem;
   border-radius: 1rem;
+  margin: 4rem 0;
 `;
 
 const RegionEle = styled.span`
@@ -121,16 +123,23 @@ const RegionEle = styled.span`
   color: ${(props) => (props.isSelected ? 'white' : 'black')};
   font-weight: bold;
   margin: 3px;
-  padding: 2px 5px;
-  ${(props) => props.theme.border_box}
-  border-radius:10px;
+  padding: 7px;
+  ${(props) => props.theme.border_box};
+  border-radius: 10px;
   cursor: pointer;
+  display: inline-block;
+  transition: 0.3s ease;
+
+  &:hover {
+    background-color: ${(props) => props.theme.color.sky3};
+    color: white;
+  }
 `;
 
 const Line = styled.div`
   width: 100%;
   height: 1px;
-  background-color: red;
+  background-color: ${(props) => props.theme.color.purple};
   margin: 10px 0;
 `;
 
