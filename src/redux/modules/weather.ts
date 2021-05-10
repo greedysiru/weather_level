@@ -440,7 +440,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
       livingHealthWeather,
       corona,
       airPollution,
-      coronaTotalNewCaseCount,
+      coronaAllNewCaseCount,
     } = getState().weather.weatherInfo;
     // preference
     const { preference } = getState().weather;
@@ -449,7 +449,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
       temp: { label: '기온', value: weekInfo.tmp[0] },
       rainPer: { label: '강수확률', value: weekInfo.rainPer[0] },
       weather: { label: '하늘', value: weekInfo.weatherDes[0] },
-      corona: { label: '코로나', value: coronaTotalNewCaseCount },
+      corona: { label: '코로나', value: coronaAllNewCaseCount },
       pm10: { label: '미세먼지', value: airPollution.pm10Value },
       pm25: { label: '초미세먼지', value: airPollution.pm25Value },
       humidity: { label: '습도', value: weekInfo.humidity[0] },
