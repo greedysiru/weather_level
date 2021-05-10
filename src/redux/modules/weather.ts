@@ -207,7 +207,7 @@ export type preferenceType = {
 };
 
 // weatherInfo 를 기준값으로 바꾸는 함수
-const convertWeaterInfo = (type, value) => (dispatch) => {
+const convertWeaterInfo = (type, value) => (dispatch, getState) => {
   // 미세먼지
   if (type === 'pm10') {
     if (value <= 30) {
@@ -333,41 +333,51 @@ const convertWeaterInfo = (type, value) => (dispatch) => {
   }
   // 하늘
   if (type === 'weather') {
+    // 현재 시간을 기준으로 낮/밤 분류
+    let dayAndNight = '';
+    const { hours } = getState().time;
+    // 오전 7시 ~ 오후 19시 까지 낮
+    // 그외는 밤
+    if (hours >= 7 && hours <= 19) {
+      dayAndNight = 'd'
+    } else {
+      dayAndNight = 'n'
+    }
     if (value === 'clear sky') {
-      return ['good', '맑음', `daily/${type}`];
+      return ['good', '맑음', `daily/${type}`, `01${dayAndNight}`];
     }
     if (value === 'few clouds') {
-      return ['good', '구름 조금', `daily/${type}`];
+      return ['good', '구름 조금', `daily/${type}`, `02${dayAndNight}`];
     }
     if (value === 'scattered clouds') {
-      return ['usually', '구름 약간', `daily/${type}`];
-    }
-    if (value === 'broken clouds') {
-      return ['usually', '구름 많음', `daily/${type}`];
+      return ['usually', '구름 약간', `daily/${type}`, `03${dayAndNight}`];
     }
     if (value === 'light rain') {
-      return ['usually', '가벼운 비', `daily/${type}`];
+      return ['usually', '가벼운 비', `daily/${type}`, `10${dayAndNight}`];
+    }
+    if (value === 'broken clouds') {
+      return ['bad', '구름 많음', `daily/${type}`, `04`];
     }
     if (value === 'shower rain') {
-      return ['bad', '소나기', `daily/${type}`];
+      return ['bad', '소나기', `daily/${type}`, `09`];
     }
     if (value === 'overcast clouds') {
-      return ['bad', '흐림', `daily/${type}`];
+      return ['bad', '흐림', `daily/${type}`, `04`];
     }
     if (value === 'moderate rain') {
-      return ['bad', '적당한 비', `daily/${type}`];
+      return ['bad', '적당한 비', `daily/${type}`, `10${dayAndNight}`];
     }
     if (value === 'rain') {
-      return ['bad', '비', `daily/${type}`];
+      return ['bad', '비', `daily/${type}`, `10${dayAndNight}`];
     }
     if (value === 'snow') {
-      return ['bad', '눈', `daily/${type}`];
+      return ['bad', '눈', `daily/${type}`, `13`];
     }
     if (value === 'thunderstorm') {
-      return ['veryBad', '천둥번개', `daily/${type}`];
+      return ['veryBad', '천둥번개', `daily/${type}`, `11`];
     }
     if (value === 'mist') {
-      return ['veryBad', '안개', `daily/${type}`];
+      return ['veryBad', '안개', `daily/${type}`, `50`];
     }
   }
   // 강수확률
@@ -468,6 +478,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
     // preference를 참조하여 데이터 넣기
     for (let i = 0; i < 12; i += 1) {
       // 중요도 높은 카드 정보
+      // 4개의 카드는 사용자의 preference 적용
       if (i < 4) {
         const { type } = preference[i];
         const { label, value } = defaultCardData[type];
@@ -478,7 +489,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
       const { label, value } = defaultCardData[type];
       description = dispatch(convertWeaterInfo(type, value));
       if (type === 'weather') {
-        dispatch(setTodayWeather([...description, value]));
+        dispatch(setTodayWeather([...description]));
       }
       second.push({ type, label, value, description });
     }
