@@ -9,14 +9,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/modules';
 
 // 로고
-const logo = '/assets/logo.png';
+const logo = '/assets/logo/logo.png';
 const Setting = (props) => {
   const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
   const weatherDiscription = useSelector((state: RootState) => state.weather?.todayWeather[1]);
   const { Kakao } = window;
   const { history } = props;
 
-  React.useEffect(() => {}, []);
+  React.useEffect(() => { }, []);
   const description = `오늘 날씨는 ${weatherDiscription}, 외출 점수는 ${todayScore}점 입니다!`;
   // 카카오 공유
   const shareKakao = (imageUrl, description) => {
