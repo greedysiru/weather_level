@@ -1,9 +1,14 @@
 import { current } from 'immer';
 import React, { useEffect, useRef, useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid, Title, Toast } from 'src/components/elements';
-import { locationActions } from 'src/redux/modules/location';
+
 import styled from 'styled-components';
+
+import { weatherActions } from 'src/redux/modules/weather';
+import { locationActions } from 'src/redux/modules/location';
+
 import { HiCheck, HiXCircle } from 'react-icons/hi';
 
 import Footer from 'src/components/Footer';
@@ -17,24 +22,32 @@ const LocationSetting = (props) => {
   const [toastMsg, setToastMsg] = useState(null); // 토스트 메시지
   const [isShowToast, setIsShowToast] = useState<boolean>(false); // 토스트 보이기
   const [timerState, setTimerState] = useState(null); // 토스트 timeout
+
   const [currentRegion, setCurrentRegion] = useState(null); // 현재위치
-  const [selectedRegion, setSelectedRegion] = useState(null); // 마지막위치
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const [deleteList, setDeleteList] = useState([]);
+  const [selectedRegion, setSelectedRegion] = useState(null); // 선택한 위치
+
+  const [isEditMode, setIsEditMode] = useState<boolean>(false); // 편집모드
+  const [deleteList, setDeleteList] = useState([]); // 지역삭제목록
 
   const { userLocationInfo } = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
     dispatch(locationActions.fetchUserRegion());
+
+    return () => {
+      clearTimeout(timerState);
+      setIsShowToast(false);
+      dispatch(weatherActions.getWeatherInfo());
+    };
   }, []);
 
   useEffect(() => {
     if (userLocationInfo) {
       const current = userLocationInfo.currentRegion;
-      const fullResionName = `${current.bigRegionName} ${current.smallRegionName}`;
-      setCurrentRegion(fullResionName);
+      const fullRegionName = `${current.bigRegionName} ${current.smallRegionName}`;
+      setCurrentRegion(fullRegionName);
 
-      setSelectedRegion(localStorage.getItem('current-region') || fullResionName);
+      setSelectedRegion(localStorage.getItem('current-region') || fullRegionName);
     }
   }, [userLocationInfo]);
 
@@ -69,6 +82,7 @@ const LocationSetting = (props) => {
   const selectRegion = (region) => {
     localStorage.setItem('current-region', region);
     setSelectedRegion(region);
+
     openToast('선택한 위치로 변경했습니다');
   };
   const onClickRegionCard = (region) => () => {
@@ -80,10 +94,11 @@ const LocationSetting = (props) => {
   };
 
   const onClickCurrentRegion = () => {
-    localStorage.removeItem('currnet-region');
+    localStorage.removeItem('current-region');
     setSelectedRegion(currentRegion);
     openToast('현재 위치로 변경했습니다');
   };
+
   const IconComponent = () => {
     if (isEditMode) {
       return <HiXCircle className="cancel" />;

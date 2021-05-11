@@ -26,7 +26,7 @@ const Detail = (props) => {
   const Component = components[match.params.type];
 
   const goBack = () => {
-    history.push('/');
+    history.push('/main');
   };
 
   if (!isLoaded) {

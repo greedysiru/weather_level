@@ -72,7 +72,6 @@ export type regionType = {
 };
 const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) => {
   try {
-    console.log(data);
     const res = await locationAPI.updateUserRegion(data);
 
     history.push('/setting/location');

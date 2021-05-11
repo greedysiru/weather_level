@@ -18,7 +18,6 @@ export const weatherAPI = {
     if (selectRegion) {
       const bigRegionName = selectRegion.split(' ')[0];
       const smallRegionName = selectRegion.split(' ')[1];
-
       return axios.get(`/api/total/data/regionname`, {
         params: {
           bigRegionName,
