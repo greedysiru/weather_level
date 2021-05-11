@@ -11,23 +11,31 @@
     {
       "src": "favicon.ico",
       "sizes": "64x64",
-      "type": "image/x-icon",
-      "purpose": "maskable any"
+      "type": "image/x-icon"
     },
     {
       "src": "assets/logo/logo192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "maskable any"
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/logo/logo256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "assets/logo/logo384.png",
+      "type": "image/png",
+      "sizes": "384x384"
     },
     {
       "src": "assets/logo/logo512.png",
       "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable any"
+      "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#EBEBF9",
   "background_color": "#EBEBF9",

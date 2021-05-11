@@ -15,24 +15,12 @@
   <meta name="theme-color" content="#EBEBF9" />
   <meta name="description" content="오늘의 외출 점수는?" />
   <link rel="manifest" href="./manifest.json" />
-  <!-- 카카오 -->
-  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   <title>외출 난이도</title>
 </head>
 
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-  <!-- serviceworker -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./serviceworker.js')
-          .then((reg) => console.log('Success: ', reg.scope))
-          .catch((err) => console.log('Failure: ', err))
-      })
-    }
-  </script>
+  <h1>오프라인 상태입니다.</h1>
+
 </body>
 
 </html>
