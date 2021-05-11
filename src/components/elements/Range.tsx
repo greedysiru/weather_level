@@ -28,7 +28,7 @@ const Range = (props: RangeType) => {
     <Container isHidden={isHidden}>
       <Grid ai="center" jc="space-between">
         {label && (
-          <Label title="true" width="100px">
+          <Label title="true" width="78px">
             {label}
           </Label>
         )}
@@ -67,11 +67,29 @@ const Label = styled.span<LabelProps>`
 `;
 
 const ElRange = styled.input`
-  border: 1px splid #212121;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
   width: 65%;
-  padding: 12px 4px;
-  box-sizing: border-box;
-  background-color: red;
+  // 크롬
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: white;
+    margin-top: -3.5px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+
+  &::-webkit-slider-runnable-track {
+    background-color: ${(props) => props.theme.color.sky3};
+    border-radius: 5.5px;
+    width: 100%;
+    height: 11px;
+  }
 `;
 
 export default Range;

@@ -34,6 +34,7 @@ export const weatherAPI = {
     return axios.get('/api/user/preferences');
   },
   createPreference(id: string, preferece: preferenceType) {
+    axios.defaults.headers.common.token = id;
     return axios.post('/api/user/preferences', preferece);
   },
   updatePreference(id: string, preferece: preferenceType) {

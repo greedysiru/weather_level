@@ -26,7 +26,6 @@ const PreSetting = (props) => {
   const [corona, setCorona] = useState<string>();
   const [uv, setUv] = useState<string>();
   const [pollenRisk, setPollenRisk] = useState<string>();
-
   const [asthma, setAsthma] = useState<string>();
   const [foodPoison, setFoodPoison] = useState<string>();
 
@@ -35,6 +34,9 @@ const PreSetting = (props) => {
     const id = localStorage.getItem('weather-level');
     setUserId(id);
     // dispatch(weatherActions.fetchPreference());
+    return () => {
+      dispatch(weatherActions.getWeatherInfo());
+    };
   }, []);
 
   // type에 맞게 props 넣어주려고
@@ -85,30 +87,29 @@ const PreSetting = (props) => {
 
   const onSave = async () => {
     const data = {
-      coronaRange: corona,
-      pm10Range: pm10,
-      pm25Range: pm25,
-      tempRange: temp,
-      rainPerRange: rainPer,
-      weatherRange: weather,
-      humidityRange: humidity,
-      windRange: wind,
-      uvRange: uv,
-      pollenRiskRange: pollenRisk,
-      asthmaRange: asthma,
-      foodPoisonRange: foodPoison,
+      coronaWeight: corona,
+      pm10Weight: pm10,
+      pm25Weight: pm25,
+      tempWeight: temp,
+      rainPerWeight: rainPer,
+      weatherWeight: weather,
+      humidityWeight: humidity,
+      windWeight: wind,
+      uvWeight: uv,
+      pollenRiskWeight: pollenRisk,
+      asthmaWeight: asthma,
+      foodPoisonWeight: foodPoison,
     };
 
     if (userId) {
+      console.log('업데이트');
       await dispatch(weatherActions.fetchUpdatePreference(userId, data));
     } else {
       const id = createNewUserId();
+      console.log('생성', id);
       localStorage.setItem('weather-level', id);
       await dispatch(weatherActions.fetchCreatePreference(id, data));
     }
-    console.log('여깃');
-    // preference에 맞게 날씨 정보 가져오기
-    dispatch(weatherActions.getWeatherInfo());
   };
 
   const onCancle = () => {
