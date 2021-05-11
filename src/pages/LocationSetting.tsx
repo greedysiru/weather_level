@@ -32,12 +32,13 @@ const LocationSetting = (props) => {
   const { userLocationInfo } = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    console.log('유호');
     dispatch(locationActions.fetchUserRegion());
 
     return () => {
       clearTimeout(timerState);
       setIsShowToast(false);
-      dispatch(weatherActions.getWeatherInfo());
     };
   }, []);
 
@@ -50,12 +51,6 @@ const LocationSetting = (props) => {
       setSelectedRegion(localStorage.getItem('current-region') || fullRegionName);
     }
   }, [userLocationInfo]);
-
-  // 위도 경도 localStorage에 저장
-  const setLocation = (latitude: string, longitude: string) => {
-    localStorage.setItem('longitude', longitude);
-    localStorage.setItem('latitude', latitude);
-  };
 
   const openToast = (msg) => {
     if (timerState) {
@@ -82,7 +77,7 @@ const LocationSetting = (props) => {
   const selectRegion = (region) => {
     localStorage.setItem('current-region', region);
     setSelectedRegion(region);
-
+    dispatch(weatherActions.getWeatherInfo());
     openToast('선택한 위치로 변경했습니다');
   };
   const onClickRegionCard = (region) => () => {
@@ -94,9 +89,12 @@ const LocationSetting = (props) => {
   };
 
   const onClickCurrentRegion = () => {
+    if (isEditMode) return;
     localStorage.removeItem('current-region');
     setSelectedRegion(currentRegion);
     openToast('현재 위치로 변경했습니다');
+
+    dispatch(weatherActions.getWeatherInfo());
   };
 
   const IconComponent = () => {

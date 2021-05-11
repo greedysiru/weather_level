@@ -14,7 +14,7 @@ axios.defaults.headers.common.token = id === null ? '' : id;
 export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     const selectRegion = localStorage.getItem('current-region');
-    console.log(axios.defaults.baseURL)
+    console.log(axios.defaults.baseURL);
 
     if (selectRegion) {
       const bigRegionName = selectRegion.split(' ')[0];
@@ -27,9 +27,6 @@ export const weatherAPI = {
       });
     }
     return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
-    // return axios.get(`/api/total/data/coordinate?longitude=127.0495556&latitude=37.514575`);
-
-    // return axios.get(`/test`);
   },
   fetchPreference(id: string) {
     return axios.get('/api/user/preferences');
@@ -51,10 +48,12 @@ export const locationAPI = {
   getUserRegion() {
     const longitude = localStorage.getItem('longitude');
     const latitude = localStorage.getItem('latitude');
-    // axios.defaults.headers.common.token = 1234;
+
     return axios.get(`/api/user/regions?longitude=${longitude}&latitude=${latitude}`);
   },
   updateUserRegion(data) {
+    const id = localStorage.getItem('weather-level');
+    axios.defaults.headers.common.token = id;
     return axios.post('/api/user/regions', data);
   },
   deleteUserRegion(data) {

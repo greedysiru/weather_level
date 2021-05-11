@@ -4,17 +4,23 @@ import styled from 'styled-components';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { createNewUserId } from 'src/shared/common';
 import { useDispatch, useSelector } from 'react-redux';
-import { weatherActions } from '../redux/modules/weather';
+import { prefereceList, preferenceType, weatherActions } from '../redux/modules/weather';
 import { Button, Grid, Range } from '../components/elements';
 
 import { RootState } from '../redux/modules';
 
 const PreSetting = (props) => {
+  const { history } = props;
   const preference = useSelector((state: RootState) => state.weather.preference);
+  const [rangeListComp, setRangeListComp] = useState([]);
   // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [userId, setUserId] = useState<string>(null);
   const dispatch = useDispatch();
+
+  const [toastMsg, setToastMsg] = useState<string>(null); // 토스트 메시지
+  const [isShowToast, setIsShowToast] = useState<boolean>(false);
+  const [timerState, setTimerState] = useState(null);
   // 각 range의 상태관리
   const [temp, setTemp] = useState<string>();
   const [rainPer, setRainPer] = useState<string>();
@@ -33,10 +39,6 @@ const PreSetting = (props) => {
   useEffect(() => {
     const id = localStorage.getItem('weather-level');
     setUserId(id);
-    // dispatch(weatherActions.fetchPreference());
-    return () => {
-      dispatch(weatherActions.getWeatherInfo());
-    };
   }, []);
 
   // type에 맞게 props 넣어주려고
@@ -55,7 +57,7 @@ const PreSetting = (props) => {
     foodPoison: { label: '식중독위험', rangeValue: foodPoison, setRangeValue: setFoodPoison },
   };
 
-  const rangeList = preference?.map((pre, idx) => {
+  const rangeList = preference.map((pre, idx) => {
     const key = pre.type;
 
     const value = pre.value.toString();
@@ -71,20 +73,6 @@ const PreSetting = (props) => {
       />
     );
   });
-
-  const resetRangeValue = () => {
-    setTemp(null);
-    setRainPer(null);
-    setWeather(null);
-    setHumidity(null);
-    setWind(null);
-    setPm10(null);
-    setPm25(null);
-    setCorona(null);
-    setUv(null);
-    setPollenRisk(null);
-  };
-
   const onSave = async () => {
     const data = {
       coronaWeight: corona,
@@ -102,19 +90,19 @@ const PreSetting = (props) => {
     };
 
     if (userId) {
-      console.log('업데이트');
       await dispatch(weatherActions.fetchUpdatePreference(userId, data));
     } else {
       const id = createNewUserId();
-      console.log('생성', id);
       localStorage.setItem('weather-level', id);
+      setUserId(id);
       await dispatch(weatherActions.fetchCreatePreference(id, data));
     }
+
+    dispatch(weatherActions.getWeatherInfo());
   };
 
-  const onCancle = () => {
-    setIsHidden(true);
-    dispatch(weatherActions.fetchPreference());
+  const goBack = () => {
+    history.replace('/setting');
   };
 
   const handleRangeHidden = () => {
@@ -134,11 +122,11 @@ const PreSetting = (props) => {
       </RangeWrapper>
 
       <Grid jc="space-between">
+        <Button width="45%" _onClick={goBack}>
+          이전
+        </Button>
         <Button width="45%" _onClick={onSave}>
           저장
-        </Button>
-        <Button width="45%" _onClick={onCancle}>
-          취소
         </Button>
       </Grid>
     </Container>
