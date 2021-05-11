@@ -27,15 +27,18 @@ type locationType = {
     oftenSeenRegions: string[];
   };
   allRegion: region[];
+  loading: boolean;
 };
 
 export const initialState: locationType = {
   userLocationInfo: null, // 사용자 위치정보
   allRegion: [], // 전체 지역 목록
+  loading: false,
 };
 
 const setUserLocationInfo = createAction<unknown>('location/SET_USER_LOCATION_INFO');
 const setAllRegion = createAction<unknown>('location/SET_ALL_REGION');
+const setLoading = createAction<unknown>('location/SET_LOADING');
 
 const location = createReducer(initialState, {
   [setUserLocationInfo.type]: (state: locationType, action: PayloadAction<any>) => {
@@ -44,12 +47,17 @@ const location = createReducer(initialState, {
   [setAllRegion.type]: (state: locationType, action: PayloadAction<any>) => {
     state.allRegion = action.payload;
   },
+  [setLoading.type]: (state: locationType, action: PayloadAction<any>) => {
+    state.loading = action.payload;
+  },
 });
 
 // 전체 지역정보
 const fetchAllResions = () => async (dispatch, getState, { history }) => {
   try {
+    dispatch(setLoading(true));
     const res = await locationAPI.fetchAllRegions();
+    dispatch(setLoading(false));
     dispatch(setAllRegion(res.data));
   } catch (error) {
     // 에러페이지로 이동??
@@ -59,8 +67,10 @@ const fetchAllResions = () => async (dispatch, getState, { history }) => {
 
 const fetchUserRegion = () => async (dispatch, getState, { history }) => {
   try {
+    dispatch(setLoading(true));
     const res = await locationAPI.getUserRegion();
     dispatch(setUserLocationInfo(res.data));
+    dispatch(setLoading(false));
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
@@ -70,11 +80,12 @@ const fetchUserRegion = () => async (dispatch, getState, { history }) => {
 export type regionType = {
   region: string;
 };
-const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) => {
+const fetchCreateUserRegion = (data) => async (dispatch, getState, { history }) => {
   try {
+    dispatch(setLoading(true));
     const res = await locationAPI.updateUserRegion(data);
-
-    history.push('/setting/location');
+    dispatch(setLoading(false));
+    history.replace('/setting/location');
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
@@ -83,7 +94,9 @@ const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) 
 
 const fetchDeleteUserRegion = (data) => async (dispatch, getState, { history }) => {
   try {
+    dispatch(setLoading(true));
     const res = await locationAPI.deleteUserRegion(data);
+    dispatch(setLoading(false));
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
@@ -93,7 +106,7 @@ const fetchDeleteUserRegion = (data) => async (dispatch, getState, { history }) 
 export const locationActions = {
   fetchAllResions,
   fetchUserRegion,
-  fetchUpdateUserRegion,
+  fetchCreateUserRegion,
   fetchDeleteUserRegion,
 };
 
