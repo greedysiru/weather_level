@@ -6,7 +6,7 @@ import { preferenceType } from 'src/redux/modules/weather';
 // axios.defaults.baseURL = 'http://13.125.127.68:8080';
 axios.defaults.baseURL = 'https://theweatherlevelapi.com';
 const id = localStorage.getItem('weather-level');
-axios.defaults.headers.common.token = id === null ? '' : id;
+axios.defaults.headers.common.token = id;
 
 // axios.defaults.baseURL = 'https://b5843381-97c3-4bfa-b943-4a50c66fa397.mock.pstmn.io';
 
@@ -14,8 +14,6 @@ axios.defaults.headers.common.token = id === null ? '' : id;
 export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     const selectRegion = localStorage.getItem('current-region');
-    console.log(axios.defaults.baseURL)
-
     if (selectRegion) {
       const bigRegionName = selectRegion.split(' ')[0];
       const smallRegionName = selectRegion.split(' ')[1];
@@ -26,7 +24,12 @@ export const weatherAPI = {
         },
       });
     }
-    return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
+    return axios.get(`/api/total/data/coordinate`, {
+      params: {
+        latitude,
+        longitude,
+      },
+    });
     // return axios.get(`/api/total/data/coordinate?longitude=127.0495556&latitude=37.514575`);
 
     // return axios.get(`/test`);

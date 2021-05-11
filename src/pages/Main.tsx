@@ -20,6 +20,7 @@ import { Grid, Button, Image, Input, Text, Range } from '../components/elements'
 import Header from '../components/Header';
 import Score from '../components/Score';
 import MainContents from '../components/MainContents';
+import Logo from '../components/Logo';
 
 // RootState
 import { RootState } from '../redux/modules';
@@ -34,7 +35,7 @@ const Main = (props) => {
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
   // 날씨정보 로드 전
   if (!isLoaded) {
-    return null
+    return <Logo />
   }
   // 날씨정보 로드 후
   return (

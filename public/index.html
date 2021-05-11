@@ -3,18 +3,18 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon" />
   <!-- apple -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="#EBEBF9"" />
   <meta name=" apple-mobile-web-app-title" content="외출 난이도" />
-  <link rel="apple-touch-icon" sizes="152x152" href="./assets/logo/logo152.png">
-  <link rel="apple-touch-icon" sizes="167x167" href="./assets/logo/logo167.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/logo/logo180.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="%PUBLIC_URL%/assets/logo/logo152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="%PUBLIC_URL%/assets/logo/logo167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/assets/logo/logo180.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <meta name="theme-color" content="#EBEBF9" />
   <meta name="description" content="오늘의 외출 점수는?" />
-  <link rel="manifest" href="./manifest.json" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <!-- 카카오 -->
   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   <title>외출 난이도</title>
@@ -24,7 +24,7 @@
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
   <!-- serviceworker -->
-  <script>
+  <!-- <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./serviceworker.js')
@@ -32,7 +32,7 @@
           .catch((err) => console.log('Failure: ', err))
       })
     }
-  </script>
+  </script> -->
 </body>
 
 </html>

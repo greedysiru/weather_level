@@ -26,20 +26,20 @@ const Setting = (props) => {
     Kakao.Link.sendDefault({
       objectType: 'feed',
       content: {
-        title: '오늘의 외출 점수는?',
+        title: '오늘의 날씨 점수는?',
         description,
         imageUrl,
         link: {
-          webUrl: 'https://github.com/greedysiru',
-          mobileWebUrl: 'https://github.com/greedysiru',
+          webUrl: 'https://theweatherlevel.com/',
+          mobileWebUrl: 'https://theweatherlevel.com/',
         },
       },
       buttons: [
         {
-          title: '나의 외출 점수 보기',
+          title: '날씨 점수 보기',
           link: {
-            webUrl: 'https://github.com/greedysiru',
-            mobileWebUrl: 'https://github.com/greedysiru',
+            webUrl: 'https://theweatherlevel.com/',
+            mobileWebUrl: 'https://theweatherlevel.com/',
           },
         },
       ],

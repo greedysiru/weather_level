@@ -10,6 +10,8 @@ import { ThemeProvider } from 'styled-components';
 import store from './redux/configureStore';
 import theme from './styles/theme';
 
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
 
 import App from './shared/App';
 
@@ -23,4 +25,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+serviceWorkerRegistration.register();
 

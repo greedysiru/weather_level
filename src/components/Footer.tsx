@@ -28,10 +28,10 @@ const Footer = (props) => {
       </ElFooter>
       <ElFooter
         onClick={() => {
-          history.replace('/main');
-          setSelectedMenu('/main');
+          history.replace('/');
+          setSelectedMenu('/');
         }}
-        isSelected={selectedMenu === '/main'}
+        isSelected={selectedMenu === '/'}
       >
         메인 아이콘
       </ElFooter>

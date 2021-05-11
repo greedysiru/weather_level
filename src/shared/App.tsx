@@ -21,7 +21,6 @@ import PreSetting from '../pages/PreSetting';
 
 // component
 import AppLayout from '../components/AppLayout';
-import Logo from '../components/Logo';
 
 // 날씨 관련 모듈
 import { weatherActions } from '../redux/modules/weather';
@@ -42,8 +41,7 @@ function App() {
     <ConnectedRouter history={history}>
       <AppLayout>
         <Switch>
-          <Route path="/" exact component={Logo} />
-          <Route path="/main" exact component={Main} />
+          <Route path="/" exact component={Main} />
           <Route path="/setting" exact component={Setting} />
           <Route path="/setting/preference" exact component={PreSetting} />
           <Route path="/setting/location" exact component={LocationSetting} />

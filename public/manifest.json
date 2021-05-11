@@ -9,37 +9,37 @@
   ],
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "/favicon.ico",
       "sizes": "64x64",
       "type": "image/x-icon",
       "purpose": "maskable any"
     },
     {
-      "src": "assets/logo/logo192.png",
+      "src": "/assets/logo/logo192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable any"
     },
     {
-      "src": "assets/logo/logo256.png",
+      "src": "/assets/logo/logo256.png",
       "type": "image/png",
       "sizes": "256x256",
       "purpose": "maskable any"
     },
     {
-      "src": "assets/logo/logo384.png",
+      "src": "/assets/logo/logo384.png",
       "type": "image/png",
       "sizes": "384x384",
       "purpose": "maskable any"
     },
     {
-      "src": "assets/logo/logo512.png",
+      "src": "/assets/logo/logo512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable any"
     }
   ],
-  "start_url": "/",
+  "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#EBEBF9",
   "background_color": "#EBEBF9",
