@@ -18,7 +18,6 @@ export const weatherAPI = {
     if (selectRegion) {
       const bigRegionName = selectRegion.split(' ')[0];
       const smallRegionName = selectRegion.split(' ')[1];
-
       return axios.get(`/api/total/data/regionname`, {
         params: {
           bigRegionName,
@@ -26,10 +25,7 @@ export const weatherAPI = {
         },
       });
     }
-    // return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
-    return axios.get(`/api/total/data/coordinate?longitude=127.0495556&latitude=37.514575`);
-
-    // return axios.get(`/test`);
+    return axios.get(`/api/total/data/coordinate?longitude=${longitude}&latitude=${latitude}`);
   },
   fetchPreference(id: string) {
     return axios.get('/api/user/preferences');

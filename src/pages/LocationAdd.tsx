@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid, Title, Toast } from 'src/components/elements';
 import { history, RootState } from 'src/redux/modules';
 import { locationActions } from 'src/redux/modules/location';
+import { weatherActions } from 'src/redux/modules/weather';
 import { createNewUserId } from 'src/shared/common';
 import styled from 'styled-components';
 
@@ -20,6 +21,11 @@ const LocationAdd = (props) => {
 
   useEffect(() => {
     dispatch(locationActions.fetchAllResions());
+
+    return () => {
+      clearTimeout(timerState);
+      setIsShowToast(false);
+    };
   }, []);
 
   const openToast = (msg) => {

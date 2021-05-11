@@ -1,9 +1,14 @@
 import { current } from 'immer';
 import React, { useEffect, useRef, useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid, Title, Toast } from 'src/components/elements';
-import { locationActions } from 'src/redux/modules/location';
+
 import styled from 'styled-components';
+
+import { weatherActions } from 'src/redux/modules/weather';
+import { locationActions } from 'src/redux/modules/location';
+
 import { HiCheck, HiXCircle } from 'react-icons/hi';
 
 import Footer from 'src/components/Footer';
@@ -28,6 +33,12 @@ const LocationSetting = (props) => {
 
   useEffect(() => {
     dispatch(locationActions.fetchUserRegion());
+
+    return () => {
+      clearTimeout(timerState);
+      setIsShowToast(false);
+      dispatch(weatherActions.getWeatherInfo());
+    };
   }, []);
 
   useEffect(() => {
@@ -71,6 +82,7 @@ const LocationSetting = (props) => {
   const selectRegion = (region) => {
     localStorage.setItem('current-region', region);
     setSelectedRegion(region);
+
     openToast('선택한 위치로 변경했습니다');
   };
   const onClickRegionCard = (region) => () => {
