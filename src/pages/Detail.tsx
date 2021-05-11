@@ -44,7 +44,7 @@ const Detail = (props) => {
 const Container = styled.div`
   padding: 1.5rem;
   width: ${(props) => props.theme.view.width};
-  height: 80%;
+  height: 90%;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.column};
   justify-content: flex-start;

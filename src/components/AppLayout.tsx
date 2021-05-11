@@ -44,6 +44,7 @@ const Contents = styled.div`
   width: 100vw;
   ${(props) => props.theme.flex.row};
   justify-content: center;
+  align-items: flex-start;
 `;
 
 export default AppLayout;
