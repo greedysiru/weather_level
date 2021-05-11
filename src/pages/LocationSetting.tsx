@@ -11,6 +11,7 @@ import { locationActions } from 'src/redux/modules/location';
 
 import { HiCheck, HiXCircle } from 'react-icons/hi';
 
+import Spinner from 'src/components/Spinner';
 import Footer from 'src/components/Footer';
 
 import { RootState } from '../redux/modules';
@@ -29,11 +30,11 @@ const LocationSetting = (props) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false); // 편집모드
   const [deleteList, setDeleteList] = useState([]); // 지역삭제목록
 
-  const { userLocationInfo } = useSelector((state: RootState) => state.location);
+  const { userLocationInfo, loading } = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log('유호');
+
     dispatch(locationActions.fetchUserRegion());
 
     return () => {
@@ -187,6 +188,7 @@ const LocationSetting = (props) => {
       <Footer history={history} />
 
       {isShowToast && <Toast>{toastMsg}</Toast>}
+      {loading && <Spinner />}
     </>
   );
 };

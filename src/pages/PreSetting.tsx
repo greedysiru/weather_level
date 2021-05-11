@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import Spinner from 'src/components/Spinner';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { createNewUserId } from 'src/shared/common';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,8 +12,7 @@ import { RootState } from '../redux/modules';
 
 const PreSetting = (props) => {
   const { history } = props;
-  const preference = useSelector((state: RootState) => state.weather.preference);
-  const [rangeListComp, setRangeListComp] = useState([]);
+  const { preference, isLoadedPreference, isLoaded } = useSelector((state: RootState) => state.weather);
   // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [userId, setUserId] = useState<string>(null);
@@ -34,7 +34,6 @@ const PreSetting = (props) => {
   const [pollenRisk, setPollenRisk] = useState<string>();
   const [asthma, setAsthma] = useState<string>();
   const [foodPoison, setFoodPoison] = useState<string>();
-
   // localstorage에 저장된 식별자를 가져옴
   useEffect(() => {
     const id = localStorage.getItem('weather-level');

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid, Title, Toast } from 'src/components/elements';
+import Spinner from 'src/components/Spinner';
 import { history, RootState } from 'src/redux/modules';
 import { locationActions } from 'src/redux/modules/location';
 import { weatherActions } from 'src/redux/modules/weather';
@@ -17,7 +18,7 @@ const LocationAdd = (props) => {
   const [isShowToast, setIsShowToast] = useState<boolean>(false);
   const [timerState, setTimerState] = useState(null);
 
-  const { allRegion, userLocationInfo } = useSelector((state: RootState) => state.location);
+  const { allRegion, userLocationInfo, loading } = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
     dispatch(locationActions.fetchAllResions());
@@ -122,6 +123,7 @@ const LocationAdd = (props) => {
         </Button>
       </Grid>
       {isShowToast && <Toast>{toastMsg}</Toast>}
+      {loading && <Spinner />}
     </Container>
   );
 };

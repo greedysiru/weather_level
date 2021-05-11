@@ -140,6 +140,9 @@ export const initialState: weatherType = {
 const setWeatherInfo = createAction<unknown>('weather/SET_WEATHERINFO');
 // 로드 상태를 변경하는 액션 생성 함수
 const setLoad = createAction<boolean>('weather/SET_LOAD');
+
+// preference loaded
+const setIsLoadedPreference = createAction<unknown>('weather/SET_IS_LOADED_PREFERENCE');
 // preference를 저장하는 함수
 const setPreference = createAction<unknown>('weather/SET_PREFERENCE');
 // preference의 순서대로 카드 정보를 가져오는 함수
@@ -506,7 +509,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
     // 카드 정보 넣기
     dispatch(setCardsInfo({ first, second }));
     // 로드 상태 ture(로딩 완료)
-    dispatch(setLoad(true));
+    dispatch(setLoad());
   } catch (error) {
     console.log(error);
   }
@@ -558,23 +561,29 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
 
 const fetchCreatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
+    dispatch(setLoad(false));
     const res = await weatherAPI.createPreference(id, data);
+    dispatch(setLoad(true));
     alert('저장되었습니다');
     dispatch(fetchPreference());
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
+    dispatch(setLoad(true));
   }
 };
 
 const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
+    dispatch(setLoad(false));
     const res = await weatherAPI.updatePreference(id, data);
+    dispatch(setLoad(true));
     alert('저장되었습니다');
     dispatch(fetchPreference());
   } catch (error) {
     // 에러페이지로 이동?
     console.error(error);
+    dispatch(setLoad(true));
   }
 };
 
