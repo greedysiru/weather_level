@@ -20,6 +20,14 @@ const DetailDaily = (props) => {
   const { dayInfo, weekInfo } = useSelector((state: RootState) => state.weather.weatherInfo);
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
 
+  // url에 따라 title 다르게
+  const title = {
+    weather: '날씨',
+    rainPer: '강수확률',
+    tmp: '날씨',
+  };
+
+  // 일별날씨 카드 리스트 컴포넌트
   const timeListComponent = dayInfo.dailyTime.reduce((acc, cur, idx) => {
     // 2시간 간격 24시간
     if (idx < 20 && (idx + 1) % 2 === 1) {
@@ -48,6 +56,7 @@ const DetailDaily = (props) => {
     return acc;
   }, []);
 
+  // 주간날씨 카드리스트 컴포넌트
   const weeklyListComponent = weekInfo[category].reduce((acc, cur, idx) => {
     // category 별로 데이터 다르게
     let data;
@@ -92,11 +101,6 @@ const DetailDaily = (props) => {
     paddingBottom: '2rem',
   };
 
-  const title = {
-    weather: '날씨',
-    rainPer: '강수확률',
-    tmp: '날씨',
-  };
   return (
     <Container>
       <Swiper pagination className="mySwiper" style={swipeStyle as React.CSSProperties}>

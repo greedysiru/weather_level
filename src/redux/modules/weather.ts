@@ -192,18 +192,18 @@ const getLocation = () => (dispatch) => {
 };
 
 export type preferenceType = {
-  coronaRange: string;
-  pm10Range: string;
-  pm25Range: string;
-  tempRange: string;
-  rainPerRange: string;
-  weatherRange: string;
-  humidityRange: string;
-  windRange: string;
-  uvRange: string;
-  pollenRiskRange: string;
-  asthmaRange: string;
-  foodPoisonRange: string;
+  coronaWeight: string;
+  pm10Weight: string;
+  pm25Weight: string;
+  tempWeight: string;
+  rainPerWeight: string;
+  weatherWeight: string;
+  humidityWeight: string;
+  windWeight: string;
+  uvWeight: string;
+  pollenRiskWeight: string;
+  asthmaWeight: string;
+  foodPoisonWeight: string;
 };
 
 // weatherInfo 를 기준값으로 바꾸는 함수
@@ -339,9 +339,9 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
     // 오전 7시 ~ 오후 19시 까지 낮
     // 그외는 밤
     if (hours >= 7 && hours <= 19) {
-      dayAndNight = 'd'
+      dayAndNight = 'd';
     } else {
-      dayAndNight = 'n'
+      dayAndNight = 'n';
     }
     if (value === 'clear sky') {
       return ['good', '맑음', `daily/${type}`, `01${dayAndNight}`];

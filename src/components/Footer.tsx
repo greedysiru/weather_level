@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
-
 // 푸터 컴포넌트
 const Footer = (props) => {
   const { height, margin, history } = props;
@@ -15,7 +14,7 @@ const Footer = (props) => {
   // 새로고침시 효과 유지위해서 pathname을 selectedMenu에 넣기
   useEffect(() => {
     setSelectedMenu(history.location.pathname);
-  }, [])
+  }, []);
   return (
     <FooterWrap {...style}>
       <ElFooter
@@ -67,12 +66,12 @@ const FooterWrap = styled.div`
 `;
 
 const ElFooter = styled.div`
-  width:30%;
-  height:90%;
-  display:flex;
+  width: 30%;
+  height: 90%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  color: ${(props) => props.isSelected ? 'red' : ''};
-`
+  color: ${(props) => (props.isSelected ? 'red' : '')};
+`;
 
 export default Footer;
