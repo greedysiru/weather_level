@@ -13,13 +13,16 @@ const logo = '/assets/logo/logo.png';
 const Setting = (props) => {
   const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
   const weatherDiscription = useSelector((state: RootState) => state.weather?.todayWeather[1]);
+  const todayWeather = useSelector((state: RootState) => state.weather?.todayWeather)
   const { Kakao } = window;
   const { history } = props;
 
   React.useEffect(() => { }, []);
   const description = `오늘 날씨는 ${weatherDiscription}, 외출 점수는 ${todayScore}점 입니다!`;
   // 카카오 공유
-  const shareKakao = (imageUrl, description) => {
+  const shareKakao = (description) => {
+    const imageUrl = `https://weather-service-images.s3.ap-northeast-2.amazonaws.com/${todayWeather[3]}.png`;
+    console.log(imageUrl)
     Kakao.Link.sendDefault({
       objectType: 'feed',
       content: {
@@ -52,7 +55,7 @@ const Setting = (props) => {
       <Logo />
       <Grid width="100%" isColumn ai="center">
         <Menu onClick={() => history.push('/setting/preference')}>나만의 외출 난이도 설정하기</Menu>
-        <Menu onClick={() => shareKakao(logo, description)}>외출 점수 공유하기</Menu>
+        <Menu onClick={() => shareKakao(description)}>외출 점수 공유하기</Menu>
         <Menu>불편/개선 사항 보내기</Menu>
       </Grid>
     </Container>

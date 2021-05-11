@@ -3,8 +3,8 @@ import { regionType } from 'src/redux/modules/location';
 import { preferenceType } from 'src/redux/modules/weather';
 
 // axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://13.125.127.68:8080';
-// axios.defaults.baseURL = 'https://theweatherlevelapi.com';
+// axios.defaults.baseURL = 'http://13.125.127.68:8080';
+axios.defaults.baseURL = 'https://theweatherlevelapi.com';
 const id = localStorage.getItem('weather-level');
 axios.defaults.headers.common.token = id === null ? '' : id;
 
