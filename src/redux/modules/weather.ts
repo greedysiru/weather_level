@@ -10,6 +10,14 @@ import { timeActions } from './time';
 
 // type 선언
 // 초기 상태 type
+
+type prefereceObject = {
+  type: string;
+  value: number;
+};
+
+export type prefereceList = prefereceObject[];
+
 type weatherType = {
   weatherInfo: {
     bigRegion?: {
@@ -72,11 +80,27 @@ type weatherType = {
   };
   // 날씨 정보 로드 상태
   isLoaded: boolean;
-  preference: any;
+  isLoadedPreference: boolean;
+  preference: prefereceList;
   //  카드 정보들
   cardsInfo: any;
   // 오늘 날씨
   todayWeather: string[];
+};
+
+export type preferenceType = {
+  coronaWeight: string;
+  pm10Weight: string;
+  pm25Weight: string;
+  tempWeight: string;
+  rainPerWeight: string;
+  weatherWeight: string;
+  humidityWeight: string;
+  windWeight: string;
+  uvWeight: string;
+  pollenRiskWeight: string;
+  asthmaWeight: string;
+  foodPoisonWeight: string;
 };
 
 // export const initialState: weatherType = {
@@ -93,6 +117,7 @@ export const initialState: weatherType = {
   weatherInfo: null,
   // 날씨 정보 로드 상태
   isLoaded: false,
+  isLoadedPreference: false,
   preference: [
     { type: 'temp', value: 50 },
     { type: 'rainPer', value: 50 },
@@ -189,21 +214,6 @@ const getLocation = () => (dispatch) => {
   } else {
     alert('GPS를 지원하지 않습니다.');
   }
-};
-
-export type preferenceType = {
-  coronaWeight: string;
-  pm10Weight: string;
-  pm25Weight: string;
-  tempWeight: string;
-  rainPerWeight: string;
-  weatherWeight: string;
-  humidityWeight: string;
-  windWeight: string;
-  uvWeight: string;
-  pollenRiskWeight: string;
-  asthmaWeight: string;
-  foodPoisonWeight: string;
 };
 
 // weatherInfo 를 기준값으로 바꾸는 함수
@@ -508,7 +518,6 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
     const id = localStorage.getItem('weather-level');
     const res = await weatherAPI.fetchPreference(id);
     const preferectDic = res.data;
-
     const defaultPreference = [
       { type: 'temp', value: 50 },
       { type: 'rainPer', value: 50 },
@@ -550,6 +559,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
 const fetchCreatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.createPreference(id, data);
+    alert('저장되었습니다');
     dispatch(fetchPreference());
   } catch (error) {
     // 에러페이지로 이동??
@@ -560,6 +570,7 @@ const fetchCreatePreference = (id: string, data: preferenceType) => async (dispa
 const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.updatePreference(id, data);
+    alert('저장되었습니다');
     dispatch(fetchPreference());
   } catch (error) {
     // 에러페이지로 이동?
