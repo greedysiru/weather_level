@@ -149,11 +149,14 @@ const LocationSetting = (props) => {
     history.push('/setting/location/add');
   };
 
-  const removeLocationList = () => {
-    console.log(deleteList);
-    dispatch(locationActions.fetchDeleteUserRegion({ region: deleteList }));
-    toggleEditMode();
-    openToast('선택한 위치를 삭제했습니다');
+  const removeLocationList = async () => {
+    if (deleteList.length > 0) {
+      await dispatch(locationActions.fetchDeleteUserRegion({ region: deleteList }));
+
+      await openToast('선택한 위치를 삭제했습니다');
+    }
+
+    await toggleEditMode();
   };
 
   return (
