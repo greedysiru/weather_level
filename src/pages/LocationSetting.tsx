@@ -11,6 +11,7 @@ import { locationActions } from 'src/redux/modules/location';
 
 import { HiCheck, HiXCircle } from 'react-icons/hi';
 
+import Spinner from 'src/components/Spinner';
 import Footer from 'src/components/Footer';
 
 import { RootState } from '../redux/modules';
@@ -29,15 +30,16 @@ const LocationSetting = (props) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false); // 편집모드
   const [deleteList, setDeleteList] = useState([]); // 지역삭제목록
 
-  const { userLocationInfo } = useSelector((state: RootState) => state.location);
+  const { userLocationInfo, loading } = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     dispatch(locationActions.fetchUserRegion());
 
     return () => {
       clearTimeout(timerState);
       setIsShowToast(false);
-      dispatch(weatherActions.getWeatherInfo());
     };
   }, []);
 
@@ -50,12 +52,6 @@ const LocationSetting = (props) => {
       setSelectedRegion(localStorage.getItem('current-region') || fullRegionName);
     }
   }, [userLocationInfo]);
-
-  // 위도 경도 localStorage에 저장
-  const setLocation = (latitude: string, longitude: string) => {
-    localStorage.setItem('longitude', longitude);
-    localStorage.setItem('latitude', latitude);
-  };
 
   const openToast = (msg) => {
     if (timerState) {
@@ -82,7 +78,7 @@ const LocationSetting = (props) => {
   const selectRegion = (region) => {
     localStorage.setItem('current-region', region);
     setSelectedRegion(region);
-
+    dispatch(weatherActions.getWeatherInfo());
     openToast('선택한 위치로 변경했습니다');
   };
   const onClickRegionCard = (region) => () => {
@@ -94,9 +90,12 @@ const LocationSetting = (props) => {
   };
 
   const onClickCurrentRegion = () => {
+    if (isEditMode) return;
     localStorage.removeItem('current-region');
     setSelectedRegion(currentRegion);
     openToast('현재 위치로 변경했습니다');
+
+    dispatch(weatherActions.getWeatherInfo());
   };
 
   const IconComponent = () => {
@@ -189,6 +188,7 @@ const LocationSetting = (props) => {
       <Footer history={history} />
 
       {isShowToast && <Toast>{toastMsg}</Toast>}
+      {loading && <Spinner />}
     </>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid, Title, Toast } from 'src/components/elements';
+import Spinner from 'src/components/Spinner';
 import { history, RootState } from 'src/redux/modules';
 import { locationActions } from 'src/redux/modules/location';
 import { weatherActions } from 'src/redux/modules/weather';
@@ -17,7 +18,7 @@ const LocationAdd = (props) => {
   const [isShowToast, setIsShowToast] = useState<boolean>(false);
   const [timerState, setTimerState] = useState(null);
 
-  const { allRegion, userLocationInfo } = useSelector((state: RootState) => state.location);
+  const { allRegion, userLocationInfo, loading } = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
     dispatch(locationActions.fetchAllResions());
@@ -90,6 +91,7 @@ const LocationAdd = (props) => {
     if (!localStorage.getItem('weather-level')) {
       const id = createNewUserId();
       localStorage.setItem('weather-level', id);
+      console.log('생성');
     }
     if (userLocationInfo?.oftenSeenRegions?.length >= 5) {
       openToast('최대 5개 지역까지만 추가할 수 있습니다');
@@ -98,7 +100,7 @@ const LocationAdd = (props) => {
     }
 
     const region = [`${selectedBigRegion} ${selectedSmallRegion}`];
-    dispatch(locationActions.fetchUpdateUserRegion({ region }));
+    dispatch(locationActions.fetchCreateUserRegion({ region }));
   };
 
   const goBack = () => {
@@ -121,6 +123,7 @@ const LocationAdd = (props) => {
         </Button>
       </Grid>
       {isShowToast && <Toast>{toastMsg}</Toast>}
+      {loading && <Spinner />}
     </Container>
   );
 };
