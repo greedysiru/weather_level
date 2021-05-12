@@ -22,18 +22,18 @@ const PreSetting = (props) => {
   const [isShowToast, setIsShowToast] = useState<boolean>(false);
   const [timerState, setTimerState] = useState(null);
   // 각 range의 상태관리
-  const [temp, setTemp] = useState<string>();
-  const [rainPer, setRainPer] = useState<string>();
-  const [weather, setWeather] = useState<string>();
-  const [humidity, setHumidity] = useState<string>();
-  const [wind, setWind] = useState<string>();
-  const [pm10, setPm10] = useState<string>();
-  const [pm25, setPm25] = useState<string>();
-  const [corona, setCorona] = useState<string>();
-  const [uv, setUv] = useState<string>();
-  const [pollenRisk, setPollenRisk] = useState<string>();
-  const [asthma, setAsthma] = useState<string>();
-  const [foodPoison, setFoodPoison] = useState<string>();
+  const [temp, setTemp] = useState<string>('');
+  const [rainPer, setRainPer] = useState<string>('');
+  const [weather, setWeather] = useState<string>('');
+  const [humidity, setHumidity] = useState<string>('');
+  const [wind, setWind] = useState<string>('');
+  const [pm10, setPm10] = useState<string>('');
+  const [pm25, setPm25] = useState<string>('');
+  const [corona, setCorona] = useState<string>('');
+  const [uv, setUv] = useState<string>('');
+  const [pollenRisk, setPollenRisk] = useState<string>('');
+  const [asthma, setAsthma] = useState<string>('');
+  const [foodPoison, setFoodPoison] = useState<string>('');
   // localstorage에 저장된 식별자를 가져옴
   useEffect(() => {
     const id = localStorage.getItem('weather-level');
@@ -115,17 +115,16 @@ const PreSetting = (props) => {
         <Grid jc="center">
           <Button width="100%" _onClick={onSave}>
             저장
-        </Button>
+          </Button>
         </Grid>
       ) : (
-
         <Grid jc="space-between">
           <Button width="45%" _onClick={goBack}>
             이전
-        </Button>
+          </Button>
           <Button width="45%" _onClick={onSave}>
             저장
-        </Button>
+          </Button>
         </Grid>
       )}
     </Container>

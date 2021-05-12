@@ -20,9 +20,9 @@ const Range = (props: RangeType) => {
   }, []); */
 
   useEffect(() => {
-    console.log('value useEffect');
+    console.log('value useEffect', label, value, rangeValue);
     setRangeValue(value);
-  }, [value]);
+  }, [value, label]);
 
   const onChangeRange = (e) => {
     setRangeValue(e.target.value);
@@ -37,7 +37,7 @@ const Range = (props: RangeType) => {
           </Label>
         )}
 
-        <ElRange type="range" min="0" max="100" defaultValue={value} onChange={onChangeRange} />
+        <ElRange type="range" min="0" max="100" value={rangeValue} onChange={onChangeRange} />
         <Label width="10px" margin="10px">
           {rangeValue}
         </Label>

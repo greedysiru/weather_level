@@ -180,6 +180,10 @@ const getWeatherInfo = () => async (dispatch) => {
 
     if (!id || id === 'undefined') {
       // localStorage.setItem('weather-level', res.data.identification);
+      localStorage.setItem(
+        'weather-level',
+        'wl2021-05-12T16:42:13.922+09:00[Asia/Seoul]20981fc9-6132-4963-b030-7e228fe375f1',
+      );
     }
 
     dispatch(setWeatherInfo(res.data));
@@ -532,20 +536,6 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
     const res = await weatherAPI.fetchPreference();
 
     const preferectDic = res.data;
-    const defaultPreference = [
-      { type: 'temp', value: 50 },
-      { type: 'rainPer', value: 50 },
-      { type: 'weather', value: 50 },
-      { type: 'humidity', value: 50 },
-      { type: 'wind', value: 0 },
-      { type: 'pm10', value: 0 },
-      { type: 'pm25', value: 0 },
-      { type: 'corona', value: 0 },
-      { type: 'uv', value: 0 },
-      { type: 'pollenRisk', value: 0 },
-      { type: 'asthma', value: 0 },
-      { type: 'foodPoison', value: 0 },
-    ];
 
     const preference = [];
 
@@ -558,22 +548,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
     preference.sort((a, b) => {
       return b.value - a.value;
     });
-    /* console.log('refeDic', preferectDic);
-    if (!preferectDic) {
-      preference = defaultPreference;
-    } else {
-      Object.keys(preferectDic).forEach((key, idx) => {
-        if (key !== 'identification') {
-          preference.push({ type: key, value: preferectDic[key] });
-        }
-      });
-      // 선호도 점수 별로 내림차순 정렬
-      preference.sort((a, b) => {
-        return b.value - a.value;
-      });
-    } */
 
-    // dispatch(setPreference(preference));
     dispatch(setPreference(preference));
   } catch (error) {
     // 에러페이지로 이동?
@@ -586,8 +561,9 @@ const fetchUpdatePreference = (data: preferenceType) => async (dispatch, getStat
     const res = await weatherAPI.updatePreference(data);
 
     alert('저장되었습니다');
+
     dispatch(weatherActions.fetchPreference());
-    // dispatch(weatherActions.getWeatherInfo());
+    dispatch(weatherActions.getWeatherInfo());
   } catch (error) {
     // 에러페이지로 이동?
     console.error(error);
