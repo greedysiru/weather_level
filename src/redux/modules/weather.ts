@@ -177,6 +177,7 @@ const getWeatherInfo = () => async (dispatch) => {
     const res = await weatherAPI.getWeather(latitude, longitude);
 
     const id = localStorage.getItem('weather-level');
+    console.log('getWeather', res.json());
     if (!id || id === 'undefined') {
       localStorage.setItem('weather-level', res.data.identification);
     }

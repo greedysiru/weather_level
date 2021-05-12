@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid, Title, Toast } from 'src/components/elements';
-import Spinner from 'src/components/Spinner';
 import { history, RootState } from 'src/redux/modules';
 import { locationActions } from 'src/redux/modules/location';
 import { weatherActions } from 'src/redux/modules/weather';

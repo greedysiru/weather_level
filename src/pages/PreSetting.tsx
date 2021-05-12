@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
-import Spinner from 'src/components/Spinner';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { createNewUserId } from 'src/shared/common';
 import { useDispatch, useSelector } from 'react-redux';
