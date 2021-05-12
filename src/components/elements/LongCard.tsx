@@ -43,7 +43,8 @@ const LongCard = (props: LongCardType) => {
       )}
       {type === 'weather' && (
         <>
-          <Icon name="main" />{data.weather}
+          <Icon name="main" />
+          {data.weather}
           <Temp>
             <Grid isColumn>
               <TempText max="true">{data.max}</TempText>
