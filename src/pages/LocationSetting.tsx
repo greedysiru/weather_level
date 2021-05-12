@@ -11,8 +11,9 @@ import { locationActions } from 'src/redux/modules/location';
 
 import { HiCheck, HiXCircle } from 'react-icons/hi';
 
-import Spinner from 'src/components/Spinner';
 import Footer from 'src/components/Footer';
+import { css } from '@emotion/core';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 import { RootState } from '../redux/modules';
 
@@ -150,12 +151,13 @@ const LocationSetting = (props) => {
 
   const removeLocationList = async () => {
     if (deleteList.length > 0) {
-      await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions: deleteList }));
+      console.log(userLocationInfo.oftenSeenRegions);
+      // await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions: deleteList }));
 
-      await openToast('선택한 위치를 삭제했습니다');
+      // await openToast('선택한 위치를 삭제했습니다');
     }
 
-    await toggleEditMode();
+    // await toggleEditMode();
   };
 
   return (
@@ -188,7 +190,7 @@ const LocationSetting = (props) => {
       <Footer history={history} />
 
       {isShowToast && <Toast>{toastMsg}</Toast>}
-      {loading && <Spinner />}
+      <BeatLoader color="#738FFF" loading={loading} css={spinnerStyle} />
     </>
   );
 };
@@ -248,6 +250,13 @@ const LocationCard = styled.div`
   &:hover {
     background-color: ${(props) => props.theme.color.sky3};
   }
+`;
+
+const spinnerStyle = css`
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin: 0 auto;
 `;
 
 export default LocationSetting;

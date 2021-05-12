@@ -7,6 +7,8 @@ import { locationActions } from 'src/redux/modules/location';
 import { weatherActions } from 'src/redux/modules/weather';
 import { createNewUserId } from 'src/shared/common';
 import styled from 'styled-components';
+import { css } from '@emotion/core';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 const LocationAdd = (props) => {
   const { history } = props;
@@ -124,6 +126,7 @@ const LocationAdd = (props) => {
         </Button>
       </Grid>
       {isShowToast && <Toast>{toastMsg}</Toast>}
+      <BeatLoader color="#738FFF" loading={loading} css={spinnerStyle} />
     </Container>
   );
 };
@@ -170,6 +173,13 @@ const Line = styled.div`
   height: 1px;
   background-color: ${(props) => props.theme.color.purple};
   margin: 10px 0;
+`;
+
+const spinnerStyle = css`
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin: 0 auto;
 `;
 
 export default LocationAdd;

@@ -176,7 +176,8 @@ const getWeatherInfo = () => async (dispatch) => {
     const longitude = Number(localStorage.getItem('longitude'));
     const res = await weatherAPI.getWeather(latitude, longitude);
 
-    if (!localStorage.getItem('weather-level')) {
+    const id = localStorage.getItem('weather-level');
+    if (!id || id === 'undefined') {
       localStorage.setItem('weather-level', res.data.identification);
     }
 
@@ -528,11 +529,6 @@ const getCardsInfo = () => async (dispatch, getState) => {
 const fetchPreference = () => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.fetchPreference();
-    console.log('fetch');
-    console.log('res id', res.data.identification, '저장', localStorage.getItem('weather-level'));
-    if (!localStorage.getItem('weather-level')) {
-      localStorage.setItem('weather-level', res.data.identification);
-    }
 
     const preferectDic = res.data;
     const defaultPreference = [
@@ -550,8 +546,18 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
       { type: 'foodPoison', value: 0 },
     ];
 
-    let preference = [];
+    const preference = [];
 
+    Object.keys(preferectDic).forEach((key, idx) => {
+      if (key !== 'identification') {
+        preference.push({ type: key, value: preferectDic[key] });
+      }
+    });
+
+    preference.sort((a, b) => {
+      return b.value - a.value;
+    });
+    /* console.log('refeDic', preferectDic);
     if (!preferectDic) {
       preference = defaultPreference;
     } else {
@@ -564,8 +570,9 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
       preference.sort((a, b) => {
         return b.value - a.value;
       });
-    }
+    } */
 
+    // dispatch(setPreference(preference));
     dispatch(setPreference(preference));
   } catch (error) {
     // 에러페이지로 이동?
@@ -576,8 +583,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
 const fetchUpdatePreference = (data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.updatePreference(data);
-    console.log('update');
-    console.log('res id', res.data, '저장', localStorage.getItem('weather-level'));
+
     alert('저장되었습니다');
     dispatch(weatherActions.fetchPreference());
     // dispatch(weatherActions.getWeatherInfo());

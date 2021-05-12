@@ -13,6 +13,7 @@ import { RootState } from '../redux/modules';
 const PreSetting = (props) => {
   const { history } = props;
   const { preference, isLoadedPreference, isLoaded } = useSelector((state: RootState) => state.weather);
+
   // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [userId, setUserId] = useState<string>(null);
@@ -55,7 +56,7 @@ const PreSetting = (props) => {
     asthma: { label: '폐질환위험', rangeValue: asthma, setRangeValue: setAsthma },
     foodPoison: { label: '식중독위험', rangeValue: foodPoison, setRangeValue: setFoodPoison },
   };
-
+  console.log('rendering');
   const rangeList = preference.map((pre, idx) => {
     const key = pre.type;
 

@@ -54,8 +54,6 @@ export const locationAPI = {
     return axios.get(`/api/user/regions?longitude=${longitude}&latitude=${latitude}`);
   },
   updateUserRegion(data) {
-    const id = localStorage.getItem('weather-level');
-
     return axios.post('/api/user/regions', data);
   },
 };
