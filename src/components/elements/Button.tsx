@@ -5,7 +5,7 @@ type ButtonType = {
   children?: any;
   _onClick?: () => void;
   isFloat?: boolean;
-  margin?: boolean;
+  margin?: string;
   width?: string;
   padding?: string;
   disabled?: boolean;
@@ -24,7 +24,7 @@ const Button = (props: ButtonType) => {
 
 Button.defaultProps = {
   children: null,
-  _onClick: () => {},
+  _onClick: () => { },
   isFloat: false,
   margin: '0',
   width: '100%',

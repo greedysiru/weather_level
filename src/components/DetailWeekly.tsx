@@ -19,7 +19,7 @@ const DetailWeekly = (props) => {
     }
   }, []);
   const Content = weekInfo?.[type]?.map((data, idx) => {
-    return <LongCard isFirst={idx === 0} type={type} key={idx} day={dayOfWeek?.[idx]} data={data} />;
+    return <LongCard isFirst={idx === 0} type={type} key={idx} day={dayOfWeek?.[idx]} data={data} height="8%" />;
   });
 
   const title = {
@@ -29,27 +29,36 @@ const DetailWeekly = (props) => {
 
   return (
     <Container>
-      <Title>{title[category]}</Title>
-      <Contents>{Content}</Contents>
+      <Contents>
+        <Title>{title[category]}</Title>
+        {Content}
+
+      </Contents>
     </Container>
   );
 };
 const Container = styled.div`
-  width: 100%;
+  width: ${(props) => props.theme.view.width};
   height: 100%;
+  width: 100%;
+  ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.column};
+  justify-content: center;
+  align-items: center;
 `;
 
 const Title = styled.div`
-  font-size: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   margin: 1rem;
 `;
 
 const Contents = styled.div`
   width: 100%;
   height: 100%;
-  padding: 1rem;
+  padding: 1.5rem;
   ${(props) => props.theme.flex.column};
+
 `;
 
 const Card = styled.div``;

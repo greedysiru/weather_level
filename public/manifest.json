@@ -9,9 +9,9 @@
   ],
   "icons": [
     {
-      "src": "/favicon.ico",
+      "src": "/assets/logo/logo64.png",
       "sizes": "64x64",
-      "type": "image/x-icon",
+      "type": "image/png",
       "purpose": "maskable any"
     },
     {
