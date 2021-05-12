@@ -31,7 +31,7 @@ function App() {
     // 사용자 위치(위도, 경도) state에 기록 후 날씨 정보 불러오기
     dispatch(weatherActions.getLocation());
     // preference
-    // dispatch(weatherActions.fetchPreference());
+    dispatch(weatherActions.fetchPreference());
     // 카카오
     initialize();
   }, []);
