@@ -175,7 +175,11 @@ const getWeatherInfo = () => async (dispatch) => {
     const latitude = Number(localStorage.getItem('latitude'));
     const longitude = Number(localStorage.getItem('longitude'));
     const res = await weatherAPI.getWeather(latitude, longitude);
-    localStorage.setItem('weather-level', res.data.identification);
+
+    if (!localStorage.getItem('weather-level')) {
+      localStorage.setItem('weather-level', res.data.identification);
+    }
+
     dispatch(setWeatherInfo(res.data));
     // 현재 시간 기록하기
     dispatch(timeActions.getTimeInfo());
