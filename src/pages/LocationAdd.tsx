@@ -98,7 +98,12 @@ const LocationAdd = (props) => {
     }
 
     const region = `${selectedBigRegion} ${selectedSmallRegion}`;
-    const oftenSeenRegions = [...userLocationInfo?.oftenSeenRegions, region];
+    let oftenSeenRegions;
+    if (!userLocationInfo?.oftenSeenRegions) {
+      oftenSeenRegions = [region];
+    } else {
+      oftenSeenRegions = [...userLocationInfo?.oftenSeenRegions, region];
+    }
 
     await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions }));
     history.replace('/setting/location');
