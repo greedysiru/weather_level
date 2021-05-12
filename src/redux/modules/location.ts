@@ -74,6 +74,7 @@ const fetchUserRegion = () => async (dispatch, getState, { history }) => {
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
+    dispatch(setLoading(false));
   }
 };
 
