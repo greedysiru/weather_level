@@ -26,7 +26,7 @@ const Detail = (props) => {
   const Component = components[match.params.type];
 
   const goBack = () => {
-    history.push('/main');
+    history.push('/');
   };
 
   if (!isLoaded) {
@@ -34,20 +34,28 @@ const Detail = (props) => {
   }
   return (
     <Container>
-      {/* <Header /> */}
-      <Component category={match.params.category} />
-      <Button _onClick={goBack}>이전으로</Button>
-    </Container>
+      <Grid isColumn height="100%" width='100%'>
+        <Component category={match.params.category} />
+      </Grid>
+      <ButtonWrap>
+        <Button _onClick={goBack}>이전으로</Button>
+      </ButtonWrap>
+    </Container >
   );
 };
 
 const Container = styled.div`
-  padding: 1.5rem;
   width: ${(props) => props.theme.view.width};
   height: 90%;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.column};
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ButtonWrap = styled.div`
+  width: 100%;
+  padding: 0 1.5rem 1.5rem 1.5rem;
 `;
 
 export default Detail;

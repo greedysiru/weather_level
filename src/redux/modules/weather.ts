@@ -189,6 +189,8 @@ const getWeatherInfo = () => async (dispatch) => {
 
 // 위도, 경도 정보 가져오는 함수
 const getLocation = () => (dispatch) => {
+  // 로딩 상태
+  dispatch(setLoad(false));
   // GPS를 지원하면
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -205,7 +207,7 @@ const getLocation = () => (dispatch) => {
       },
       // error
       function (error) {
-        alert('위치 정보를 가져올 수 없습니다.');
+        alert('위치 정보를 가져올 수 없습니다. 위치 정보 제공을 동의해주세요.');
         console.log(error);
         // 강남구 위경도로 불러오기
         const longitude = 127.02761;
@@ -510,7 +512,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
     // 카드 정보 넣기
     dispatch(setCardsInfo({ first, second }));
     // 로드 상태 ture(로딩 완료)
-    dispatch(setLoad());
+    dispatch(setLoad(true));
   } catch (error) {
     console.log(error);
   }

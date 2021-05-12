@@ -67,7 +67,7 @@ const ElLongCard = styled.div<LongCardType>`
   justify-content: space-between;
   width: 100%;
   padding: 1rem 3rem;
-  height: ${(props) => (props.isFirst ? `15%` : props.height)};
+  height: ${(props) => (props.isFirst ? `12%` : props.height)};
   border-radius: 14px;
   ${(props) => props.theme.shadow};
   border: solid 0.5px ${(props) => props.theme.color.purple};

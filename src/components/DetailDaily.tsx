@@ -98,7 +98,7 @@ const DetailDaily = (props) => {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
-    paddingBottom: '2rem',
+    padding: '1.5rem 1.5rem 2rem 1.5rem',
   };
 
   return (

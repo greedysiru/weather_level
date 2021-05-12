@@ -14,8 +14,6 @@ axios.defaults.headers.common.identification = id;
 export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     const selectRegion = localStorage.getItem('current-region');
-    console.log(axios.defaults.baseURL);
-
     if (selectRegion) {
       const bigRegionName = selectRegion.split(' ')[0];
       const smallRegionName = selectRegion.split(' ')[1];
@@ -26,15 +24,15 @@ export const weatherAPI = {
         },
       });
     }
-    return axios.get(`/api/total/data/coordinate`, {
-      params: {
-        latitude,
-        longitude,
-      },
-    });
+    // return axios.get(`/api/total/data/coordinate`, {
+    //   params: {
+    //     latitude,
+    //     longitude,
+    //   },
+    // });
     // return axios.get(`/api/total/data/coordinate?longitude=127.0495556&latitude=37.514575`);
 
-    // return axios.get(`/test`);
+    return axios.get(`/test`);
   },
   fetchPreference() {
     return axios.get('/api/user/preferences');

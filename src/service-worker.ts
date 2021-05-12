@@ -8,11 +8,19 @@
 // You can also remove this file if you'd prefer not to use a
 // service worker, and the Workbox build step will be skipped.
 
-import { clientsClaim } from 'workbox-core';
+import { clientsClaim, setCacheNameDetails } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
-import { registerRoute } from 'workbox-routing';
+import { precacheAndRoute, createHandlerBoundToURL, matchPrecache } from 'workbox-precaching';
+import { registerRoute, setCatchHandler } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+
+// 캐시 이름
+setCacheNameDetails({
+  prefix: 'weather-service',
+  suffix: 'v1',
+  precache: 'weather-service-precache'
+});
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -23,6 +31,16 @@ clientsClaim();
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
 precacheAndRoute(self.__WB_MANIFEST);
+
+// Catch routing errors, like if the user is offline
+setCatchHandler(async ({ event }: { event }) => {
+  // Return the precached offline page if a document is being requested
+  if (event.request.destination === 'document') {
+    return matchPrecache('/offline.html');
+  }
+
+  return Response.error();
+});
 
 // Set up App Shell-style routing, so that all navi gation requests
 // are fulfilled with your index.html shell. Learn more at
@@ -53,8 +71,7 @@ registerRoute(
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
 );
 
-// An example runtime caching route for requests that aren't handled by the
-// precache, in this case same-origin .png requests like those from in public/
+// 폰트 캐싱
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
   ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'),
@@ -68,6 +85,26 @@ registerRoute(
     ],
   })
 );
+
+// 이미지 캐싱
+registerRoute(
+  // Add in any other file extensions or routing criteria as needed.
+  ({ request }) => request.destination === 'image',
+  // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  new StaleWhileRevalidate({
+    cacheName: 'image-cache',
+    plugins: [
+      // Ensure that once this runtime cache reaches a maximum size the
+      // least-recently used images are removed.
+      new CacheableResponsePlugin({
+        statuses: [200],
+      }),
+      new ExpirationPlugin({ maxEntries: 50 }),
+    ],
+  })
+);
+
+
 
 
 // This allows the web app to trigger skipWaiting via
