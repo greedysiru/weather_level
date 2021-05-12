@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 // RootState
 import { RootState } from '../redux/modules';
 // elements
-import { Grid, Text, Image } from './elements';
+import { Grid, Text, Image, Icon } from './elements';
 
 import theme from '../styles/theme';
 
@@ -50,6 +50,7 @@ const Score = (props) => {
             >
               {todayScore}점
           </Text>
+            <Icon name="adjust" color="black" />
           </Grid>
           <Grid
             margin="0.5rem 0 0 0"
