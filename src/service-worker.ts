@@ -33,7 +33,7 @@ clientsClaim();
 precacheAndRoute(self.__WB_MANIFEST);
 
 // Catch routing errors, like if the user is offline
-setCatchHandler(async ({ event }: { event }) => {
+setCatchHandler(async ({ event }: any) => {
   // Return the precached offline page if a document is being requested
   if (event.request.destination === 'document') {
     return matchPrecache('/offline.html');
