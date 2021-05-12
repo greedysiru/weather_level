@@ -151,13 +151,16 @@ const LocationSetting = (props) => {
 
   const removeLocationList = async () => {
     if (deleteList.length > 0) {
-      console.log(userLocationInfo.oftenSeenRegions);
-      // await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions: deleteList }));
+      const oftenSeenRegions = userLocationInfo.oftenSeenRegions.filter((reg) => {
+        return !deleteList.includes(reg);
+      });
 
-      // await openToast('선택한 위치를 삭제했습니다');
+      await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions }));
+
+      await openToast('선택한 위치를 삭제했습니다');
     }
 
-    // await toggleEditMode();
+    await toggleEditMode();
   };
 
   return (

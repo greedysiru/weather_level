@@ -23,7 +23,9 @@ const LocationAdd = (props) => {
 
   useEffect(() => {
     dispatch(locationActions.fetchAllResions());
-
+    if (!userLocationInfo) {
+      dispatch(locationActions.fetchUserRegion());
+    }
     return () => {
       clearTimeout(timerState);
       setIsShowToast(false);
@@ -86,22 +88,20 @@ const LocationAdd = (props) => {
       </RegionEle>
     );
   });
-  const addUserRegion = () => {
+  const addUserRegion = async () => {
     if (!selectedBigRegion || !selectedSmallRegion) return;
 
-    if (!localStorage.getItem('weather-level')) {
-      const id = createNewUserId();
-      localStorage.setItem('weather-level', id);
-      console.log('생성');
-    }
     if (userLocationInfo?.oftenSeenRegions?.length >= 5) {
       openToast('최대 5개 지역까지만 추가할 수 있습니다');
 
       return;
     }
 
-    const region = [`${selectedBigRegion} ${selectedSmallRegion}`];
-    dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions: region }));
+    const region = `${selectedBigRegion} ${selectedSmallRegion}`;
+    const oftenSeenRegions = [...userLocationInfo?.oftenSeenRegions, region];
+
+    await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions }));
+    history.replace('/setting/location');
   };
 
   const goBack = () => {

@@ -6,7 +6,7 @@ import { preferenceType } from 'src/redux/modules/weather';
 // axios.defaults.baseURL = 'http://13.125.127.68:8080';
 axios.defaults.baseURL = 'https://theweatherlevelapi.com';
 const id = localStorage.getItem('weather-level');
-axios.defaults.headers.common.identification = id;
+axios.defaults.headers.common.Identification = id;
 
 // axios.defaults.baseURL = 'https://b5843381-97c3-4bfa-b943-4a50c66fa397.mock.pstmn.io';
 

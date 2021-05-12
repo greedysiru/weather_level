@@ -85,9 +85,7 @@ const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) 
   try {
     dispatch(setLoading(true));
     const res = await locationAPI.updateUserRegion(data);
-    console.log('update region', res.data);
     dispatch(setLoading(false));
-    history.replace('/setting/location');
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
