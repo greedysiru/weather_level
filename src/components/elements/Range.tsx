@@ -13,16 +13,10 @@ type RangeType = {
 
 const Range = (props: RangeType) => {
   const { label, value, isHidden, rangeValue, setRangeValue } = props;
-  /* useEffect(() => {
-    if (rangeValue !== value) {
-      setRangeValue(value);
-    }
-  }, []); */
 
   useEffect(() => {
-    console.log('value useEffect', label, value, rangeValue);
     setRangeValue(value);
-  }, [value, label]);
+  }, [value]);
 
   const onChangeRange = (e) => {
     setRangeValue(e.target.value);

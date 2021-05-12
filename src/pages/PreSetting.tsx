@@ -89,6 +89,7 @@ const PreSetting = (props) => {
     };
 
     dispatch(weatherActions.fetchUpdatePreference(data));
+    setIsHidden(true);
   };
 
   const goBack = () => {

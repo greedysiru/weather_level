@@ -1,5 +1,6 @@
 import { createReducer, createAction, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { setHeaderToken } from 'src/shared/common';
 
 // 날씨 정보를 관리하는 모듈
 
@@ -176,17 +177,7 @@ const getWeatherInfo = () => async (dispatch) => {
     const longitude = Number(localStorage.getItem('longitude'));
     const res = await weatherAPI.getWeather(latitude, longitude);
 
-    const id = localStorage.getItem('weather-level');
-
-    if (!id || id === 'undefined') {
-      // localStorage.setItem('weather-level', res.data.identification);
-      const newId = res.headers.Identification;
-      console.log(newId);
-      localStorage.setItem(
-        'weather-level',
-        'wl2021-05-12T16:42:13.922+09:00[Asia/Seoul]20981fc9-6132-4963-b030-7e228fe375f1',
-      );
-    }
+    setHeaderToken(res.headers.identification);
 
     dispatch(setWeatherInfo(res.data));
     // 현재 시간 기록하기
@@ -536,7 +527,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
 const fetchPreference = () => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.fetchPreference();
-
+    setHeaderToken(res.headers.identification);
     const preferectDic = res.data;
 
     const preference = [];
@@ -561,7 +552,7 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
 const fetchUpdatePreference = (data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
     const res = await weatherAPI.updatePreference(data);
-
+    setHeaderToken(res.headers.identification);
     alert('저장되었습니다');
 
     dispatch(weatherActions.fetchPreference());

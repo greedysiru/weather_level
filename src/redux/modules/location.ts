@@ -1,5 +1,6 @@
 import { createReducer, createAction, PayloadAction } from '@reduxjs/toolkit';
 import { locationAPI } from 'src/shared/api';
+import { setHeaderToken } from 'src/shared/common';
 
 // 시간 정보를 관리하는 모듈
 
@@ -57,6 +58,7 @@ const fetchAllResions = () => async (dispatch, getState, { history }) => {
   try {
     dispatch(setLoading(true));
     const res = await locationAPI.fetchAllRegions();
+
     dispatch(setLoading(false));
     dispatch(setAllRegion(res.data));
   } catch (error) {
@@ -69,6 +71,7 @@ const fetchUserRegion = () => async (dispatch, getState, { history }) => {
   try {
     dispatch(setLoading(true));
     const res = await locationAPI.getUserRegion();
+    setHeaderToken(res.headers.identification);
     dispatch(setUserLocationInfo(res.data));
     dispatch(setLoading(false));
   } catch (error) {
@@ -85,6 +88,7 @@ const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) 
   try {
     dispatch(setLoading(true));
     const res = await locationAPI.updateUserRegion(data);
+    setHeaderToken(res.headers.identification);
     dispatch(setLoading(false));
   } catch (error) {
     // 에러페이지로 이동??

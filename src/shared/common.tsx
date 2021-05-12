@@ -247,5 +247,6 @@ export const createNewUserId = () => {
 
 // 토큰이 생성되는 시점 - preference 초기 저장, 지역 초기 저장
 export const setHeaderToken = (id: string) => {
-  axios.defaults.headers.common.token = id;
+  axios.defaults.headers.common.identification = id;
+  localStorage.setItem('weather-level', id);
 };
