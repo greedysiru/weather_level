@@ -106,6 +106,7 @@ const LocationAdd = (props) => {
   const goBack = () => {
     history.replace('/setting/location');
   };
+
   return (
     <Container>
       <Title>지역선택</Title>
@@ -123,7 +124,6 @@ const LocationAdd = (props) => {
         </Button>
       </Grid>
       {isShowToast && <Toast>{toastMsg}</Toast>}
-      {loading && <Spinner />}
     </Container>
   );
 };

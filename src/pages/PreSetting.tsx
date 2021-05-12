@@ -88,16 +88,7 @@ const PreSetting = (props) => {
       foodPoisonWeight: foodPoison,
     };
 
-    if (userId) {
-      await dispatch(weatherActions.fetchUpdatePreference(userId, data));
-    } else {
-      const id = createNewUserId();
-      localStorage.setItem('weather-level', id);
-      setUserId(id);
-      await dispatch(weatherActions.fetchCreatePreference(id, data));
-    }
-
-    dispatch(weatherActions.getWeatherInfo());
+    dispatch(weatherActions.fetchUpdatePreference(data));
   };
 
   const goBack = () => {

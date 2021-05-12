@@ -1,4 +1,5 @@
 import { createReducer, createAction, PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 // 날씨 정보를 관리하는 모듈
 
@@ -520,8 +521,13 @@ const getCardsInfo = () => async (dispatch, getState) => {
 // setting preference 생성
 const fetchPreference = () => async (dispatch, getState, { history }) => {
   try {
-    const id = localStorage.getItem('weather-level');
-    const res = await weatherAPI.fetchPreference(id);
+    const res = await weatherAPI.fetchPreference();
+    console.log('fetch');
+    console.log('res id', res.data.identification, '저장', localStorage.getItem('weather-level'));
+    if (!localStorage.getItem('weather-level')) {
+      localStorage.setItem('weather-level', res.data.identification);
+    }
+
     const preferectDic = res.data;
     const defaultPreference = [
       { type: 'temp', value: 50 },
@@ -561,38 +567,23 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
   }
 };
 
-const fetchCreatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
+const fetchUpdatePreference = (data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
-    dispatch(setLoad(false));
-    const res = await weatherAPI.createPreference(id, data);
-    dispatch(setLoad(true));
+    const res = await weatherAPI.updatePreference(data);
+    console.log('update');
+    console.log('res id', res.data, '저장', localStorage.getItem('weather-level'));
     alert('저장되었습니다');
-    dispatch(fetchPreference());
-  } catch (error) {
-    // 에러페이지로 이동??
-    console.error(error);
-    dispatch(setLoad(true));
-  }
-};
-
-const fetchUpdatePreference = (id: string, data: preferenceType) => async (dispatch, getState, { history }) => {
-  try {
-    dispatch(setLoad(false));
-    const res = await weatherAPI.updatePreference(id, data);
-    dispatch(setLoad(true));
-    alert('저장되었습니다');
-    dispatch(fetchPreference());
+    dispatch(weatherActions.fetchPreference());
+    // dispatch(weatherActions.getWeatherInfo());
   } catch (error) {
     // 에러페이지로 이동?
     console.error(error);
-    dispatch(setLoad(true));
   }
 };
 
 export const weatherActions = {
   getWeatherInfo,
   getLocation,
-  fetchCreatePreference,
   fetchUpdatePreference,
   fetchPreference,
   getCardsInfo,
