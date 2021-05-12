@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
 // elements
-import { Grid } from './index';
+import { Grid, Icon } from './index';
 
 type LongCardType = {
   height?: string;
@@ -31,7 +31,7 @@ const LongCard = (props: LongCardType) => {
       <Grid width="30%">
         <Text>{day}</Text>
       </Grid>
-      아이콘
+      <Icon name="setting" />
       {/* data 내용 */}
       {type !== 'tmp' && type !== 'weather' && (
         <Grid width="30%">
@@ -43,6 +43,7 @@ const LongCard = (props: LongCardType) => {
       )}
       {type === 'weather' && (
         <>
+          <Icon name="main" />
           {data.weather}
           <Temp>
             <Grid isColumn>

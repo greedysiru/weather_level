@@ -12,6 +12,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/modules';
 import { LongCard } from './elements';
 
+// common
+import { convertWeaterInfo } from '../shared/common';
+
 SwiperCore.use([Pagination]);
 
 const DetailDaily = (props) => {
@@ -29,6 +32,7 @@ const DetailDaily = (props) => {
 
   // 일별날씨 카드 리스트 컴포넌트
   const timeListComponent = dayInfo.dailyTime.reduce((acc, cur, idx) => {
+    console.log(acc, cur)
     // 2시간 간격 24시간
     if (idx < 20 && (idx + 1) % 2 === 1) {
       const dateTime = cur.split(' ');
