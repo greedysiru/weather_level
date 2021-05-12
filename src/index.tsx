@@ -12,9 +12,7 @@ import theme from './styles/theme';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-
 import App from './shared/App';
-
 
 ReactDOM.render(
   <Provider store={store}>
@@ -22,8 +20,7 @@ ReactDOM.render(
       <App />
     </ThemeProvider>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 serviceWorkerRegistration.register();
-
