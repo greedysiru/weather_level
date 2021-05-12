@@ -10,7 +10,7 @@ import { Button, Grid, Range } from '../components/elements';
 import { RootState } from '../redux/modules';
 
 const PreSetting = (props) => {
-  const { history } = props;
+  const { history, isMain } = props;
   const { preference, isLoadedPreference, isLoaded } = useSelector((state: RootState) => state.weather);
 
   // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
@@ -111,14 +111,23 @@ const PreSetting = (props) => {
         </ShowButton>
       </RangeWrapper>
 
-      <Grid jc="space-between">
-        <Button width="45%" _onClick={goBack}>
-          이전
+      {isMain ? (
+        <Grid jc="center">
+          <Button width="100%" _onClick={onSave}>
+            저장
         </Button>
-        <Button width="45%" _onClick={onSave}>
-          저장
+        </Grid>
+      ) : (
+
+        <Grid jc="space-between">
+          <Button width="45%" _onClick={goBack}>
+            이전
         </Button>
-      </Grid>
+          <Button width="45%" _onClick={onSave}>
+            저장
+        </Button>
+        </Grid>
+      )}
     </Container>
   );
 };

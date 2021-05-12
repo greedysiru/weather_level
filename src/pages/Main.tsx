@@ -12,6 +12,8 @@ import styled from 'styled-components';
 // 리덕스
 import { useSelector } from 'react-redux';
 
+// page
+import PreSetting from './PreSetting';
 
 // elements
 import { Grid, Button, Image, Input, Text, Range } from '../components/elements'
@@ -83,6 +85,19 @@ const Main = (props) => {
             {/* 카드 (4열) */}
             <MainContents />
             <PagenationWrap />
+          </SwiperSlide>
+          {/* 세번째 슬라이드 */}
+          {/* preference */}
+          <SwiperSlide
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+              height: '100%',
+              padding: '2rem 2rem 0 2rem',
+            }}
+          >
+            <PreSetting isMain />
           </SwiperSlide>
         </Swiper>
       </Grid>
