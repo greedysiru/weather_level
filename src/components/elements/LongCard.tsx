@@ -31,7 +31,7 @@ const LongCard = (props: LongCardType) => {
       <Grid width="30%">
         <Text>{day}</Text>
       </Grid>
-      <Icon>아이콘</Icon>
+      아이콘
       {/* data 내용 */}
       {type !== 'tmp' && type !== 'weather' && (
         <Grid width="30%">
@@ -43,7 +43,7 @@ const LongCard = (props: LongCardType) => {
       )}
       {type === 'weather' && (
         <>
-          <Icon>{data.weather}</Icon>
+          {data.weather}
           <Temp>
             <Grid isColumn>
               <TempText max="true">{data.max}</TempText>
@@ -78,8 +78,6 @@ const Text = styled.div`
   width: 80px;
   text-align: center;
 `;
-
-const Icon = styled.div``;
 
 const Temp = styled.div`
   ${(props) => props.theme.flex.row};

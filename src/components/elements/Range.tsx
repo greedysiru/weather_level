@@ -19,6 +19,8 @@ const Range = (props: RangeType) => {
   }, [value]);
 
   const onChangeRange = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     setRangeValue(e.target.value);
   };
 

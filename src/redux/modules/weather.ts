@@ -551,15 +551,17 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
 
 const fetchUpdatePreference = (data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
+    setIsLoadedPreference(true);
     const res = await weatherAPI.updatePreference(data);
     setHeaderToken(res.headers.identification);
-    alert('저장되었습니다');
 
     dispatch(weatherActions.fetchPreference());
+    setIsLoadedPreference(false);
     dispatch(weatherActions.getWeatherInfo());
   } catch (error) {
     // 에러페이지로 이동?
     console.error(error);
+    setIsLoadedPreference(false);
   }
 };
 

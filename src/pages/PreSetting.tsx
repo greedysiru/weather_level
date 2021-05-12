@@ -2,16 +2,19 @@ import React, { useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
+import { css } from '@emotion/core';
+import BeatLoader from 'react-spinners/BeatLoader';
+
 import { createNewUserId } from 'src/shared/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { prefereceList, preferenceType, weatherActions } from '../redux/modules/weather';
-import { Button, Grid, Range } from '../components/elements';
+import { Button, Grid, Range, Toast } from '../components/elements';
 
 import { RootState } from '../redux/modules';
 
 const PreSetting = (props) => {
   const { history, isMain } = props;
-  const { preference, isLoadedPreference, isLoaded } = useSelector((state: RootState) => state.weather);
+  const { preference, isLoadedPreference } = useSelector((state: RootState) => state.weather);
 
   // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
   const [isHidden, setIsHidden] = useState<boolean>(true);
@@ -38,6 +41,11 @@ const PreSetting = (props) => {
   useEffect(() => {
     const id = localStorage.getItem('weather-level');
     setUserId(id);
+
+    return () => {
+      clearTimeout(timerState);
+      setIsShowToast(false);
+    };
   }, []);
 
   // type에 맞게 props 넣어주려고
@@ -55,7 +63,7 @@ const PreSetting = (props) => {
     asthma: { label: '폐질환위험', rangeValue: asthma, setRangeValue: setAsthma },
     foodPoison: { label: '식중독위험', rangeValue: foodPoison, setRangeValue: setFoodPoison },
   };
-  console.log('rendering');
+
   const rangeList = preference.map((pre, idx) => {
     const key = pre.type;
 
@@ -88,8 +96,9 @@ const PreSetting = (props) => {
       foodPoisonWeight: foodPoison,
     };
 
-    dispatch(weatherActions.fetchUpdatePreference(data));
+    await dispatch(weatherActions.fetchUpdatePreference(data));
     setIsHidden(true);
+    openToast('선호도를 저장했습니다');
   };
 
   const goBack = () => {
@@ -98,6 +107,20 @@ const PreSetting = (props) => {
 
   const handleRangeHidden = () => {
     setIsHidden(!isHidden);
+  };
+
+  const openToast = (msg) => {
+    if (timerState) {
+      clearTimeout(timerState);
+    }
+    setIsShowToast(true);
+    setToastMsg(msg);
+
+    const timer = setTimeout(() => {
+      setIsShowToast(false);
+    }, 3000);
+
+    setTimerState(timer);
   };
   return (
     <Container>
@@ -128,6 +151,8 @@ const PreSetting = (props) => {
           </Button>
         </Grid>
       )}
+      {isShowToast && <Toast>{toastMsg}</Toast>}
+      <BeatLoader color="#738FFF" loading={isLoadedPreference} css={spinnerStyle} />
     </Container>
   );
 };
@@ -173,5 +198,12 @@ const ShowButton = styled.div`
     color: ${(props) => props.theme.color.gray3};
     transition: 0.3s;
   }
+`;
+
+const spinnerStyle = css`
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin: 0 auto;
 `;
 export default PreSetting;
