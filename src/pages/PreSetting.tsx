@@ -100,7 +100,7 @@ const PreSetting = (props) => {
     setIsHidden(!isHidden);
   };
   return (
-    <Container>
+    <Container >
       <Title>
         당신이 외출할 때 <br />
         중요하게 여기는 것을 알려주세요!

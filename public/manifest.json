@@ -1,7 +1,7 @@
 {
   "short_name": "외출 난이도",
   "name": "외출 난이도",
-  "description": "사용자의 성향에 따른 외출 점수를 보여주는 애플리케이션입니다.",
+  "description": "사용자의 성향에 따른 날씨 점수를 보여주는 애플리케이션입니다.",
   "categories": [
     "weather",
     "news",
@@ -39,7 +39,7 @@
       "purpose": "maskable any"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#EBEBF9",
   "background_color": "#EBEBF9",

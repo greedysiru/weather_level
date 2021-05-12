@@ -75,7 +75,7 @@ const MainContents = (props: mainContentsType) => {
       {/* 이번주 외출 점수 */}
       <TimeInfo
         info={weatherInfo.dayScoreList}
-        label="이번주 외출 점수"
+        label="이번주 날씨 점수"
         dayOfWeek={dayOfWeek}
         score
       />

@@ -10,6 +10,7 @@ import theme from '../styles/theme';
 
 // 외출 점수와 캐릭터를 보여주는 컴포넌트
 const Score = (props) => {
+  const { history } = props;
   const { color } = theme;
   const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
   const todayWeather = useSelector((state: RootState) => state.weather.todayWeather);
@@ -42,7 +43,7 @@ const Score = (props) => {
               margin="0 0.5rem 0 0"
               bold="700"
             >
-              외출 점수
+              날씨 점수
             </Text>
             <Text
               size="2.2rem"
@@ -50,7 +51,9 @@ const Score = (props) => {
             >
               {todayScore}점
           </Text>
-            <Icon name="adjust" color="black" />
+            <Grid width="10%" _onClick={() => { history.replace('/setting?slected') }} >
+              <Icon name="adjust" color="black" />
+            </Grid>
           </Grid>
           <Grid
             margin="0.5rem 0 0 0"

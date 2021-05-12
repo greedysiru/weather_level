@@ -33,6 +33,7 @@ import { RootState } from '../redux/modules';
 SwiperCore.use([Pagination]);
 
 const Main = (props) => {
+  const { history } = props;
   // 날씨 정보 로드 여부 가져오기
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
   // 날씨정보 로드 전
@@ -71,7 +72,7 @@ const Main = (props) => {
             }}
           >
             {/* 점수 */}
-            <Score />
+            <Score history={history} />
             {/* 카드 (4열) */}
             <MainContents isFirst />
           </SwiperSlide>
