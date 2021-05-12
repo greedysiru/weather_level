@@ -8,5 +8,6 @@ import Card from './Card';
 import LongCard from './LongCard';
 import Toast from './Toast';
 import Title from './Title';
+import Icon from './Icon';
 
-export { Grid, Text, Input, Button, Image, Range, Card, LongCard, Toast, Title };
+export { Grid, Text, Input, Button, Image, Range, Card, LongCard, Toast, Title, Icon };

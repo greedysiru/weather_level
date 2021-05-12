@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
+// elements
+import { Icon } from './elements'
+
 // 푸터 컴포넌트
 const Footer = (props) => {
   const { height, margin, history } = props;
@@ -24,7 +27,7 @@ const Footer = (props) => {
         }}
         isSelected={selectedMenu === '/setting/location'}
       >
-        위치 아이콘
+        <Icon name='location' />
       </ElFooter>
       <ElFooter
         onClick={() => {

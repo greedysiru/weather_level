@@ -6,7 +6,6 @@ import DetailDaily from 'src/components/DetailDaily';
 import DetailThreeDays from 'src/components/DetailThreeDays';
 import DetailWeekly from 'src/components/DetailWeekly';
 import { Button, Grid } from 'src/components/elements';
-import Header from 'src/components/Header';
 import styled from 'styled-components';
 import { RootState } from '../redux/modules';
 
