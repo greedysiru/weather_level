@@ -24,15 +24,15 @@ export const weatherAPI = {
         },
       });
     }
-    // return axios.get(`/api/total/data/coordinate`, {
-    //   params: {
-    //     latitude,
-    //     longitude,
-    //   },
-    // });
+    return axios.get(`/api/total/data/coordinate`, {
+      params: {
+        latitude,
+        longitude,
+      },
+    });
     // return axios.get(`/api/total/data/coordinate?longitude=127.0495556&latitude=37.514575`);
 
-    return axios.get(`/test`);
+    // return axios.get(`/test`);
   },
   fetchPreference() {
     return axios.get('/api/user/preferences');

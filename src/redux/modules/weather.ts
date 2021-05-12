@@ -175,7 +175,7 @@ const getWeatherInfo = () => async (dispatch) => {
     const latitude = Number(localStorage.getItem('latitude'));
     const longitude = Number(localStorage.getItem('longitude'));
     const res = await weatherAPI.getWeather(latitude, longitude);
-
+    localStorage.setItem('id', res.data.identification);
     dispatch(setWeatherInfo(res.data));
     // 현재 시간 기록하기
     dispatch(timeActions.getTimeInfo());
@@ -202,6 +202,8 @@ const getLocation = () => (dispatch) => {
         // localstorage에 저장
         localStorage.setItem('latitude', String(latitude));
         localStorage.setItem('longitude', String(longitude));
+        // preference 불러오기
+        dispatch(fetchPreference());
         // 현재 위치정보를 기반으로 날씨 정보 불러오기
         dispatch(getWeatherInfo());
       },
