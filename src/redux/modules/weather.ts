@@ -177,21 +177,21 @@ const getWeatherInfo = () => async (dispatch) => {
     const longitude = Number(localStorage.getItem('longitude'));
     const res = await weatherAPI.getWeather(latitude, longitude);
 
-    setHeaderToken(res.headers.identification);
+    await setHeaderToken(res.headers.identification);
 
-    dispatch(setWeatherInfo(res.data));
+    await dispatch(setWeatherInfo(res.data));
     // 현재 시간 기록하기
-    dispatch(timeActions.getTimeInfo());
+    await dispatch(timeActions.getTimeInfo());
 
     // 카드 정보 만들기
-    dispatch(getCardsInfo());
+    await dispatch(getCardsInfo());
   } catch (error) {
     console.log(error);
   }
 };
 
 // 위도, 경도 정보 가져오는 함수
-const getLocation = () => (dispatch) => {
+const getLocation = () => async (dispatch) => {
   // 로딩 상태
   dispatch(setLoad(false));
   // GPS를 지원하면
@@ -205,10 +205,6 @@ const getLocation = () => (dispatch) => {
         // localstorage에 저장
         localStorage.setItem('latitude', String(latitude));
         localStorage.setItem('longitude', String(longitude));
-        // preference 불러오기
-        dispatch(fetchPreference());
-        // 현재 위치정보를 기반으로 날씨 정보 불러오기
-        dispatch(getWeatherInfo());
       },
       // error
       function (error) {

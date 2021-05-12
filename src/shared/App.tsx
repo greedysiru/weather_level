@@ -26,13 +26,22 @@ import AppLayout from '../components/AppLayout';
 import { weatherActions } from '../redux/modules/weather';
 
 function App() {
+  // 앱을 초기화할때 실행하는 함수
+  const initializeApp = async () => {
+    // 사용자 위치(위도, 경도) state에 기록 후 날씨 정보 불러오기
+    await dispatch(weatherActions.getLocation());
+    // preference 불러오기
+    await dispatch(weatherActions.fetchPreference());
+    // 현재 위치정보를 기반으로 날씨 정보 불러오기
+    await dispatch(weatherActions.getWeatherInfo());
+    // 카카오
+    await initialize();
+  }
   const dispatch = useDispatch();
   React.useEffect(() => {
-    // 사용자 위치(위도, 경도) state에 기록 후 날씨 정보 불러오기
-    dispatch(weatherActions.getLocation());
-    // 카카오
-    initialize();
+    initializeApp()
   }, []);
+
 
   return (
     <ConnectedRouter history={history}>
