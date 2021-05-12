@@ -19,7 +19,7 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 setCacheNameDetails({
   prefix: 'weather-service',
   suffix: 'v1',
-  precache: 'weather-service-precache'
+  precache: 'weather-service-precache',
 });
 
 declare const self: ServiceWorkerGlobalScope;
@@ -33,14 +33,14 @@ clientsClaim();
 precacheAndRoute(self.__WB_MANIFEST);
 
 // Catch routing errors, like if the user is offline
-setCatchHandler(async ({ event }: { event }) => {
+/* setCatchHandler(async ({ event }: { event }) => {
   // Return the precached offline page if a document is being requested
   if (event.request.destination === 'document') {
     return matchPrecache('/offline.html');
   }
 
   return Response.error();
-});
+}); */
 
 // Set up App Shell-style routing, so that all navi gation requests
 // are fulfilled with your index.html shell. Learn more at
@@ -68,7 +68,7 @@ registerRoute(
     // Return true to signal that we want to use the handler.
     return true;
   },
-  createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
+  createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html'),
 );
 
 // 폰트 캐싱
@@ -83,7 +83,7 @@ registerRoute(
       // least-recently used images are removed.
       new ExpirationPlugin({ maxEntries: 50 }),
     ],
-  })
+  }),
 );
 
 // 이미지 캐싱
@@ -101,11 +101,8 @@ registerRoute(
       }),
       new ExpirationPlugin({ maxEntries: 50 }),
     ],
-  })
+  }),
 );
-
-
-
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
