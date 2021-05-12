@@ -180,6 +180,8 @@ const getWeatherInfo = () => async (dispatch) => {
 
     if (!id || id === 'undefined') {
       // localStorage.setItem('weather-level', res.data.identification);
+      const newId = res.headers.Identification;
+      console.log(newId);
       localStorage.setItem(
         'weather-level',
         'wl2021-05-12T16:42:13.922+09:00[Asia/Seoul]20981fc9-6132-4963-b030-7e228fe375f1',

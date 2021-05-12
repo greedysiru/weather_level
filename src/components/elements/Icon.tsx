@@ -22,19 +22,18 @@ import { ReactComponent as Temp } from '../../icons/temp.svg';
 import { ReactComponent as Uv } from '../../icons/uv.svg';
 import { ReactComponent as Wind } from '../../icons/wind.svg';
 
-
 type IconType = {
   name?: string;
   size?: number;
   color?: string;
   isWeather?: boolean;
   weatherState?: string;
-}
+};
 
 const Icon = (props: IconType) => {
   const { size, isWeather, color, weatherState } = props;
   let { name } = props;
-  const styles = { name, size, color }
+  const styles = { name, size, color };
   // 불러올 수 있는 아이콘 리스트
   const IconsList = {
     temp: Temp,
@@ -59,10 +58,9 @@ const Icon = (props: IconType) => {
   };
 
   // 미세먼지인 경우
-  if (name === "pm10" || name === "pm25") {
-    console.log(name, color)
+  if (name === 'pm10' || name === 'pm25') {
+    console.log(name, color);
     name = `Air${weatherState}`;
-
   }
 
   // 호출된 아이콘
@@ -73,47 +71,45 @@ const Icon = (props: IconType) => {
       <WeatherIconWrap {...styles}>
         <ElIcon />
       </WeatherIconWrap>
-    )
+    );
   }
   return (
     <IconWrap {...styles}>
       <ElIcon />
     </IconWrap>
-  )
-}
+  );
+};
 
 Icon.defaultProps = {
-  name: "",
+  name: '',
   size: 3,
   color: 'black',
   isWeather: false,
   weatherState: '',
 };
 
-
 const IconWrap = styled.div<IconType>`
-    --size: ${(props) => props.size}rem;
-    width: var(--size);
-    height: var(--size);
-    background-size: cover;
-    &:hover svg {
+  --size: ${(props) => props.size}rem;
+  width: var(--size);
+  height: var(--size);
+  background-size: cover;
+  &:hover svg {
     fill: black;
   }
   & svg {
     fill: ${(props) => props.theme.color.gray3};
     transition: 0.3s;
   }
-`
+`;
 
 const WeatherIconWrap = styled.div<IconType>`
   --size: ${(props) => props.size}rem;
-    width: var(--size);
-    height: var(--size);
-    background-size: cover;
-    & svg {
+  width: var(--size);
+  height: var(--size);
+  background-size: cover;
+  & svg {
     fill: ${(props) => props.color};
   }
-`
-
+`;
 
 export default Icon;
