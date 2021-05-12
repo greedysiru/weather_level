@@ -67,7 +67,7 @@ const Main = (props) => {
             style={{
               width: '100%',
               height: '100%',
-              padding: '2rem 2rem 0 2rem',
+              padding: '0 2rem 0 2rem',
             }}
           >
             {/* 점수 */}

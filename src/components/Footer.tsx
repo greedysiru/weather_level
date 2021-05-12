@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 // elements
-import { Icon } from './elements'
+import { Grid, Icon } from './elements'
 
 // 푸터 컴포넌트
 const Footer = (props) => {
@@ -36,7 +36,7 @@ const Footer = (props) => {
         }}
         isSelected={selectedMenu === '/'}
       >
-        메인 아이콘
+        <Icon name='main' />
       </ElFooter>
       <ElFooter
         onClick={() => {
@@ -45,7 +45,7 @@ const Footer = (props) => {
         }}
         isSelected={selectedMenu === '/setting'}
       >
-        설정 아이콘
+        <Icon name='setting' />
       </ElFooter>
     </FooterWrap>
   );
@@ -69,12 +69,15 @@ const FooterWrap = styled.div`
 `;
 
 const ElFooter = styled.div`
+  cursor: pointer;
   width: 30%;
   height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${(props) => (props.isSelected ? 'red' : '')};
+  & svg {
+  fill: ${(props) => (props.isSelected ? 'black' : '')};
+  }
 `;
 
 export default Footer;

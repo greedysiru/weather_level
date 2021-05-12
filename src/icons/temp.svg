@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 34 34">
+  <defs>
+    <style>
+      .a {
+        fill: none;
+      }
+    </style>
+    <symbol id="a" viewBox="0 0 48 48">
+      <rect class="a" width="48" height="48" />
+    </symbol>
+  </defs>
+  <path fill="current"
+    d="M21.25,18.45V7.08a4.25,4.25,0,0,0-8.5,0V18.45a7.08,7.08,0,1,0,8.5,0ZM17,5.67a1.42,1.42,0,0,1,1.42,1.41v7.09H15.58V7.08A1.42,1.42,0,0,1,17,5.67Z" />
+  <use width="48" height="48" transform="translate(0 0) scale(0.71)" xlink:href="#a" />
+</svg>
