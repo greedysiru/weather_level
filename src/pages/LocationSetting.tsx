@@ -150,7 +150,7 @@ const LocationSetting = (props) => {
 
   const removeLocationList = async () => {
     if (deleteList.length > 0) {
-      await dispatch(locationActions.fetchDeleteUserRegion({ region: deleteList }));
+      await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions: deleteList }));
 
       await openToast('선택한 위치를 삭제했습니다');
     }

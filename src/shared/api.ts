@@ -55,10 +55,7 @@ export const locationAPI = {
   },
   updateUserRegion(data) {
     const id = localStorage.getItem('weather-level');
-    axios.defaults.headers.common.token = id;
+
     return axios.post('/api/user/regions', data);
-  },
-  deleteUserRegion(data) {
-    return axios.put('/api/user/regions', data);
   },
 };

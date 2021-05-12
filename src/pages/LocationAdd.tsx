@@ -100,7 +100,7 @@ const LocationAdd = (props) => {
     }
 
     const region = [`${selectedBigRegion} ${selectedSmallRegion}`];
-    dispatch(locationActions.fetchCreateUserRegion({ region }));
+    dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions: region }));
   };
 
   const goBack = () => {
