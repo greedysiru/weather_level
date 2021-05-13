@@ -17,7 +17,7 @@ const Cards = (props: cardsType) => {
     return (
       <>
         {first.map((info, idx) => {
-          return <Card key={idx} width="22.5%" cardTitle={info.label} cardDescription={info.description} cardType={info.type} />;
+          return <Card key={idx} width="22.5%" cardTitle={info.label} cardDescription={info.description} iconName={info.type} />;
         })}
       </>
     );
@@ -29,7 +29,7 @@ const Cards = (props: cardsType) => {
       <Grid $wrap height="200%" jc="space-between" padding="0 0 2rem 0">
         {second.map((info, idx) => {
           return (
-            <Card key={idx} width="30.8%" height="23%" cardTitle={info.label} cardDescription={info.description} cardType={info.type} />
+            <Card key={idx} width="30.8%" height="23%" cardTitle={info.label} cardDescription={info.description} iconName={info.type} />
           );
         })}
       </Grid>

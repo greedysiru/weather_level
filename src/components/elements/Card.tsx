@@ -21,14 +21,14 @@ type cardType = {
 type CardInfoType = {
   cardTitle: string;
   cardDescription: [string, number | string, string];
-  cardType?: string;
+  iconName?: string;
 };
 
 // 날씨 정보를 표시하는 카드
 const Card = (props: cardType & CardInfoType) => {
   const { width, height, margin, padding, bg } = props;
   // 카드 정보
-  const { cardTitle, cardDescription, cardType } = props;
+  const { cardTitle, cardDescription, iconName } = props;
   // 테마 컬러
   const { color } = theme;
   let weatherState = '';
@@ -63,7 +63,7 @@ const Card = (props: cardType & CardInfoType) => {
             </Text>
           </Grid>
           <Grid>
-            <Icon name={cardType} color={color[weatherState]} weatherState={weatherState} isWeather />
+            <Icon name={iconName} color={color[weatherState]} weatherState={weatherState} isWeather />
           </Grid>
           <Grid ai="flex-end">
             <Text bold="700" size="1.4rem" color={color[weatherState]}>
@@ -82,7 +82,7 @@ Card.defaultProps = {
   margin: '0px',
   padding: '0px',
   bg: 'white',
-  cardType: '',
+  iconName: '',
 };
 
 const ElCard = styled.div<cardType>`
