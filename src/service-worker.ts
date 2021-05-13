@@ -16,9 +16,10 @@ import { StaleWhileRevalidate } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
 // 캐시 이름
+// 빌드 일시 2021-05-13 오후 8:47
 setCacheNameDetails({
   prefix: 'weather-service',
-  suffix: 'v6',
+  suffix: 'v7',
   precache: 'weather-service-precache',
 });
 
