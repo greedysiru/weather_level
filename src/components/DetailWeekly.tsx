@@ -4,7 +4,9 @@ import { RootState } from 'src/redux/modules';
 import styled from 'styled-components';
 
 import { LongCard } from './elements';
-import TimeInfo from './TimeInfo';
+
+// common
+import { convertWeaterInfo } from '../shared/common';
 
 const DetailWeekly = (props) => {
   const { category } = props;
@@ -19,7 +21,24 @@ const DetailWeekly = (props) => {
     }
   }, []);
   const Content = weekInfo?.[type]?.map((data, idx) => {
-    return <LongCard isFirst={idx === 0} type={type} key={idx} day={dayOfWeek?.[idx]} data={data} height="8%" />;
+    let iconColor;
+
+    if (category === 'humidity') {
+      iconColor = convertWeaterInfo(category, data);
+    }
+
+    if (category === 'wind') {
+      iconColor = convertWeaterInfo(category, data);
+    }
+    return (
+      <LongCard
+        isFirst={idx === 0}
+        type={type}
+        key={idx}
+        day={dayOfWeek?.[idx]}
+        data={data}
+        iconColor={iconColor}
+        height="8%" />);
   });
 
   const title = {

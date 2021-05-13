@@ -10,7 +10,7 @@ import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/modules';
-import { Grid, LongCard } from './elements';
+import { LongCard } from './elements';
 
 
 // common
@@ -23,7 +23,6 @@ const DetailDaily = (props) => {
   console.log(category)
   const { dayInfo, weekInfo } = useSelector((state: RootState) => state.weather.weatherInfo);
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
-  const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
 
   // url에 따라 title 다르게
   const title = {
@@ -32,7 +31,7 @@ const DetailDaily = (props) => {
     tmp: '날씨',
   };
 
-  // 일별날씨 카드 리스트 컴포넌트
+  // 시간별 카드 리스트 컴포넌트
   const timeListComponent = dayInfo.dailyTime.reduce((acc, cur, idx) => {
     // 2시간 간격 24시간
     if (idx < 20 && (idx + 1) % 2 === 1) {
@@ -40,6 +39,7 @@ const DetailDaily = (props) => {
       // category 별로 데이터 다르게
       let data;
       let iconColor;
+      let iconName;
       if (category === 'rainPer') {
         const rainPercent = Math.round(Number(dayInfo[category][idx]) * 100)
         data = `${rainPercent}`;
@@ -47,7 +47,8 @@ const DetailDaily = (props) => {
       }
 
       if (category === 'tmp' || category === 'weather') {
-        data = `${dayInfo.tmp[idx]}°C`;
+        data = `${Math.round(Number(dayInfo.tmp[idx]))}°C`;
+        iconName = dayInfo.weatherIcon[idx];
       }
 
       // if (category === 'weather') {
@@ -58,11 +59,13 @@ const DetailDaily = (props) => {
       acc.push(
         <LongCard
           height="7%"
-          type="rainPer"
+          type={category}
           key={idx}
           day={`${dateTime[2]}:00`} /* ${dateTime[0]}/${dateTime[1]} */
           data={data}
           iconColor={iconColor}
+          iconName={iconName}
+          isTime
         />,
       );
     }
@@ -70,7 +73,7 @@ const DetailDaily = (props) => {
     return acc;
   }, []);
 
-  // 시간별 카드리스트 컴포넌트
+  // 일별 카드리스트 컴포넌트
   const weeklyListComponent = weekInfo[category].reduce((acc, cur, idx) => {
     // category 별로 데이터 다르게
     let data;
@@ -86,7 +89,7 @@ const DetailDaily = (props) => {
         max: weekInfo.maxTmp[idx].toString(),
         min: weekInfo.minTmp[idx],
         tmp: `${parseInt(weekInfo.tmp[idx], 10)}°C`,
-        weather: weekInfo.weather[idx],
+        weather: weekInfo.weatherIcon[idx],
         des: weekInfo.weatherDes[idx],
       };
     }
@@ -119,20 +122,6 @@ const DetailDaily = (props) => {
     padding: '1.5rem 1.5rem 2rem 1.5rem',
   };
 
-  if (isDesktopMode) {
-    return (
-      <Grid height="80%">
-        <Grid isColumn margin="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
-          <Title>시간별 {title[category]} </Title>
-          {timeListComponent}
-        </Grid>
-        <Grid isColumn margin="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
-          <Title> 일별 {title[category]} </Title>
-          {weeklyListComponent}
-        </Grid>
-      </Grid>
-    );
-  }
   return (
     <Container>
       <Swiper pagination className="mySwiper" style={swipeStyle as React.CSSProperties}>
@@ -145,7 +134,10 @@ const DetailDaily = (props) => {
 
         {/* 두번째 슬라이드 */}
 
-        <SwiperSlide style={slideStyle as React.CSSProperties}>{weeklyListComponent}</SwiperSlide>
+        <SwiperSlide style={slideStyle as React.CSSProperties}>
+          <Title> 일별 {title[category]} </Title>
+          {weeklyListComponent}
+        </SwiperSlide>
       </Swiper>
     </Container>
   );

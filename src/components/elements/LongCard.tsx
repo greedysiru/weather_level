@@ -15,12 +15,13 @@ type LongCardType = {
   type: string;
   isFirst?: boolean;
   iconColor?: string;
+  iconName?: string;
+  isTime?: boolean;
 };
 
 const LongCard = (props: LongCardType) => {
-  const { height, day, data, type, isFirst, iconColor } = props;
+  const { height, day, data, type, isFirst, iconColor, iconName, isTime } = props;
   const { color } = theme;
-  console.log(color[iconColor])
   const style = {
     height,
     isFirst,
@@ -31,7 +32,6 @@ const LongCard = (props: LongCardType) => {
     rainPer: '%',
     windSpeed: 'm/s',
   };
-
   return (
     <ElLongCard {...style}>
       <Grid width="30%">
@@ -40,7 +40,7 @@ const LongCard = (props: LongCardType) => {
       {/* data 내용 */}
       {type === 'rainPer' && (
         <>
-          <Icon name='rainPer' color={color[iconColor]} isWeather />
+          <Icon name={type} color={color[iconColor]} isWeather />
           <Grid width="30%">
             <Text>
               {data}
@@ -49,9 +49,76 @@ const LongCard = (props: LongCardType) => {
           </Grid>
         </>
       )}
-      {type === 'weather' && (
+      {/* 습도 */}
+      {type === 'humidity' && (
         <>
-          {data.weather}
+          <Icon name={type} color={color[iconColor]} isWeather />
+          <Grid width="30%">
+            <Text>
+              {data}
+              {unit[type]}
+            </Text>
+          </Grid>
+        </>
+      )}
+
+      {/* 바람 */}
+      {type === 'windSpeed' && (
+        <>
+          <Icon name='wind' color={color[iconColor]} isWeather />
+          <Grid width="30%">
+            <Text>
+              {data}
+              {unit[type]}
+            </Text>
+          </Grid>
+        </>
+      )}
+
+      {/* 날씨, 첫 슬라이드 */}
+      {type === 'weather' && isTime === true && (
+        <>
+          <Icon name={iconName} isWeather />
+          <Grid width="30%">
+            <Text>
+              {data}
+              {unit[type]}
+            </Text>
+          </Grid>
+        </>
+      )}
+
+      {/* 온도, 첫 슬라이드 */}
+      { type === 'tmp' && isTime === true && (
+        <>
+          <Icon name={iconName} isWeather />
+          <Grid width="30%">
+            <Text>
+              {data}
+              {unit[type]}
+            </Text>
+          </Grid>
+        </>
+      )}
+
+      {/* 날씨, 두번째 슬라이드 */}
+      {type === 'weather' && isTime === false && (
+        <>
+          <Icon isWeather name={data.weather} />
+          <Temp>
+            <Grid isColumn>
+              <TempText max="true">{data.max}</TempText>
+              <TempText>{data.min}</TempText>
+            </Grid>
+            <Text>{data.tmp}</Text>
+          </Temp>
+        </>
+      )}
+
+      {/* 온도, 두번째 슬라이드 */}
+      {type === 'tmp' && isTime === false && (
+        <>
+          <Icon isWeather name={data.weather} />
           <Temp>
             <Grid isColumn>
               <TempText max="true">{data.max}</TempText>
@@ -69,6 +136,8 @@ LongCard.defaultProps = {
   height: '10%',
   isFirst: false,
   iconColor: null,
+  iconName: null,
+  isTime: false,
 };
 
 const ElLongCard = styled.div<LongCardType>`

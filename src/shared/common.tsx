@@ -113,20 +113,21 @@ export const convertWeaterInfo = (type, value) => {
   }
   // 바람
   if (type === 'wind') {
+    console.log(value)
     if (value <= 3.3) {
-      return ['good', '남실바람', `weekly/${type}`];
+      return 'good';
     }
     if (value <= 5.4) {
-      return ['good', '산들바람', `weekly/${type}`];
+      return 'good';
     }
     if (value <= 10.7) {
-      return ['usually', '흔들바람', `weekly/${type}`];
+      return 'usually';
     }
     if (value <= 13.8) {
-      return ['bad', '된바람', `weekly/${type}`];
+      return 'bad';
     }
     if (value > 13.8) {
-      return ['veryBad', '센바람', `weekly/${type}`];
+      return 'veryBad';
     }
   }
   // 하늘
@@ -196,25 +197,25 @@ export const convertWeaterInfo = (type, value) => {
   // 습도
   if (type === 'humidity') {
     if (value >= 0 && value < 20) {
-      return ['veryBad', '매우건조', `weekly/${type}`];
+      return 'veryBad';
     }
     if (value >= 20 && value < 30) {
-      return ['bad', '건조', `weekly/${type}`];
+      return 'bad';
     }
     if (value >= 30 && value < 40) {
-      return ['usually', '약간건조', `weekly/${type}`];
+      return 'usually';
     }
     if (value >= 40 && value < 60) {
-      return ['good', '쾌적', `weekly/${type}`];
+      return 'good';
     }
     if (value >= 60 && value < 70) {
-      return ['usually', '약간습함', `weekly/${type}`];
+      return 'usually';
     }
     if (value >= 70 && value < 80) {
-      return ['bad', '습함', `weekly/${type}`];
+      return 'bad';
     }
     if (value >= 80) {
-      return ['veryBad', '매우습함', `weekly/${type}`];
+      return 'veryBad';
     }
   }
   // 기온
