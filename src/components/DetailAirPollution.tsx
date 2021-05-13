@@ -20,7 +20,6 @@ const DetailAirPollution = (props) => {
     return (
       <Container>
         <Title>미세먼지 지수</Title>
-        <div>그림</div>
         <CardWrapper>
           <Card width="30%" height="150px" cardTitle="미세먼지" cardDescription={pm10Des} iconName="pm10" />
           <Card width="30%" height="150px" cardTitle="초미세먼지" cardDescription={pm25Des} iconName="pm25" />
