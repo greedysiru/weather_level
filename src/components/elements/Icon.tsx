@@ -155,11 +155,5 @@ const WeatherIconWrap = styled.div<IconType>`
   }
 `;
 
-const DefaultWrap = styled.div<IconType>`
-  --size: ${(props) => props.size}rem;
-  width: var(--size);
-  height: var(--size);
-  background-size: cover;
-`
 
 export default Icon;

@@ -455,7 +455,7 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
       return ['veryBad', temperature, `daily/tmp`];
     }
   }
-  return ['정보없음', '정보 없음', '정보 없음'];
+  return ['정보없음', '정보 없음', null];
 };
 
 // preference의 우선순위를 적용한 카드 4개를 선택하고 카드 정보를 생성하는 함수
