@@ -65,7 +65,7 @@ const LongCard = (props: LongCardType) => {
       {/* 바람 */}
       {type === 'windSpeed' && (
         <>
-          <Icon name='wind' color={color[iconColor]} isWeather />
+          <Icon name="wind" color={color[iconColor]} isWeather />
           <Grid width="30%">
             <Text>
               {data}
@@ -89,7 +89,7 @@ const LongCard = (props: LongCardType) => {
       )}
 
       {/* 온도, 첫 슬라이드 */}
-      { type === 'tmp' && isTime === true && (
+      {type === 'tmp' && isTime === true && (
         <>
           <Icon name={iconName} isWeather />
           <Grid width="30%">
@@ -133,7 +133,7 @@ const LongCard = (props: LongCardType) => {
 };
 
 LongCard.defaultProps = {
-  height: '10%',
+  height: '5%',
   isFirst: false,
   iconColor: null,
   iconName: null,
@@ -145,11 +145,14 @@ const ElLongCard = styled.div<LongCardType>`
   justify-content: space-between;
   width: 100%;
   padding: 1rem 3rem;
-  height: ${(props) => (props.isFirst ? `12%` : props.height)};
+  height: ${(props) => (props.isFirst ? `16%` : props.height)};
+  font-size: ${(props) => (props.isFirst ? '1.5rem' : '1.2rem')};
+  font-weight: ${(props) => (props.isFirst ? `600` : `550`)};
   border-radius: 14px;
   ${(props) => props.theme.shadow};
   border: solid 0.5px ${(props) => props.theme.color.purple};
   background-color: white;
+  margin: 5px 0;
 `;
 
 const Text = styled.div`

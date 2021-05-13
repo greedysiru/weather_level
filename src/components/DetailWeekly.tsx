@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/redux/modules';
 import styled from 'styled-components';
 
-import { LongCard } from './elements';
+import { LongCard, Title } from './elements';
 
 // common
 import { convertWeaterInfo } from '../shared/common';
@@ -38,7 +38,9 @@ const DetailWeekly = (props) => {
         day={dayOfWeek?.[idx]}
         data={data}
         iconColor={iconColor}
-        height="8%" />);
+        height="8%"
+      />
+    );
   });
 
   const title = {
@@ -51,7 +53,6 @@ const DetailWeekly = (props) => {
       <Contents>
         <Title>{title[category]}</Title>
         {Content}
-
       </Contents>
     </Container>
   );
@@ -66,18 +67,12 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Title = styled.div`
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 1rem;
-`;
-
 const Contents = styled.div`
   width: 100%;
   height: 100%;
   padding: 1.5rem;
   ${(props) => props.theme.flex.column};
-
+  justify-content: flex-start;
 `;
 
 const Card = styled.div``;
