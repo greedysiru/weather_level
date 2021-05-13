@@ -57,13 +57,19 @@ const getTimeInfo = () => (dispatch, getState) => {
   // 현재 시간으로부터 필요한 인덱스 배열 만들기
   const timeIndex: number[] = [];
   // 현재 요일로부터 필요한 요일 배열 만들기
-  const WEEKDAY = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
+  // 현재로부터 가까운 요일
+  const NEARDAY = ['오늘', '내일', '모레'];
   const dayOfWeek: string[] = [];
   for (let i = 0; i < 8; i += 1) {
     timeIndex[i] = idx;
     // 요일 배열 만들기
+    // i가 0, 1, 2 이면 오늘, 내일, 모레
+    if (day < 3) {
+      dayOfWeek[i] = NEARDAY[i];
+    }
     //  day + i 가 넘어가면 인덱스를 초과하므로 -7을하여 일요일부터 순회
-    if (day + i > 6) {
+    else if (day + i > 6) {
       dayOfWeek[i] = WEEKDAY[day + i - 7];
     } else {
       dayOfWeek[i] = WEEKDAY[day + i];

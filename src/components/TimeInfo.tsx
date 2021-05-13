@@ -33,8 +33,7 @@ const TimeInfo = (props: TimeInfoType) => {
   const style = {
     height
   }
-  // 요일 배열
-  const dayArray = []
+
   // 스피닝
   if (info === null) {
     return null
@@ -53,7 +52,7 @@ const TimeInfo = (props: TimeInfoType) => {
         >
           <Text
             size="1.5rem"
-            bold="500"
+            bold="700"
           >
             {label}
           </Text>
@@ -109,15 +108,11 @@ const TimeInfo = (props: TimeInfoType) => {
                 <Grid
                   ai='center'
                   jc='center'
-                  bg={scoreColor}
-                  height="2.3rem"
-                  width="2.3rem"
-                  radius="50%"
                 >
                   <Text
-                    color='white'
+                    color={scoreColor}
                     bold="600"
-                    size="1.1rem"
+                    size="1.5rem"
                   >
                     {score}
                   </Text>

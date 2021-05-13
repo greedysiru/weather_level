@@ -14,8 +14,8 @@ const Logo = (props) => {
 const ElLogo = styled.div`
   position:fixed;
   background-image: url(${logo});
-  width: 75%;
-  height: 75%;
+  width: 50%;
+  height: 50%;
   background-size: cover;
   background-position: center center;
 `
