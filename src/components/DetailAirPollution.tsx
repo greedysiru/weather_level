@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'src/redux/modules';
 import { convertWeaterInfo } from 'src/shared/common';
 import styled from 'styled-components';
-import { Card, Grid, Title } from './elements';
+import { Card, Grid, Image, Title } from './elements';
+import logo from '../icons/corona.png';
 
 const DetailAirPollution = (props) => {
   const [pm10Des, setPm10Des] = useState(null);
@@ -20,6 +21,7 @@ const DetailAirPollution = (props) => {
     return (
       <Container>
         <Title>미세먼지 지수</Title>
+        <Image size={20} src={logo} />
         <CardWrapper>
           <Card width="30%" height="150px" cardTitle="미세먼지" cardDescription={pm10Des} iconName="pm10" />
           <Card width="30%" height="150px" cardTitle="초미세먼지" cardDescription={pm25Des} iconName="pm25" />

@@ -4,7 +4,8 @@ import { RootState } from 'src/redux/modules';
 import { convertWeaterInfo } from 'src/shared/common';
 /* import { ReactComponent as CoronaIcon } from 'public/assets/icons/i_corona.svg'; */
 import styled from 'styled-components';
-import { Card, Grid, Title } from './elements';
+import { Card, Grid, Image, Title } from './elements';
+import logo from '../icons/corona.png';
 
 const Corona = (props) => {
   const [allNewCaseDes, setallNewCaseDes] = useState(null);
@@ -14,6 +15,8 @@ const Corona = (props) => {
     (state: RootState) => state.weather.weatherInfo,
   );
 
+  const logoSrc = '/icons/corona.png';
+
   useEffect(() => {
     setallNewCaseDes(convertWeaterInfo('corona', coronaAllNewCaseCount));
     setBigRegionNewCaseDes(convertWeaterInfo('corona', coronaCurrentBigRegionNewCaseCount));
@@ -22,9 +25,8 @@ const Corona = (props) => {
   if (allNewCaseDes && setallNewCaseDes) {
     return (
       <Container>
-        <Title>코로나 지수</Title>
-
-        {/* <CoronaIcon /> */}
+        <Title>코로나 확진자수</Title>
+        <Image size={20} src={logo} />
         <CardWrapper>
           <Card
             width="30%"
