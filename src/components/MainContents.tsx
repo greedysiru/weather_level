@@ -30,6 +30,8 @@ const MainContents = (props: mainContentsType) => {
   const dailyTime = useSelector((state: RootState) => state.weather.weatherInfo.dayInfo.dailyTime);
   // dayOfWeek
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
+  //  dayInfo - weatherIcon
+  const weatherIcon = useSelector((state: RootState) => state.weather.weatherInfo.dayInfo.weatherIcon);
   // cardsInfo
   const cardsInfo = useSelector((state: RootState) => state.weather.cardsInfo);
   // isFirst
@@ -57,6 +59,7 @@ const MainContents = (props: mainContentsType) => {
           timeIndex={timeIndex}
           hours={hours}
           dailyTime={dailyTime}
+          weatherIcon={weatherIcon}
           label='시간대별 날씨'
         />
       </>
@@ -87,6 +90,7 @@ const MainContents = (props: mainContentsType) => {
         hours={hours}
         dailyTime={dailyTime}
         label='시간대별 강수 확률'
+        rain
       />
       <Grid
         margin="0 0 2rem 0"

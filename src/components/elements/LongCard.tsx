@@ -5,16 +5,22 @@ import styled from 'styled-components';
 // elements
 import { Grid, Icon } from './index';
 
+// theme
+import theme from '../../styles/theme';
+
 type LongCardType = {
   height?: string;
   day: string;
   data: any;
   type: string;
   isFirst?: boolean;
+  iconColor?: string;
 };
 
 const LongCard = (props: LongCardType) => {
-  const { height, day, data, type, isFirst } = props;
+  const { height, day, data, type, isFirst, iconColor } = props;
+  const { color } = theme;
+  console.log(color[iconColor])
   const style = {
     height,
     isFirst,
@@ -31,19 +37,20 @@ const LongCard = (props: LongCardType) => {
       <Grid width="30%">
         <Text>{day}</Text>
       </Grid>
-      <Icon name="setting" />
       {/* data 내용 */}
-      {type !== 'tmp' && type !== 'weather' && (
-        <Grid width="30%">
-          <Text>
-            {data}
-            {unit[type]}
-          </Text>
-        </Grid>
+      {type === 'rainPer' && (
+        <>
+          <Icon name='rainPer' color={color[iconColor]} isWeather />
+          <Grid width="30%">
+            <Text>
+              {data}
+              {unit[type]}
+            </Text>
+          </Grid>
+        </>
       )}
       {type === 'weather' && (
         <>
-          <Icon name="main" />
           {data.weather}
           <Temp>
             <Grid isColumn>
@@ -61,6 +68,7 @@ const LongCard = (props: LongCardType) => {
 LongCard.defaultProps = {
   height: '10%',
   isFirst: false,
+  iconColor: null,
 };
 
 const ElLongCard = styled.div<LongCardType>`

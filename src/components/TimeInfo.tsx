@@ -4,10 +4,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 // elements
-import { Grid, Text } from './elements';
+import { Grid, Text, Icon } from './elements';
 
 // theme
 import theme from '../styles/theme';
+
+// common
+import { convertWeaterInfo } from '../shared/common';
 
 
 type TimeInfoType = {
@@ -19,12 +22,14 @@ type TimeInfoType = {
   label: string;
   score?: boolean;
   height?: string;
+  rain?: boolean;
+  weatherIcon?: string[];
 }
 
 // 시간대별 정보를 보여주는 긴 카드
 const TimeInfo = (props: TimeInfoType) => {
   const { color } = theme;
-  const { info, timeIndex, hours, dailyTime, dayOfWeek, label, score, height } = props;
+  const { info, timeIndex, hours, dailyTime, dayOfWeek, label, score, height, rain, weatherIcon } = props;
   const style = {
     height
   }
@@ -125,7 +130,92 @@ const TimeInfo = (props: TimeInfoType) => {
       </ElTimeInfo>
     )
   }
-  // 날씨 정보 또는 강수확률인 경우
+  // 강수 정보인 경우
+  if (rain) {
+    return (
+      <>
+        <ElTimeInfo>
+          <Grid
+            width="100%"
+            height="35%"
+            ai="center"
+          >
+            <Text
+              size="1.5rem"
+              bold="700"
+            >
+              {label}
+            </Text>
+          </Grid>
+          <Grid
+            width="100%"
+            height="50%"
+          >
+            {info.map((x, idx) => {
+              if (timeIndex.includes(idx)) {
+                const time: string = dailyTime[idx].split(' ')[2]
+                const rainPercent = Math.round(x * 100)
+                const iconColor = convertWeaterInfo('rainPer', rainPercent);
+                return (
+                  <Grid
+                    key={idx}
+                    isColumn
+                    height="85%"
+                    width="12.5%"
+                  >
+                    <Grid
+                      height="15%"
+                    >
+                      {time === String(hours) ?
+                        <Text
+                          size="1.1rem"
+                          bold="900"
+                        >
+                          지금
+                      </Text>
+                        :
+                        <Text
+                          size="1.1rem"
+                          bold="500"
+                        >
+                          {time}시
+                          </Text>
+                      }
+                    </Grid>
+                    <Grid
+                      height="70%"
+                      ai="center"
+                    >
+                      <Icon
+                        isWeather
+                        name="rainPer"
+                        color={color[iconColor]}
+                        size={2}
+                      />
+                    </Grid>
+                    <Grid
+                      height="15%"
+                    >
+                      <Text
+                        size="1.3rem"
+                        bold={time === String(hours) ? '900' : '500'}
+                      >
+                        {rainPercent}
+                      </Text>
+                    </Grid>
+                  </Grid>
+                )
+              }
+              return null;
+            }, {})
+            }
+          </Grid>
+        </ElTimeInfo>
+      </>
+    )
+  }
+
+  // 날씨 정보
   return (
     <>
       <ElTimeInfo>
@@ -148,7 +238,8 @@ const TimeInfo = (props: TimeInfoType) => {
         >
           {info.map((x, idx) => {
             if (timeIndex.includes(idx)) {
-              const time: string = dailyTime[idx].split(' ')[2]
+              const time: string = dailyTime[idx].split(' ')[2];
+              console.log(weatherIcon[idx])
               return (
                 <Grid
                   key={idx}
@@ -179,28 +270,17 @@ const TimeInfo = (props: TimeInfoType) => {
                     height="70%"
                     ai="center"
                   >
-                    그림
+                    <Icon isWeather name={weatherIcon[idx]} size={2} />
                   </Grid>
                   <Grid
                     height="15%"
                   >
-
-                    {/* 강수확률인 경우 백분율로 나타내기 */}
-                    {x <= 1 ? (
-                      <Text
-                        size="1.3rem"
-                        bold={time === String(hours) ? '900' : '500'}
-                      >
-                        {Math.round(x * 100)}
+                    <Text
+                      size="1.3rem"
+                      bold={time === String(hours) ? '900' : '500'}
+                    >
+                      {Math.round(x)}°
                       </Text>
-                    ) : (
-                      <Text
-                        size="1.3rem"
-                        bold={time === String(hours) ? '900' : '500'}
-                      >
-                        { Math.round(x)}°
-                      </Text>
-                    )}
                   </Grid>
                 </Grid>
               )
@@ -221,7 +301,9 @@ TimeInfo.defaultProps = {
   dailyTime: null,
   dayOfWeek: null,
   score: false,
+  rain: false,
   height: '',
+  weatherIcon: null,
 }
 
 const ElTimeInfo = styled.div`

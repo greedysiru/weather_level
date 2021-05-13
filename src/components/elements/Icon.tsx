@@ -21,6 +21,24 @@ import { ReactComponent as Sky } from '../../icons/sky.svg';
 import { ReactComponent as Temp } from '../../icons/temp.svg';
 import { ReactComponent as Uv } from '../../icons/uv.svg';
 import { ReactComponent as Wind } from '../../icons/wind.svg';
+import { ReactComponent as ClearDay } from '../../icons/01d.svg';
+import { ReactComponent as ClearNight } from '../../icons/01n.svg';
+import { ReactComponent as CloudsDay } from '../../icons/02d.svg';
+import { ReactComponent as CloudsNight } from '../../icons/02n.svg';
+import { ReactComponent as ScatteredCloudsDay } from '../../icons/03d.svg';
+import { ReactComponent as ScatteredCloudsNight } from '../../icons/03n.svg';
+import { ReactComponent as BrokenCloudsDay } from '../../icons/04d.svg';
+import { ReactComponent as BrokenCloudsNight } from '../../icons/04n.svg';
+import { ReactComponent as ShowerRainDay } from '../../icons/09d.svg';
+import { ReactComponent as ShowerRainNight } from '../../icons/09n.svg';
+import { ReactComponent as RainDay } from '../../icons/10d.svg';
+import { ReactComponent as RainNight } from '../../icons/10n.svg';
+import { ReactComponent as ThunderstormDay } from '../../icons/11d.svg';
+import { ReactComponent as ThunderstormNight } from '../../icons/11n.svg';
+import { ReactComponent as SnowDay } from '../../icons/13d.svg';
+import { ReactComponent as SnowNight } from '../../icons/13n.svg';
+import { ReactComponent as MistDay } from '../../icons/50d.svg';
+import { ReactComponent as MistNight } from '../../icons/50n.svg';
 
 type IconType = {
   name?: string;
@@ -55,7 +73,29 @@ const Icon = (props: IconType) => {
     Airusually,
     Airbad,
     Airverybad,
+    '01d': ClearDay,
+    '01n': ClearNight,
+    '02d': CloudsDay,
+    '02n': CloudsNight,
+    '03d': ScatteredCloudsDay,
+    '03n': ScatteredCloudsNight,
+    '04d': BrokenCloudsDay,
+    '04n': BrokenCloudsNight,
+    '09d': ShowerRainDay,
+    '09n': ShowerRainNight,
+    '10d': RainDay,
+    '10n': RainNight,
+    '11d': ThunderstormDay,
+    '11n': ThunderstormNight,
+    '13d': SnowDay,
+    '13n': SnowNight,
+    '50d': MistDay,
+    '50n': MistNight,
   };
+  // 아이콘 이름을 지정하지 않았으면 null
+  if (!name) {
+    return null
+  }
 
   // 미세먼지인 경우
   if (name === 'pm10' || name === 'pm25') {
@@ -65,11 +105,8 @@ const Icon = (props: IconType) => {
   // 호출된 아이콘
   const ElIcon = IconsList[name];
 
-  // 아이콘 이름을 지정하지 않았으면 null
-  if (!name) {
-    return null
-  }
 
+  // 날씨 관련 아이콘
   if (isWeather) {
     return (
       <WeatherIconWrap {...styles}>
@@ -77,6 +114,8 @@ const Icon = (props: IconType) => {
       </WeatherIconWrap>
     );
   }
+
+  // 일반 아이콘
   return (
     <IconWrap {...styles}>
       <ElIcon />
@@ -87,7 +126,7 @@ const Icon = (props: IconType) => {
 Icon.defaultProps = {
   name: '',
   size: 3,
-  color: 'black',
+  color: null,
   isWeather: false,
   weatherState: '',
 };
@@ -115,5 +154,12 @@ const WeatherIconWrap = styled.div<IconType>`
     fill: ${(props) => props.color};
   }
 `;
+
+const DefaultWrap = styled.div<IconType>`
+  --size: ${(props) => props.size}rem;
+  width: var(--size);
+  height: var(--size);
+  background-size: cover;
+`
 
 export default Icon;
