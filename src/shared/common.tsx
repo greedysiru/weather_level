@@ -181,16 +181,16 @@ export const convertWeaterInfo = (type, value) => {
   // 강수확률
   if (type === 'rainPer') {
     if (value <= 2) {
-      return ['good', '낮음', `daily/${type}`];
+      return 'good';
     }
     if (value <= 400) {
-      return ['usually', '보통', `daily/${type}`];
+      return 'usually';
     }
     if (value <= 800) {
-      return ['bad', '높음', `daily/${type}`];
+      return 'bad';
     }
     if (value > 800) {
-      return ['veryBad', '매우높음', `daily/${type}`];
+      return 'veryBad';
     }
   }
   // 습도

@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/modules';
 import { Grid, LongCard } from './elements';
 
+
 // common
 import { convertWeaterInfo } from '../shared/common';
 
@@ -19,7 +20,7 @@ SwiperCore.use([Pagination]);
 
 const DetailDaily = (props) => {
   const { category } = props;
-
+  console.log(category)
   const { dayInfo, weekInfo } = useSelector((state: RootState) => state.weather.weatherInfo);
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
   const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
@@ -38,21 +39,30 @@ const DetailDaily = (props) => {
       const dateTime = cur.split(' ');
       // category 별로 데이터 다르게
       let data;
+      let iconColor;
       if (category === 'rainPer') {
-        data = `${Math.round(Number(dayInfo[category][idx]) * 100)}%`;
+        const rainPercent = Math.round(Number(dayInfo[category][idx]) * 100)
+        data = `${rainPercent}`;
+        iconColor = convertWeaterInfo(category, rainPercent);
       }
 
       if (category === 'tmp' || category === 'weather') {
         data = `${dayInfo.tmp[idx]}°C`;
       }
 
+      // if (category === 'weather') {
+      //   data = `${dayInfo.tmp[idx]}°C`;
+      //   iconData = convertWeaterInfo(category, dayInfo[category][idx]);
+      // }
+
       acc.push(
         <LongCard
           height="7%"
-          type="etc"
+          type="rainPer"
           key={idx}
           day={`${dateTime[2]}:00`} /* ${dateTime[0]}/${dateTime[1]} */
           data={data}
+          iconColor={iconColor}
         />,
       );
     }
@@ -60,12 +70,15 @@ const DetailDaily = (props) => {
     return acc;
   }, []);
 
-  // 주간날씨 카드리스트 컴포넌트
+  // 시간별 카드리스트 컴포넌트
   const weeklyListComponent = weekInfo[category].reduce((acc, cur, idx) => {
     // category 별로 데이터 다르게
     let data;
+    let iconColor;
     if (category === 'rainPer') {
-      data = `${Math.round(Number(weekInfo[category][idx]) * 100)}%`;
+      const rainPercent = Math.round(Number(weekInfo[category][idx]) * 100)
+      data = `${rainPercent}`;
+      iconColor = convertWeaterInfo(category, rainPercent);
     }
 
     if (category === 'tmp' || category === 'weather') {
@@ -82,10 +95,11 @@ const DetailDaily = (props) => {
       <LongCard
         height="9%"
         isFirst={idx === 0}
-        type={category === 'rainPer' ? 'etc' : 'weather'}
+        type={category}
         key={idx}
         day={dayOfWeek[idx]}
         data={data}
+        iconColor={iconColor}
       />,
     );
 

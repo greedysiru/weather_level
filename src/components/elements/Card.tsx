@@ -86,6 +86,7 @@ Card.defaultProps = {
 };
 
 const ElCard = styled.div<cardType>`
+  cursor: pointer;
   display: flex;
   align-items: center;
   width: ${(props) => props.width};
