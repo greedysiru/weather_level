@@ -144,10 +144,10 @@ const PreSetting = (props) => {
         </Grid>
       ) : (
         <Grid jc="space-between">
-          <Button width="45%" _onClick={goBack}>
+          <Button width="47%" _onClick={goBack}>
             이전
           </Button>
-          <Button width="45%" _onClick={onSave}>
+          <Button width="47%" _onClick={onSave}>
             저장
           </Button>
         </Grid>
