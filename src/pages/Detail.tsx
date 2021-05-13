@@ -44,9 +44,9 @@ const Detail = (props) => {
       <Grid isColumn height="100%" width="100%">
         <Component category={match.params.category} />
       </Grid>
-      <ButtonWrap>
-        <Button _onClick={goBack}>이전으로</Button>
-      </ButtonWrap>
+      {/* <ButtonWrap> */}
+      <Button _onClick={goBack}>이전으로</Button>
+      {/* </ButtonWrap> */}
     </Container>
   );
 };
@@ -54,6 +54,7 @@ const Detail = (props) => {
 const Container = styled.div`
   width: ${(props) => (props.full ? '60%' : '360px')};
   height: 90%;
+  background-color: pink;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.column};
   justify-content: center;

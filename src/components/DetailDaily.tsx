@@ -103,6 +103,7 @@ const DetailDaily = (props) => {
     alignItems: 'center',
     justifyContent: 'space-around',
     padding: '1.5rem 1.5rem 2rem 1.5rem',
+    border: '1px solid black',
   };
 
   if (isDesktopMode) {
@@ -131,7 +132,10 @@ const DetailDaily = (props) => {
 
         {/* 두번째 슬라이드 */}
 
-        <SwiperSlide style={slideStyle as React.CSSProperties}>{weeklyListComponent}</SwiperSlide>
+        <SwiperSlide style={slideStyle as React.CSSProperties}>
+          <Title> 일별 {title[category]} </Title>
+          {weeklyListComponent}
+        </SwiperSlide>
       </Swiper>
     </Container>
   );
@@ -139,7 +143,7 @@ const DetailDaily = (props) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 95%;
   ${(props) => props.theme.flex.column};
   justify-content: space-around;
 `;
