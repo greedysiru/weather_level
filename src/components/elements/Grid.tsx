@@ -81,7 +81,7 @@ const Container = styled.div<GridType>`
   overflow: ${(props) => (props.overFlow ? 'scroll' : '')};
   border-radius: ${(props) => props.radius};
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+    display: none;
   }
 `;
 

@@ -56,14 +56,14 @@ type LabelProps = {
 const Container = styled.div<{ isHidden: boolean }>`
   display: ${(props) => (props.isHidden ? 'none' : 'block')};
   width: 100%;
-  height: 25px;
-
-  /*  ${(props) => props.theme.flex.row} */
+  height: 3.8rem;
 `;
 const Label = styled.span<LabelProps>`
   margin: ${(props) => (props.margin ? props.margin : 0)};
   width: ${(props) => props.width};
   color: ${(props) => (props.title ? `black` : props.theme.color.gray3)};
+  font-weight: 500;
+  font-size: 1.25rem;
 `;
 
 const ElRange = styled.input`

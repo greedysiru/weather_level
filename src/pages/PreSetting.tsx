@@ -159,16 +159,22 @@ const PreSetting = (props) => {
 };
 
 const Container = styled.div`
-  width: ${(props) => (props.isDesktopMode ? `360px` : `100%`)};
-  height: 100%;
+  width: 100%;
+  max-width: 450px;
+  height: 90%;
   padding: 1rem;
   ${(props) => props.theme.flex.column};
   justify-content: center;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const RangeWrapper = styled.div`
   ${(props) => props.theme.flex.column};
-  margin: 1rem;
+  margin: 0.5rem;
   background-color: white;
   width: 100%;
   padding: 2rem;
@@ -180,15 +186,17 @@ const RangeWrapper = styled.div`
 const Title = styled.div`
   font-size: 1.7rem;
   text-align: center;
-  margin: 1rem;
+  margin: 3rem 0 1rem 0;
+
+  line-height: 2.5rem;
+  font-weight: 500;
 `;
 
 const ShowButton = styled.div`
   text-align: center;
   width: 100%;
-  margin-top: 10px;
   position: relative;
-  top: 15px;
+  top: 10px;
   cursor: pointer;
 
   &:hover svg {
