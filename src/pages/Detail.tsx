@@ -54,7 +54,6 @@ const Detail = (props) => {
 const Container = styled.div`
   width: ${(props) => (props.full ? '60%' : '360px')};
   height: 90%;
-  background-color: pink;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.column};
   justify-content: center;

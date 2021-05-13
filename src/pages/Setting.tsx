@@ -56,7 +56,7 @@ const Setting = (props) => {
       <Grid width="100%" isColumn ai="center">
         <Menu onClick={() => history.push('/setting/preference')}>나만의 외출 난이도 설정하기</Menu>
         <Menu onClick={() => shareKakao(description)}>외출 점수 공유하기</Menu>
-        <Menu>불편/개선 사항 보내기</Menu>
+        <Menu onClick={() => history.push('/setting/complain')}>불편/개선 사항 보내기</Menu>
       </Grid>
     </Container>
   );
