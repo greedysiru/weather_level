@@ -269,7 +269,7 @@ const TimeInfo = (props: TimeInfoType) => {
                     height="70%"
                     ai="center"
                   >
-                    <Icon isWeather name={weatherIcon[idx]} size={2} />
+                    <Icon isWeather name={weatherIcon[idx]} size={3} />
                   </Grid>
                   <Grid
                     height="15%"
