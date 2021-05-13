@@ -65,7 +65,7 @@ const getTimeInfo = () => (dispatch, getState) => {
     timeIndex[i] = idx;
     // 요일 배열 만들기
     // i가 0, 1, 2 이면 오늘, 내일, 모레
-    if (day < 3) {
+    if (i < 3) {
       dayOfWeek[i] = NEARDAY[i];
     }
     //  day + i 가 넘어가면 인덱스를 초과하므로 -7을하여 일요일부터 순회
