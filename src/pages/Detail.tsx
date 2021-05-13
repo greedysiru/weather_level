@@ -13,7 +13,15 @@ const Detail = (props) => {
   const { match, history } = props;
 
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
+  const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
 
+  const [isMultiView, setIsMultiView] = useState(false);
+
+  useEffect(() => {
+    if (match.params.type === 'daily') {
+      setIsMultiView(true);
+    }
+  }, []);
   const components = {
     daily: DetailDaily,
     weekly: DetailWeekly,
@@ -32,19 +40,19 @@ const Detail = (props) => {
     return null;
   }
   return (
-    <Container>
-      <Grid isColumn height="100%" width='100%'>
+    <Container full={isMultiView && isDesktopMode}>
+      <Grid isColumn height="100%" width="100%">
         <Component category={match.params.category} />
       </Grid>
       <ButtonWrap>
         <Button _onClick={goBack}>이전으로</Button>
       </ButtonWrap>
-    </Container >
+    </Container>
   );
 };
 
 const Container = styled.div`
-  width: ${(props) => props.theme.view.width};
+  width: ${(props) => (props.full ? '60%' : '360px')};
   height: 90%;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.column};

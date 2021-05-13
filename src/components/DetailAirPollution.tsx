@@ -15,16 +15,20 @@ const DetailAirPollution = (props) => {
     setPm10Des(convertWeaterInfo('pm10', pm10Value));
     setPm25Des(convertWeaterInfo('pm25', pm25Value));
   }, []);
-  return (
-    <Container>
-      <Title>미세먼지 지수</Title>
-      <div>그림</div>
-      <CardWrapper>
-        <Card width="30%" height="150px" cardTitle="미세먼지" cardDescription={pm10Des} />
-        <Card width="30%" height="150px" cardTitle="초미세먼지" cardDescription={pm25Des} />
-      </CardWrapper>
-    </Container>
-  );
+
+  if (pm10Des && pm25Des) {
+    return (
+      <Container>
+        <Title>미세먼지 지수</Title>
+        <CardWrapper>
+          <Card width="30%" height="150px" cardTitle="미세먼지" cardDescription={pm10Des} iconName="pm10" />
+          <Card width="30%" height="150px" cardTitle="초미세먼지" cardDescription={pm25Des} iconName="pm25" />
+        </CardWrapper>
+      </Container>
+    );
+  }
+
+  return null;
 };
 
 const Container = styled.div`

@@ -10,7 +10,7 @@ import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/modules';
-import { LongCard } from './elements';
+import { Grid, LongCard } from './elements';
 
 
 // common
@@ -23,6 +23,7 @@ const DetailDaily = (props) => {
   console.log(category)
   const { dayInfo, weekInfo } = useSelector((state: RootState) => state.weather.weatherInfo);
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
+  const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
 
   // url에 따라 title 다르게
   const title = {
@@ -118,6 +119,20 @@ const DetailDaily = (props) => {
     padding: '1.5rem 1.5rem 2rem 1.5rem',
   };
 
+  if (isDesktopMode) {
+    return (
+      <Grid height="80%">
+        <Grid isColumn margin="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
+          <Title>시간별 {title[category]} </Title>
+          {timeListComponent}
+        </Grid>
+        <Grid isColumn margin="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
+          <Title> 일별 {title[category]} </Title>
+          {weeklyListComponent}
+        </Grid>
+      </Grid>
+    );
+  }
   return (
     <Container>
       <Swiper pagination className="mySwiper" style={swipeStyle as React.CSSProperties}>
@@ -130,10 +145,7 @@ const DetailDaily = (props) => {
 
         {/* 두번째 슬라이드 */}
 
-        <SwiperSlide style={slideStyle as React.CSSProperties}>
-          <Title> 일별 {title[category]} </Title>
-          {weeklyListComponent}
-        </SwiperSlide>
+        <SwiperSlide style={slideStyle as React.CSSProperties}>{weeklyListComponent}</SwiperSlide>
       </Swiper>
     </Container>
   );

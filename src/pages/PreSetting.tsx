@@ -15,6 +15,7 @@ import { RootState } from '../redux/modules';
 const PreSetting = (props) => {
   const { history, isMain } = props;
   const { preference, isLoadedPreference } = useSelector((state: RootState) => state.weather);
+  const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
 
   // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
   const [isHidden, setIsHidden] = useState<boolean>(true);
@@ -123,7 +124,7 @@ const PreSetting = (props) => {
     setTimerState(timer);
   };
   return (
-    <Container >
+    <Container isDesktopMode={isDesktopMode}>
       <Title>
         당신이 외출할 때 <br />
         중요하게 여기는 것을 알려주세요!
@@ -158,7 +159,7 @@ const PreSetting = (props) => {
 };
 
 const Container = styled.div`
-  width: 360px;
+  width: ${(props) => (props.isDesktopMode ? `360px` : `100%`)};
   height: 100%;
   padding: 1rem;
   ${(props) => props.theme.flex.column};

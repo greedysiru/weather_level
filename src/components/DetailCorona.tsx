@@ -18,18 +18,33 @@ const Corona = (props) => {
     setallNewCaseDes(convertWeaterInfo('corona', coronaAllNewCaseCount));
     setBigRegionNewCaseDes(convertWeaterInfo('corona', coronaCurrentBigRegionNewCaseCount));
   }, []);
-  return (
-    <Container>
-      <Title>코로나 지수</Title>
 
-      {/* <CoronaIcon /> */}
-      <CardWrapper>
-        <Card width="30%" height="150px" cardTitle="전국 신규 확진자" cardDescription={allNewCaseDes} />
-        <Card width="30%" height="150px" cardTitle="지역 신규 확진자" cardDescription={bigRegionNewCaseDes} />
-        {/*  <Card width="30%" height="150px" cardTitle="모레" cardDescription={afterTomorrow} /> */}
-      </CardWrapper>
-    </Container>
-  );
+  if (allNewCaseDes && setallNewCaseDes) {
+    return (
+      <Container>
+        <Title>코로나 지수</Title>
+
+        {/* <CoronaIcon /> */}
+        <CardWrapper>
+          <Card
+            width="30%"
+            height="150px"
+            cardTitle="전국 신규 확진자"
+            cardDescription={allNewCaseDes}
+            iconName="corona"
+          />
+          <Card
+            width="30%"
+            height="150px"
+            cardTitle="지역 신규 확진자"
+            cardDescription={bigRegionNewCaseDes}
+            iconName="corona"
+          />
+        </CardWrapper>
+      </Container>
+    );
+  }
+  return null;
 };
 
 const Container = styled.div`

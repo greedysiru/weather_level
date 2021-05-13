@@ -15,23 +15,44 @@ type GridType = {
   overFlow?: boolean;
   radius?: string;
   _onClick?: () => void;
-}
-const Grid = ({ width, height, isColumn, jc, ai, bg, margin, padding, children, $wrap, overFlow, radius, _onClick }: GridType) => {
+};
+const Grid = ({
+  width,
+  height,
+  isColumn,
+  jc,
+  ai,
+  bg,
+  margin,
+  padding,
+  children,
+  $wrap,
+  overFlow,
+  radius,
+  _onClick,
+}: GridType) => {
   const style = {
-    width, height, isColumn, jc, ai, bg, margin, padding, $wrap, overFlow, radius
-  }
+    width,
+    height,
+    isColumn,
+    jc,
+    ai,
+    bg,
+    margin,
+    padding,
+    $wrap,
+    overFlow,
+    radius,
+  };
   return (
-    <Container
-      {...style}
-      onClick={_onClick}
-    >
+    <Container {...style} onClick={_onClick}>
       {children}
     </Container>
   );
 };
 
 Grid.defaultProps = {
-  _onClick: () => { },
+  _onClick: () => {},
   width: '100%',
   height: '',
   isColumn: false,
@@ -44,8 +65,7 @@ Grid.defaultProps = {
   $wrap: false,
   overFlow: false,
   radius: '0',
-}
-
+};
 
 const Container = styled.div<GridType>`
   width: ${(props) => props.width};
@@ -57,10 +77,12 @@ const Container = styled.div<GridType>`
   background-color: ${(props) => props.bg};
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
-  flex-wrap: ${(props) => props.$wrap ? 'wrap' : ''};
-  overflow: ${(props) => props.overFlow ? 'scroll' : ''};
+  flex-wrap: ${(props) => (props.$wrap ? 'wrap' : '')};
+  overflow: ${(props) => (props.overFlow ? 'scroll' : '')};
   border-radius: ${(props) => props.radius};
-  
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 
 export default Grid;

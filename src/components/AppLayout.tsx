@@ -1,13 +1,26 @@
 import React, { ReactChild, useEffect } from 'react';
 import styled from 'styled-components';
 
-import Footer from './Footer';
-
+import { useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
+import { commonActions } from '../redux/modules/common';
+
+import Footer from './Footer';
 
 function AppLayout(props) {
   const { children } = props;
+  const dispatch = useDispatch();
+
+  let timer = null;
+  const setWindowMode = () => {
+    if (window.innerWidth > 1024) {
+      dispatch(commonActions.setIsDesktopMode(true));
+    } else {
+      dispatch(commonActions.setIsDesktopMode(false));
+    }
+  };
   useEffect(() => {
+    setWindowMode();
     // 가로모드 감지, 경고창
     window.addEventListener(
       'orientationchange',
@@ -21,6 +34,13 @@ function AppLayout(props) {
       },
       false,
     );
+
+    window.addEventListener('resize', (e) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        setWindowMode();
+      }, 300);
+    });
   }, []);
   return (
     <Container>

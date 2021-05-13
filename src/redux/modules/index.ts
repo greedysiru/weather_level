@@ -8,6 +8,7 @@ import { connectRouter } from 'connected-react-router';
 import weather from './weather';
 import time from './time';
 import location from './location';
+import common from './common';
 
 export const history = createBrowserHistory();
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   weather,
   time,
   location,
+  common,
   router: connectRouter(history),
 });
 

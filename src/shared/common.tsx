@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/redux/modules';
 
-
 export const convertWeaterInfo = (type, value) => {
   // 미세먼지
   if (type === 'pm10') {
@@ -134,8 +133,7 @@ export const convertWeaterInfo = (type, value) => {
   if (type === 'weather') {
     // 현재 시간을 기준으로 낮/밤 분류
     let dayAndNight = '';
-    const { hours } = useSelector(
-      (state: RootState) => state.time);
+    const { hours } = useSelector((state: RootState) => state.time);
     // 오전 7시 ~ 오후 19시 까지 낮
     // 그외는 밤
     if (hours >= 7 && hours <= 19) {
@@ -238,7 +236,7 @@ export const convertWeaterInfo = (type, value) => {
       return ['veryBad', temperature, `daily/tmp`];
     }
   }
-  return ['정보없음', '정보 없음', '정보 없음'];
+  return ['정보 없음', '정보 없음', '정보 없음'];
 };
 
 export const createNewUserId = () => {
