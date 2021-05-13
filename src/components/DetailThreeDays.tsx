@@ -7,7 +7,12 @@ import { convertWeaterInfo } from 'src/shared/common';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/modules';
 
-import { Button, Card, Grid, Title } from './elements';
+import { Button, Card, Grid, Image, Title } from './elements';
+
+import uvLogo from '../icons/sun.png';
+import windLogo from '../icons/wind.png';
+import oakPollenRiskLogo from '../icons/wind.png';
+import foodPoisonLogo from '../icons/wind.png';
 
 const DetailThreeDays = (props) => {
   const { category, history } = props;
@@ -18,11 +23,11 @@ const DetailThreeDays = (props) => {
   const [tomorrowDes, setTomorrowDes] = useState(null);
   const [afterTomorrow, setAfterTomorrow] = useState(null);
 
-  const title = {
-    uv: '자외선 지수',
-    asthma: '폐질환 위험 지수',
-    foodPoison: '식중독 위험 지수',
-    oakPollenRisk: '꽃가루 농도 지수',
+  const contents = {
+    uv: ['자외선 지수', uvLogo],
+    asthma: ['폐질환 위험 지수', windLogo],
+    foodPoison: ['식중독 위험 지수', oakPollenRiskLogo],
+    oakPollenRisk: ['꽃가루 농도 지수', foodPoisonLogo],
   };
 
   const setAllDesData = () => {
@@ -58,7 +63,10 @@ const DetailThreeDays = (props) => {
 
   return (
     <Container>
-      <Title>{title[category]}</Title>
+      <Title>{contents[category][0]}</Title>
+      <Grid isColumn ai="center" margin="2.5rem 0">
+        <Image size={18} src={contents[category][1]} />
+      </Grid>
       <CardWrapper>
         <Card
           width="30%"
@@ -87,15 +95,15 @@ const DetailThreeDays = (props) => {
 };
 
 const Container = styled.div`
-  width: ${(props) => props.theme.view.width};
-  height: 100%;
+  width: 100%;
+  height: 90%;
   ${(props) => props.theme.flex.column};
-  justify-content: space-around;
+  justify-content: flex-start;
 `;
 
 const CardWrapper = styled.div`
   width: 100%;
-  height: 50%;
+
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.row};
   padding: 1rem;
