@@ -67,9 +67,12 @@ const Header = (props) => {
               {todayMinTmp}
             </Text>
           </Grid>
-          <Text size="4.4rem">
-            {todayTmp}°
-          </Text>
+          <Grid margin="0 0 0 8px">
+            <Text size="4.4rem">
+              {todayTmp}
+            </Text>
+            <Text size="4.4rem" bold="900">°</Text>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

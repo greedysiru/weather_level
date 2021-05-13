@@ -53,7 +53,7 @@ const Score = (props) => {
             <Grid width="10%" _onClick={() => {
               history.push('/setting/preference')
             }} >
-              < Icon name="adjust" color="black" />
+              < Icon isWeather name="adjust" color="black" />
             </Grid>
           </Grid>
           <Grid

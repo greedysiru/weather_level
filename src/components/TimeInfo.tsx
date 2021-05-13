@@ -53,7 +53,7 @@ const TimeInfo = (props: TimeInfoType) => {
         >
           <Text
             size="1.5rem"
-            bold="700"
+            bold="500"
           >
             {label}
           </Text>
@@ -142,7 +142,7 @@ const TimeInfo = (props: TimeInfoType) => {
           >
             <Text
               size="1.5rem"
-              bold="700"
+              bold="500"
             >
               {label}
             </Text>

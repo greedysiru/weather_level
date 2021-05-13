@@ -43,7 +43,7 @@ const MainContents = (props: mainContentsType) => {
       <>
         {/* 카드 콘텐츠(4열) */}
         <Grid
-          margin="1rem 0 2rem 0"
+          margin="1rem 0 1rem 0"
           height="17%"
           jc="space-between"
           $wrap

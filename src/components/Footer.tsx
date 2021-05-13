@@ -65,6 +65,7 @@ const FooterWrap = styled.div`
   height: 9.5%;
   background-color: white;
   ${(props) => props.theme.shadow};
+  z-index: 10;
 `;
 
 const ElFooter = styled.div`

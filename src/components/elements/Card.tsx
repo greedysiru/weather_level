@@ -58,7 +58,7 @@ const Card = (props: cardType & CardInfoType) => {
       <ElCard {...style} onClick={movePage}>
         <Grid isColumn height="70%" ai="center" jc="space-between">
           <Grid>
-            <Text bold="700" size="1.4rem">
+            <Text bold="500" size="1.4rem">
               {cardTitle}
             </Text>
           </Grid>
@@ -66,7 +66,7 @@ const Card = (props: cardType & CardInfoType) => {
             <Icon name={iconName} color={color[weatherState]} weatherState={weatherState} isWeather />
           </Grid>
           <Grid ai="flex-end">
-            <Text bold="700" size="1.4rem" color={color[weatherState]}>
+            <Text bold="500" size="1.4rem" color={color[weatherState]}>
               {value}
             </Text>
           </Grid>

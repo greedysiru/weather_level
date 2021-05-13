@@ -114,7 +114,7 @@ table {
 /* ipohne 6, 7, 8 */
 @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
   html {
-    font-size: 60%;
+    font-size: 55%;
   }
 }
 /* iphone 6+, 7+, 8+ */

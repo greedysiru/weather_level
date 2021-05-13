@@ -13,21 +13,22 @@ const Logo = (props) => {
 
 const ElLogo = styled.div`
   position:fixed;
-  z-index: 3;
   background-image: url(${logo});
-  width: 375px;
-  height: 812px;
-  background-size: auto;
+  width: 75%;
+  height: 75%;
+  background-size: cover;
   background-position: center center;
 `
 const LogoWrap = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   position:fixed;
-  z-index: 3;
+  z-index: 11;
   width:  100%;
   height: 100%;
-  background-color: ${(props) => props.theme.color.sky3}
+  background-color: ${(props) => props.theme.color.sky3};
+  background-position: center center;
 `
 
 
