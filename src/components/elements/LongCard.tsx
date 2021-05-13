@@ -117,7 +117,7 @@ const LongCard = (props: LongCardType) => {
 
       {/* 온도, 두번째 슬라이드 */}
       {type === 'tmp' && isTime === false && (
-        <>
+        <WeatherCard>
           <Icon isWeather name={data.weather} />
           <Temp>
             <Grid isColumn>
@@ -126,7 +126,7 @@ const LongCard = (props: LongCardType) => {
             </Grid>
             <Text>{data.tmp}</Text>
           </Temp>
-        </>
+        </WeatherCard>
       )}
     </ElLongCard>
   );
@@ -167,6 +167,12 @@ const Temp = styled.div`
 
 const TempText = styled.span<{ max?: boolean }>`
   color: ${(props) => (props.max ? props.theme.color.veryBad : props.theme.color.usually)};
+  margin: 1px 0;
+`;
+
+const WeatherCard = styled.div`
+  width: 55%;
+  ${(props) => props.theme.flex.row}
 `;
 
 export default LongCard;

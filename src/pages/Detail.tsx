@@ -52,8 +52,8 @@ const Detail = (props) => {
 };
 
 const Container = styled.div`
-  width: ${(props) => (props.full ? '60%' : '100%')};
-  max-width: 360px;
+  width: ${(props) => (props.full ? '50%' : '100%')};
+  max-width: ${(props) => (props.full ? '' : '360px')};
   height: 88%;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.column};
