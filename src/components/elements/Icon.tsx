@@ -59,7 +59,6 @@ const Icon = (props: IconType) => {
 
   // 미세먼지인 경우
   if (name === 'pm10' || name === 'pm25') {
-    console.log(name, color);
     name = `Air${weatherState}`;
   }
 
