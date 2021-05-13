@@ -113,7 +113,6 @@ export const convertWeaterInfo = (type, value) => {
   }
   // 바람
   if (type === 'wind') {
-    console.log(value)
     if (value <= 3.3) {
       return 'good';
     }

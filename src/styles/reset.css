@@ -106,27 +106,28 @@ table {
 /* 미디어쿼리 */
 /* 폰트 rem값 조정 */
 /* iphone 5 */
-/* @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
-  } */
-
-/* ipohne 6, 7, 8 */
-/* @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
   html {
-    font-size: 53%;
+    font-size: 52%;
   }
-} */
-/* iphone 6+, 7+, 8+ */
-/* @media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 2){
+}
+/* ipohne 6, 7, 8 */
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
   html {
     font-size: 55%;
   }
-} */
-/* iphone X */
-/* @media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
-html {
-  font-size: 62.5%;
 }
-} */
-
+/* iphone 6+, 7+, 8+ */
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+  html {
+    font-size: 62%;
+  }
+}
+/* 태블릿 */
+@media all and (min-width:768px) and (max-width:1024px) {
+  html {
+    font-size: 85%;
+  }
+}
 
 

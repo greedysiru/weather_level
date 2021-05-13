@@ -17,12 +17,11 @@ const Setting = (props) => {
   const { Kakao } = window;
   const { history } = props;
 
-  React.useEffect(() => {}, []);
+  React.useEffect(() => { }, []);
   const description = `오늘 날씨는 ${weatherDiscription}, 외출 점수는 ${todayScore}점 입니다!`;
   // 카카오 공유
   const shareKakao = (description) => {
     const imageUrl = `https://weather-service-images.s3.ap-northeast-2.amazonaws.com/${todayWeather[3]}.png`;
-    console.log(imageUrl);
     Kakao.Link.sendDefault({
       objectType: 'feed',
       content: {

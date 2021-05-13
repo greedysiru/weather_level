@@ -53,7 +53,7 @@ const TimeInfo = (props: TimeInfoType) => {
         >
           <Text
             size="1.5rem"
-            bold="700"
+            bold="500"
           >
             {label}
           </Text>
@@ -142,7 +142,7 @@ const TimeInfo = (props: TimeInfoType) => {
           >
             <Text
               size="1.5rem"
-              bold="700"
+              bold="500"
             >
               {label}
             </Text>
@@ -239,7 +239,6 @@ const TimeInfo = (props: TimeInfoType) => {
           {info.map((x, idx) => {
             if (timeIndex.includes(idx)) {
               const time: string = dailyTime[idx].split(' ')[2];
-              console.log(weatherIcon[idx])
               return (
                 <Grid
                   key={idx}
@@ -315,7 +314,7 @@ width: 100%;
 height: ${(props) => (props.height ? props.height : '20%')};
 border-radius: 1.4rem;
 ${(props) => props.theme.shadow};
-margin: 0 0 2rem 0;
+margin: 0 0 1rem 0;
 background-color: white;
 border: solid 0.5px ${(props) => props.theme.color.purple};
 
