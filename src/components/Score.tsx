@@ -26,13 +26,12 @@ const Score = (props) => {
         ai="center"
       >
         <Image
-          size={240}
+          size={24}
           src={imgUrl}
         />
         <Grid
           isColumn
           width="100%"
-
           ai="center"
         >
           <Grid
@@ -51,8 +50,10 @@ const Score = (props) => {
             >
               {todayScore}점
           </Text>
-            <Grid width="10%" _onClick={() => { history.replace('/setting?slected') }} >
-              <Icon name="adjust" color="black" />
+            <Grid width="10%" _onClick={() => {
+              history.push('/setting/preference')
+            }} >
+              < Icon name="adjust" color="black" />
             </Grid>
           </Grid>
           <Grid

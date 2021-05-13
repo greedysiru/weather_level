@@ -13,7 +13,7 @@ const Footer = (props) => {
     margin,
   };
   // Footer 활성화 표시
-  const [selectedMenu, setSelectedMenu] = useState('');
+  const [selectedMenu, setSelectedMenu] = useState('/');
   // 새로고침시 효과 유지위해서 pathname을 selectedMenu에 넣기
   useEffect(() => {
   }, []);

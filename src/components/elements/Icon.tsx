@@ -66,6 +66,11 @@ const Icon = (props: IconType) => {
   // 호출된 아이콘
   const ElIcon = IconsList[name];
 
+  // 아이콘 이름을 지정하지 않았으면 null
+  if (!name) {
+    return null
+  }
+
   if (isWeather) {
     return (
       <WeatherIconWrap {...styles}>

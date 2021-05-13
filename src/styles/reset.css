@@ -25,10 +25,9 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	box-sizing: border-box;
 }
-/* html 기본 폰트 사이즈 */
-/* 62.5% -> 10px */
-html { 
-	font-size: 62.5%;
+/* html 기본 폰트 */
+html {
+  font-size: 62.5%;
   font-family: 'Noto Sans CJK KR';
 }
 /* HTML5 display-role reset for older browsers */
@@ -103,4 +102,31 @@ table {
   url("./fonts/NotoSansKR-Bold.woff") format('woff'),
   url("./fonts/NotoSansKR-Bold.otf") format('truetype')
 }
+
+/* 미디어쿼리 */
+/* 폰트 rem값 조정 */
+/* iphone 5 */
+/* @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+  } */
+
+/* ipohne 6, 7, 8 */
+/* @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+  html {
+    font-size: 53%;
+  }
+} */
+/* iphone 6+, 7+, 8+ */
+/* @media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 2){
+  html {
+    font-size: 55%;
+  }
+} */
+/* iphone X */
+/* @media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
+html {
+  font-size: 62.5%;
+}
+} */
+
+
 

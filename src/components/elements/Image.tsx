@@ -61,7 +61,7 @@ const AspectInner = styled.div<ImageType>`
 `;
 
 const ImageCircle = styled.div<ImageType>`
-    --size: ${(props) => props.size}px;
+    --size: ${(props) => props.size}rem;
     width: var(--size);
     height: var(--size);
     border-radius: var(--size);
