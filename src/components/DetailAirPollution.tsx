@@ -21,7 +21,9 @@ const DetailAirPollution = (props) => {
     return (
       <Container>
         <Title>미세먼지 지수</Title>
-        <Image size={20} src={logo} />
+        <Grid isColumn ai="center" margin="2.5rem 0">
+          <Image size={18} src={logo} />
+        </Grid>
         <CardWrapper>
           <Card width="30%" height="150px" cardTitle="미세먼지" cardDescription={pm10Des} iconName="pm10" />
           <Card width="30%" height="150px" cardTitle="초미세먼지" cardDescription={pm25Des} iconName="pm25" />
@@ -35,14 +37,13 @@ const DetailAirPollution = (props) => {
 
 const Container = styled.div`
   width: ${(props) => props.theme.view.width};
-  height: 100%;
+  height: 90%;
   ${(props) => props.theme.flex.column};
-  justify-content: space-around;
+  justify-content: flex-start;
 `;
 
 const CardWrapper = styled.div`
   width: 100%;
-  height: 50%;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.row};
   justify-content: space-around;
