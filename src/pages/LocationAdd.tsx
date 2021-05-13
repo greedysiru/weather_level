@@ -55,17 +55,21 @@ const LocationAdd = (props) => {
     setSelectedSmallRegion(region);
   };
 
-  const bigRegionListComp = allRegion?.map((r, idx) => {
-    return (
-      <RegionEle
-        key={idx}
-        onClick={onClickBigRegion(r.bigRegionName)}
-        isSelected={selectedBigRegion === r.bigRegionName}
-      >
-        {r.bigRegionName}
-      </RegionEle>
-    );
-  });
+  const bigRegionListComp = allRegion?.reduce((acc, cur, idx) => {
+    if (cur.bigRegionName !== '이어도' && cur.bigRegionName !== '검역') {
+      acc.push(
+        <RegionEle
+          key={idx}
+          onClick={onClickBigRegion(cur.bigRegionName)}
+          isSelected={selectedBigRegion === cur.bigRegionName}
+        >
+          {cur.bigRegionName}
+        </RegionEle>,
+      );
+    }
+
+    return acc;
+  }, []);
 
   useEffect(() => {
     if (!selectedBigRegion) return;

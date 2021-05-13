@@ -53,7 +53,7 @@ const PreSetting = (props) => {
   const propsData = {
     temp: { label: '기온', rangeValue: temp, setRangeValue: setTemp },
     rainPer: { label: '강수확률', rangeValue: rainPer, setRangeValue: setRainPer },
-    weather: { label: '날씨', rangeValue: weather, setRangeValue: setWeather },
+    weather: { label: '하늘상태', rangeValue: weather, setRangeValue: setWeather },
     humidity: { label: '습도', rangeValue: humidity, setRangeValue: setHumidity },
     wind: { label: '바람', rangeValue: wind, setRangeValue: setWind },
     pm10: { label: '미세먼지', rangeValue: pm10, setRangeValue: setPm10 },
@@ -164,7 +164,7 @@ const Container = styled.div`
   height: 90%;
   padding: 1rem;
   ${(props) => props.theme.flex.column};
-  justify-content: center;
+  justify-content: flex-start;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -186,10 +186,9 @@ const RangeWrapper = styled.div`
 const Title = styled.div`
   font-size: 1.7rem;
   text-align: center;
-  margin: 3rem 0 1rem 0;
-
   line-height: 2.5rem;
   font-weight: 500;
+  margin: 1rem 0;
 `;
 
 const ShowButton = styled.div`
