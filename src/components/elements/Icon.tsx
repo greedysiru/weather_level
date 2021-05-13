@@ -56,7 +56,6 @@ const Icon = (props: IconType) => {
     Airbad,
     Airverybad,
   };
-
   // 미세먼지인 경우
   if (name === 'pm10' || name === 'pm25') {
     name = `Air${weatherState}`;
@@ -67,7 +66,7 @@ const Icon = (props: IconType) => {
 
   // 아이콘 이름을 지정하지 않았으면 null
   if (!name) {
-    return null
+    return null;
   }
 
   if (isWeather) {

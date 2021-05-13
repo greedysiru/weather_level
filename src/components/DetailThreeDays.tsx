@@ -13,6 +13,7 @@ const DetailThreeDays = (props) => {
   const { category, history } = props;
   const { livingHealthWeather } = useSelector((state: RootState) => state.weather.weatherInfo);
 
+  const [type, setType] = useState(null);
   const [todayDes, setTodayDes] = useState(null);
   const [tomorrowDes, setTomorrowDes] = useState(null);
   const [afterTomorrow, setAfterTomorrow] = useState(null);
@@ -37,15 +38,15 @@ const DetailThreeDays = (props) => {
           type = 'pollenRisk';
         }
         if (day === 'Today') {
-          setTodayDes(convertWeaterInfo(type, parseInt(value, 10)));
+          setTodayDes(convertWeaterInfo(type, value));
         }
 
         if (day === 'Tomorrow') {
-          setTomorrowDes(convertWeaterInfo(type, parseInt(value, 10)));
+          setTomorrowDes(convertWeaterInfo(type, value));
         }
 
         if (day === 'TheDayAfterTomorrow') {
-          setAfterTomorrow(convertWeaterInfo(type, parseInt(value, 10)));
+          setAfterTomorrow(convertWeaterInfo(type, value));
         }
       }
     }, []);
@@ -54,17 +55,32 @@ const DetailThreeDays = (props) => {
     if (!livingHealthWeather) return;
     setAllDesData();
   }, []);
-  const goBack = () => {
-    history.replace('/');
-  };
+
   return (
     <Container>
       <Title>{title[category]}</Title>
-      <div>그림</div>
       <CardWrapper>
-        <Card width="30%" height="150px" cardTitle="오늘" cardDescription={todayDes} />
-        <Card width="30%" height="150px" cardTitle="내일" cardDescription={tomorrowDes} />
-        <Card width="30%" height="150px" cardTitle="모레" cardDescription={afterTomorrow} />
+        <Card
+          width="30%"
+          height="150px"
+          cardTitle="오늘"
+          cardDescription={todayDes}
+          iconName={category === 'oakPollenRisk' ? 'pollenRisk' : category}
+        />
+        <Card
+          width="30%"
+          height="150px"
+          cardTitle="내일"
+          cardDescription={tomorrowDes}
+          iconName={category === 'oakPollenRisk' ? 'pollenRisk' : category}
+        />
+        <Card
+          width="30%"
+          height="150px"
+          cardTitle="모레"
+          cardDescription={afterTomorrow}
+          iconName={category === 'oakPollenRisk' ? 'pollenRisk' : category}
+        />
       </CardWrapper>
     </Container>
   );
