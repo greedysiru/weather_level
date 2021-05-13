@@ -24,7 +24,7 @@ export const weatherAPI = {
         },
       });
     }
-    return axios.get(`/test`)
+    return axios.get(`/test`);
     return axios.get(`/api/total/data/coordinate`, {
       params: {
         latitude,
@@ -53,5 +53,12 @@ export const locationAPI = {
   },
   updateUserRegion(data) {
     return axios.post('/api/user/regions', data);
+  },
+};
+
+// 불편사항
+export const complainAPI = {
+  createComplain(data) {
+    return axios.post('/api/complains', data);
   },
 };

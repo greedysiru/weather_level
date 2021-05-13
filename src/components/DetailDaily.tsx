@@ -12,7 +12,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/modules';
 import { LongCard } from './elements';
 
-
 // common
 import { convertWeaterInfo } from '../shared/common';
 
@@ -20,7 +19,7 @@ SwiperCore.use([Pagination]);
 
 const DetailDaily = (props) => {
   const { category } = props;
-  console.log(category)
+  console.log(category);
   const { dayInfo, weekInfo } = useSelector((state: RootState) => state.weather.weatherInfo);
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
 
@@ -41,7 +40,7 @@ const DetailDaily = (props) => {
       let iconColor;
       let iconName;
       if (category === 'rainPer') {
-        const rainPercent = Math.round(Number(dayInfo[category][idx]) * 100)
+        const rainPercent = Math.round(Number(dayInfo[category][idx]) * 100);
         data = `${rainPercent}`;
         iconColor = convertWeaterInfo(category, rainPercent);
       }
@@ -79,7 +78,7 @@ const DetailDaily = (props) => {
     let data;
     let iconColor;
     if (category === 'rainPer') {
-      const rainPercent = Math.round(Number(weekInfo[category][idx]) * 100)
+      const rainPercent = Math.round(Number(weekInfo[category][idx]) * 100);
       data = `${rainPercent}`;
       iconColor = convertWeaterInfo(category, rainPercent);
     }
@@ -145,7 +144,7 @@ const DetailDaily = (props) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 95%;
   ${(props) => props.theme.flex.column};
   justify-content: space-around;
 `;

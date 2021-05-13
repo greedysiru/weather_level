@@ -6,6 +6,7 @@ import LocationAdd from 'src/pages/LocationAdd';
 import LocationSetting from 'src/pages/LocationSetting';
 import Setting from 'src/pages/Setting';
 import NotFound from 'src/pages/NotFound';
+import Complain from 'src/pages/Complain';
 // Router
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
@@ -36,12 +37,11 @@ function App() {
     await dispatch(weatherActions.getWeatherInfo());
     // 카카오
     await initialize();
-  }
+  };
   const dispatch = useDispatch();
   React.useEffect(() => {
-    initializeApp()
+    initializeApp();
   }, []);
-
 
   return (
     <ConnectedRouter history={history}>
@@ -52,6 +52,7 @@ function App() {
           <Route path="/setting/preference" exact component={PreSetting} />
           <Route path="/setting/location" exact component={LocationSetting} />
           <Route path="/setting/location/add" exact component={LocationAdd} />
+          <Route path="/setting/complain" exact component={Complain} />
           <Route path="/detail/:type/:category" exact component={Detail} />
           <Route path="/detail/:type" exact component={Detail} />
           <Route component={NotFound} />
