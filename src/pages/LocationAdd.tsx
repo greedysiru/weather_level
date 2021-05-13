@@ -122,10 +122,10 @@ const LocationAdd = (props) => {
         {selectedBigRegion && smallRegionListCompo}
       </SelectBox>
       <Grid jc="space-between">
-        <Button width="46%" _onClick={goBack}>
+        <Button width="47%" _onClick={goBack}>
           이전
         </Button>
-        <Button width="46%" disabled={!(selectedBigRegion && selectedSmallRegion)} _onClick={addUserRegion}>
+        <Button width="47%" disabled={!(selectedBigRegion && selectedSmallRegion)} _onClick={addUserRegion}>
           추가하기
         </Button>
       </Grid>

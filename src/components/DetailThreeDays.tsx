@@ -10,9 +10,9 @@ import { RootState } from '../redux/modules';
 import { Button, Card, Grid, Image, Title } from './elements';
 
 import uvLogo from '../icons/sun.png';
-import windLogo from '../icons/wind.png';
-import oakPollenRiskLogo from '../icons/wind.png';
-import foodPoisonLogo from '../icons/wind.png';
+import LungLogo from '../icons/lung_disease.png';
+import oakPollenRiskLogo from '../icons/flower.png';
+import foodPoisonLogo from '../icons/food_poison.png';
 
 const DetailThreeDays = (props) => {
   const { category, history } = props;
@@ -25,9 +25,9 @@ const DetailThreeDays = (props) => {
 
   const contents = {
     uv: ['자외선 지수', uvLogo],
-    asthma: ['폐질환 위험 지수', windLogo],
-    foodPoison: ['식중독 위험 지수', oakPollenRiskLogo],
-    oakPollenRisk: ['꽃가루 농도 지수', foodPoisonLogo],
+    asthma: ['폐질환 위험 지수', LungLogo],
+    foodPoison: ['식중독 위험 지수', foodPoisonLogo],
+    oakPollenRisk: ['꽃가루 농도 지수', oakPollenRiskLogo],
   };
 
   const setAllDesData = () => {

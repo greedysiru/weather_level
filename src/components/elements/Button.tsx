@@ -45,7 +45,7 @@ const ElButton = styled.button<ButtonType>`
   cursor: pointer;
   border: solid 0.5px ${(props) => props.theme.color.purple};
   box-shadow: ${(props) => props.theme.shadow};
-  height: 52px;
+  height: 5rem;
   font-size: 1.25rem;
   font-weight: 550;
 `;

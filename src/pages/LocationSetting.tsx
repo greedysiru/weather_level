@@ -181,7 +181,7 @@ const LocationSetting = (props) => {
             isSelected={!isEditMode && (!userLocationInfo?.latestRequestRegion || selectedRegion === currentRegion)}
           >
             <Grid isColumn>
-              <span>현재 위치</span>
+              <span className="current">현재 위치</span>
               <span>{currentRegion}</span>
             </Grid>
             <HiCheck className="check" />
@@ -214,7 +214,8 @@ const Header = styled.div`
     border: none;
     cursor: pointer;
     color: ${(props) => props.theme.color.sky3};
-    font-weight: 500;
+    font-weight: 550;
+    font-size: 1.25rem;
   }
 `;
 
@@ -226,7 +227,7 @@ const Wrapper = styled.div`
 
 const LocationCard = styled.div`
   width: 100%;
-  height: 50px;
+  height: 80px;
   border-radius: 15px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border: solid 0.5px ${(props) => props.theme.color.purple};
@@ -238,7 +239,12 @@ const LocationCard = styled.div`
   background-color: ${(props) => (props.isSelected ? props.theme.color.sky3 : 'white')};
   color: ${(props) => (props.isSelected ? 'white' : 'black')};
   transition: 0.3s ease;
-
+  font-weight: bold;
+  font-size: 1.25rem;
+  & span.current {
+    font-weight: normal;
+    margin-bottom: 10px;
+  }
   & svg.check {
     visibility: ${(props) => (props.isSelected ? 'visible' : 'hidden')};
     color: white;

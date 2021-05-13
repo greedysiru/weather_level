@@ -7,9 +7,9 @@ const Title = (props) => {
 };
 
 const Ele = styled.div`
-  font-size: 2rem;
+  font-size: 1.75rem;
   text-align: center;
-  margin: 1rem;
+  margin: 1.5rem;
   font-weight: bold;
 `;
 export default Title;

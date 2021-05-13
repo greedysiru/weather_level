@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { commonActions } from 'src/redux/modules/common';
 import { RootState } from '../redux/modules';
 
+import { ReactComponent as LogoCircle } from '../icons/icon_logo_circle.svg';
+
 const Complain = (props) => {
   const { history } = props;
   let timer;
@@ -20,7 +22,7 @@ const Complain = (props) => {
 
   const { msg, loading } = useSelector((state: RootState) => state.common);
 
-  const [title, setTitle] = useState(null);
+  const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
   const [isShowToast, setIsShowToast] = useState<boolean>(false);
 
@@ -57,6 +59,8 @@ const Complain = (props) => {
 
     await dispatch(commonActions.fetchPostComplain(data));
     openToast();
+    setTitle('');
+    setContents('');
   };
   const goBack = () => {
     history.replace('/setting');
@@ -65,7 +69,9 @@ const Complain = (props) => {
     <Container>
       <Grid isColumn height="60%" jc="space-between" ai="center">
         <Title>불편/개선 사항 보내기</Title>
-        <Logo />
+        <Grid width="10rem">
+          <LogoCircle />
+        </Grid>
         <InputEl value={title} placeholder="제목" onChange={onChangeTitle} />
         <TextAreaEl
           placeholder="불편한 점이나 개선사항을 알려주세요 :)"
@@ -91,6 +97,7 @@ const Complain = (props) => {
 
 const Container = styled.div`
   width: 100%;
+  max-width: 360px;
   height: 100%;
   padding: 1.5rem;
   ${(props) => props.theme.flex.row};
@@ -104,15 +111,6 @@ const spinnerStyle = css`
   margin: 0 auto;
 `;
 
-const Logo = styled.div`
-  background-image: url('/assets/logo/logo512.png');
-  width: 10rem;
-  height: 10rem;
-  background-size: cover;
-  background-position: center;
-  border-radius: 50%;
-`;
-
 const InputEl = styled.input`
   border: 0.5px solid ${(props) => props.theme.color.purple};
   border-radius: 14px;
@@ -124,7 +122,6 @@ const InputEl = styled.input`
 
   &::placeholder {
     color: ${(props) => props.theme.color.gray2};
-    font-weight: 550;
   }
 
   &:focus {
@@ -144,7 +141,6 @@ const TextAreaEl = styled.textarea`
 
   &::placeholder {
     color: ${(props) => props.theme.color.gray2};
-    font-weight: 550;
   }
 
   &:focus {
