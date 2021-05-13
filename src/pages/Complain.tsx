@@ -22,7 +22,7 @@ const Complain = (props) => {
 
   const { msg, loading } = useSelector((state: RootState) => state.common);
 
-  const [title, setTitle] = useState(null);
+  const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
   const [isShowToast, setIsShowToast] = useState<boolean>(false);
 
@@ -59,6 +59,8 @@ const Complain = (props) => {
 
     await dispatch(commonActions.fetchPostComplain(data));
     openToast();
+    setTitle('');
+    setContents('');
   };
   const goBack = () => {
     history.replace('/setting');
