@@ -243,6 +243,7 @@ const LocationCard = styled.div`
   font-size: 1.25rem;
   & span.current {
     font-weight: normal;
+    margin-bottom: 10px;
   }
   & svg.check {
     visibility: ${(props) => (props.isSelected ? 'visible' : 'hidden')};

@@ -122,7 +122,6 @@ const InputEl = styled.input`
 
   &::placeholder {
     color: ${(props) => props.theme.color.gray2};
-    font-weight: 550;
   }
 
   &:focus {
@@ -142,7 +141,6 @@ const TextAreaEl = styled.textarea`
 
   &::placeholder {
     color: ${(props) => props.theme.color.gray2};
-    font-weight: 550;
   }
 
   &:focus {
