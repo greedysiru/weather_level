@@ -18,7 +18,7 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 // 캐시 이름
 setCacheNameDetails({
   prefix: 'weather-service',
-  suffix: 'v5',
+  suffix: 'v6',
   precache: 'weather-service-precache',
 });
 
