@@ -41,32 +41,32 @@ const Header = (props) => {
       </Grid>
       <Grid width="50%" ai="center" jc='flex-end' height="100%">
         <Grid
-          isColumn
-          width="14%"
-          ai="center"
-          jc="space-between"
-          height="44%"
-          margin="0 0.5rem 0 0"
-        >
-          <Text
-            color={color.veryBad}
-            bold="700"
-          >
-            {todayMaxTmp}
-          </Text>
-          <Text
-            bold="700"
-            color={color.good}
-            margin="0.5rem 0 0 0">
-            {todayMinTmp}
-          </Text>
-        </Grid>
-        <Grid
           width="35%"
           height="100%"
           jc="flex-end"
           ai="center"
         >
+          <Grid
+            isColumn
+            width="14%"
+            ai="center"
+            jc="space-between"
+            height="44%"
+            margin="0 0.5rem 0 0"
+          >
+            <Text
+              color={color.veryBad}
+              bold="700"
+            >
+              {todayMaxTmp}
+            </Text>
+            <Text
+              bold="700"
+              color={color.good}
+              margin="0.5rem 0 0 0">
+              {todayMinTmp}
+            </Text>
+          </Grid>
           <Text size="4.4rem">
             {todayTmp}°
           </Text>

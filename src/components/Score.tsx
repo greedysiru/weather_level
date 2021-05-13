@@ -21,7 +21,7 @@ const Score = (props) => {
       <Grid
         isColumn
         padding="0 2rem 2rem 2rem"
-        height="49%"
+        height="53%"
         jc="flex-start"
         ai="center"
       >

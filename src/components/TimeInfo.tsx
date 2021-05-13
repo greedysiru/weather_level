@@ -239,7 +239,6 @@ const TimeInfo = (props: TimeInfoType) => {
           {info.map((x, idx) => {
             if (timeIndex.includes(idx)) {
               const time: string = dailyTime[idx].split(' ')[2];
-              console.log(weatherIcon[idx])
               return (
                 <Grid
                   key={idx}

@@ -45,7 +45,6 @@ const Input = (props: InputType) => {
             value={value}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
-                console.log('키')
                 onSubmit();
               }
             }}
