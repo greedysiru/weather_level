@@ -8,7 +8,7 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { createNewUserId } from 'src/shared/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { prefereceList, preferenceType, weatherActions } from '../redux/modules/weather';
-import { Button, Grid, Range, Toast } from '../components/elements';
+import { Button, Grid, Range, Title, Toast } from '../components/elements';
 
 import { RootState } from '../redux/modules';
 
@@ -124,10 +124,11 @@ const PreSetting = (props) => {
   };
   return (
     <Container isFull={isDesktopMode && isMain}>
-      <Title>
+      <Title>날씨 선호도 설정</Title>
+      <SubTitle>
         당신이 외출할 때 <br />
         중요하게 여기는 것을 알려주세요!
-      </Title>
+      </SubTitle>
       <RangeWrapper>
         {rangeList}
         <ShowButton onClick={handleRangeHidden}>
@@ -182,7 +183,7 @@ const RangeWrapper = styled.div`
   box-shadow: ${(props) => props.theme.shadow};
 `;
 
-const Title = styled.div`
+const SubTitle = styled.div`
   font-size: 1.7rem;
   text-align: center;
   line-height: 2.5rem;
