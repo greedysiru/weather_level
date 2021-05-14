@@ -33,7 +33,7 @@ const Range = (props: RangeType) => {
           </Label>
         )}
 
-        <ElRange type="range" min="0" max="100" value={rangeValue} onChange={onChangeRange} />
+        <ElRange type="range" step="5" min="0" max="100" value={rangeValue} onChange={onChangeRange} />
         <Label width="10px" margin="10px">
           {rangeValue}
         </Label>

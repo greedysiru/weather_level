@@ -123,7 +123,7 @@ const PreSetting = (props) => {
     }, 3000);
   };
   return (
-    <Container isDesktopMode={isDesktopMode}>
+    <Container isFull={isDesktopMode && isMain}>
       <Title>
         당신이 외출할 때 <br />
         중요하게 여기는 것을 알려주세요!
@@ -160,7 +160,7 @@ const PreSetting = (props) => {
 const Container = styled.div`
   width: 100%;
   max-width: 450px;
-  height: 90%;
+  height: ${(props) => (props.isFull ? `100%` : `90%`)};
   padding: 1rem;
   ${(props) => props.theme.flex.column};
   justify-content: flex-start;
