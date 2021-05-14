@@ -124,12 +124,12 @@ const PreSetting = (props) => {
     setTimerState(timer);
   };
   return (
-    <Container isDesktopMode={isDesktopMode}>
+    <Container isDesktopMode={isDesktopMode} >
       <Title>
         당신이 외출할 때 <br />
         중요하게 여기는 것을 알려주세요!
       </Title>
-      <RangeWrapper>
+      <RangeWrapper >
         {rangeList}
         <ShowButton onClick={handleRangeHidden}>
           {isHidden ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}

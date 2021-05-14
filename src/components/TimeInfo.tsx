@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // elements
-import { Grid, Text, Icon } from './elements';
+import { Grid, Text, Icon, MarkCircle } from './elements';
 
 // theme
 import theme from '../styles/theme';
@@ -14,7 +14,7 @@ import { convertWeaterInfo } from '../shared/common';
 
 
 type TimeInfoType = {
-  info?: string[] | number[];
+  info?: any[];
   timeIndex?: number[];
   hours?: number;
   dailyTime?: string[];
@@ -40,15 +40,26 @@ const TimeInfo = (props: TimeInfoType) => {
   }
   // score 표시인 경우
   if (score) {
-
+    // 가장 큰 값, 두번째 큰 값 구하기
+    // 점수 값 복사
+    let scoreInfo = info;
+    // 가장 큰 값
+    const maxScore = Math.max.apply(null, scoreInfo);
+    // 가장 큰 값 지우기
+    scoreInfo = scoreInfo.filter((item) => {
+      return item !== maxScore
+    })
+    // 두번째 큰 값
+    const secondScore = Math.max.apply(null, scoreInfo);
     return (
       <ElTimeInfo
         {...style}
       >
         <Grid
-          width="100%"
+          width="91.6%"
           height="35%"
           ai="center"
+          jc="space-between"
         >
           <Text
             size="1.5rem"
@@ -56,6 +67,16 @@ const TimeInfo = (props: TimeInfoType) => {
           >
             {label}
           </Text>
+          <Grid width="40%" jc="flex-end">
+            <MarkCircle size={1} />
+            <Text
+              bold="500"
+              color="#939393"
+              margin="0 0 0 3px"
+            >
+              외출 추천 요일
+          </Text>
+          </Grid>
         </Grid>
         {/* 점수 정보 */}
         <Grid
@@ -83,7 +104,7 @@ const TimeInfo = (props: TimeInfoType) => {
                 isColumn
                 jc="space-between"
                 ai="center"
-                height="68%"
+                height="100%"
                 width="14.28%"
               >
                 <Grid
@@ -108,14 +129,31 @@ const TimeInfo = (props: TimeInfoType) => {
                 <Grid
                   ai='center'
                   jc='center'
+                  height="85%"
                 >
-                  <Text
-                    color={scoreColor}
-                    bold="600"
-                    size="1.4rem"
-                  >
-                    {score}
-                  </Text>
+                  {/* 가장 높은 점수와 두 번째로 높은 점수 */}
+                  {maxScore === score || secondScore === score ? (
+                    <MarkCircle size={3.2}>
+                      <Text
+                        color={scoreColor}
+                        bold="600"
+                        size="1.6rem"
+                      >
+                        {score}
+                      </Text>
+                    </MarkCircle>
+                  )
+                    : (
+                      <Text
+                        color={scoreColor}
+                        bold="600"
+                        size="1.4rem"
+                      >
+                        {score}
+                      </Text>
+
+                    )
+                  }
                 </Grid>
               </Grid>
             )
@@ -303,7 +341,7 @@ TimeInfo.defaultProps = {
 const ElTimeInfo = styled.div`
 display:flex;
 flex-direction: column;
-align-items: space-between;
+align-items: center;
 justify-content: center;
 width: 100%;
 height: ${(props) => (props.height ? props.height : '20%')};

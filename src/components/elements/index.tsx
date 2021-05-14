@@ -9,5 +9,6 @@ import LongCard from './LongCard';
 import Toast from './Toast';
 import Title from './Title';
 import Icon from './Icon';
+import MarkCircle from './MarkCircle';
 
-export { Grid, Text, Input, Button, Image, Range, Card, LongCard, Toast, Title, Icon };
+export { Grid, Text, Input, Button, Image, Range, Card, LongCard, Toast, Title, Icon, MarkCircle };
