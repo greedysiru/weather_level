@@ -67,7 +67,7 @@ const Card = (props: cardType & CardInfoType) => {
           </Grid>
           <Grid ai="flex-end">
             <Text bold="500" size="1.4rem" color={color[weatherState]}>
-              {value}
+              {value}{cardTitle === "기온" ? '°' : null}{cardTitle === "코로나" ? '명' : null}
             </Text>
           </Grid>
         </Grid>

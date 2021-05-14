@@ -112,7 +112,7 @@ const TimeInfo = (props: TimeInfoType) => {
                   <Text
                     color={scoreColor}
                     bold="600"
-                    size="1.5rem"
+                    size="1.4rem"
                   >
                     {score}
                   </Text>
