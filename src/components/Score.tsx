@@ -1,4 +1,6 @@
 import React from 'react';
+
+import styled from 'styled-components';
 // 리덕스
 import { useSelector } from 'react-redux';
 // RootState
@@ -29,57 +31,35 @@ const Score = (props) => {
   const imgUrl = `/assets/weather/${nowIcon}.png`;
   return (
     <>
-      <Grid
-        isColumn
-        padding="0 2rem 2rem 2rem"
-        height="53%"
-        jc="flex-start"
-        ai="center"
-      >
-        <Image
-          size={24}
-          src={imgUrl}
-        />
-        <Grid
-          isColumn
-          width="100%"
-          ai="center"
-        >
-          <Grid
-            ai="center"
-          >
-            <Text
-              size="1.6rem"
-              margin="0 0.5rem 0 0"
-              bold="700"
-            >
+      <Grid isColumn padding="0 2rem 2rem 2rem" height="53%" jc="flex-start" ai="center">
+        <Image size={24} src={imgUrl} />
+
+        <Grid isColumn width="100%" ai="center">
+          <Grid ai="center">
+            <Text size="1.6rem" margin="0 0.5rem 0 0" bold="700">
               날씨 점수
             </Text>
-            <Text
-              size="2.2rem"
-              bold="700"
-            >
+            <Text size="2.2rem" bold="700">
               {todayScore}점
-          </Text>
-            <Grid width="10%" _onClick={() => {
-              history.push('/setting/preference')
-            }} >
-              < Icon isWeather name="adjust" color="black" />
+            </Text>
+            <Grid
+              width="10%"
+              _onClick={() => {
+                history.push('/setting/preference');
+              }}
+            >
+              <Icon isWeather name="adjust" color="black" />
             </Grid>
           </Grid>
-          <Grid
-            margin="0.5rem 0 0 0"
-          >
-            <Text
-              size="1.4rem"
-              color={color.gray3}
-            >
+          <Grid margin="0.5rem 0 0 0">
+            <Text size="1.4rem" color={color.gray3}>
               지금 날씨는 {nowWeatherLabel}
             </Text>
           </Grid>
         </Grid>
       </Grid>
     </>
-  )
-}
+  );
+};
+
 export default Score;

@@ -56,8 +56,10 @@ const Main = (props) => {
             <MainContents isFirst />
           </Grid>
 
-          <Grid width="30%" height="100%">
-            <PreSetting isMain />
+          <Grid width="30%" height="100%" isColumn jc="center">
+            <Button _onClick={() => history.push('/setting/preference')}>나만의 외출 난이도 설정하러 가기</Button>
+            <Button _onClick={() => history.push('/setting/location')}>위치 설정하러 가기</Button>
+            {/*  <PreSetting isMain /> */}
           </Grid>
         </Grid>
       </Grid>
@@ -112,7 +114,11 @@ const Main = (props) => {
               padding: '2rem 2rem 0 2rem',
             }}
           >
-            <PreSetting isMain />
+            <Grid isColumn jc="center">
+              <Button _onClick={() => history.push('/setting/preference')}>나만의 외출 난이도 설정하러 가기</Button>
+              <Button _onClick={() => history.push('/setting/location')}>위치 설정하러 가기</Button>
+              {/* <PreSetting isMain /> */}
+            </Grid>
           </SwiperSlide>
         </Swiper>
       </Grid>
