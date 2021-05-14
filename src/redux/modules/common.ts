@@ -51,6 +51,8 @@ const fetchPostComplain = (data) => async (dispatch, getState, { history }) => {
 export const commonActions = {
   setIsDesktopMode,
   fetchPostComplain,
+  setLoading,
+  setMsg,
 };
 
 export default common;

@@ -1,6 +1,7 @@
 import { createReducer, createAction, PayloadAction } from '@reduxjs/toolkit';
 import { locationAPI } from 'src/shared/api';
 import { setHeaderToken } from 'src/shared/common';
+import { commonActions } from './common';
 
 // 시간 정보를 관리하는 모듈
 
@@ -56,28 +57,29 @@ const location = createReducer(initialState, {
 // 전체 지역정보
 const fetchAllResions = () => async (dispatch, getState, { history }) => {
   try {
-    dispatch(setLoading(true));
+    dispatch(commonActions.setLoading(true));
     const res = await locationAPI.fetchAllRegions();
 
-    dispatch(setLoading(false));
+    dispatch(commonActions.setLoading(false));
     dispatch(setAllRegion(res.data));
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
+    dispatch(commonActions.setLoading(false));
   }
 };
 
 const fetchUserRegion = () => async (dispatch, getState, { history }) => {
   try {
-    dispatch(setLoading(true));
+    dispatch(commonActions.setLoading(true));
     const res = await locationAPI.getUserRegion();
     setHeaderToken(res.headers.identification);
     dispatch(setUserLocationInfo(res.data));
-    dispatch(setLoading(false));
+    dispatch(commonActions.setLoading(false));
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
-    dispatch(setLoading(false));
+    dispatch(commonActions.setLoading(false));
   }
 };
 
@@ -86,13 +88,16 @@ export type regionType = {
 };
 const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) => {
   try {
-    dispatch(setLoading(true));
+    dispatch(commonActions.setLoading(true));
     const res = await locationAPI.updateUserRegion(data);
     setHeaderToken(res.headers.identification);
-    dispatch(setLoading(false));
+    dispatch(commonActions.setMsg('선택한 위치를 삭제했습니다'));
+    dispatch(commonActions.setLoading(false));
   } catch (error) {
     // 에러페이지로 이동??
     console.error(error);
+    dispatch(commonActions.setMsg('삭제에 실패했습니다'));
+    dispatch(commonActions.setLoading(false));
   }
 };
 

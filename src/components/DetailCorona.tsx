@@ -30,17 +30,11 @@ const Corona = (props) => {
           <Image size={18} src={logo} />
         </Grid>
         <CardWrapper>
+          <Card width="30%" height="150px" cardTitle="전국 확진자" cardDescription={allNewCaseDes} iconName="corona" />
           <Card
             width="30%"
             height="150px"
-            cardTitle="전국 신규 확진자"
-            cardDescription={allNewCaseDes}
-            iconName="corona"
-          />
-          <Card
-            width="30%"
-            height="150px"
-            cardTitle="지역 신규 확진자"
+            cardTitle="지역 확진자"
             cardDescription={bigRegionNewCaseDes}
             iconName="corona"
           />

@@ -13,18 +13,20 @@ import { Button, Grid, Range, Toast } from '../components/elements';
 import { RootState } from '../redux/modules';
 
 const PreSetting = (props) => {
+  let timer;
+
   const { history, isMain } = props;
-  const { preference, isLoadedPreference } = useSelector((state: RootState) => state.weather);
+  const dispatch = useDispatch();
+
+  const { preference } = useSelector((state: RootState) => state.weather);
   const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
+  const { msg, loading } = useSelector((state: RootState) => state.common); // 토스트 관련 store state
 
   // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [userId, setUserId] = useState<string>(null);
-  const dispatch = useDispatch();
 
-  const [toastMsg, setToastMsg] = useState<string>(null); // 토스트 메시지
   const [isShowToast, setIsShowToast] = useState<boolean>(false);
-  const [timerState, setTimerState] = useState(null);
   // 각 range의 상태관리
   const [temp, setTemp] = useState<string>('');
   const [rainPer, setRainPer] = useState<string>('');
@@ -44,7 +46,7 @@ const PreSetting = (props) => {
     setUserId(id);
 
     return () => {
-      clearTimeout(timerState);
+      clearTimeout(timer);
       setIsShowToast(false);
     };
   }, []);
@@ -99,7 +101,7 @@ const PreSetting = (props) => {
 
     await dispatch(weatherActions.fetchUpdatePreference(data));
     setIsHidden(true);
-    openToast('선호도를 저장했습니다');
+    openToast();
   };
 
   const goBack = () => {
@@ -110,18 +112,15 @@ const PreSetting = (props) => {
     setIsHidden(!isHidden);
   };
 
-  const openToast = (msg) => {
-    if (timerState) {
-      clearTimeout(timerState);
+  const openToast = () => {
+    if (timer) {
+      clearTimeout(timer);
     }
     setIsShowToast(true);
-    setToastMsg(msg);
 
-    const timer = setTimeout(() => {
+    timer = setTimeout(() => {
       setIsShowToast(false);
     }, 3000);
-
-    setTimerState(timer);
   };
   return (
     <Container isDesktopMode={isDesktopMode}>
@@ -152,8 +151,8 @@ const PreSetting = (props) => {
           </Button>
         </Grid>
       )}
-      {isShowToast && <Toast>{toastMsg}</Toast>}
-      <BeatLoader color="#738FFF" loading={isLoadedPreference} css={spinnerStyle} />
+      {isShowToast && <Toast>{msg}</Toast>}
+      <BeatLoader color="#738FFF" loading={loading} css={spinnerStyle} />
     </Container>
   );
 };

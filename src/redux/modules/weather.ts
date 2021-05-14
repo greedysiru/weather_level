@@ -6,6 +6,7 @@ import { setHeaderToken } from 'src/shared/common';
 
 // api 가져오기
 import { weatherAPI } from '../../shared/api';
+import { commonActions } from './common';
 
 // timeActions
 import { timeActions } from './time';
@@ -547,17 +548,19 @@ const fetchPreference = () => async (dispatch, getState, { history }) => {
 
 const fetchUpdatePreference = (data: preferenceType) => async (dispatch, getState, { history }) => {
   try {
-    setIsLoadedPreference(true);
+    dispatch(commonActions.setLoading(true));
     const res = await weatherAPI.updatePreference(data);
     setHeaderToken(res.headers.identification);
 
-    dispatch(weatherActions.fetchPreference());
-    setIsLoadedPreference(false);
-    dispatch(weatherActions.getWeatherInfo());
+    dispatch(fetchPreference());
+    dispatch(commonActions.setLoading(false));
+    dispatch(commonActions.setMsg('선호도를 저장했습니다'));
+    dispatch(getWeatherInfo());
   } catch (error) {
     // 에러페이지로 이동?
     console.error(error);
-    setIsLoadedPreference(false);
+    dispatch(commonActions.setMsg('선호도 저장에 실패했습니다'));
+    dispatch(commonActions.setLoading(false));
   }
 };
 
