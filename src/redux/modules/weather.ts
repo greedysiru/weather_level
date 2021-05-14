@@ -506,6 +506,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
       const type = defaultCardDataKeys[i];
       const { label, value } = defaultCardData[type];
       description = dispatch(convertWeaterInfo(type, value));
+      // 오늘 날씨를 세팅
       if (type === 'weather') {
         dispatch(setTodayWeather([...description]));
       }
