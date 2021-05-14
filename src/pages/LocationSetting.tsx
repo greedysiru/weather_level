@@ -56,12 +56,19 @@ const LocationSetting = (props) => {
     }
   }, [userLocationInfo]);
 
+  useEffect(() => {
+    setToastMsg(msg);
+  }, [msg]);
+
   const openToast = (msg) => {
     if (timer) {
       clearTimeout(timer);
     }
     setIsShowToast(true);
-    setToastMsg(msg);
+
+    if (msg) {
+      setToastMsg(msg);
+    }
 
     timer = setTimeout(() => {
       setIsShowToast(false);
@@ -157,7 +164,7 @@ const LocationSetting = (props) => {
 
       await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions }));
 
-      await openToast(msg);
+      await openToast(null);
     }
 
     await toggleEditMode();
