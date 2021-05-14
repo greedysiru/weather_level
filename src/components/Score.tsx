@@ -8,14 +8,26 @@ import { Grid, Text, Image, Icon } from './elements';
 
 import theme from '../styles/theme';
 
+// common
+import { convertWeaterInfo } from '../shared/common';
+
 // 외출 점수와 캐릭터를 보여주는 컴포넌트
 const Score = (props) => {
   const { history } = props;
   const { color } = theme;
   const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
-  const todayWeather = useSelector((state: RootState) => state.weather.todayWeather);
+  // 현재 시간에 대한 index
+  const nowIndex = useSelector((state: RootState) => state.time.timeIndex[0]);
+  // 현재 시간에 대한 날씨 icon
+  const nowIcon = useSelector((state: RootState) => state.weather.weatherInfo.dayInfo.weatherIcon[nowIndex]);
+  // 현재 시간에 대한 날씨 정보
+  const nowWeatherInfo = useSelector((state: RootState) => state.weather.weatherInfo.dayInfo.weatherDes[nowIndex]);
+  // 현재 시간에 대한 날씨 문구
+  const weatherDescripton = convertWeaterInfo('weather', nowWeatherInfo);
+  const nowWeatherLabel = weatherDescripton[1];
+
   // 날씨 이미지를 불러올 경로
-  const imgUrl = `/assets/weather/${todayWeather[3]}.png`;
+  const imgUrl = `/assets/weather/${nowIcon}.png`;
   return (
     <>
       <Grid
@@ -63,7 +75,7 @@ const Score = (props) => {
               size="1.4rem"
               color={color.gray3}
             >
-              오늘 날씨는 {todayWeather[1]}
+              지금 날씨는 {nowWeatherLabel}
             </Text>
           </Grid>
         </Grid>
