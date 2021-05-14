@@ -374,13 +374,13 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
       return ['usually', '가벼운 비', `daily/${type}`, `10${dayAndNight}`];
     }
     if (value === 'broken clouds') {
-      return ['bad', '구름 많음', `daily/${type}`, `04`];
+      return ['bad', '구름 많음', `daily/${type}`, `04${dayAndNight}`];
     }
     if (value === 'shower rain') {
-      return ['bad', '소나기', `daily/${type}`, `09`];
+      return ['bad', '소나기', `daily/${type}`, `09${dayAndNight}`];
     }
     if (value === 'overcast clouds') {
-      return ['bad', '흐림', `daily/${type}`, `04`];
+      return ['bad', '흐림', `daily/${type}`, `04${dayAndNight}`];
     }
     if (value === 'moderate rain') {
       return ['bad', '적당한 비', `daily/${type}`, `10${dayAndNight}`];
@@ -389,13 +389,13 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
       return ['bad', '비', `daily/${type}`, `10${dayAndNight}`];
     }
     if (value === 'snow') {
-      return ['bad', '눈', `daily/${type}`, `13`];
+      return ['bad', '눈', `daily/${type}`, `13${dayAndNight}`];
     }
     if (value === 'thunderstorm') {
-      return ['veryBad', '천둥번개', `daily/${type}`, `11`];
+      return ['veryBad', '천둥번개', `daily/${type}`, `11${dayAndNight}`];
     }
     if (value === 'mist') {
-      return ['veryBad', '안개', `daily/${type}`, `50`];
+      return ['veryBad', '안개', `daily/${type}`, `50${dayAndNight}`];
     }
   }
   // 강수확률

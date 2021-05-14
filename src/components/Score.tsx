@@ -25,7 +25,6 @@ const Score = (props) => {
   // 현재 시간에 대한 날씨 문구
   const weatherDescripton = convertWeaterInfo('weather', nowWeatherInfo);
   const nowWeatherLabel = weatherDescripton[1];
-  console.log(nowIcon)
   // 날씨 이미지를 불러올 경로
   const imgUrl = `/assets/weather/${nowIcon}.png`;
   return (
