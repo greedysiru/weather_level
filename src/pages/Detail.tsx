@@ -44,7 +44,7 @@ const Detail = (props) => {
       <Grid isColumn height="100%" width="100%">
         <Component category={match.params.category} />
       </Grid>
-      <Grid padding="1.5rem">
+      <Grid>
         <Button _onClick={goBack}>이전</Button>
       </Grid>
     </Container>
@@ -54,10 +54,10 @@ const Detail = (props) => {
 const Container = styled.div`
   width: ${(props) => (props.full ? '50%' : '100%')};
   max-width: ${(props) => (props.full ? '' : '360px')};
-  height: 88%;
+  height: 83%;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.column};
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `;
 

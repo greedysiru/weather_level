@@ -152,7 +152,7 @@ const DetailDaily = (props) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 95%;
+  height: 100%;
   ${(props) => props.theme.flex.column};
   justify-content: space-around;
 `;

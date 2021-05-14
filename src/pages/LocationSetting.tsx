@@ -18,12 +18,14 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { RootState } from '../redux/modules';
 
 const LocationSetting = (props) => {
+  let timer;
   const { history } = props;
   const dispatch = useDispatch();
 
+  const { msg, loading } = useSelector((state: RootState) => state.common);
+
   const [toastMsg, setToastMsg] = useState(null); // 토스트 메시지
   const [isShowToast, setIsShowToast] = useState<boolean>(false); // 토스트 보이기
-  const [timerState, setTimerState] = useState(null); // 토스트 timeout
 
   const [currentRegion, setCurrentRegion] = useState(null); // 현재위치
   const [selectedRegion, setSelectedRegion] = useState(null); // 선택한 위치
@@ -31,7 +33,7 @@ const LocationSetting = (props) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false); // 편집모드
   const [deleteList, setDeleteList] = useState([]); // 지역삭제목록
 
-  const { userLocationInfo, loading } = useSelector((state: RootState) => state.location);
+  const { userLocationInfo } = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,7 +41,7 @@ const LocationSetting = (props) => {
     dispatch(locationActions.fetchUserRegion());
 
     return () => {
-      clearTimeout(timerState);
+      clearTimeout(timer);
       setIsShowToast(false);
     };
   }, []);
@@ -54,18 +56,23 @@ const LocationSetting = (props) => {
     }
   }, [userLocationInfo]);
 
+  useEffect(() => {
+    setToastMsg(msg);
+  }, [msg]);
+
   const openToast = (msg) => {
-    if (timerState) {
-      clearTimeout(timerState);
+    if (timer) {
+      clearTimeout(timer);
     }
     setIsShowToast(true);
-    setToastMsg(msg);
 
-    const timer = setTimeout(() => {
+    if (msg) {
+      setToastMsg(msg);
+    }
+
+    timer = setTimeout(() => {
       setIsShowToast(false);
     }, 3000);
-
-    setTimerState(timer);
   };
 
   const addDeleteList = (region) => {
@@ -157,7 +164,7 @@ const LocationSetting = (props) => {
 
       await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions }));
 
-      await openToast('선택한 위치를 삭제했습니다');
+      await openToast(null);
     }
 
     await toggleEditMode();
