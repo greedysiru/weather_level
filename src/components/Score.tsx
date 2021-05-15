@@ -34,8 +34,8 @@ const Score = (props) => {
       <Grid isColumn padding="0 2rem 2rem 2rem" height="53%" jc="flex-start" ai="center">
         <Image size={24} src={imgUrl} />
 
-        <Grid isColumn width="100%" ai="center">
-          <Grid ai="center">
+        <Grid isColumn width="100%" ai="center" jc="center">
+          <Grid ai="center" jc="center" width="100%">
             <Text size="1.6rem" margin="0 0.5rem 0 0" bold="700">
               날씨 점수
             </Text>
@@ -47,12 +47,14 @@ const Score = (props) => {
               _onClick={() => {
                 history.push('/setting/preference');
               }}
+              ai="center"
+              padding="0 0 2.5px 0"
             >
-              <Icon isWeather name="adjust" color="black" />
+              <Icon isWeather name="adjust" color="black" size={2.5} />
             </Grid>
           </Grid>
           <Grid margin="0.5rem 0 0 0">
-            <Text size="1.4rem" color={color.gray3}>
+            <Text size="1.6rem" color={color.gray3}>
               지금 날씨는 {nowWeatherLabel}
             </Text>
           </Grid>

@@ -56,7 +56,7 @@ const Card = (props: cardType & CardInfoType) => {
   return (
     <>
       <ElCard {...style} onClick={movePage}>
-        <Grid isColumn height="70%" ai="center" jc="space-between">
+        <Grid isColumn height="75%" ai="center" jc="space-between">
           <Grid>
             <Text bold="500" size="1.4rem">
               {cardTitle}

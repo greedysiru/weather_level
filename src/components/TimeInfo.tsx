@@ -70,6 +70,7 @@ const TimeInfo = (props: TimeInfoType) => {
           <Grid width="40%" jc="flex-end">
             <MarkCircle size={1} />
             <Text
+              size="1.3rem"
               bold="500"
               color="#939393"
               margin="0 0 0 3px"
@@ -81,7 +82,7 @@ const TimeInfo = (props: TimeInfoType) => {
         {/* 점수 정보 */}
         <Grid
           width="100%"
-          height="50%"
+          height="60%"
         >
           {info.map((score, idx) => {
             // 점수 색상
@@ -112,14 +113,14 @@ const TimeInfo = (props: TimeInfoType) => {
                 >
                   {idx === 0 ? (
                     <Text
-                      size="1.2rem"
+                      size="1.3rem"
                       bold="700"
                     >
                       {dayOfWeek[idx]}
                     </Text>
                   ) : (
                     <Text
-                      size="1rem"
+                      size="1.2rem"
                     >
                       {dayOfWeek[idx]}
                     </Text>
@@ -175,14 +176,15 @@ const TimeInfo = (props: TimeInfoType) => {
           >
             <Text
               size="1.5rem"
-              bold="500"
+              bold="700"
             >
               {label}(%)
             </Text>
           </Grid>
+          {/* 강수 정보 */}
           <Grid
             width="100%"
-            height="50%"
+            height="57%"
           >
             {info.map((x, idx) => {
               if (timeIndex.includes(idx)) {
@@ -267,7 +269,7 @@ const TimeInfo = (props: TimeInfoType) => {
         {/* 날씨 정보 */}
         <Grid
           width="100%"
-          height="50%"
+          height="55%"
         >
           {info.map((x, idx) => {
             if (timeIndex.includes(idx)) {
@@ -342,7 +344,7 @@ const ElTimeInfo = styled.div`
 display:flex;
 flex-direction: column;
 align-items: center;
-justify-content: center;
+justify-content: flex-start;
 width: 100%;
 height: ${(props) => (props.height ? props.height : '20%')};
 border-radius: 1.4rem;

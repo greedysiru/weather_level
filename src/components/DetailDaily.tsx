@@ -36,7 +36,7 @@ const DetailDaily = (props) => {
 
     if (idx >= timeStartIndex) {
       // 2시간 간격 24시간: idx < 20 && (idx + 1) % 2 === 1
-      // 현재로부터 1시간 단위위로 10시간 치 보여주기
+      // 현재로부터 1시간 단위로 10시간 치 보여주기
       if (acc.length <= 10) {
 
         const dateTime = cur.split(' ');
