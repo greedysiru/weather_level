@@ -22,7 +22,8 @@ const DetailDaily = (props) => {
   const { dayInfo, weekInfo } = useSelector((state: RootState) => state.weather.weatherInfo);
   const dayOfWeek = useSelector((state: RootState) => state.time.dayOfWeek);
   const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
-
+  // 현재 시간을 기준으로 시작하는 인덱스
+  const timeStartIndex = useSelector((state: RootState) => state.time.timeIndex[0]);
   // url에 따라 title 다르게
   const title = {
     weather: '날씨',
@@ -32,39 +33,43 @@ const DetailDaily = (props) => {
 
   // 시간별 카드 리스트 컴포넌트
   const timeListComponent = dayInfo.dailyTime.reduce((acc, cur, idx) => {
-    console.log(cur)
-    // 2시간 간격 24시간
-    if (idx < 20 && (idx + 1) % 2 === 1) {
-      const dateTime = cur.split(' ');
-      // category 별로 데이터 다르게
-      let data;
-      let iconColor;
-      let iconName;
-      if (category === 'rainPer') {
-        const rainPercent = Math.round(Number(dayInfo[category][idx]) * 100);
-        data = `${rainPercent}`;
-        iconColor = convertWeaterInfo(category, rainPercent);
-      }
 
-      if (category === 'tmp' || category === 'weather') {
-        data = `${Math.round(Number(dayInfo.tmp[idx]))}°C`;
-        iconName = dayInfo.weatherIcon[idx];
-      }
+    if (idx >= timeStartIndex) {
+      // 2시간 간격 24시간: idx < 20 && (idx + 1) % 2 === 1
+      // 현재로부터 1시간 단위위로 10시간 치 보여주기
+      if (acc.length <= 10) {
 
-      acc.push(
-        <LongCard
-          height="7%"
-          type={category}
-          key={idx}
-          day={`${dateTime[2]}:00`} /* ${dateTime[0]}/${dateTime[1]} */
-          data={data}
-          iconColor={iconColor}
-          iconName={iconName}
-          isTime
-        />,
-      );
+        const dateTime = cur.split(' ');
+        // category 별로 데이터 다르게
+        let data;
+        let iconColor;
+        let iconName;
+        if (category === 'rainPer') {
+          const rainPercent = Math.round(Number(dayInfo[category][idx]) * 100);
+          data = `${rainPercent}`;
+          iconColor = convertWeaterInfo(category, rainPercent);
+        }
+
+        if (category === 'tmp' || category === 'weather') {
+          data = `${Math.round(Number(dayInfo.tmp[idx]))}°C`;
+          iconName = dayInfo.weatherIcon[idx];
+        }
+
+        acc.push(
+          <LongCard
+            height="7%"
+            type={category}
+            key={idx}
+            day={`${dateTime[2]}:00`} /* ${dateTime[0]}/${dateTime[1]} */
+            data={data}
+            iconColor={iconColor}
+            iconName={iconName}
+            isTime
+          />,
+        );
+        // 카드 넣었을 때마다 1씩 더하기
+      }
     }
-
     return acc;
   }, []);
 
