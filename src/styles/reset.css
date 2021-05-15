@@ -56,6 +56,9 @@ table {
 
 
 /* 페이지네이션 표시 스타일 설정 */
+#root > div > div.sc-eJwXpk.cAJqUF > div > div.sc-bdvvaa.dRKtxF > div > div > div.swiper-pagination.swiper-pagination-bullets{
+  bottom: 5px;
+}
 .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{
 	background-color: black;
 }

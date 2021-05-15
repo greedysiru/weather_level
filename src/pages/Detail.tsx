@@ -44,7 +44,7 @@ const Detail = (props) => {
       <Grid isColumn height="100%" width="100%">
         <Component category={match.params.category} />
       </Grid>
-      <Grid>
+      <Grid padding="0rem 1.5rem 0 1.5rem">
         <Button _onClick={goBack}>이전</Button>
       </Grid>
     </Container>

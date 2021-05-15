@@ -86,8 +86,8 @@ const DetailDaily = (props) => {
 
     if (category === 'tmp' || category === 'weather') {
       data = {
-        max: weekInfo.maxTmp[idx].toString(),
-        min: weekInfo.minTmp[idx],
+        max: `${Math.round(Number(weekInfo.maxTmp[idx]))}°C`,
+        min: `${Math.round(Number(weekInfo.minTmp[idx]))}°C`,
         tmp: `${parseInt(weekInfo.tmp[idx], 10)}°C`,
         weather: weekInfo.weatherIcon[idx],
         des: weekInfo.weatherDes[idx],
@@ -164,7 +164,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
   margin: 1rem;
 `;
