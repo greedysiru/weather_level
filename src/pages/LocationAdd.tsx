@@ -143,25 +143,26 @@ const Container = styled.div`
   width: 360px;
   height: 80%;
   ${(props) => props.theme.flex.column};
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 1rem;
   background-color: ${(props) => props.theme.color.background};
 `;
 
 const SelectBox = styled.div`
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  ${(props) => props.theme.shadow};
   border: solid 0.5px ${(props) => props.theme.color.purple};
   background-color: white;
   width: 100%;
   padding: 1rem;
   border-radius: 1rem;
-  margin: 4rem 0;
+  margin: 1rem 0 2rem 0 ;
 `;
 
 const RegionEle = styled.span`
   background-color: ${(props) => (props.isSelected ? props.theme.color.sky3 : props.theme.color.gray0)};
   color: ${(props) => (props.isSelected ? 'white' : 'black')};
   font-weight: bold;
+  font-size: 1.35rem;
   margin: 3px;
   padding: 7px;
   ${(props) => props.theme.border_box};

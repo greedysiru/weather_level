@@ -67,7 +67,7 @@ const Complain = (props) => {
   };
   return (
     <Container>
-      <Grid isColumn height="60%" jc="space-between" ai="center">
+      <Grid isColumn height="60%" jc="center" ai="center">
         <Title>불편/개선 사항 보내기</Title>
         <Grid width="10rem">
           <LogoCircle />
@@ -79,7 +79,7 @@ const Complain = (props) => {
           value={contents}
           multiLine
         />
-        <Grid jc="space-between">
+        <Grid jc="space-between" margin="2rem 0 0 0">
           <Button width="47%" _onClick={goBack}>
             취소
           </Button>
@@ -114,11 +114,12 @@ const spinnerStyle = css`
 const InputEl = styled.input`
   border: 0.5px solid ${(props) => props.theme.color.purple};
   border-radius: 14px;
-  box-shadow: ${(props) => props.theme.shadow};
+  ${(props) => props.theme.shadow};
   width: 100%;
   height: 50px;
   padding: 1.5rem;
   ${(props) => props.theme.border_box}
+  margin-top: 2rem;
 
   &::placeholder {
     color: ${(props) => props.theme.color.gray2};
@@ -132,12 +133,13 @@ const InputEl = styled.input`
 const TextAreaEl = styled.textarea`
   border: 0.5px solid ${(props) => props.theme.color.purple};
   border-radius: 14px;
-  box-shadow: ${(props) => props.theme.shadow};
+  ${(props) => props.theme.shadow};
   width: 100%;
-  height: 35%;
+  height: 40%;
   padding: 1.5rem;
-  ${(props) => props.theme.border_box}
+  ${(props) => props.theme.border_box};
   resize:none;
+  margin-top: 2rem;
 
   &::placeholder {
     color: ${(props) => props.theme.color.gray2};

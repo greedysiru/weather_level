@@ -136,13 +136,7 @@ const IconWrap = styled.div<IconType>`
   width: var(--size);
   height: var(--size);
   background-size: cover;
-  &:hover svg {
-    fill: black;
-  }
-  & svg {
-    fill: ${(props) => props.theme.color.gray3};
-    transition: 0.3s;
-  }
+ 
 `;
 
 const WeatherIconWrap = styled.div<IconType>`

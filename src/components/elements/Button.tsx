@@ -24,7 +24,7 @@ const Button = (props: ButtonType) => {
 
 Button.defaultProps = {
   children: null,
-  _onClick: () => {},
+  _onClick: () => { },
   isFloat: false,
   margin: '0',
   width: '100%',
@@ -44,7 +44,7 @@ const ElButton = styled.button<ButtonType>`
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')};
   cursor: pointer;
   border: solid 0.5px ${(props) => props.theme.color.purple};
-  box-shadow: ${(props) => props.theme.shadow};
+  ${(props) => props.theme.shadow};
   height: 5rem;
   font-size: 1.25rem;
   font-weight: 550;

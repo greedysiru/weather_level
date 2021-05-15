@@ -76,8 +76,13 @@ const ElFooter = styled.div`
   justify-content: center;
   align-items: center;
   & svg {
-  fill: ${(props) => (props.isSelected ? 'black' : '')};
+  fill: ${(props) => (props.isSelected ? 'black' : (props.theme.color.gray1))};
+  transition: 0.3s;
+}
+  &:hover svg {
+    fill: black;
   }
+
 `;
 
 export default Footer;

@@ -222,7 +222,7 @@ const Header = styled.div`
     cursor: pointer;
     color: ${(props) => props.theme.color.sky3};
     font-weight: 550;
-    font-size: 1.25rem;
+    font-size: 1.6rem;
   }
 `;
 
@@ -247,7 +247,7 @@ const LocationCard = styled.div`
   color: ${(props) => (props.isSelected ? 'white' : 'black')};
   transition: 0.3s ease;
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   & span.current {
     font-weight: normal;
     margin-bottom: 10px;
@@ -260,7 +260,7 @@ const LocationCard = styled.div`
 
   & svg.cancel {
     color: #ff3e00;
-    font-size: 1.5rem;
+    font-size: 2.4rem;
   }
 
   &:hover {

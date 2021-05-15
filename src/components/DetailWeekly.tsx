@@ -72,7 +72,8 @@ const Contents = styled.div`
   height: 100%;
   padding: 1.5rem;
   ${(props) => props.theme.flex.column};
-  justify-content: flex-start;
+  justify-content: space-between;
+  
 `;
 
 const Card = styled.div``;
