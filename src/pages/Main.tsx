@@ -41,6 +41,7 @@ const Main = (props) => {
     return <Logo />;
   }
   // 날씨정보 로드 후
+  // 데스크탑 모드
   if (isDesktopMode) {
     return (
       <Grid isColumn height="90%" ai="center" padding="2rem 0">
@@ -57,9 +58,9 @@ const Main = (props) => {
           </Grid>
 
           <Grid width="30%" height="100%" isColumn jc="center">
-            <Button _onClick={() => history.push('/setting/preference')}>나만의 외출 난이도 설정하러 가기</Button>
-            <Button _onClick={() => history.push('/setting/location')}>위치 설정하러 가기</Button>
-            {/*  <PreSetting isMain /> */}
+            {/* <Button _onClick={() => history.push('/setting/preference')}>나만의 외출 난이도 설정하러 가기</Button>
+            <Button _onClick={() => history.push('/setting/location')}>위치 설정하러 가기</Button> */}
+            <PreSetting isMain />
           </Grid>
         </Grid>
       </Grid>
@@ -114,11 +115,12 @@ const Main = (props) => {
               padding: '2rem 2rem 0 2rem',
             }}
           >
-            <Grid isColumn jc="center">
+            {/* <Grid isColumn jc="center">
               <Button _onClick={() => history.push('/setting/preference')}>나만의 외출 난이도 설정하러 가기</Button>
               <Button _onClick={() => history.push('/setting/location')}>위치 설정하러 가기</Button>
-              {/* <PreSetting isMain /> */}
-            </Grid>
+            </Grid> */}
+            <PreSetting isMain />
+
           </SwiperSlide>
         </Swiper>
       </Grid>

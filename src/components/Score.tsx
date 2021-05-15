@@ -24,6 +24,8 @@ const Score = (props) => {
   const nowIcon = useSelector((state: RootState) => state.weather.weatherInfo.dayInfo.weatherIcon[nowIndex]);
   // 현재 시간에 대한 날씨 정보
   const nowWeatherInfo = useSelector((state: RootState) => state.weather.weatherInfo.dayInfo.weatherDes[nowIndex]);
+  // 오늘 날씨에 대한 문구
+  const todayWeatherLabel = useSelector((state: RootState) => state.weather.todayWeather[1])
   // 현재 시간에 대한 날씨 문구
   const weatherDescripton = convertWeaterInfo('weather', nowWeatherInfo);
   const nowWeatherLabel = weatherDescripton[1];
@@ -53,9 +55,9 @@ const Score = (props) => {
               <Icon isWeather name="adjust" color="black" size={2.5} />
             </Grid>
           </Grid>
-          <Grid margin="0.5rem 0 0 0">
+          <Grid margin="1rem 0 0 0">
             <Text size="1.6rem" color={color.gray3}>
-              지금 날씨는 {nowWeatherLabel}
+              지금은 {nowWeatherLabel}, 오늘 날씨는 {todayWeatherLabel}
             </Text>
           </Grid>
         </Grid>

@@ -69,7 +69,6 @@ const FooterWrap = styled.div`
 `;
 
 const ElFooter = styled.div`
-  cursor: pointer;
   width: 30%;
   height: 90%;
   display: flex;

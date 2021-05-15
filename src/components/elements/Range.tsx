@@ -26,14 +26,20 @@ const Range = (props: RangeType) => {
 
   return (
     <Container isHidden={isHidden}>
-      <Grid ai="center" jc="space-between">
+      <Grid ai="center"
+        jc="space-between"
+      >
         {label && (
           <Label title="true" width="78px">
             {label}
           </Label>
         )}
-
-        <ElRange type="range" step="5" min="0" max="100" value={rangeValue} onChange={onChangeRange} />
+        <ElRange
+          type="range"
+          step="5" min="0" max="100"
+          value={rangeValue}
+          onChange={onChangeRange}
+        />
         <Label width="10px" margin="10px">
           {rangeValue}
         </Label>

@@ -125,7 +125,7 @@ const LocationAdd = (props) => {
         <Line />
         {selectedBigRegion && smallRegionListCompo}
       </SelectBox>
-      <Grid jc="space-between">
+      <Grid jc="space-between" margin="1.5rem 0">
         <Button width="47%" _onClick={goBack}>
           이전
         </Button>
@@ -141,10 +141,10 @@ const LocationAdd = (props) => {
 
 const Container = styled.div`
   width: 360px;
-  height: 80%;
+  height: 90%;
   ${(props) => props.theme.flex.column};
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1.5rem 0 0 0;
   background-color: ${(props) => props.theme.color.background};
 `;
 
@@ -153,16 +153,18 @@ const SelectBox = styled.div`
   border: solid 0.5px ${(props) => props.theme.color.purple};
   background-color: white;
   width: 100%;
+  height: 100%;
   padding: 1rem;
   border-radius: 1rem;
-  margin: 1rem 0 2rem 0 ;
+  margin: 1rem 0 0 0 ;
+  overflow-y: auto;
 `;
 
 const RegionEle = styled.span`
   background-color: ${(props) => (props.isSelected ? props.theme.color.sky3 : props.theme.color.gray0)};
   color: ${(props) => (props.isSelected ? 'white' : 'black')};
   font-weight: bold;
-  font-size: 1.35rem;
+  font-size: 1.4rem;
   margin: 3px;
   padding: 7px;
   ${(props) => props.theme.border_box};

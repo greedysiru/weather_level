@@ -132,11 +132,11 @@ Icon.defaultProps = {
 };
 
 const IconWrap = styled.div<IconType>`
+  cursor: pointer;
   --size: ${(props) => props.size}rem;
   width: var(--size);
   height: var(--size);
   background-size: cover;
- 
 `;
 
 const WeatherIconWrap = styled.div<IconType>`

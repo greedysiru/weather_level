@@ -177,6 +177,9 @@ export const convertWeaterInfo = (type, value) => {
     if (value === 'mist') {
       return ['veryBad', '안개', `daily/${type}`, `50`];
     }
+    if (value === 'heavy intensity rain') {
+      return ['veryBad', '폭우', `daily/${type}`, `10${dayAndNight}`];
+    }
   }
   // 강수확률
   if (type === 'rainPer') {
@@ -196,10 +199,10 @@ export const convertWeaterInfo = (type, value) => {
   // 습도
   if (type === 'humidity') {
     if (value >= 0 && value < 20) {
-      return 'veryBad';
+      return 'bad';
     }
     if (value >= 20 && value < 30) {
-      return 'bad';
+      return 'sky1';
     }
     if (value >= 30 && value < 40) {
       return 'usually';
@@ -211,10 +214,10 @@ export const convertWeaterInfo = (type, value) => {
       return 'usually';
     }
     if (value >= 70 && value < 80) {
-      return 'bad';
+      return 'sky3';
     }
     if (value >= 80) {
-      return 'veryBad';
+      return 'sky4';
     }
   }
   // 기온

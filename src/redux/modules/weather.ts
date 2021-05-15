@@ -397,6 +397,9 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
     if (value === 'mist') {
       return ['veryBad', '안개', `daily/${type}`, `50${dayAndNight}`];
     }
+    if (value === 'heavy intensity rain') {
+      return ['veryBad', '폭우', `daily/${type}`, `10${dayAndNight}`];
+    }
   }
   // 강수확률
   if (type === 'rainPer') {
@@ -416,10 +419,10 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
   // 습도
   if (type === 'humidity') {
     if (value >= 0 && value < 20) {
-      return ['veryBad', '매우건조', `weekly/${type}`];
+      return ['bad', '매우건조', `weekly/${type}`];
     }
     if (value >= 20 && value < 30) {
-      return ['bad', '건조', `weekly/${type}`];
+      return ['sky1', '건조', `weekly/${type}`];
     }
     if (value >= 30 && value < 40) {
       return ['usually', '약간건조', `weekly/${type}`];
@@ -431,10 +434,10 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
       return ['usually', '약간습함', `weekly/${type}`];
     }
     if (value >= 70 && value < 80) {
-      return ['bad', '습함', `weekly/${type}`];
+      return ['sky3', '습함', `weekly/${type}`];
     }
     if (value >= 80) {
-      return ['veryBad', '매우습함', `weekly/${type}`];
+      return ['sky4', '매우습함', `weekly/${type}`];
     }
   }
   // 기온
@@ -476,7 +479,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
     const defaultCardData = {
       temp: { label: '기온', value: weekInfo.tmp[0] },
       rainPer: { label: '강수확률', value: weekInfo.rainPer[0] },
-      weather: { label: '하늘', value: weekInfo.weatherDes[0] },
+      weather: { label: '오늘날씨', value: weekInfo.weatherDes[0] },
       corona: { label: '코로나', value: coronaAllNewCaseCount },
       pm10: { label: '미세먼지', value: airPollution.pm10Value },
       pm25: { label: '초미세먼지', value: airPollution.pm25Value },
