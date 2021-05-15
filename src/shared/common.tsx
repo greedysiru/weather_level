@@ -180,17 +180,17 @@ export const convertWeaterInfo = (type, value) => {
   }
   // 강수확률
   if (type === 'rainPer') {
-    if (value <= 2) {
-      return 'good';
+    if (value <= 0.25) {
+      return 'gray0';
     }
-    if (value <= 400) {
+    if (value <= 0.5) {
       return 'usually';
     }
-    if (value <= 800) {
-      return 'bad';
+    if (value <= 0.75) {
+      return 'good';
     }
-    if (value > 800) {
-      return 'veryBad';
+    if (value > 0.75) {
+      return 'sky4';
     }
   }
   // 습도

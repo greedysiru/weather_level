@@ -32,6 +32,7 @@ const DetailDaily = (props) => {
 
   // 시간별 카드 리스트 컴포넌트
   const timeListComponent = dayInfo.dailyTime.reduce((acc, cur, idx) => {
+    console.log(cur)
     // 2시간 간격 24시간
     if (idx < 20 && (idx + 1) % 2 === 1) {
       const dateTime = cur.split(' ');

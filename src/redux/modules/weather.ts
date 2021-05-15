@@ -400,17 +400,17 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
   }
   // 강수확률
   if (type === 'rainPer') {
-    if (value <= 2) {
-      return ['good', '낮음', `daily/${type}`];
+    if (value <= 0.25) {
+      return ['gray0', '낮음', `daily/${type}`];
     }
-    if (value <= 400) {
+    if (value <= 0.50) {
       return ['usually', '보통', `daily/${type}`];
     }
-    if (value <= 800) {
-      return ['bad', '높음', `daily/${type}`];
+    if (value <= 0.75) {
+      return ['good', '높음', `daily/${type}`];
     }
-    if (value > 800) {
-      return ['veryBad', '매우높음', `daily/${type}`];
+    if (value > 0.75) {
+      return ['sky4', '매우높음', `daily/${type}`];
     }
   }
   // 습도

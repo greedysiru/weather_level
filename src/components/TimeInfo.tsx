@@ -177,7 +177,7 @@ const TimeInfo = (props: TimeInfoType) => {
               size="1.5rem"
               bold="500"
             >
-              {label}
+              {label}(%)
             </Text>
           </Grid>
           <Grid
