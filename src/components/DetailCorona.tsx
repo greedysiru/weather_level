@@ -61,7 +61,7 @@ const Container = styled.div`
 
 const CardWrapper = styled.div`
   width: 100%;
-  height: 50vw;
+  height: 25vh;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.row};
   justify-content: center;
