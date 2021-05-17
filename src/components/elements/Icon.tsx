@@ -15,7 +15,10 @@ import { ReactComponent as Humidity } from '../../icons/humidity.svg';
 import { ReactComponent as Location } from '../../icons/location.svg';
 import { ReactComponent as Main } from '../../icons/main.svg';
 import { ReactComponent as PollenRisk } from '../../icons/pollenRisk.svg';
-import { ReactComponent as RainPer } from '../../icons/rainPer.svg';
+import { ReactComponent as RainPerZero } from '../../icons/rainPer0.svg';
+import { ReactComponent as RainPerOne } from '../../icons/rainPer1.svg';
+import { ReactComponent as RainPerTwo } from '../../icons/rainPer2.svg';
+import { ReactComponent as RainPerThree } from '../../icons/rainPer3.svg';
 import { ReactComponent as Setting } from '../../icons/setting.svg';
 import { ReactComponent as Sky } from '../../icons/sky.svg';
 import { ReactComponent as Temp } from '../../icons/temp.svg';
@@ -39,6 +42,17 @@ import { ReactComponent as SnowDay } from '../../icons/13d.svg';
 import { ReactComponent as SnowNight } from '../../icons/13n.svg';
 import { ReactComponent as MistDay } from '../../icons/50d.svg';
 import { ReactComponent as MistNight } from '../../icons/50n.svg';
+// 옷차림 아이콘
+import { ReactComponent as Muffler } from '../../icons/muffler.svg';
+import { ReactComponent as Coat } from '../../icons/coat.svg';
+import { ReactComponent as Filed } from '../../icons/filed.svg';
+import { ReactComponent as Hoodie } from '../../icons/hoodie.svg';
+import { ReactComponent as Cardigan } from '../../icons/cardigan.svg';
+import { ReactComponent as Longsleeve } from '../../icons/longsleeve.svg';
+import { ReactComponent as Shortsleeve } from '../../icons/shortsleeve.svg';
+import { ReactComponent as Sleeveless } from '../../icons/sleeveless.svg';
+
+
 
 type IconType = {
   name?: string;
@@ -55,7 +69,10 @@ const Icon = (props: IconType) => {
   // 불러올 수 있는 아이콘 리스트
   const IconsList = {
     temp: Temp,
-    rainPer: RainPer,
+    rainPer0: RainPerZero,
+    rainPer1: RainPerOne,
+    rainPer2: RainPerTwo,
+    rainPer3: RainPerThree,
     weather: Sky,
     corona: Corona,
     humidity: Humidity,
@@ -91,6 +108,14 @@ const Icon = (props: IconType) => {
     '13n': SnowNight,
     '50d': MistDay,
     '50n': MistNight,
+    'muffler': Muffler,
+    'coat': Coat,
+    'filed': Filed,
+    'hoodie': Hoodie,
+    'cardigan': Cardigan,
+    'longsleeve': Longsleeve,
+    'shortsleeve': Shortsleeve,
+    'sleeveless': Sleeveless,
   };
   // 아이콘 이름을 지정하지 않았으면 null
   if (!name) {

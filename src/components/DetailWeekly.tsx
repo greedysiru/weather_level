@@ -22,9 +22,11 @@ const DetailWeekly = (props) => {
   }, []);
   const Content = weekInfo?.[type]?.map((data, idx) => {
     let iconColor;
-
+    let iconName;
     if (category === 'humidity') {
-      iconColor = convertWeaterInfo(category, data);
+      const humidityIconInfo = convertWeaterInfo(category, data);
+      iconColor = humidityIconInfo[0];
+      iconName = `rainPer${humidityIconInfo[1]}`;
     }
 
     if (category === 'wind') {
@@ -38,6 +40,7 @@ const DetailWeekly = (props) => {
         day={dayOfWeek?.[idx]}
         data={data}
         iconColor={iconColor}
+        iconName={iconName}
         height="8%"
       />
     );

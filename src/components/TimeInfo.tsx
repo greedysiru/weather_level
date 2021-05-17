@@ -190,7 +190,9 @@ const TimeInfo = (props: TimeInfoType) => {
               if (timeIndex.includes(idx)) {
                 const time: string = dailyTime[idx].split(' ')[2]
                 const rainPercent = Math.round(x * 100)
-                const iconColor = convertWeaterInfo('rainPer', rainPercent);
+                const rainPerIconInfo = convertWeaterInfo('rainPer', rainPercent);
+                const iconColor = rainPerIconInfo[0];
+                const iconName = `rainPer${rainPerIconInfo[1]}`;
                 return (
                   <Grid
                     key={idx}
@@ -223,7 +225,7 @@ const TimeInfo = (props: TimeInfoType) => {
                     >
                       <Icon
                         isWeather
-                        name="rainPer"
+                        name={iconName}
                         color={color[iconColor]}
                         size={2}
                       />
