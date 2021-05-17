@@ -117,18 +117,17 @@ const DetailDaily = (props) => {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
-    padding: '1.5rem 1.5rem 2rem 1.5rem',
   };
   if (isDesktopMode) {
     return (
       <Grid height="80%">
-        <Grid isColumn margin="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
+        <Grid isColumn width="50%" jc="space-between" ai="center" height="100%">
           <Title>시간별 {title[category]} </Title>
-          <Grid isColumn height="100%" overFlow jc="start-flex">
+          <Grid isColumn padding="0 1.5rem" height="100%" overFlow jc="start-flex">
             {timeListComponent}
           </Grid>
         </Grid>
-        <Grid isColumn margin="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
+        <Grid isColumn padding="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
           <Title> 일별 {title[category]} </Title>
           {weeklyListComponent}
         </Grid>
@@ -142,8 +141,9 @@ const DetailDaily = (props) => {
 
         <SwiperSlide style={slideStyle as React.CSSProperties}>
           <Title>시간별 {title[category]} </Title>
-          <Grid isColumn height="100%" overFlow jc="start-flex">
+          <Grid padding='1.5rem 1.5rem 3rem 1.5rem' isColumn height="100%" overFlow jc="space-between">
             {timeListComponent}
+            <PagenationWrap />
           </Grid>
         </SwiperSlide>
 
@@ -151,7 +151,9 @@ const DetailDaily = (props) => {
 
         <SwiperSlide style={slideStyle as React.CSSProperties}>
           <Title> 일별 {title[category]} </Title>
-          {weeklyListComponent}
+          <Grid padding='1.5rem 1.5rem 3rem 1.5rem' isColumn height="100%" overFlow jc="space-between">
+            {weeklyListComponent}
+          </Grid>
         </SwiperSlide>
       </Swiper>
     </Container>
@@ -169,6 +171,15 @@ const Title = styled.div`
   font-size: 1.8rem;
   font-weight: 600;
   margin: 1rem;
+`;
+
+const PagenationWrap = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 4%;
+  z-index: 1;
+  background-color: ${(props) => (props.theme.color.main)}
 `;
 
 export default DetailDaily;

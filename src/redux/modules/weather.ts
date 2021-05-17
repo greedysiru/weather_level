@@ -477,7 +477,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
     const { preference } = getState().weather;
     // 기본 카드 정보
     const defaultCardData = {
-      temp: { label: '기온', value: weekInfo.tmp[0] },
+      temp: { label: '평균기온', value: weekInfo.tmp[0] },
       rainPer: { label: '강수확률', value: weekInfo.rainPer[0] },
       weather: { label: '오늘날씨', value: weekInfo.weatherDes[0] },
       corona: { label: '코로나', value: coronaAllNewCaseCount },

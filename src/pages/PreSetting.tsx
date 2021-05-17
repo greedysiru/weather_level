@@ -177,7 +177,7 @@ const Container = styled.div`
   max-width: 450px;
   height: 90%;
   // height: ${(props) => (props.isFull ? `100%` : `90%`)};
-  padding: 1rem;
+  padding: 2rem;
   ${(props) => props.theme.flex.column};
   justify-content: flex-start;
   overflow-y: scroll;

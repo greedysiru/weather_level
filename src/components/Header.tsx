@@ -17,13 +17,17 @@ const Header = (props) => {
   // 이번주의 날씨 정보 가져오기
   const weekInfo = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo);
   // 오늘 최대, 최저, 평균 기온
-  const { maxTmp, minTmp, tmp } = weekInfo;
+  const { maxTmp, minTmp } = weekInfo;
+  // 현재 시간의 index
+  const curTimeIndex = useSelector((state: RootState) => state.time.timeIndex[0])
+  // 현재 기온
+  let curTmp: number | string = useSelector((state: RootState) => state.weather.weatherInfo.dayInfo.tmp[curTimeIndex])
   // 테마 색상
   const { color } = theme;
   // 정수화 후 반올림 하기
   const todayMaxTmp = Math.round(Number(maxTmp[0]));
   const todayMinTmp = Math.round(Number(minTmp[0]));
-  const todayTmp = Math.round(Number(tmp[0]));
+  curTmp = Math.round(Number(curTmp));
   return (
     <Grid
       height="10%"
@@ -69,7 +73,7 @@ const Header = (props) => {
           </Grid>
           <Grid margin="0 0 0 8px">
             <Text size="4.4rem">
-              {todayTmp}
+              {curTmp}
             </Text>
             <Text size="4.4rem" bold="900">°</Text>
           </Grid>
