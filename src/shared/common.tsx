@@ -11,13 +11,13 @@ export const convertWeaterInfo = (type, value) => {
     if (value <= 30) {
       return ['good', '좋음', 'airPollution'];
     }
-    if (value <= 80) {
+    if (value <= 50) {
       return ['usually', '보통', 'airPollution'];
     }
-    if (value <= 150) {
+    if (value <= 100) {
       return ['bad', '나쁨', 'airPollution'];
     }
-    if (value > 150) {
+    if (value > 100) {
       return ['veryBad', '매우나쁨', 'airPollution'];
     }
   }
@@ -26,13 +26,13 @@ export const convertWeaterInfo = (type, value) => {
     if (value <= 15) {
       return ['good', '좋음', 'airPollution'];
     }
-    if (value <= 35) {
+    if (value <= 25) {
       return ['usually', '보통', 'airPollution'];
     }
-    if (value <= 75) {
+    if (value <= 50) {
       return ['bad', '나쁨', 'airPollution'];
     }
-    if (value > 75) {
+    if (value > 50) {
       return ['veryBad', '매우나쁨', 'airPollution'];
     }
   }
