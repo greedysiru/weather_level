@@ -105,7 +105,7 @@ const PreSetting = (props) => {
   };
 
   const goBack = () => {
-    history.replace('/setting');
+    history.goBack();
   };
 
   const handleRangeHidden = () => {
@@ -126,16 +126,16 @@ const PreSetting = (props) => {
   // 터치 이벤트 버블링 방지
   const stopTouchStart = (e) => {
     e.stopPropagation();
-  }
+  };
 
   React.useEffect(() => {
     // RangeWrapper
     const wrapper = document.querySelector('.wrapper');
     wrapper.addEventListener('touchstart', stopTouchStart);
     return () => {
-      wrapper.removeEventListener('touchstart', stopTouchStart)
-    }
-  }, [])
+      wrapper.removeEventListener('touchstart', stopTouchStart);
+    };
+  }, []);
   return (
     <Container isFull={isDesktopMode && isMain}>
       <Title>날씨 선호도 설정</Title>
@@ -143,9 +143,7 @@ const PreSetting = (props) => {
         당신이 외출할 때 <br />
         중요하게 여기는 것을 알려주세요!
       </SubTitle>
-      <RangeWrapper
-        className="wrapper"
-      >
+      <RangeWrapper className="wrapper">
         {rangeList}
         <ShowButton onClick={handleRangeHidden}>
           {isHidden ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
@@ -177,7 +175,8 @@ const PreSetting = (props) => {
 const Container = styled.div`
   width: 100%;
   max-width: 450px;
-  height: ${(props) => (props.isFull ? `100%` : `90%`)};
+  height: 90%;
+  // height: ${(props) => (props.isFull ? `100%` : `90%`)};
   padding: 1rem;
   ${(props) => props.theme.flex.column};
   justify-content: flex-start;

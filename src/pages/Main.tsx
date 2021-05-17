@@ -120,7 +120,7 @@ const Main = (props) => {
               <Button _onClick={() => history.push('/setting/location')}>위치 설정하러 가기</Button>
             </Grid> */}
             <PreSetting isMain />
-
+            <PagenationWrap />
           </SwiperSlide>
         </Swiper>
       </Grid>

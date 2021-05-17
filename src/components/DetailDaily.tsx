@@ -33,12 +33,10 @@ const DetailDaily = (props) => {
 
   // 시간별 카드 리스트 컴포넌트
   const timeListComponent = dayInfo.dailyTime.reduce((acc, cur, idx) => {
-
     if (idx >= timeStartIndex) {
       // 2시간 간격 24시간: idx < 20 && (idx + 1) % 2 === 1
       // 현재로부터 1시간 단위로 10시간 치 보여주기
-      if (acc.length <= 10) {
-
+      if (acc.length <= 23) {
         const dateTime = cur.split(' ');
         // category 별로 데이터 다르게
         let data;
@@ -126,7 +124,9 @@ const DetailDaily = (props) => {
       <Grid height="80%">
         <Grid isColumn margin="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
           <Title>시간별 {title[category]} </Title>
-          {timeListComponent}
+          <Grid isColumn height="100%" overFlow jc="start-flex">
+            {timeListComponent}
+          </Grid>
         </Grid>
         <Grid isColumn margin="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
           <Title> 일별 {title[category]} </Title>
@@ -142,7 +142,9 @@ const DetailDaily = (props) => {
 
         <SwiperSlide style={slideStyle as React.CSSProperties}>
           <Title>시간별 {title[category]} </Title>
-          {timeListComponent}
+          <Grid isColumn height="100%" overFlow jc="start-flex">
+            {timeListComponent}
+          </Grid>
         </SwiperSlide>
 
         {/* 두번째 슬라이드 */}
