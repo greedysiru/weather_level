@@ -20,7 +20,7 @@ type cardType = {
 
 type CardInfoType = {
   cardTitle: string;
-  cardDescription: [string, number | string, string];
+  cardDescription: [string, number | string, string, string];
   iconName?: string;
 };
 
@@ -28,7 +28,8 @@ type CardInfoType = {
 const Card = (props: cardType & CardInfoType) => {
   const { width, height, margin, padding, bg } = props;
   // 카드 정보
-  const { cardTitle, cardDescription, iconName } = props;
+  const { cardTitle, cardDescription } = props;
+  let { iconName } = props;
   // 테마 컬러
   const { color } = theme;
   let weatherState = '';
@@ -39,6 +40,17 @@ const Card = (props: cardType & CardInfoType) => {
     weatherState = cardDescription[0];
     value = cardDescription[1];
     historyPath = cardDescription[2];
+  }
+  // iconName이 rainPer, humidity인 경우
+  if (iconName === 'rainPer' || iconName === 'humidity') {
+    // rainPer 아이콘의 번호
+    const RainPerIconNumber = cardDescription[3];
+    iconName = `rainPer${RainPerIconNumber}`;
+  }
+  // iconName이 fit인 경우
+  if (iconName === 'fit') {
+    // iconName 적절한 것으로 바꾸기
+    iconName = cardDescription[3];
   }
   const style = {
     width,

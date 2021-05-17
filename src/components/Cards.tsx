@@ -26,12 +26,14 @@ const Cards = (props: cardsType) => {
   // 두번째 슬라이드 3열 카드 보여주기
   return (
     <Grid height="100%">
-      <Grid $wrap height="200%" jc="space-between" padding="0 0 2rem 0">
+      <Grid $wrap height="200%" jc="space-between">
         {second.map((info, idx) => {
           return (
-            <Card key={idx} width="31%" height="23%" cardTitle={info.label} cardDescription={info.description} iconName={info.type} />
+            <Card key={idx} margin="0 0 1rem 0" width="31%" height="23%" cardTitle={info.label} cardDescription={info.description} iconName={info.type} />
           );
         })}
+        {/* 공백 */}
+        <Grid width="100%" height="6%" />
       </Grid>
     </Grid>
   );

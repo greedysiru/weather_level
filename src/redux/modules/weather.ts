@@ -420,40 +420,40 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
   // 강수확률
   if (type === 'rainPer') {
     if (value <= 0.25) {
-      return ['gray0', '낮음', `daily/${type}`];
+      return ['gray2', '낮음', `daily/${type}`, '0'];
     }
     if (value <= 0.5) {
-      return ['usually', '보통', `daily/${type}`];
+      return ['usually', '보통', `daily/${type}`, '1'];
     }
     if (value <= 0.75) {
-      return ['good', '높음', `daily/${type}`];
+      return ['good', '높음', `daily/${type}`, '2'];
     }
     if (value > 0.75) {
-      return ['sky4', '매우높음', `daily/${type}`];
+      return ['sky4', '매우높음', `daily/${type}`, '3'];
     }
   }
   // 습도
   if (type === 'humidity') {
     if (value >= 0 && value < 20) {
-      return ['bad', '매우건조', `weekly/${type}`];
+      return ['bad', '매우건조', `weekly/${type}`, 0];
     }
     if (value >= 20 && value < 30) {
-      return ['sky1', '건조', `weekly/${type}`];
+      return ['sky1', '건조', `weekly/${type}`, 0];
     }
     if (value >= 30 && value < 40) {
-      return ['usually', '약간건조', `weekly/${type}`];
+      return ['usually', '약간건조', `weekly/${type}`, 1];
     }
     if (value >= 40 && value < 60) {
-      return ['good', '쾌적', `weekly/${type}`];
+      return ['good', '쾌적', `weekly/${type}`, 1];
     }
     if (value >= 60 && value < 70) {
-      return ['usually', '약간습함', `weekly/${type}`];
+      return ['usually', '약간습함', `weekly/${type}`, 2];
     }
     if (value >= 70 && value < 80) {
-      return ['sky3', '습함', `weekly/${type}`];
+      return ['sky3', '습함', `weekly/${type}`, 2];
     }
     if (value >= 80) {
-      return ['sky4', '매우습함', `weekly/${type}`];
+      return ['sky4', '매우습함', `weekly/${type}`, 3];
     }
   }
   // 기온
@@ -475,6 +475,33 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
       return ['veryBad', temperature, `daily/tmp`];
     }
   }
+  // 옷차림
+  if (type === 'fit') {
+    if (value <= -4) {
+      return ['sky5', '목도리', 'fit', 'muffler'];
+    }
+    if (value <= 8) {
+      return ['sky6', '코트', 'fit', 'coat'];
+    }
+    if (value <= 11) {
+      return ['good', '야상', 'fit', 'filed'];
+    }
+    if (value <= 16) {
+      return ['sky2', '가디건', 'fit', 'cardigan'];
+    }
+    if (value <= 19) {
+      return ['usually', '후드티', 'fit', 'hoodie'];
+    }
+    if (value <= 22) {
+      return ['yellow', '긴팔티', 'fit', 'longsleeve'];
+    }
+    if (value <= 27) {
+      return ['bad', '반팔', 'fit', 'shortsleeve'];
+    }
+    if (value > 27) {
+      return ['veryBad', '민소매', 'fit', 'sleeveless'];
+    }
+  }
   return ['정보없음', '정보 없음', null];
 };
 
@@ -494,14 +521,15 @@ const getCardsInfo = () => async (dispatch, getState) => {
     // 기본 카드 정보
     const defaultCardData = {
       temp: { label: '평균기온', value: weekInfo.tmp[0] },
+      fit: { label: '옷차림', value: weekInfo.tmp[0] },
       rainPer: { label: '강수확률', value: weekInfo.rainPer[0] },
-      weather: { label: '오늘날씨', value: weekInfo.weatherDes[0] },
       corona: { label: '코로나', value: coronaAllNewCaseCount },
       pm10: { label: '미세먼지', value: airPollution.pm10Value },
       pm25: { label: '초미세먼지', value: airPollution.pm25Value },
+      weather: { label: '오늘날씨', value: weekInfo.weatherDes[0] },
       humidity: { label: '습도', value: weekInfo.humidity[0] },
-      wind: { label: '바람', value: weekInfo.windSpeed[0] },
       uv: { label: '자외선', value: livingHealthWeather.uvToday },
+      wind: { label: '바람', value: weekInfo.windSpeed[0] },
       asthma: { label: '폐질환위험', value: livingHealthWeather.asthmaToday },
       foodPoison: { label: '식중독위험', value: livingHealthWeather.foodPoisonToday },
       pollenRisk: { label: '꽃가루농도', value: livingHealthWeather.oakPollenRiskToday },
@@ -513,7 +541,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
     const second = [];
     let description = [];
     // preference를 참조하여 데이터 넣기
-    for (let i = 0; i < 12; i += 1) {
+    for (let i = 0; i < 13; i += 1) {
       // 중요도 높은 카드 정보
       // 4개의 카드는 사용자의 preference 적용
       if (i < 4) {

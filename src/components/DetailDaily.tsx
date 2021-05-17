@@ -45,7 +45,10 @@ const DetailDaily = (props) => {
         if (category === 'rainPer') {
           const rainPercent = Math.round(Number(dayInfo[category][idx]) * 100);
           data = `${rainPercent}`;
-          iconColor = convertWeaterInfo(category, rainPercent);
+          // 아이콘의 정보 (색, 종류)
+          const rainPerIconInfo = convertWeaterInfo(category, rainPercent);
+          iconColor = rainPerIconInfo[0];
+          iconName = `rainPer${rainPerIconInfo[1]}`;
         }
 
         if (category === 'tmp' || category === 'weather') {
@@ -55,7 +58,7 @@ const DetailDaily = (props) => {
 
         acc.push(
           <LongCard
-            height="7%"
+            height="10%"
             type={category}
             key={idx}
             day={`${dateTime[2]}:00`} /* ${dateTime[0]}/${dateTime[1]} */
@@ -63,6 +66,7 @@ const DetailDaily = (props) => {
             iconColor={iconColor}
             iconName={iconName}
             isTime
+            bottomLine
           />,
         );
         // 카드 넣었을 때마다 1씩 더하기
@@ -76,10 +80,13 @@ const DetailDaily = (props) => {
     // category 별로 데이터 다르게
     let data;
     let iconColor;
+    let iconName;
     if (category === 'rainPer') {
       const rainPercent = Math.round(Number(weekInfo[category][idx]) * 100);
       data = `${rainPercent}`;
-      iconColor = convertWeaterInfo(category, rainPercent);
+      const rainPerIconInfo = convertWeaterInfo(category, rainPercent);
+      iconColor = rainPerIconInfo[0];
+      iconName = `rainPer${rainPerIconInfo[1]}`;
     }
 
     if (category === 'tmp' || category === 'weather') {
@@ -101,6 +108,7 @@ const DetailDaily = (props) => {
         day={dayOfWeek[idx]}
         data={data}
         iconColor={iconColor}
+        iconName={iconName}
       />,
     );
 
@@ -120,11 +128,13 @@ const DetailDaily = (props) => {
   };
   if (isDesktopMode) {
     return (
-      <Grid height="80%">
+      <Grid height="90%">
         <Grid isColumn width="50%" jc="space-between" ai="center" height="100%">
           <Title>시간별 {title[category]} </Title>
-          <Grid isColumn padding="0 1.5rem" height="100%" overFlow jc="start-flex">
-            {timeListComponent}
+          <Grid isColumn padding="0 1.5rem" height="100%" overFlow jc="center">
+            <TimeListWrap isDesktopMode>
+              {timeListComponent}
+            </TimeListWrap>
           </Grid>
         </Grid>
         <Grid isColumn padding="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
@@ -141,9 +151,10 @@ const DetailDaily = (props) => {
 
         <SwiperSlide style={slideStyle as React.CSSProperties}>
           <Title>시간별 {title[category]} </Title>
-          <Grid padding='0 1.5rem 3rem 1.5rem' isColumn height="100%" overFlow jc="space-between">
-            {timeListComponent}
-            <PagenationWrap />
+          <Grid padding='1.5rem 1.5rem 0 1.5rem' height="100%" overFlow ai="space-between">
+            <TimeListWrap>
+              {timeListComponent}
+            </TimeListWrap>
           </Grid>
         </SwiperSlide>
 
@@ -151,7 +162,7 @@ const DetailDaily = (props) => {
 
         <SwiperSlide style={slideStyle as React.CSSProperties}>
           <Title> 일별 {title[category]} </Title>
-          <Grid padding='1.5rem 1.5rem 3rem 1.5rem' isColumn height="100%" overFlow jc="space-between">
+          <Grid padding='1.5rem 1.5rem 3rem 1.5rem' isColumn height="100%" jc="space-between">
             {weeklyListComponent}
           </Grid>
         </SwiperSlide>
@@ -173,13 +184,26 @@ const Title = styled.div`
   margin: 1rem;
 `;
 
-const PagenationWrap = styled.div`
-  position: fixed;
-  bottom: 0;
+const TimeListWrap = styled.div`
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 4%;
-  z-index: 1;
-  background-color: ${(props) => (props.theme.color.main)}
-`;
+  ${(props) => props.isDesktopMode ?
+    (`height: 97%`) :
+    (`height: 92%`)
+  };  
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 1.4rem;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  ${(props) => props.theme.shadow};
+`
+
+
 
 export default DetailDaily;

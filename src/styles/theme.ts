@@ -19,8 +19,10 @@ const theme: DefaultTheme = {
     sky3: '#738FFF',
     sky4: '#305580',
     sky5: '#606680',
+    sky6: '#395580',
     background: '#F6F7FB',
     purple: '#EBEBF9',
+    yellow: '#FFBD00'
   },
   view: {
     mobile: `(max-width: 767px)`,
