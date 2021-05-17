@@ -138,11 +138,14 @@ const PreSetting = (props) => {
   }, []);
   return (
     <Container isFull={isDesktopMode && isMain}>
-      <Title>날씨 선호도 설정</Title>
-      <SubTitle>
-        당신이 외출할 때 <br />
-        중요하게 여기는 것을 알려주세요!
-      </SubTitle>
+      <PreHeader>
+        <Grid isColumn>
+          <span className="title">중요도 설정</span>
+          <span className="des">0: 안 중요함, 100:중요함</span>
+        </Grid>
+        <Button width="75%">저장</Button>
+      </PreHeader>
+
       <RangeWrapper className="wrapper">
         {rangeList}
         <ShowButton onClick={handleRangeHidden}>
@@ -150,7 +153,7 @@ const PreSetting = (props) => {
         </ShowButton>
       </RangeWrapper>
 
-      {isMain ? (
+      {/*  {isMain ? (
         <Grid jc="center">
           <Button width="100%" _onClick={onSave}>
             저장
@@ -165,7 +168,8 @@ const PreSetting = (props) => {
             저장
           </Button>
         </Grid>
-      )}
+      )} */}
+      <Ment>맨 위 저장 버튼을 꼭 눌러주세요!</Ment>
       {isShowToast && <Toast>{msg}</Toast>}
       <BeatLoader color="#738FFF" loading={loading} css={spinnerStyle} />
     </Container>
@@ -198,12 +202,23 @@ const RangeWrapper = styled.div`
   ${(props) => props.theme.shadow};
 `;
 
-const SubTitle = styled.div`
-  font-size: 1.7rem;
-  text-align: center;
-  line-height: 2.5rem;
-  font-weight: 500;
-  margin: 1rem 0;
+const PreHeader = styled.div`
+  ${(props) => props.theme.flex.row};
+  width: 100%;
+  margin: 1.5rem 0;
+
+  & span {
+    margin: 0.5rem 0;
+  }
+  & span.title {
+    font-size: 1.75rem;
+    font-weight: bold;
+  }
+
+  & span.des {
+    color: ${(props) => props.theme.color.gray3};
+    font-size: 1.25rem;
+  }
 `;
 
 const ShowButton = styled.div`
@@ -223,10 +238,17 @@ const ShowButton = styled.div`
   }
 `;
 
+const Ment = styled.div`
+  color: ${(props) => props.theme.color.gray3};
+  font-size: 1.25rem;
+  margin: 1rem 0;
+`;
+
 const spinnerStyle = css`
   display: block;
   position: absolute;
   top: 50%;
   margin: 0 auto;
 `;
+
 export default PreSetting;
