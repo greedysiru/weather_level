@@ -28,23 +28,23 @@ const Score = (props) => {
   // 현재 시간에 대한 날씨 정보
   const nowWeatherInfo = useSelector((state: RootState) => state.weather.weatherInfo.dayInfo.weatherDes[nowIndex]);
   // 오늘 날씨에 대한 문구
-  const todayWeatherLabel = useSelector((state: RootState) => state.weather.todayWeather[1])
+  const todayWeatherLabel = useSelector((state: RootState) => state.weather.todayWeather[1]);
   // 현재 시간에 대한 날씨 문구
   const weatherDescripton = convertWeaterInfo('weather', nowWeatherInfo);
   const nowWeatherLabel = weatherDescripton[1];
   // 날씨 이미지를 불러올 경로
   const imgUrl = `/assets/weather/${nowIcon}.png`;
+
+  const onClickLogo = () => {
+    dispatch(weatherActions.getIconMessage(nowIcon));
+  };
   return (
     <>
       <Grid isColumn padding="0 2rem 2rem 2rem" height="52%" jc="flex-start" ai="center">
-        <Grid
-          width="24rem"
-          height="24rem"
-          _onClick={() => {
-            dispatch(weatherActions.getIconMessage(nowIcon));
-          }}
-        >
-          <Image size={24} src={imgUrl} />
+        <Grid width="24rem" height="24rem" _onClick={onClickLogo}>
+          <ImageWrapper>
+            <Image size={24} src={imgUrl} />
+          </ImageWrapper>
           <SpeechBubble />
         </Grid>
         <Grid isColumn width="100%" ai="center" jc="center" margin="0.5rem 0">
@@ -72,9 +72,13 @@ const Score = (props) => {
             </Text>
           </Grid>
         </Grid>
-      </Grid >
+      </Grid>
     </>
   );
 };
+
+const ImageWrapper = styled.div`
+  cursor: pointer;
+`;
 
 export default Score;

@@ -15,8 +15,14 @@ export const weatherAPI = {
   getWeather(latitude: number, longitude: number) {
     const selectRegion = localStorage.getItem('current-region');
     if (selectRegion) {
+      const region = selectRegion.split(' ');
       const bigRegionName = selectRegion.split(' ')[0];
-      const smallRegionName = selectRegion.split(' ')[1];
+      let smallRegionName;
+      if (region.length > 2) {
+        smallRegionName = `${selectRegion.split(' ')[1]} ${selectRegion.split(' ')[2]}`;
+      } else {
+        smallRegionName = selectRegion.split(' ')[1];
+      }
       return axios.get(`/api/total/data/regionname`, {
         params: {
           bigRegionName,
@@ -44,7 +50,7 @@ export const weatherAPI = {
         icon,
       },
     });
-  }
+  },
 };
 
 // 위치 정보 관련 api
