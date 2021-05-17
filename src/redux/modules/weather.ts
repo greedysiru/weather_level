@@ -175,7 +175,7 @@ const weather = createReducer(initialState, {
   },
   [setIconMessage.type]: (state: weatherType, action: PayloadAction<string>) => {
     state.iconMessage = action.payload;
-  }
+  },
 });
 
 // 오늘의 날시 아이콘 메시지 호출 후 리덕스 state에 저장
@@ -183,11 +183,10 @@ const getIconMessage = (icon) => async (dispatch) => {
   try {
     const res = await weatherAPI.getIconMessage(icon);
     dispatch(setIconMessage(res.data.message));
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
-}
+};
 
 // 날씨 정보 호출 후 리덕스 state에 저장
 const getWeatherInfo = () => async (dispatch) => {
@@ -423,7 +422,7 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
     if (value <= 0.25) {
       return ['gray0', '낮음', `daily/${type}`];
     }
-    if (value <= 0.50) {
+    if (value <= 0.5) {
       return ['usually', '보통', `daily/${type}`];
     }
     if (value <= 0.75) {
@@ -592,6 +591,7 @@ export const weatherActions = {
   fetchPreference,
   getCardsInfo,
   getIconMessage,
+  setIconMessage,
 };
 
 export default weather;
