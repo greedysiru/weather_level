@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 // 리덕스
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // RootState
-import { weatherActions } from 'src/redux/modules/weather';
 import { RootState } from '../../redux/modules';
 
 // 말풍선을 나타내는 최소단위 컴포넌트
@@ -48,7 +47,6 @@ const Bubble = styled.div`
   position: absolute;
   text-align: center;
   padding: 0.6rem;
-
   height: auto;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid #ffffff;
@@ -85,86 +83,5 @@ const Bubble = styled.div`
 
   animation: ${bubbleAni} 1s infinite;
 `;
-/* const BubbleTypeOne = styled.div`
-  position: absolute;
-  text-align: center;
-  padding: 0.6rem;
-  width: 8rem;
-  height: auto;
-  left: -1rem;
-  top: 6rem;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ffffff;
-  ${(props) => props.theme.border_box}
-  ${(props) => props.theme.shadow};
-  border-radius: 16px;
-  word-wrap: break-word;
-  font-size: 1.2rem;
-  font-weight: 500;
-  animation: ${bubbleAni} 1s infinite;
-`;
 
-const BubbleTypeTwo = styled.div`
-  position: absolute;
-  text-align: center;
-  padding: 0.6rem;
-  width: 6rem;
-  height: auto;
-  left: 1rem;
-  top: 17rem;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ffffff;
-  ${(props) => props.theme.border_box}
-  ${(props) => props.theme.shadow};
-  border-radius: 16px;
-  word-wrap: break-word;
-  font-size: 1.2rem;
-  font-weight: 500;
-  animation: ${bubbleAni} 1s infinite;
-`;
-
-const BubbleTypeThree = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.6rem;
-  width: 15rem;
-  height: auto;
-  left: 14rem;
-  top: 2rem;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ffffff;
-  ${(props) => props.theme.border_box}
-  ${(props) => props.theme.shadow};
-  border-radius: 16px;
-  word-wrap: break-word;
-  font-size: 1.2rem;
-  font-weight: 500;
-  line-height: 150%;
-  animation: ${bubbleAni} 1s infinite;
-`;
-
-const BubbleTypeFour = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.6rem;
-  width: 10rem;
-  height: auto;
-  left: 17rem;
-  top: 15rem;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ffffff;
-  ${(props) => props.theme.border_box}
-  ${(props) => props.theme.shadow};
-  border-radius: 16px;
-  word-wrap: break-word;
-  font-size: 1.2rem;
-  font-weight: 500;
-  line-height: 150%;
-  animation: ${bubbleAni} 1s infinite;
-`;
- */
 export default SpeechBubble;

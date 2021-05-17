@@ -47,6 +47,7 @@ const Score = (props) => {
 
     const timer = setTimeout(() => {
       setIsShowBubble(false);
+      // speech 컴포넌트가 깜빡이는거 방지하기 위해
       dispatch(weatherActions.setIconMessage(''));
     }, 3000);
     setTimerState(timer);
