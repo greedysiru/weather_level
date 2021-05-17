@@ -17,7 +17,6 @@ import { convertWeaterInfo } from '../shared/common';
 
 // 외출 점수와 캐릭터를 보여주는 컴포넌트
 const Score = (props) => {
-  let timer; // bubble setTimeout
   const dispatch = useDispatch();
   const { history } = props;
   const { color } = theme;
@@ -36,22 +35,28 @@ const Score = (props) => {
   // 날씨 이미지를 불러올 경로
   const imgUrl = `/assets/weather/${nowIcon}.png`;
 
-  // 버블문구 - 안깜빡이게 하기위해
-  const message = useSelector((state: RootState) => state.weather.iconMessage);
-  const messageLength = message.length;
-
   const [isShowBubble, setIsShowBubble] = useState(false);
+  const [timerState, setTimerState] = useState(null);
 
   const onClickLogo = () => {
-    dispatch(weatherActions.setIconMessage(''));
+    clearTimeout(timerState);
+
     dispatch(weatherActions.getIconMessage(nowIcon));
+
+    setIsShowBubble(true);
+
+    const timer = setTimeout(() => {
+      setIsShowBubble(false);
+      dispatch(weatherActions.setIconMessage(''));
+    }, 3000);
+    setTimerState(timer);
   };
 
   useEffect(() => {
     return () => {
-      dispatch(weatherActions.setIconMessage(''));
+      clearTimeout(timerState);
     };
-  }, []);
+  });
 
   return (
     <>
@@ -60,7 +65,7 @@ const Score = (props) => {
           <ImageWrapper>
             <Image size={24} src={imgUrl} />
           </ImageWrapper>
-          <SpeechBubble />
+          {isShowBubble && <SpeechBubble />}
         </Grid>
         <Grid isColumn width="100%" ai="center" jc="center" margin="0.5rem 0">
           <Grid ai="center" jc="center" width="100%">
