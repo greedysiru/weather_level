@@ -17,14 +17,16 @@ type LongCardType = {
   iconColor?: string;
   iconName?: string;
   isTime?: boolean;
+  bottomLine?: boolean;
 };
 
 const LongCard = (props: LongCardType) => {
-  const { height, day, data, type, isFirst, iconColor, iconName, isTime } = props;
+  const { height, day, data, type, isFirst, iconColor, iconName, isTime, bottomLine } = props;
   const { color } = theme;
   const style = {
     height,
     isFirst,
+    bottomLine,
   };
 
   const unit = {
@@ -149,6 +151,7 @@ LongCard.defaultProps = {
   iconColor: null,
   iconName: null,
   isTime: false,
+  bottomLine: false,
 };
 
 const ElLongCard = styled.div<LongCardType>`
@@ -159,9 +162,15 @@ const ElLongCard = styled.div<LongCardType>`
   height: ${(props) => (props.isFirst ? `16%` : props.height)};
   font-size: ${(props) => (props.isFirst ? '1.6rem' : '1.2rem')};
   font-weight: ${(props) => (props.isFirst ? `600` : `550`)};
-  border-radius: 14px;
-  ${(props) => props.theme.shadow};
-  border: solid 0.5px ${(props) => props.theme.color.purple};
+  
+  border-radius: ${(props) => props.bottomLine ? (null) : ('14px')};
+  ${(props) => props.bottomLine ? (null) : (props.theme.shadow)};
+  ${(props) => props.bottomLine ? (
+    `border-bottom: solid 1px ${props.theme.color.purple}`
+  ) :
+    (
+      `border: solid 0.5px ${props.theme.color.purple}`
+    )};
   background-color: white;
   margin: 0 0 0.5rem 0;
 `;
