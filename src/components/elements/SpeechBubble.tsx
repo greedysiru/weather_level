@@ -18,40 +18,24 @@ const SpeechBubble = () => {
   const dispatch = useDispatch();
   const [bubbleType, setBubbleType] = useState('short');
   const [isShow, setIsShow] = useState(false);
-  useEffect(() => {
-    console.log('삐육');
-
-    return () => {
-      clearTimeout(timer);
-      setIsShow(false);
-      console.log('clean', timer);
-    };
-  }, []);
 
   useEffect(() => {
-    clearTimeout(timer);
     if (messageLength < 1) return;
 
     timer = setTimeout(() => {
       dispatch(weatherActions.setIconMessage(''));
     }, 3000);
-    /* 
-    if (messageLength < 5) {
-      console.log('short');
-      setBubbleType('short');
-    } else if (messageLength < 7) {
-      console.log('mid');
-      setBubbleType('mid');
-    } else if (messageLength < 13) {
-      console.log('long');
-      setBubbleType('long');
-    } else {
-      setBubbleType('veryLong');
-    }
 
-    setIsShow(true); */
-  }, [messageLength]);
+    setIsShow(true);
+  }, [message]);
 
+  useEffect(() => {
+    return () => {
+      console.log('클린업');
+
+      clearTimeout(timer);
+    };
+  });
   if (message === '') {
     return null;
   }
@@ -72,6 +56,7 @@ const SpeechBubble = () => {
   return <BubbleTypeThree>{message}</BubbleTypeThree>;
   // return isShow && <Bubble type={bubbleType}>{message}</Bubble>;
 };
+
 const bubbleAni = keyframes`
   0% {
      

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 // 리덕스
@@ -17,6 +17,7 @@ import { convertWeaterInfo } from '../shared/common';
 
 // 외출 점수와 캐릭터를 보여주는 컴포넌트
 const Score = (props) => {
+  let timer; // bubble setTimeout
   const dispatch = useDispatch();
   const { history } = props;
   const { color } = theme;
@@ -35,9 +36,23 @@ const Score = (props) => {
   // 날씨 이미지를 불러올 경로
   const imgUrl = `/assets/weather/${nowIcon}.png`;
 
+  // 버블문구 - 안깜빡이게 하기위해
+  const message = useSelector((state: RootState) => state.weather.iconMessage);
+  const messageLength = message.length;
+
+  const [isShowBubble, setIsShowBubble] = useState(false);
+
   const onClickLogo = () => {
+    dispatch(weatherActions.setIconMessage(''));
     dispatch(weatherActions.getIconMessage(nowIcon));
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(weatherActions.setIconMessage(''));
+    };
+  }, []);
+
   return (
     <>
       <Grid isColumn padding="0 2rem 2rem 2rem" height="52%" jc="flex-start" ai="center">
