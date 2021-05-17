@@ -2,11 +2,13 @@ import React from 'react';
 
 import styled from 'styled-components';
 // 리덕스
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { weatherActions } from '../redux/modules/weather';
+
 // RootState
 import { RootState } from '../redux/modules';
 // elements
-import { Grid, Text, Image, Icon } from './elements';
+import { Grid, Text, Image, Icon, SpeechBubble } from './elements';
 
 import theme from '../styles/theme';
 
@@ -15,6 +17,7 @@ import { convertWeaterInfo } from '../shared/common';
 
 // 외출 점수와 캐릭터를 보여주는 컴포넌트
 const Score = (props) => {
+  const dispatch = useDispatch();
   const { history } = props;
   const { color } = theme;
   const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
@@ -33,10 +36,18 @@ const Score = (props) => {
   const imgUrl = `/assets/weather/${nowIcon}.png`;
   return (
     <>
-      <Grid isColumn padding="0 2rem 2rem 2rem" height="53%" jc="flex-start" ai="center">
-        <Image size={24} src={imgUrl} />
-
-        <Grid isColumn width="100%" ai="center" jc="center">
+      <Grid isColumn padding="0 2rem 2rem 2rem" height="52%" jc="flex-start" ai="center">
+        <Grid
+          width="24rem"
+          height="24rem"
+          _onClick={() => {
+            dispatch(weatherActions.getIconMessage(nowIcon));
+          }}
+        >
+          <Image size={24} src={imgUrl} />
+          <SpeechBubble />
+        </Grid>
+        <Grid isColumn width="100%" ai="center" jc="center" margin="0.5rem 0">
           <Grid ai="center" jc="center" width="100%">
             <Text size="1.6rem" margin="0 0.5rem 0 0" bold="700">
               날씨 점수
@@ -61,7 +72,7 @@ const Score = (props) => {
             </Text>
           </Grid>
         </Grid>
-      </Grid>
+      </Grid >
     </>
   );
 };

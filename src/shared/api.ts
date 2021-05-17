@@ -38,6 +38,13 @@ export const weatherAPI = {
   updatePreference(preferece: preferenceType) {
     return axios.post('/api/user/preferences', preferece);
   },
+  getIconMessage(icon) {
+    return axios.get('api/icon/messages', {
+      params: {
+        icon,
+      },
+    });
+  }
 };
 
 // 위치 정보 관련 api

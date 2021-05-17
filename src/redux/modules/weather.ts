@@ -89,6 +89,8 @@ type weatherType = {
   cardsInfo: any;
   // 오늘 날씨
   todayWeather: string[];
+  // 날씨 아이콘 메시지
+  iconMessage: string;
 };
 
 export type preferenceType = {
@@ -137,13 +139,13 @@ export const initialState: weatherType = {
   ],
   cardsInfo: [],
   todayWeather: [],
+  iconMessage: '',
 };
 
 // 날씨 정보를 받아오는 액션 생성 함수
 const setWeatherInfo = createAction<unknown>('weather/SET_WEATHERINFO');
 // 로드 상태를 변경하는 액션 생성 함수
 const setLoad = createAction<boolean>('weather/SET_LOAD');
-
 // preference loaded
 const setIsLoadedPreference = createAction<unknown>('weather/SET_IS_LOADED_PREFERENCE');
 // preference를 저장하는 함수
@@ -152,6 +154,8 @@ const setPreference = createAction<unknown>('weather/SET_PREFERENCE');
 const setCardsInfo = createAction<unknown>('weather/SET_CARDSINFO');
 // 오늘 날씨를 저장하는 함수
 const setTodayWeather = createAction<unknown>('weather/SET_TODAY_WEATHER');
+// 오늘 날씨 아이콘의 메시지를 저장하는 함수
+const setIconMessage = createAction<unknown>('weather/SET_ICON_MESSAGE');
 
 const weather = createReducer(initialState, {
   [setWeatherInfo.type]: (state: weatherType, action: PayloadAction<unknown>) => {
@@ -169,7 +173,21 @@ const weather = createReducer(initialState, {
   [setTodayWeather.type]: (state: weatherType, action: PayloadAction<[]>) => {
     state.todayWeather = action.payload;
   },
+  [setIconMessage.type]: (state: weatherType, action: PayloadAction<string>) => {
+    state.iconMessage = action.payload;
+  }
 });
+
+// 오늘의 날시 아이콘 메시지 호출 후 리덕스 state에 저장
+const getIconMessage = (icon) => async (dispatch) => {
+  try {
+    const res = await weatherAPI.getIconMessage(icon);
+    dispatch(setIconMessage(res.data.message));
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
 
 // 날씨 정보 호출 후 리덕스 state에 저장
 const getWeatherInfo = () => async (dispatch) => {
@@ -183,7 +201,6 @@ const getWeatherInfo = () => async (dispatch) => {
     await dispatch(setWeatherInfo(res.data));
     // 현재 시간 기록하기
     await dispatch(timeActions.getTimeInfo());
-
     // 카드 정보 만들기
     await dispatch(getCardsInfo());
   } catch (error) {
@@ -574,6 +591,7 @@ export const weatherActions = {
   fetchUpdatePreference,
   fetchPreference,
   getCardsInfo,
+  getIconMessage,
 };
 
 export default weather;

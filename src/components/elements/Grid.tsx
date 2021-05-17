@@ -52,7 +52,7 @@ const Grid = ({
 };
 
 Grid.defaultProps = {
-  _onClick: () => {},
+  _onClick: () => { },
   width: '100%',
   height: '',
   isColumn: false,
@@ -68,6 +68,7 @@ Grid.defaultProps = {
 };
 
 const Container = styled.div<GridType>`
+  position: relative;
   width: ${(props) => props.width};
   display: flex;
   height: ${(props) => (props.height ? props.height : '')};

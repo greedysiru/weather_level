@@ -141,7 +141,7 @@ const DetailDaily = (props) => {
 
         <SwiperSlide style={slideStyle as React.CSSProperties}>
           <Title>시간별 {title[category]} </Title>
-          <Grid padding='1.5rem 1.5rem 3rem 1.5rem' isColumn height="100%" overFlow jc="space-between">
+          <Grid padding='0 1.5rem 3rem 1.5rem' isColumn height="100%" overFlow jc="space-between">
             {timeListComponent}
             <PagenationWrap />
           </Grid>

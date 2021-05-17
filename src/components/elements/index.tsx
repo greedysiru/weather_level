@@ -10,5 +10,6 @@ import Toast from './Toast';
 import Title from './Title';
 import Icon from './Icon';
 import MarkCircle from './MarkCircle';
+import SpeechBubble from './SpeechBubble';
 
-export { Grid, Text, Input, Button, Image, Range, Card, LongCard, Toast, Title, Icon, MarkCircle };
+export { Grid, Text, Input, Button, Image, Range, Card, LongCard, Toast, Title, Icon, MarkCircle, SpeechBubble };
