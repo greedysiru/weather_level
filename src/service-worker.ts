@@ -16,11 +16,13 @@ import { StaleWhileRevalidate } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
 // 캐시 이름
-// 빌드 일시 2021-05-15 19:20
+// 빌드 일시 2021-05-15 23:24
 // build/asset-manifest4json 의 index.html 삭제하기
+// 크롬 익스텐션인 경우, kakao 관련 설정 지우기
+// kakao 관련 설정: index.html의 kakao 불러오기, setting.tsx의 init
 setCacheNameDetails({
   prefix: 'weather-service',
-  suffix: 'v16',
+  suffix: 'v17',
   precache: 'weather-service-precache',
 });
 
