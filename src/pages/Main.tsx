@@ -69,7 +69,6 @@ const Main = (props) => {
   return (
     <>
       <Grid isColumn width="100%" height="100%" jc="flex-start">
-        <Grid width="100%" height="2rem" />
         {/* 헤더 height: 10% */}
         <Header />
         <Swiper
@@ -77,7 +76,7 @@ const Main = (props) => {
           className="mySwiper"
           style={{
             width: '100%',
-            height: '78%',
+            height: '80%',
           }}
         >
           {/* 첫번째 슬라이드 */}

@@ -40,14 +40,14 @@ const Score = (props) => {
   };
   return (
     <>
-      <Grid isColumn padding="0 2rem 2rem 2rem" height="52%" jc="flex-start" ai="center">
+      <Grid isColumn padding="0 2rem" margin="0 0 2rem 0" height="52%" jc="space-around" ai="center">
         <Grid width="24rem" height="24rem" _onClick={onClickLogo}>
           <ImageWrapper>
-            <Image size={24} src={imgUrl} />
+            <Image size={25} src={imgUrl} />
           </ImageWrapper>
           <SpeechBubble />
         </Grid>
-        <Grid isColumn width="100%" ai="center" jc="center" margin="0.5rem 0">
+        <Grid isColumn width="100%" ai="center" jc="center">
           <Grid ai="center" jc="center" width="100%">
             <Text size="1.6rem" margin="0 0.5rem 0 0" bold="700">
               날씨 점수
