@@ -96,7 +96,7 @@ const ElCard = styled.div<cardType>`
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
   background-color: ${(props) => props.bg};
-  border-radius: 2rem;
+  border-radius: 20px;
   ${(props) => props.theme.shadow};
   border: solid 0.5px ${(props) => props.theme.color.purple};
 `;

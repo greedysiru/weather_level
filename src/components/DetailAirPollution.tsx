@@ -25,8 +25,22 @@ const DetailAirPollution = (props) => {
           <Image size={18} src={logo} />
         </Grid>
         <CardWrapper>
-          <Card width="30%" height="150px" cardTitle="미세먼지" cardDescription={pm10Des} iconName="pm10" />
-          <Card width="30%" height="150px" cardTitle="초미세먼지" cardDescription={pm25Des} iconName="pm25" />
+          <Card
+            width="35vw"
+            margin="0 1.5rem"
+            height="100%"
+            cardTitle="미세먼지"
+            cardDescription={pm10Des}
+            iconName="pm10"
+          />
+          <Card
+            width="35vw"
+            margin="0 1.5rem"
+            height="100%"
+            cardTitle="초미세먼지"
+            cardDescription={pm25Des}
+            iconName="pm25"
+          />
         </CardWrapper>
       </Container>
     );
@@ -36,7 +50,6 @@ const DetailAirPollution = (props) => {
 };
 
 const Container = styled.div`
-  width: ${(props) => props.theme.view.width};
   height: 90%;
   ${(props) => props.theme.flex.column};
   justify-content: flex-start;
@@ -44,10 +57,10 @@ const Container = styled.div`
 
 const CardWrapper = styled.div`
   width: 100%;
+  height: 50vw;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.row};
-  justify-content: space-around;
-  padding: 1rem;
+  justify-content: center;
 `;
 
 export default DetailAirPollution;
