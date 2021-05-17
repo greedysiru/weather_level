@@ -43,7 +43,7 @@ const LongCard = (props: LongCardType) => {
       {/*  강수 확률 */}
       {type === 'rainPer' && (
         <>
-          <Icon name={type} color={color[iconColor]} isWeather />
+          <Icon name={iconName} color={color[iconColor]} isWeather />
           <Grid width="20%">
             <Text>
               {data}
@@ -55,7 +55,7 @@ const LongCard = (props: LongCardType) => {
       {/* 습도 */}
       {type === 'humidity' && (
         <>
-          <Icon name={type} color={color[iconColor]} isWeather />
+          <Icon name={iconName} color={color[iconColor]} isWeather />
           <Grid width="20%">
             <Text>
               {data}

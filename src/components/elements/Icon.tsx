@@ -15,7 +15,10 @@ import { ReactComponent as Humidity } from '../../icons/humidity.svg';
 import { ReactComponent as Location } from '../../icons/location.svg';
 import { ReactComponent as Main } from '../../icons/main.svg';
 import { ReactComponent as PollenRisk } from '../../icons/pollenRisk.svg';
-import { ReactComponent as RainPer } from '../../icons/rainPer.svg';
+import { ReactComponent as RainPerZero } from '../../icons/rainPer0.svg';
+import { ReactComponent as RainPerOne } from '../../icons/rainPer1.svg';
+import { ReactComponent as RainPerTwo } from '../../icons/rainPer2.svg';
+import { ReactComponent as RainPerThree } from '../../icons/rainPer3.svg';
 import { ReactComponent as Setting } from '../../icons/setting.svg';
 import { ReactComponent as Sky } from '../../icons/sky.svg';
 import { ReactComponent as Temp } from '../../icons/temp.svg';
@@ -55,7 +58,10 @@ const Icon = (props: IconType) => {
   // 불러올 수 있는 아이콘 리스트
   const IconsList = {
     temp: Temp,
-    rainPer: RainPer,
+    rainPer0: RainPerZero,
+    rainPer1: RainPerOne,
+    rainPer2: RainPerTwo,
+    rainPer3: RainPerThree,
     weather: Sky,
     corona: Corona,
     humidity: Humidity,

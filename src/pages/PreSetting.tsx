@@ -143,7 +143,7 @@ const PreSetting = (props) => {
           <span className="title">중요도 설정</span>
           <span className="des">0: 안 중요함, 100:중요함</span>
         </Grid>
-        <Button width="75%">저장</Button>
+        <Button _onClick={onSave} width="75%">저장</Button>
       </PreHeader>
 
       <RangeWrapper className="wrapper">

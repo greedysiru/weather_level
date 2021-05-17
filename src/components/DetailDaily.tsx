@@ -45,7 +45,10 @@ const DetailDaily = (props) => {
         if (category === 'rainPer') {
           const rainPercent = Math.round(Number(dayInfo[category][idx]) * 100);
           data = `${rainPercent}`;
-          iconColor = convertWeaterInfo(category, rainPercent);
+          // 아이콘의 정보 (색, 종류)
+          const rainPerIconInfo = convertWeaterInfo(category, rainPercent);
+          iconColor = rainPerIconInfo[0];
+          iconName = `rainPer${rainPerIconInfo[1]}`;
         }
 
         if (category === 'tmp' || category === 'weather') {
@@ -77,10 +80,13 @@ const DetailDaily = (props) => {
     // category 별로 데이터 다르게
     let data;
     let iconColor;
+    let iconName;
     if (category === 'rainPer') {
       const rainPercent = Math.round(Number(weekInfo[category][idx]) * 100);
       data = `${rainPercent}`;
-      iconColor = convertWeaterInfo(category, rainPercent);
+      const rainPerIconInfo = convertWeaterInfo(category, rainPercent);
+      iconColor = rainPerIconInfo[0];
+      iconName = `rainPer${rainPerIconInfo[1]}`;
     }
 
     if (category === 'tmp' || category === 'weather') {
@@ -102,6 +108,7 @@ const DetailDaily = (props) => {
         day={dayOfWeek[idx]}
         data={data}
         iconColor={iconColor}
+        iconName={iconName}
       />,
     );
 
