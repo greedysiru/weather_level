@@ -47,6 +47,11 @@ const Card = (props: cardType & CardInfoType) => {
     const RainPerIconNumber = cardDescription[3];
     iconName = `rainPer${RainPerIconNumber}`;
   }
+  // iconName이 fit인 경우
+  if (iconName === 'fit') {
+    // iconName 적절한 것으로 바꾸기
+    iconName = cardDescription[3];
+  }
   const style = {
     width,
     height,

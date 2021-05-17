@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/redux/modules';
 
+// 카드를 제외한 아이콘을 만들 때 사용
+// 옷차림은 없음
 export const convertWeaterInfo = (type, value) => {
   // 미세먼지
   if (type === 'pm10') {

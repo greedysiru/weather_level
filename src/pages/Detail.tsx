@@ -5,6 +5,7 @@ import Corona from 'src/components/DetailCorona';
 import DetailDaily from 'src/components/DetailDaily';
 import DetailThreeDays from 'src/components/DetailThreeDays';
 import DetailWeekly from 'src/components/DetailWeekly';
+import Fit from 'src/components/Fit';
 import { Button, Grid } from 'src/components/elements';
 import styled from 'styled-components';
 import { RootState } from '../redux/modules';
@@ -28,6 +29,7 @@ const Detail = (props) => {
     three: DetailThreeDays,
     corona: Corona,
     airPollution: AirPollution,
+    fit: Fit,
   };
 
   const Component = components[match.params.type];
