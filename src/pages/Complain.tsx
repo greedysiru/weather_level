@@ -140,7 +140,7 @@ const TextAreaEl = styled.textarea`
   border-radius: 14px;
   ${(props) => props.theme.shadow};
   width: 100%;
-  height: 30%;
+  height: 20%;
   min-height: 120px;
   padding: 1.5rem;
   ${(props) => props.theme.border_box};
