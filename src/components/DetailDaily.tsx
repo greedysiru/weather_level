@@ -200,8 +200,6 @@ const TimeListWrap = styled.div`
     display: none;
   }
   ${(props) => props.theme.shadow};
-`
-
-
+`;
 
 export default DetailDaily;

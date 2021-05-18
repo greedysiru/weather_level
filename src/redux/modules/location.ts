@@ -16,6 +16,10 @@ type smallRegion = {
   longitude: string;
   smallRegionName: string;
 };
+type oftenSeenRegions = {
+  bigRegionName: string;
+  smallRegionnName: string;
+};
 type locationType = {
   userLocationInfo: {
     currentRegion: {
@@ -26,7 +30,7 @@ type locationType = {
       bigRegionName: string;
       smallRegionName: string;
     };
-    oftenSeenRegions: string[];
+    oftenSeenRegions: oftenSeenRegions[];
   };
   allRegion: region[];
   loading: boolean;

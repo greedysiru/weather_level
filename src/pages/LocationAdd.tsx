@@ -101,7 +101,10 @@ const LocationAdd = (props) => {
       return;
     }
 
-    const region = `${selectedBigRegion} ${selectedSmallRegion}`;
+    const region = {
+      bigRegionName: selectedBigRegion,
+      smallRegionName: selectedSmallRegion,
+    };
     let oftenSeenRegions;
     if (!userLocationInfo?.oftenSeenRegions) {
       oftenSeenRegions = [region];
@@ -156,7 +159,7 @@ const SelectBox = styled.div`
   height: 100%;
   padding: 1rem;
   border-radius: 1rem;
-  margin: 1rem 0 0 0 ;
+  margin: 1rem 0 0 0;
   overflow-y: auto;
 `;
 
