@@ -164,7 +164,7 @@ const DetailDaily = (props) => {
           <Grid margin="1rem 0rem">
             <Title> 일별 {title[category]} </Title>
           </Grid>
-          <Grid padding="0rem 1.5rem 3rem 1.5rem" isColumn height="100%" jc="space-between">
+          <Grid padding="0rem 1.5rem 3rem 1.5rem" isColumn height="100%" jc="space-between" overFlow>
             {weeklyListComponent}
           </Grid>
         </SwiperSlide>
