@@ -43,10 +43,10 @@ const Detail = (props) => {
   }
   return (
     <Container full={isMultiView && isDesktopMode}>
-      <Grid isColumn height="100%" width="100%">
+      <Grid isColumn height="95%" width="100%" jc="flex-start">
         <Component category={match.params.category} />
       </Grid>
-      <Grid padding="0rem 1.5rem 0 1.5rem">
+      <Grid padding="0rem 1.5rem 0 1.5rem" width="100%" height="5%">
         <Button _onClick={goBack}>이전</Button>
       </Grid>
     </Container>
@@ -56,7 +56,7 @@ const Detail = (props) => {
 const Container = styled.div`
   width: ${(props) => (props.full ? '50%' : '100%')};
   max-width: ${(props) => (props.full ? '' : '360px')};
-  height: 83%;
+  height: 85%;
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex.column};
   justify-content: flex-start;

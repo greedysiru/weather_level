@@ -95,6 +95,7 @@ const DetailThreeDays = (props) => {
 };
 
 const Container = styled.div`
+  padding:1.5rem;
   width: 100%;
   height: 90%;
   ${(props) => props.theme.flex.column};

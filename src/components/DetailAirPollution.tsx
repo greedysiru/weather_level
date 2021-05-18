@@ -50,6 +50,7 @@ const DetailAirPollution = (props) => {
 };
 
 const Container = styled.div`
+  padding: 1.5rem;
   height: 90%;
   ${(props) => props.theme.flex.column};
   justify-content: flex-start;
