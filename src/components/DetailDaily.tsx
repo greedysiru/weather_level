@@ -10,7 +10,7 @@ import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/modules';
-import { Grid, LongCard } from './elements';
+import { Grid, LongCard, Title } from './elements';
 
 // common
 import { convertWeaterInfo } from '../shared/common';
@@ -77,46 +77,51 @@ const DetailDaily = (props) => {
 
   // 일별 카드리스트 컴포넌트
   const weeklyListComponent = weekInfo[category].reduce((acc, cur, idx) => {
-    // category 별로 데이터 다르게
-    let data;
-    let iconColor;
-    let iconName;
-    if (category === 'rainPer') {
-      const rainPercent = Math.round(Number(weekInfo[category][idx]) * 100);
-      data = `${rainPercent}`;
-      const rainPerIconInfo = convertWeaterInfo(category, rainPercent);
-      iconColor = rainPerIconInfo[0];
-      iconName = `rainPer${rainPerIconInfo[1]}`;
+    // 내일부터 표시
+    if (idx > 0) {
+      // category 별로 데이터 다르게
+      let data;
+      let iconColor;
+      let iconName;
+      if (category === 'rainPer') {
+        const rainPercent = Math.round(Number(weekInfo[category][idx]) * 100);
+        data = `${rainPercent}`;
+        const rainPerIconInfo = convertWeaterInfo(category, rainPercent);
+        iconColor = rainPerIconInfo[0];
+        iconName = `rainPer${rainPerIconInfo[1]}`;
+      }
+
+      if (category === 'tmp' || category === 'weather') {
+        data = {
+          max: `${Math.round(Number(weekInfo.maxTmp[idx]))}°C`,
+          min: `${Math.round(Number(weekInfo.minTmp[idx]))}°C`,
+          tmp: `${parseInt(weekInfo.tmp[idx], 10)}°C`,
+          weather: weekInfo.weatherIcon[idx],
+          des: weekInfo.weatherDes[idx],
+        };
+      }
+
+      acc.push(
+        <LongCard
+          height="12%"
+          isFirst={idx === 1}
+          type={category}
+          key={idx}
+          day={dayOfWeek[idx]}
+          data={data}
+          iconColor={iconColor}
+          iconName={iconName}
+        />,
+      );
     }
-
-    if (category === 'tmp' || category === 'weather') {
-      data = {
-        max: `${Math.round(Number(weekInfo.maxTmp[idx]))}°C`,
-        min: `${Math.round(Number(weekInfo.minTmp[idx]))}°C`,
-        tmp: `${parseInt(weekInfo.tmp[idx], 10)}°C`,
-        weather: weekInfo.weatherIcon[idx],
-        des: weekInfo.weatherDes[idx],
-      };
-    }
-
-    acc.push(
-      <LongCard
-        height="9%"
-        isFirst={idx === 0}
-        type={category}
-        key={idx}
-        day={dayOfWeek[idx]}
-        data={data}
-        iconColor={iconColor}
-        iconName={iconName}
-      />,
-    );
-
     return acc;
   }, []);
   const swipeStyle = {
     width: '100%',
     height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
   const slideStyle = {
     width: '100%',
@@ -124,22 +129,23 @@ const DetailDaily = (props) => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
+    padding: '1.5rem',
   };
   if (isDesktopMode) {
     return (
       <Grid height="90%">
-        <Grid isColumn width="50%" jc="space-between" ai="center" height="100%">
+        <Grid isColumn width="50%" padding="0 1.5rem" jc="space-between" ai="center" height="100%">
           <Title>시간별 {title[category]} </Title>
-          <Grid isColumn padding="0 1.5rem" height="100%" overFlow jc="center">
-            <TimeListWrap isDesktopMode>
-              {timeListComponent}
-            </TimeListWrap>
-          </Grid>
+          <TimeListWrap isDesktopMode>
+            {timeListComponent}
+          </TimeListWrap>
         </Grid>
         <Grid isColumn padding="0 1.5rem" width="50%" jc="space-between" ai="center" height="100%">
           <Title> 일별 {title[category]} </Title>
-          {weeklyListComponent}
+          <Grid isColumn jc="space-between" height="91%">
+            {weeklyListComponent}
+          </Grid>
         </Grid>
       </Grid>
     );
@@ -148,10 +154,9 @@ const DetailDaily = (props) => {
     <Container>
       <Swiper pagination className="mySwiper" style={swipeStyle as React.CSSProperties}>
         {/* 첫번째 슬라이드 */}
-
         <SwiperSlide style={slideStyle as React.CSSProperties}>
           <Title>시간별 {title[category]} </Title>
-          <Grid padding='1.5rem 1.5rem 0 1.5rem' height="90%" overFlow ai="space-between">
+          <Grid height="100%" overFlow ai="space-between" margin="1rem 0 0 0">
             <TimeListWrap>
               {timeListComponent}
             </TimeListWrap>
@@ -159,10 +164,9 @@ const DetailDaily = (props) => {
         </SwiperSlide>
 
         {/* 두번째 슬라이드 */}
-
         <SwiperSlide style={slideStyle as React.CSSProperties}>
           <Title> 일별 {title[category]} </Title>
-          <Grid padding='1.5rem 1.5rem 3rem 1.5rem' isColumn height="100%" jc="space-between">
+          <Grid isColumn height="87%" jc="space-between" margin="1rem 0 0 0">
             {weeklyListComponent}
           </Grid>
         </SwiperSlide>
@@ -175,13 +179,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   ${(props) => props.theme.flex.column};
-  justify-content: space-around;
-`;
-
-const Title = styled.div`
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin: 1rem;
+  justify-content: flex-start;
 `;
 
 const TimeListWrap = styled.div`
@@ -191,7 +189,7 @@ const TimeListWrap = styled.div`
   width: 100%;
   ${(props) => props.isDesktopMode ?
     (`height: 97%`) :
-    (`height: 92%`)
+    (`height: 95%`)
   };  
   align-items: center;
   justify-content: space-between;

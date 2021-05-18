@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // elements
 import { Title, Image } from './elements';
 
-const weatherFit = '/assets/weatherfit/weatherfit.png';
+const weatherFit = '/assets/weatherfit/weatherfit.jpg';
 const Fit = (props) => {
   return (
     <>

@@ -23,27 +23,32 @@ const DetailWeekly = (props) => {
   const Content = weekInfo?.[type]?.map((data, idx) => {
     let iconColor;
     let iconName;
-    if (category === 'humidity') {
-      const humidityIconInfo = convertWeaterInfo(category, data);
-      iconColor = humidityIconInfo[0];
-      iconName = `rainPer${humidityIconInfo[1]}`;
-    }
+    if (idx > 0) {
+      if (category === 'humidity') {
+        const humidityIconInfo = convertWeaterInfo(category, data);
+        iconColor = humidityIconInfo[0];
+        iconName = `rainPer${humidityIconInfo[1]}`;
+      }
 
-    if (category === 'wind') {
-      iconColor = convertWeaterInfo(category, data);
+      if (category === 'wind') {
+        iconColor = convertWeaterInfo(category, data);
+      }
+      return (
+        <LongCard
+          isFirst={idx === 1}
+          type={type}
+          key={idx}
+          day={dayOfWeek?.[idx]}
+          data={data}
+          iconColor={iconColor}
+          iconName={iconName}
+          height="10%"
+        />
+      );
     }
-    return (
-      <LongCard
-        isFirst={idx === 0}
-        type={type}
-        key={idx}
-        day={dayOfWeek?.[idx]}
-        data={data}
-        iconColor={iconColor}
-        iconName={iconName}
-        height="8%"
-      />
-    );
+    return null;
+
+
   });
 
   const title = {
