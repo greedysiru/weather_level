@@ -4,13 +4,12 @@ import { RootState } from 'src/redux/modules';
 import { convertWeaterInfo } from 'src/shared/common';
 /* import { ReactComponent as CoronaIcon } from 'public/assets/icons/i_corona.svg'; */
 import styled from 'styled-components';
-import { Card, Grid, Image, Title } from './elements';
+import { Card, Grid, Image, Title, Text } from './elements';
 import logo from '../icons/corona.png';
 
 const Corona = (props) => {
   const [allNewCaseDes, setallNewCaseDes] = useState(null);
   const [bigRegionNewCaseDes, setBigRegionNewCaseDes] = useState(null);
-  // const [allNewCaseDes, setallNewCaseDes] = useState(null)
   const { corona } = useSelector(
     (state: RootState) => state.weather.weatherInfo,
   );
@@ -26,6 +25,7 @@ const Corona = (props) => {
     return (
       <Container>
         <Title>코로나 확진자수</Title>
+        <Text bold="500" size="1.3rem">{corona.date} 기준</Text>
         <Grid isColumn ai="center" margin="2.5rem 0">
           <Image size={18} src={logo} />
         </Grid>
@@ -54,7 +54,8 @@ const Corona = (props) => {
 };
 
 const Container = styled.div`
-  height: 90%;
+  height: 100%;
+  padding: 1.5rem;
   ${(props) => props.theme.flex.column};
   justify-content: flex-start;
 `;
