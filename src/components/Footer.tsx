@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 // elements
-import { Grid, Icon } from './elements'
+import { Grid, Icon } from './elements';
 
 // 푸터 컴포넌트
 const Footer = (props) => {
@@ -16,6 +16,13 @@ const Footer = (props) => {
   const [selectedMenu, setSelectedMenu] = useState('/');
   // 새로고침시 효과 유지위해서 pathname을 selectedMenu에 넣기
   useEffect(() => {
+    const pathname = history.location?.pathname;
+
+    setSelectedMenu(pathname);
+
+    if (pathname.indexOf('preference') > -1 || pathname.indexOf('complain') > -1) {
+      setSelectedMenu('/setting');
+    }
   }, []);
   return (
     <FooterWrap {...style}>
@@ -26,7 +33,7 @@ const Footer = (props) => {
         }}
         isSelected={selectedMenu === '/setting/location'}
       >
-        <Icon name='location' />
+        <Icon name="location" />
       </ElFooter>
       <ElFooter
         onClick={() => {
@@ -35,7 +42,7 @@ const Footer = (props) => {
         }}
         isSelected={selectedMenu === '/'}
       >
-        <Icon name='main' />
+        <Icon name="main" />
       </ElFooter>
       <ElFooter
         onClick={() => {
@@ -44,7 +51,7 @@ const Footer = (props) => {
         }}
         isSelected={selectedMenu === '/setting'}
       >
-        <Icon name='setting' />
+        <Icon name="setting" />
       </ElFooter>
     </FooterWrap>
   );
@@ -77,13 +84,12 @@ const ElFooter = styled.div`
   justify-content: center;
   align-items: center;
   & svg {
-  fill: ${(props) => (props.isSelected ? 'black' : (props.theme.color.gray1))};
-  transition: 0.3s;
-}
+    fill: ${(props) => (props.isSelected ? 'black' : props.theme.color.gray1)};
+    transition: 0.3s;
+  }
   &:hover svg {
     fill: black;
   }
-
 `;
 
 export default Footer;
