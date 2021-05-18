@@ -18,7 +18,6 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { RootState } from '../redux/modules';
 
 const LocationSetting = (props) => {
-  let timer;
   const { history } = props;
   const dispatch = useDispatch();
 
@@ -33,6 +32,8 @@ const LocationSetting = (props) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false); // 편집모드
   const [deleteList, setDeleteList] = useState([]); // 지역삭제목록
 
+  const [timerState, setTimerState] = useState(null);
+
   const { userLocationInfo } = useSelector((state: RootState) => state.location);
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const LocationSetting = (props) => {
     dispatch(locationActions.fetchUserRegion());
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(timerState);
       setIsShowToast(false);
     };
   }, []);
@@ -61,18 +62,19 @@ const LocationSetting = (props) => {
   }, [msg]);
 
   const openToast = (msg) => {
-    if (timer) {
-      clearTimeout(timer);
-    }
+    setIsShowToast(false);
+    clearTimeout(timerState);
+
     setIsShowToast(true);
 
     if (msg) {
       setToastMsg(msg);
     }
 
-    timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsShowToast(false);
     }, 3000);
+    setTimerState(timer);
   };
 
   const addDeleteList = (region) => {
