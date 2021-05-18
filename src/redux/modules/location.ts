@@ -95,6 +95,7 @@ const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) 
   try {
     dispatch(commonActions.setLoading(true));
     const res = await locationAPI.updateUserRegion(data);
+
     setHeaderToken(res.headers.identification);
     dispatch(commonActions.setMsg('선택한 위치를 삭제했습니다'));
     dispatch(commonActions.setLoading(false));

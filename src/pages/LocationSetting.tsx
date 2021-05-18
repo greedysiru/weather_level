@@ -62,6 +62,7 @@ const LocationSetting = (props) => {
   }, [msg]);
 
   const openToast = (msg) => {
+    clearTimeout(timerState);
     setIsShowToast(true);
 
     if (msg) {
@@ -74,12 +75,12 @@ const LocationSetting = (props) => {
     setTimerState(timer);
   };
 
-  const addDeleteList = (region) => {
-    if (selectedRegion === region) {
+  const addDeleteList = (idx, regionName, regionObj) => {
+    if (selectedRegion === regionName) {
       openToast('선택한 위치는 삭제할 수 없습니다');
       return;
     }
-    setDeleteList([...deleteList, region]);
+    setDeleteList([...deleteList, idx]);
   };
 
   const selectRegion = (region) => {
@@ -89,15 +90,18 @@ const LocationSetting = (props) => {
     openToast('선택한 위치로 변경했습니다');
   };
 
-  const onClickRegionCard = (region) => () => {
+  const onClickRegionCard = (idx, regionName, regionObj) => () => {
+    setIsShowToast(false);
     if (isEditMode) {
-      addDeleteList(region);
+      addDeleteList(idx, regionName, regionObj);
     } else {
-      selectRegion(region);
+      selectRegion(regionName);
     }
   };
 
   const onClickCurrentRegion = () => {
+    setIsShowToast(false);
+    // clearTimeout(timerState);
     if (isEditMode) return;
     localStorage.removeItem('current-region');
     setSelectedRegion(currentRegion);
@@ -116,10 +120,12 @@ const LocationSetting = (props) => {
 
   const locationCardList = userLocationInfo?.oftenSeenRegions?.reduce((acc, cur, idx) => {
     const fullRegionName = `${cur.bigRegionName} ${cur.smallRegionName}`;
-    if (!deleteList.includes(fullRegionName)) {
+    const regionObj = { bigRegionName: cur.bigRegionName, smallRegionName: cur.smallRegionName };
+
+    if (!deleteList.includes(idx)) {
       acc.push(
         <LocationCard
-          onClick={onClickRegionCard(fullRegionName)}
+          onClick={onClickRegionCard(idx, fullRegionName, regionObj)}
           key={idx}
           isSelected={!isEditMode && selectedRegion === fullRegionName}
         >
@@ -163,11 +169,13 @@ const LocationSetting = (props) => {
 
   const removeLocationList = async () => {
     if (deleteList.length > 0) {
-      const oftenSeenRegions = userLocationInfo.oftenSeenRegions.filter((reg) => {
-        return !deleteList.includes(reg);
+      const oftenSeenRegions = userLocationInfo.oftenSeenRegions.filter((regObj, idx) => {
+        return !deleteList.includes(idx);
       });
 
       await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions }));
+      setDeleteList([]);
+      dispatch(locationActions.fetchUserRegion());
 
       await openToast(null);
     }
@@ -178,7 +186,7 @@ const LocationSetting = (props) => {
   return (
     <>
       <Container>
-        <Header width="100%">
+        <Header>
           <button type="button" onClick={onClickEditButton}>
             {isEditMode ? '취소' : '편집'}
           </button>
@@ -200,9 +208,8 @@ const LocationSetting = (props) => {
           </LocationCard>
           {locationCardList}
         </Wrapper>
+        <Footer history={history} />
       </Container>
-
-      <Footer history={history} />
 
       {isShowToast && <Toast>{toastMsg}</Toast>}
       <BeatLoader color="#738FFF" loading={loading} css={spinnerStyle} />
@@ -213,13 +220,12 @@ const LocationSetting = (props) => {
 const Container = styled.div`
   width: 360px;
   height: 100%;
-  padding: 1rem;
+  // padding: 1rem;
 `;
 
 const Header = styled.div`
   ${(props) => props.theme.flex.row};
-
-  padding: 0 1rem;
+  padding: 1.5rem 1rem;
 
   & button {
     background-color: transparent;
@@ -228,20 +234,21 @@ const Header = styled.div`
     color: ${(props) => props.theme.color.sky3};
     font-weight: 550;
     font-size: 1.6rem;
+    padding: 0;
   }
 `;
 
 const Wrapper = styled.div`
   width: 100%;
   ${(props) => props.theme.border_box};
-  padding: 1rem;
+  padding: 0 1rem;
 `;
 
 const LocationCard = styled.div`
   width: 100%;
   height: 80px;
   border-radius: 15px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  ${(props) => props.theme.shadow};
   border: solid 0.5px ${(props) => props.theme.color.purple};
   margin: 1rem 0;
   ${(props) => props.theme.border_box};

@@ -52,7 +52,7 @@ const Grid = ({
 };
 
 Grid.defaultProps = {
-  _onClick: () => { },
+  _onClick: () => {},
   width: '100%',
   height: '',
   isColumn: false,
@@ -84,6 +84,7 @@ const Container = styled.div<GridType>`
   &::-webkit-scrollbar {
     display: none;
   }
+  ${(props) => props.theme.border_box}
 `;
 
 export default Grid;

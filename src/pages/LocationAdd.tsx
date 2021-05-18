@@ -33,9 +33,8 @@ const LocationAdd = (props) => {
   }, []);
 
   const openToast = (msg) => {
-    if (timerState) {
-      clearTimeout(timerState);
-    }
+    clearTimeout(timerState);
+
     setIsShowToast(true);
     setToastMsg(msg);
 
@@ -97,6 +96,16 @@ const LocationAdd = (props) => {
 
     if (userLocationInfo?.oftenSeenRegions?.length >= 5) {
       openToast('최대 5개 지역까지만 추가할 수 있습니다');
+
+      return;
+    }
+
+    const isInclude = userLocationInfo.oftenSeenRegions.find((ele, idx) => {
+      return ele.bigRegionName === selectedBigRegion && ele.smallRegionName === selectedSmallRegion;
+    });
+
+    if (isInclude) {
+      openToast('이미 추가한 지역입니다');
 
       return;
     }
