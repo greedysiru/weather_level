@@ -186,40 +186,40 @@ export const convertWeaterInfo = (type, value) => {
   // 강수확률
   if (type === 'rainPer') {
     if (value <= 25) {
-      return ['gray2', '0'];
+      return ['sky6', '0'];
     }
     if (value <= 50) {
-      return ['usually', '1'];
+      return ['sky6', '1'];
     }
     if (value <= 75) {
-      return ['good', '2'];
+      return ['sky6', '2'];
     }
     if (value > 75) {
-      return ['sky4', '3'];
+      return ['sky6', '3'];
     }
   }
   // 습도
   if (type === 'humidity') {
     if (value >= 0 && value < 20) {
-      return ['bad', '0'];
+      return ['usually', '0'];
     }
     if (value >= 20 && value < 30) {
-      return ['sky1', '0'];
+      return ['usually', '0'];
     }
     if (value >= 30 && value < 40) {
       return ['usually', '1'];
     }
     if (value >= 40 && value < 60) {
-      return ['good', '1'];
+      return ['usually', '1'];
     }
     if (value >= 60 && value < 70) {
       return ['usually', '2'];
     }
     if (value >= 70 && value < 80) {
-      return ['sky3', '2'];
+      return ['usually', '2'];
     }
     if (value >= 80) {
-      return ['sky4', '3'];
+      return ['usually', '3'];
     }
   }
   // 기온

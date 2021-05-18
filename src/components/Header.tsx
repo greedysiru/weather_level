@@ -13,7 +13,7 @@ import theme from '../styles/theme';
 // 헤더 컴포넌트
 const Header = (props) => {
   // 사용자의 지역 정보 가져오기
-  const { bigRegion, smallRegion } = useSelector((state: RootState) => state.weather?.weatherInfo);
+  const { bigRegionName, smallRegionName } = useSelector((state: RootState) => state.weather?.weatherInfo.region);
   // 이번주의 날씨 정보 가져오기
   const weekInfo = useSelector((state: RootState) => state.weather.weatherInfo?.weekInfo);
   // 오늘 최대, 최저, 평균 기온
@@ -40,7 +40,7 @@ const Header = (props) => {
           현재 위치
           </Text>
         <Text size="1.6rem" bold="700" margin="0.5rem 0 0 0">
-          {bigRegion.bigRegionName} {smallRegion.smallRegionName}
+          {bigRegionName} {smallRegionName}
         </Text>
       </Grid>
       <Grid width="50%" ai="center" jc='flex-end' height="100%">
