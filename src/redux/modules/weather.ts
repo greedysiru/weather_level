@@ -67,14 +67,10 @@ type weatherType = {
       pm25Value: number;
     };
     corona?: {
-      id: number;
       date: string;
-      newLocalCaseCount: number;
-      newForeignCaseCount: number;
+      currentBigRegionNewCaseCount: number;
+      allNewCaseCount: number;
     };
-    coronaTotalNewCaseCount?: number;
-    coronaAllNewCaseCount?: number;
-    coronaCurrentBigRegionNewCaseCount?: number;
     dayScoreList?: number[];
   };
   // 날씨 정보 로드 상태
@@ -474,16 +470,16 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
   // 옷차림
   if (type === 'fit') {
     if (value <= -4) {
-      return ['sky5', '목도리', 'fit', 'muffler'];
+      return ['muffler', '목도리', 'fit', 'muffler'];
     }
     if (value <= 8) {
-      return ['sky6', '코트', 'fit', 'coat'];
+      return ['sky5', '코트', 'fit', 'coat'];
     }
     if (value <= 11) {
-      return ['good', '야상', 'fit', 'filed'];
+      return ['sky6', '야상', 'fit', 'filed'];
     }
     if (value <= 16) {
-      return ['sky2', '가디건', 'fit', 'cardigan'];
+      return ['good', '가디건', 'fit', 'cardigan'];
     }
     if (value <= 19) {
       return ['usually', '후드티', 'fit', 'hoodie'];
@@ -510,7 +506,6 @@ const getCardsInfo = () => async (dispatch, getState) => {
       livingHealthWeather,
       corona,
       airPollution,
-      coronaAllNewCaseCount,
     } = getState().weather.weatherInfo;
     // preference
     const { preference } = getState().weather;
@@ -519,7 +514,7 @@ const getCardsInfo = () => async (dispatch, getState) => {
       temp: { label: '평균기온', value: weekInfo.tmp[0] },
       fit: { label: '옷차림', value: weekInfo.tmp[0] },
       rainPer: { label: '강수확률', value: weekInfo.rainPer[0] },
-      corona: { label: '코로나', value: coronaAllNewCaseCount },
+      corona: { label: '코로나', value: corona.allNewCaseCount },
       pm10: { label: '미세먼지', value: airPollution.pm10Value },
       pm25: { label: '초미세먼지', value: airPollution.pm25Value },
       weather: { label: '오늘날씨', value: weekInfo.weatherDes[0] },

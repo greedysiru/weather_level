@@ -22,7 +22,8 @@ const theme: DefaultTheme = {
     sky6: '#395580',
     background: '#F6F7FB',
     purple: '#EBEBF9',
-    yellow: '#FFBD00'
+    yellow: '#FFBD00',
+    muffler: '82A2D1',
   },
   view: {
     mobile: `(max-width: 767px)`,

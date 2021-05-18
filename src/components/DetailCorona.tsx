@@ -11,15 +11,15 @@ const Corona = (props) => {
   const [allNewCaseDes, setallNewCaseDes] = useState(null);
   const [bigRegionNewCaseDes, setBigRegionNewCaseDes] = useState(null);
   // const [allNewCaseDes, setallNewCaseDes] = useState(null)
-  const { coronaCurrentBigRegionNewCaseCount, coronaAllNewCaseCount } = useSelector(
+  const { corona } = useSelector(
     (state: RootState) => state.weather.weatherInfo,
   );
 
   const logoSrc = '/icons/corona.png';
 
   useEffect(() => {
-    setallNewCaseDes(convertWeaterInfo('corona', coronaAllNewCaseCount));
-    setBigRegionNewCaseDes(convertWeaterInfo('corona', coronaCurrentBigRegionNewCaseCount));
+    setallNewCaseDes(convertWeaterInfo('corona', corona.allNewCaseCount));
+    setBigRegionNewCaseDes(convertWeaterInfo('corona', corona.currentBigRegionNewCaseCount));
   }, []);
 
   if (allNewCaseDes && setallNewCaseDes) {
