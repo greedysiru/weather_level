@@ -62,9 +62,6 @@ const LocationSetting = (props) => {
   }, [msg]);
 
   const openToast = (msg) => {
-    setIsShowToast(false);
-    clearTimeout(timerState);
-
     setIsShowToast(true);
 
     if (msg) {
@@ -91,6 +88,7 @@ const LocationSetting = (props) => {
     dispatch(weatherActions.getWeatherInfo());
     openToast('선택한 위치로 변경했습니다');
   };
+
   const onClickRegionCard = (region) => () => {
     if (isEditMode) {
       addDeleteList(region);
@@ -117,10 +115,15 @@ const LocationSetting = (props) => {
   };
 
   const locationCardList = userLocationInfo?.oftenSeenRegions?.reduce((acc, cur, idx) => {
-    if (!deleteList.includes(cur)) {
+    const fullRegionName = `${cur.bigRegionName} ${cur.smallRegionName}`;
+    if (!deleteList.includes(fullRegionName)) {
       acc.push(
-        <LocationCard onClick={onClickRegionCard(cur)} key={idx} isSelected={!isEditMode && selectedRegion === cur}>
-          {cur}
+        <LocationCard
+          onClick={onClickRegionCard(fullRegionName)}
+          key={idx}
+          isSelected={!isEditMode && selectedRegion === fullRegionName}
+        >
+          {fullRegionName}
           <IconComponent />
         </LocationCard>,
       );

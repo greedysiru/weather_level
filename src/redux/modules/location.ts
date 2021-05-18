@@ -18,7 +18,7 @@ type smallRegion = {
 };
 type oftenSeenRegions = {
   bigRegionName: string;
-  smallRegionnName: string;
+  smallRegionName: string;
 };
 type locationType = {
   userLocationInfo: {
@@ -78,6 +78,7 @@ const fetchUserRegion = () => async (dispatch, getState, { history }) => {
     dispatch(commonActions.setLoading(true));
     const res = await locationAPI.getUserRegion();
     setHeaderToken(res.headers.identification);
+
     dispatch(setUserLocationInfo(res.data));
     dispatch(commonActions.setLoading(false));
   } catch (error) {

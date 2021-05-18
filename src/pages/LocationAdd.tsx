@@ -161,6 +161,9 @@ const SelectBox = styled.div`
   border-radius: 1rem;
   margin: 1rem 0 0 0;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const RegionEle = styled.span`
