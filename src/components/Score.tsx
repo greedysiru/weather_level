@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 // 리덕스
@@ -35,9 +35,30 @@ const Score = (props) => {
   // 날씨 이미지를 불러올 경로
   const imgUrl = `/assets/weather/${nowIcon}.png`;
 
+  const [isShowBubble, setIsShowBubble] = useState(false);
+  const [timerState, setTimerState] = useState(null);
+
   const onClickLogo = () => {
+    clearTimeout(timerState);
+
     dispatch(weatherActions.getIconMessage(nowIcon));
+
+    setIsShowBubble(true);
+
+    const timer = setTimeout(() => {
+      setIsShowBubble(false);
+      // speech 컴포넌트가 깜빡이는거 방지하기 위해
+      dispatch(weatherActions.setIconMessage(''));
+    }, 3000);
+    setTimerState(timer);
   };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timerState);
+    };
+  });
+
   return (
     <>
       <Grid isColumn padding="0 2rem" margin="0 0 2rem 0" height="52%" jc="space-around" ai="center">
@@ -45,7 +66,7 @@ const Score = (props) => {
           <ImageWrapper>
             <Image size={25} src={imgUrl} />
           </ImageWrapper>
-          <SpeechBubble />
+          {isShowBubble && <SpeechBubble />}
         </Grid>
         <Grid isColumn width="100%" ai="center" jc="center">
           <Grid ai="center" jc="center" width="100%">
