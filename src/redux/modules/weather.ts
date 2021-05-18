@@ -23,13 +23,9 @@ export type prefereceList = prefereceObject[];
 
 type weatherType = {
   weatherInfo: {
-    bigRegion?: {
+    region?: {
       bigRegionName: string;
-    };
-    smallRegion?: {
       smallRegionName: string;
-      longitude: string;
-      latitude: string;
     };
     livingHealthWeather?: {
       uvToday: string;
