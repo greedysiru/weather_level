@@ -102,6 +102,11 @@ const Container = styled.div`
   ${(props) => props.theme.flex.column};
   align-items: center;
   justify-content: center;
+
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const spinnerStyle = css`
@@ -136,7 +141,7 @@ const TextAreaEl = styled.textarea`
   ${(props) => props.theme.shadow};
   width: 100%;
   height: 30%;
-  min-height: 100px;
+  min-height: 150px;
   padding: 1.5rem;
   ${(props) => props.theme.border_box};
   resize: none;
