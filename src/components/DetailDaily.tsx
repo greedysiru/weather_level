@@ -180,12 +180,6 @@ const Container = styled.div`
   justify-content: space-around;
 `;
 
-/* const Title = styled.div`
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin: 1rem;
-`;
- */
 const TimeListWrap = styled.div`
   padding: 0 1rem;
   display: flex;

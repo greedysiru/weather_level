@@ -57,8 +57,8 @@ const TimeInfo = (props: TimeInfoType) => {
       >
         <Grid
           width="91.6%"
-          height="35%"
-          ai="center"
+          height="30%"
+          ai="flex-end"
           jc="space-between"
         >
           <Text
@@ -82,11 +82,11 @@ const TimeInfo = (props: TimeInfoType) => {
         {/* 점수 정보 */}
         <Grid
           width="100%"
-          height="60%"
+          height="70%"
         >
           {info.map((score, idx) => {
             // 점수 색상
-            let scoreColor = ''
+            let scoreColor;
             if (score <= 25) {
               scoreColor = color.veryBad;
             }
@@ -103,13 +103,14 @@ const TimeInfo = (props: TimeInfoType) => {
               <Grid
                 key={idx}
                 isColumn
-                jc="space-between"
+                jc="center"
                 ai="center"
                 height="100%"
                 width="14.28%"
               >
                 <Grid
-                  height="15%"
+                  height="30%"
+                  ai="flex-end"
                 >
                   {idx === 0 ? (
                     <Text
@@ -130,7 +131,7 @@ const TimeInfo = (props: TimeInfoType) => {
                 <Grid
                   ai='center'
                   jc='center'
-                  height="85%"
+                  height="55%"
                 >
                   {/* 가장 높은 점수와 두 번째로 높은 점수 */}
                   {maxScore === score || secondScore === score ? (
@@ -227,7 +228,7 @@ const TimeInfo = (props: TimeInfoType) => {
                         isWeather
                         name={iconName}
                         color={color[iconColor]}
-                        size={2}
+                        size={2.4}
                       />
                     </Grid>
                     <Grid
