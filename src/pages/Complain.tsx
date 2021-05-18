@@ -67,30 +67,29 @@ const Complain = (props) => {
   };
   return (
     <Container>
-      <Grid isColumn height="60%" jc="center" ai="center">
-        <Title>불편/개선 사항 보내기</Title>
-        <Grid width="10rem">
-          <LogoCircle />
-        </Grid>
-        <InputEl value={title} placeholder="제목" onChange={onChangeTitle} />
-        <TextAreaEl
-          placeholder="불편한 점이나 개선사항을 알려주세요 :)"
-          onChange={onChangeContents}
-          value={contents}
-          multiLine
-        />
-        <Grid jc="space-between" margin="2rem 0 0 0">
-          <Button width="47%" _onClick={goBack}>
-            취소
-          </Button>
-          <Button width="47%" disabled={!title || !contents} _onClick={sendComplain}>
-            제출하기
-          </Button>
-        </Grid>
-
-        {isShowToast && <Toast>{msg}</Toast>}
-        <BeatLoader color="#738FFF" loading={loading} css={spinnerStyle} />
+      <Title>불편/개선 사항 보내기</Title>
+      <Grid width="10rem">
+        <LogoCircle />
       </Grid>
+      <InputEl value={title} placeholder="제목" onChange={onChangeTitle} />
+      <TextAreaEl
+        placeholder="불편한 점이나 개선사항을 알려주세요 :)"
+        onChange={onChangeContents}
+        value={contents}
+        multiLine
+      />
+      <Grid jc="space-between" margin="2rem 0 0 0">
+        <Button width="47%" _onClick={goBack}>
+          취소
+        </Button>
+
+        <Button width="47%" disabled={!title || !contents} _onClick={sendComplain}>
+          제출하기
+        </Button>
+      </Grid>
+
+      {isShowToast && <Toast>{msg}</Toast>}
+      <BeatLoader color="#738FFF" loading={loading} css={spinnerStyle} />
     </Container>
   );
 };
@@ -98,10 +97,11 @@ const Complain = (props) => {
 const Container = styled.div`
   width: 100%;
   max-width: 360px;
-  height: 100%;
+  height: 90%;
   padding: 1.5rem;
-  ${(props) => props.theme.flex.row};
+  ${(props) => props.theme.flex.column};
   align-items: center;
+  justify-content: center;
 `;
 
 const spinnerStyle = css`
@@ -135,10 +135,11 @@ const TextAreaEl = styled.textarea`
   border-radius: 14px;
   ${(props) => props.theme.shadow};
   width: 100%;
-  height: 40%;
+  height: 30%;
+  min-height: 100px;
   padding: 1.5rem;
   ${(props) => props.theme.border_box};
-  resize:none;
+  resize: none;
   margin-top: 2rem;
 
   &::placeholder {
