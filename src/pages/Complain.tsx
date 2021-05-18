@@ -12,8 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { commonActions } from 'src/redux/modules/common';
 import { RootState } from '../redux/modules';
 
-import { ReactComponent as LogoCircle } from '../icons/icon_logo_circle.svg';
 
+// 로고 불러오기
+const logo = '/assets/logo/logo_circle.png';
 const Complain = (props) => {
   const { history } = props;
   let timer;
@@ -69,7 +70,7 @@ const Complain = (props) => {
     <Container>
       <Title>불편/개선 사항 보내기</Title>
       <Grid width="10rem">
-        <LogoCircle />
+        <ElLogo />
       </Grid>
       <InputEl value={title} placeholder="제목" onChange={onChangeTitle} />
       <TextAreaEl
@@ -108,6 +109,14 @@ const Container = styled.div`
     display: none;
   }
 `;
+
+const ElLogo = styled.div`
+  background-image: url(${logo});
+  width: 7.4rem;
+  height: 7.4rem;
+  background-size: contain;
+  background-position: center center;
+`
 
 const spinnerStyle = css`
   display: block;

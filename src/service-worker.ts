@@ -16,11 +16,11 @@ import { StaleWhileRevalidate } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
 // 캐시 이름
-// 빌드 일시 2021-05-17 21:55
+// 빌드 일시 2021-05-18 18:50
 // build/asset-manifest4json 의 index.html 삭제하기
 setCacheNameDetails({
   prefix: 'weather-service',
-  suffix: 'v19',
+  suffix: 'v24',
   precache: 'weather-service-precache',
 });
 
