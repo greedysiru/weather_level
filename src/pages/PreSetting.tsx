@@ -137,13 +137,15 @@ const PreSetting = (props) => {
     };
   }, []);
   return (
-    <Container isFull={isDesktopMode && isMain}>
+    <Container isMain={isMain}>
       <PreHeader>
         <Grid isColumn>
           <span className="title">중요도 설정</span>
           <span className="des">0: 안 중요함, 100:중요함</span>
         </Grid>
-        <Button _onClick={onSave} width="75%">저장</Button>
+        <Button _onClick={onSave} width="75%">
+          저장
+        </Button>
       </PreHeader>
 
       <RangeWrapper className="wrapper">
@@ -179,8 +181,7 @@ const PreSetting = (props) => {
 const Container = styled.div`
   width: 100%;
   max-width: 450px;
-  height: 90%;
-  // height: ${(props) => (props.isFull ? `100%` : `90%`)};
+  height: ${(props) => (props.isMain ? `100%` : `90%`)};
   padding: 2rem;
   ${(props) => props.theme.flex.column};
   justify-content: flex-start;
