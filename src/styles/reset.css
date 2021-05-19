@@ -133,4 +133,11 @@ table {
   }
 }
 
+/* 사파리 input 안 그림자 제거 */
+input{
+	-webkit-appearance: none;
+}
 
+textarea{
+	-webkit-appearance: none;
+}
