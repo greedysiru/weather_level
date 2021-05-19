@@ -114,10 +114,6 @@ const Main = (props) => {
               padding: '2rem 2rem 0 2rem',
             }}
           >
-            {/* <Grid isColumn jc="center">
-              <Button _onClick={() => history.push('/setting/preference')}>나만의 외출 난이도 설정하러 가기</Button>
-              <Button _onClick={() => history.push('/setting/location')}>위치 설정하러 가기</Button>
-            </Grid> */}
             <PreSetting isMain />
             <PagenationWrap />
           </SwiperSlide>
