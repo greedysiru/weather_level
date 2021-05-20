@@ -196,7 +196,9 @@ const getWeatherInfo = () => async (dispatch) => {
     await dispatch(getCardsInfo());
   } catch (error) {
     console.log(error);
-    alert('앱이 업데이트 되었습니다. https://theweatherlevel.com 에서 새로 홈화면에 추가해주세요');
+
+    alert('앱이 업데이트 되었습니다.');
+    window.location.reload(true);
   }
 };
 
