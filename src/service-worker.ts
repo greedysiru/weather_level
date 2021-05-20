@@ -19,13 +19,16 @@ import { WorkboxError } from 'workbox-core/_private';
 // 캐시 이름
 // 빌드 일시 2021-05-20 19:16
 // build/asset-manifest4json 의 index.html 삭제하기
+// 최신버전
+const CURRENTVERSION = 'v2021-05-20-16'
 setCacheNameDetails({
   prefix: 'weather-service',
-  suffix: 'v2021-05-20-0',
+  suffix: CURRENTVERSION,
   precache: 'precache',
 });
 
 declare const self: ServiceWorkerGlobalScope;
+
 
 clientsClaim();
 
@@ -88,12 +91,22 @@ self.addEventListener('message', (event) => {
   }
 });
 
-
-self.addEventListener('installed', event => {
-  console.log(event)
-  if (event.isUpdate) {
-    if (confirm(`New content is available!. Click OK to refresh`)) {
-      window.location.reload();
-    }
-  }
+// 이전 캐시 삭제
+self.addEventListener("activate", event => {
+  console.log('activate');
+  // delete any unexpected caches
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.filter(key => {
+          return key
+        }).map((key) => {
+          if (`weather-service-precache-${CURRENTVERSION}` != key && 'images' != key) {
+            caches.delete(key);
+          }
+          return
+        })
+      );
+    })
+  );
 });
