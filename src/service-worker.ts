@@ -10,18 +10,18 @@
 
 import { clientsClaim, setCacheNameDetails } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute, createHandlerBoundToURL, matchPrecache } from 'workbox-precaching';
+import { precacheAndRoute, createHandlerBoundToURL, matchPrecache, cleanupOutdatedCaches } from 'workbox-precaching';
 import { registerRoute, setCatchHandler } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { WorkboxError } from 'workbox-core/_private';
 
 // 캐시 이름
-// 빌드 일시 2021-05-18 18:50
+// 빌드 일시 2021-05-20 19:16
 // build/asset-manifest4json 의 index.html 삭제하기
 setCacheNameDetails({
   prefix: 'weather-service',
-  suffix: 'v25',
+  suffix: 'v2021-05-20-0',
   precache: 'precache',
 });
 
@@ -34,17 +34,6 @@ clientsClaim();
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
 precacheAndRoute(self.__WB_MANIFEST);
-
-// Catch routing errors, like if the user is offline
-setCatchHandler(async ({ event }: any) => {
-  // Return the precached offline page if a document is being requested
-  if (event.request.destination === 'document') {
-    return matchPrecache('/offline.html');
-  }
-
-  return Response.error();
-});
-
 
 
 // Set up App Shell-style routing, so that all navi gation requests
@@ -99,4 +88,12 @@ self.addEventListener('message', (event) => {
   }
 });
 
-// Any other custom service worker logic can go here.
+
+self.addEventListener('installed', event => {
+  console.log(event)
+  if (event.isUpdate) {
+    if (confirm(`New content is available!. Click OK to refresh`)) {
+      window.location.reload();
+    }
+  }
+});
