@@ -194,8 +194,10 @@ const getWeatherInfo = () => async (dispatch) => {
     await dispatch(timeActions.getTimeInfo());
     // 카드 정보 만들기
     await dispatch(getCardsInfo());
+    alert('https://theweatherlevel.com');
   } catch (error) {
     console.log(error);
+    alert('앱이 업데이트 되었습니다. https://theweatherlevel.com 에서 새로 홈화면에 추가해주세요');
   }
 };
 
@@ -501,12 +503,7 @@ const convertWeaterInfo = (type, value) => (dispatch, getState) => {
 const getCardsInfo = () => async (dispatch, getState) => {
   try {
     // weatherInfo
-    const {
-      weekInfo,
-      livingHealthWeather,
-      corona,
-      airPollution,
-    } = getState().weather.weatherInfo;
+    const { weekInfo, livingHealthWeather, corona, airPollution } = getState().weather.weatherInfo;
     // preference
     const { preference } = getState().weather;
     // 기본 카드 정보
