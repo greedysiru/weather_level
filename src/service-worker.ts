@@ -14,6 +14,7 @@ import { precacheAndRoute, createHandlerBoundToURL, matchPrecache } from 'workbo
 import { registerRoute, setCatchHandler } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { WorkboxError } from 'workbox-core/_private';
 
 // 캐시 이름
 // 빌드 일시 2021-05-18 18:50
@@ -21,7 +22,7 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 setCacheNameDetails({
   prefix: 'weather-service',
   suffix: 'v25',
-  precache: 'weather-service-precache',
+  precache: 'precache',
 });
 
 declare const self: ServiceWorkerGlobalScope;
@@ -43,6 +44,8 @@ setCatchHandler(async ({ event }: any) => {
 
   return Response.error();
 });
+
+
 
 // Set up App Shell-style routing, so that all navi gation requests
 // are fulfilled with your index.html shell. Learn more at
@@ -73,7 +76,7 @@ registerRoute(
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html'),
 );
 
-// 폰트 캐싱
+// 이미지 캐싱
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
   ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'),
@@ -83,24 +86,6 @@ registerRoute(
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
       // least-recently used images are removed.
-      new ExpirationPlugin({ maxEntries: 50 }),
-    ],
-  }),
-);
-
-// 이미지 캐싱
-registerRoute(
-  // Add in any other file extensions or routing criteria as needed.
-  ({ request }) => request.destination === 'image',
-  // Customize this strategy as needed, e.g., by changing to CacheFirst.
-  new StaleWhileRevalidate({
-    cacheName: 'image-cache',
-    plugins: [
-      // Ensure that once this runtime cache reaches a maximum size the
-      // least-recently used images are removed.
-      new CacheableResponsePlugin({
-        statuses: [200],
-      }),
       new ExpirationPlugin({ maxEntries: 50 }),
     ],
   }),
