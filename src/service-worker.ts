@@ -20,7 +20,7 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 // build/asset-manifest4json 의 index.html 삭제하기
 setCacheNameDetails({
   prefix: 'weather-service',
-  suffix: 'v24',
+  suffix: 'v25',
   precache: 'weather-service-precache',
 });
 
