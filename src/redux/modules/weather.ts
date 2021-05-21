@@ -197,8 +197,8 @@ const getWeatherInfo = () => async (dispatch) => {
   } catch (error) {
     console.log(error);
 
-    alert('앱이 업데이트 되었습니다.');
-    window.location.reload(true);
+    // alert(`앱이 업데이트 되었습니다.${error}`);
+    // window.location.reload(true);
   }
 };
 

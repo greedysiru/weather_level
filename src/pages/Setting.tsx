@@ -11,6 +11,7 @@ import { RootState } from '../redux/modules';
 // 로고
 const logo = '/assets/weather/03d.png';
 const Setting = (props) => {
+
   const todayScore = useSelector((state: RootState) => state.weather.weatherInfo?.dayScoreList[0]);
   const weatherDiscription = useSelector((state: RootState) => state.weather?.todayWeather[1]);
   const todayWeather = useSelector((state: RootState) => state.weather?.todayWeather);
@@ -19,7 +20,7 @@ const Setting = (props) => {
   const { Kakao } = window;
   const { history } = props;
 
-  React.useEffect(() => {}, []);
+  React.useEffect(() => { }, []);
   const description = `오늘 날씨는 ${weatherDiscription}, 외출 점수는 ${todayScore}점 입니다!`;
   // 카카오 공유
   const shareKakao = (description) => {
