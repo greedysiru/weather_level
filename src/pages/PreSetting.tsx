@@ -132,8 +132,10 @@ const PreSetting = (props) => {
     // RangeWrapper
     const wrapper = document.querySelector('.wrapper');
     wrapper.addEventListener('touchstart', stopTouchStart);
+    wrapper.addEventListener('mousedown', stopTouchStart);
     return () => {
       wrapper.removeEventListener('touchstart', stopTouchStart);
+      wrapper.removeEventListener('mousedown', stopTouchStart);
     };
   }, []);
   return (
