@@ -70,65 +70,121 @@
 
   
 
-## 기능 상세 소개
+- 사용자의 현재 GPS 정보를 기반으로한 날씨 정보 제공
 
-### 1
+## 핵심 트러블 슈팅
+### range event 버블링
+- 세번째 슬라이더에서 range를 조절할 때 슬라이더가 같이 움직여버리는 이슈
+- onChange에 stopPropagation을 넣어도 해결이 안 되었음
+- touchstart 이벤트 제어를 위해서 바닐라 자바스크립트를 활용
+- Range를 감싸는 요소에 className 부여
 
+```jsx
+<RangeWrapper
+        className="wrapper"
+      >
+        {rangeList}
+        <ShowButton onClick={handleRangeHidden}>
+          {isHidden ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
+        </ShowButton>
+      </RangeWrapper>
+```
 
+- 터치이벤트 버블링 방지 함수 정의
 
-## 상세페이지
+```jsx
+const stopTouchStart = (e) => {
+    e.stopPropagation();
+  }
+```
 
-### 로그인, 카카오 소셜 로그인
+- useEffect에서 eventListener 처리
 
-### 회원가입
+```jsx
+React.useEffect(() => {
+    // RangeWrapper
+    const wrapper = document.querySelector('.wrapper');
+    wrapper.addEventListener('touchstart', stopTouchStart);
+    return () => {
+      wrapper.removeEventListener('touchstart', stopTouchStart)
+    }
+  }, [])
+```
 
-### 비밀번호 찾기 기능
+### 말풍선 setTimeout 관련 이슈
+- 팝업을 여러번 클릭했을 때 마지막 클릭이 3초간 유지가 안됨
+![](https://images.velog.io/images/ouo_yoonk/post/560456d3-e528-484b-a74e-553e6ad0cf5d/bublleStrublegg.gif)
+- clearTimeout 관련 문제라고 생각함
+- 실패1. clean up 함수 안에서 clearTimout ->  Score 컴포넌트 안에 SpeechBubble이라는 컴포넌트를 온클릭 했을 때 조건부 렌더링으로 노출시키는 상황이라 clean up이 Bubble 컴포넌트가 생기고 사라질 때도 일어남
+- 실패2. Score.tsx에서 setTimer을 let 변수로 선언하고 onClick 할 때 clearTimeout을 한다. 
+실패!!! timer console을 찍을 때 undefined가 나옴. 리렌더링 되면서 timer는 사라지고 비동기만 돌아가는 듯함
+```tsx
+const Score = (props)=>{
+	let timer ;
 
-### 회원정보 수정
+	const onClickLogo = () => {
+    console.log(timer);
+    clearTimeout(timer);
 
-### 채팅방 생성✨
+    dispatch(weatherActions.getIconMessage(nowIcon));
 
-### 채팅✨
+    setIsShowBubble(true);
 
-### 반응형 - 모바일 / 태블릿
+    timer = setTimeout(() => {
+      setIsShowBubble(false);
+    }, 3000);
 
+  };
 
+	...
+}
 
-## 사용 패키지
+```
+- 해결 : setTimeout을 useState로 관리
+```tsx
+const [timerState, setTimerState] = useState(null);
 
-- 
+  const onClickLogo = () => {
+    clearTimeout(timerState);
 
-## Trouble shooting
+    dispatch(weatherActions.getIconMessage(nowIcon));
 
-**프로젝트를 하며 마주친 문제들과 해결한 방법을 정리**
+    setIsShowBubble(true);
 
-### 1. withcredential?
+    const timer = setTimeout(() => {
+      setIsShowBubble(false);
+    }, 3000);
+    setTimerState(timer);
+  };
+```
+### 빌드가 실시간 적용이 안되는 문제
+- 수정을 하고 새로 배포했을 때, 수정사항이 반영되지 않음
+- cloud front 캐시 문제
+[CloudFront에서 특정 파일 캐시 방지](https://aws.amazon.com/ko/premiumsupport/knowledge-center/prevent-cloudfront-from-caching-files/)
 
+- service-worker 캐시 문제 - cache 삭제 로직 추가
+``` jsx
+// service-worker.ts
+self.addEventListener("activate", event => {
+  console.log('activate');
+  // delete any unexpected caches
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.filter(key => {
+          return key
+        }).map((key) => {
+          if (`weather-service-precache-${CURRENTVERSION}` != key && 'images' != key) {
+            caches.delete(key);
+          }
+          return
+        })
+      );
+    })
+  );
+});
 
-
-### 2. 로그인 유지할 때 어떻게 하지?
-
-
-
-### 3. 채팅이 끊기는 문제
-
-#### 원인
-
-- 웹소켓 객체의 readyState라는 프로퍼티의 상태
-- send 메소드를 보낼 때, readyState가 0이면 위의 오류가 발생하는 것이었음
-
-| Value | State      | Description                                |
-| ----- | ---------- | ------------------------------------------ |
-| 0     | CONNECTING | 소켓이 생성, 연결이 아직 되지 않음         |
-| 1     | OPEN       | 연결이 열려 있고 , 통신할 준비가 되어 있음 |
-
-#### 해결
-
-
-
-
-
-<hr/>
+```
 
 
 
