@@ -1,32 +1,31 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { css } from '@emotion/core';
 import BeatLoader from 'react-spinners/BeatLoader';
 
-import { createNewUserId } from 'src/shared/common';
 import { useDispatch, useSelector } from 'react-redux';
-import { prefereceList, preferenceType, weatherActions } from '../redux/modules/weather';
-import { Button, Grid, Range, Title, Toast } from '../components/elements';
+import { weatherActions } from '../redux/modules/weather';
+import { Button, Grid, Range, Toast } from '../components/elements';
 
 import { RootState } from '../redux/modules';
 
 const PreSetting = (props) => {
-  let timer;
-
   const { history, isMain } = props;
   const dispatch = useDispatch();
 
   const { preference } = useSelector((state: RootState) => state.weather);
-  const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
   const { msg, loading } = useSelector((state: RootState) => state.common); // 토스트 관련 store state
 
   // 대표 지수 이외의 지수 또는 사용자가 중요도 0으로 지정한 데이터 숨기기 위한 state
   const [isHidden, setIsHidden] = useState<boolean>(true);
-  const [userId, setUserId] = useState<string>(null);
 
+  // setTimeout 저장용 state
+  const [timer, setTimer] = useState<any>(null);
+
+  // toast
   const [isShowToast, setIsShowToast] = useState<boolean>(false);
+
   // 각 range의 상태관리
   const [temp, setTemp] = useState<string>('');
   const [rainPer, setRainPer] = useState<string>('');
@@ -40,18 +39,66 @@ const PreSetting = (props) => {
   const [pollenRisk, setPollenRisk] = useState<string>('');
   const [asthma, setAsthma] = useState<string>('');
   const [foodPoison, setFoodPoison] = useState<string>('');
-  // localstorage에 저장된 식별자를 가져옴
-  useEffect(() => {
-    const id = localStorage.getItem('weather-level');
-    setUserId(id);
 
+  useEffect(() => {
+    // RangeWrapper
+    const wrapper = document.querySelector('.wrapper');
+    wrapper.addEventListener('touchstart', stopTouchStart);
+    wrapper.addEventListener('mousedown', stopTouchStart);
     return () => {
+      wrapper.removeEventListener('touchstart', stopTouchStart);
+      wrapper.removeEventListener('mousedown', stopTouchStart);
       clearTimeout(timer);
-      setIsShowToast(false);
     };
   }, []);
 
-  // type에 맞게 props 넣어주려고
+  // 터치 이벤트 버블링 방지
+  const stopTouchStart = (e) => {
+    e.stopPropagation();
+  };
+  const onSave = async () => {
+    // 토스트가 떠있으면 삭제
+    setIsShowToast(false);
+
+    // db 전달할 데이터
+    const data = {
+      coronaWeight: corona,
+      pm10Weight: pm10,
+      pm25Weight: pm25,
+      tempWeight: temp,
+      rainPerWeight: rainPer,
+      weatherWeight: weather,
+      humidityWeight: humidity,
+      windWeight: wind,
+      uvWeight: uv,
+      pollenRiskWeight: pollenRisk,
+      asthmaWeight: asthma,
+      foodPoisonWeight: foodPoison,
+    };
+
+    await dispatch(weatherActions.fetchUpdatePreference(data));
+    dispatch(weatherActions.getWeatherInfo());
+    setIsHidden(true);
+    openToast();
+  };
+
+  const handleRangeHidden = () => {
+    setIsHidden(!isHidden);
+  };
+
+  const openToast = () => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    setIsShowToast(true);
+
+    const timeout = setTimeout(() => {
+      setIsShowToast(false);
+    }, 3000);
+
+    setTimer(timeout);
+  };
+  // range element에 전달할 props - label, rangeValue, setRangeValue
   const propsData = {
     temp: { label: '기온', rangeValue: temp, setRangeValue: setTemp },
     rainPer: { label: '강수확률', rangeValue: rainPer, setRangeValue: setRainPer },
@@ -70,8 +117,9 @@ const PreSetting = (props) => {
   const rangeList = preference.map((pre, idx) => {
     const key = pre.type;
 
-    const value = pre.value.toString();
+    const value = pre.value.toString(); // range는 string값을 받음
 
+    // Range element에 props 전달
     return (
       <Range
         key={idx}
@@ -83,61 +131,7 @@ const PreSetting = (props) => {
       />
     );
   });
-  const onSave = async () => {
-    const data = {
-      coronaWeight: corona,
-      pm10Weight: pm10,
-      pm25Weight: pm25,
-      tempWeight: temp,
-      rainPerWeight: rainPer,
-      weatherWeight: weather,
-      humidityWeight: humidity,
-      windWeight: wind,
-      uvWeight: uv,
-      pollenRiskWeight: pollenRisk,
-      asthmaWeight: asthma,
-      foodPoisonWeight: foodPoison,
-    };
 
-    await dispatch(weatherActions.fetchUpdatePreference(data));
-    setIsHidden(true);
-    openToast();
-  };
-
-  const goBack = () => {
-    history.goBack();
-  };
-
-  const handleRangeHidden = () => {
-    setIsHidden(!isHidden);
-  };
-
-  const openToast = () => {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    setIsShowToast(true);
-
-    timer = setTimeout(() => {
-      setIsShowToast(false);
-    }, 3000);
-  };
-
-  // 터치 이벤트 버블링 방지
-  const stopTouchStart = (e) => {
-    e.stopPropagation();
-  };
-
-  React.useEffect(() => {
-    // RangeWrapper
-    const wrapper = document.querySelector('.wrapper');
-    wrapper.addEventListener('touchstart', stopTouchStart);
-    wrapper.addEventListener('mousedown', stopTouchStart);
-    return () => {
-      wrapper.removeEventListener('touchstart', stopTouchStart);
-      wrapper.removeEventListener('mousedown', stopTouchStart);
-    };
-  }, []);
   return (
     <Container isMain={isMain}>
       <PreHeader>
@@ -156,23 +150,6 @@ const PreSetting = (props) => {
           {isHidden ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
         </ShowButton>
       </RangeWrapper>
-
-      {/*  {isMain ? (
-        <Grid jc="center">
-          <Button width="100%" _onClick={onSave}>
-            저장
-          </Button>
-        </Grid>
-      ) : (
-        <Grid jc="space-between">
-          <Button width="47%" _onClick={goBack}>
-            이전
-          </Button>
-          <Button width="47%" _onClick={onSave}>
-            저장
-          </Button>
-        </Grid>
-      )} */}
       <Ment>맨 위 저장 버튼을 꼭 눌러주세요!</Ment>
       {isShowToast && <Toast>{msg}</Toast>}
       <BeatLoader color="#738FFF" loading={loading} css={spinnerStyle} />
