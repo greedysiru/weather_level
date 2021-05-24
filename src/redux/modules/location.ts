@@ -82,7 +82,6 @@ const fetchUserRegion = () => async (dispatch, getState, { history }) => {
     dispatch(setUserLocationInfo(res.data));
     dispatch(commonActions.setLoading(false));
   } catch (error) {
-    // 에러페이지로 이동??
     console.error(error);
     dispatch(commonActions.setLoading(false));
   }

@@ -590,11 +590,9 @@ const fetchUpdatePreference = (data: preferenceType) => async (dispatch, getStat
     setHeaderToken(res.headers.identification);
 
     dispatch(fetchPreference());
-    dispatch(commonActions.setLoading(false));
     dispatch(commonActions.setMsg('선호도를 저장했습니다'));
-    dispatch(getWeatherInfo());
+    dispatch(commonActions.setLoading(false));
   } catch (error) {
-    // 에러페이지로 이동?
     console.error(error);
     dispatch(commonActions.setMsg('선호도 저장에 실패했습니다'));
     dispatch(commonActions.setLoading(false));

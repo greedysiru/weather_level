@@ -1,8 +1,7 @@
-import { current } from 'immer';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid, Title, Toast } from 'src/components/elements';
+import { Grid, Title, Toast } from 'src/components/elements';
 
 import styled from 'styled-components';
 
@@ -22,19 +21,24 @@ const LocationSetting = (props) => {
   const dispatch = useDispatch();
 
   const { msg, loading } = useSelector((state: RootState) => state.common);
-
-  const [toastMsg, setToastMsg] = useState(null); // 토스트 메시지
-  const [isShowToast, setIsShowToast] = useState<boolean>(false); // 토스트 보이기
-
-  const [currentRegion, setCurrentRegion] = useState(null); // 현재위치
-  const [selectedRegion, setSelectedRegion] = useState(null); // 선택한 위치
-
-  const [isEditMode, setIsEditMode] = useState<boolean>(false); // 편집모드
-  const [deleteList, setDeleteList] = useState([]); // 지역삭제목록
-
-  const [timerState, setTimerState] = useState(null);
-
   const { userLocationInfo } = useSelector((state: RootState) => state.location);
+
+  // 토스트 관련 state
+  const [toastMsg, setToastMsg] = useState<string>(null);
+  const [isShowToast, setIsShowToast] = useState<boolean>(false);
+
+  // 위치관련 state
+  const [currentRegion, setCurrentRegion] = useState<string>(null); // 현재위치
+  const [selectedRegion, setSelectedRegion] = useState<string>(null); // 선택한 위치
+
+  // 편집모드
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
+  // 삭제할 지역 list - index[]
+  const [deleteList, setDeleteList] = useState<number[]>([]);
+
+  // setTImeout 관리할 state
+  const [timerState, setTimerState] = useState<NodeJS.Timeout>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -43,10 +47,10 @@ const LocationSetting = (props) => {
 
     return () => {
       clearTimeout(timerState);
-      setIsShowToast(false);
     };
   }, []);
 
+  // 사용자 지역정보
   useEffect(() => {
     if (userLocationInfo) {
       const current = userLocationInfo.currentRegion;
@@ -57,24 +61,43 @@ const LocationSetting = (props) => {
     }
   }, [userLocationInfo]);
 
-  useEffect(() => {
+  // 서버 통신 결과로 store에 변경된 msg가 있을 때
+  /*  useEffect(() => {
     setToastMsg(msg);
-  }, [msg]);
+  }, [msg]); */
 
-  const openToast = (msg) => {
-    clearTimeout(timerState);
-    setIsShowToast(true);
-
-    if (msg) {
-      setToastMsg(msg);
+  // toast event
+  const openToast = (selfMsg) => {
+    if (timerState) {
+      clearTimeout(timerState);
     }
+
+    if (selfMsg) {
+      setToastMsg(selfMsg); // 메서드 parameter로 전달하는 msg
+    } else {
+      setToastMsg(msg); // redux msg
+    }
+
+    setIsShowToast(true);
 
     const timer = setTimeout(() => {
       setIsShowToast(false);
     }, 3000);
+
     setTimerState(timer);
   };
 
+  // card를 클릭했을 때 - 컴포넌트 inline에서 분기하는 것 보다 분기하는 함수를 만드는게 나을 것 같음
+  const onClickRegionCard = (idx, regionName, regionObj) => () => {
+    if (isEditMode) {
+      // 편집일 때 - 삭제.
+      addDeleteList(idx, regionName, regionObj);
+    } else {
+      // 아닐 때 - 지역 선택
+      selectRegion(regionName);
+    }
+  };
+  // 선택한 카드 삭제 목록에 추가
   const addDeleteList = (idx, regionName, regionObj) => {
     if (selectedRegion === regionName) {
       openToast('선택한 위치는 삭제할 수 없습니다');
@@ -83,31 +106,75 @@ const LocationSetting = (props) => {
     setDeleteList([...deleteList, idx]);
   };
 
-  const selectRegion = (region) => {
-    localStorage.setItem('current-region', region);
+  // 선택한 위치로 변경
+  const selectRegion = async (region) => {
+    setIsShowToast(false);
+
+    await localStorage.setItem('current-region', region);
     setSelectedRegion(region);
     dispatch(weatherActions.getWeatherInfo());
     openToast('선택한 위치로 변경했습니다');
   };
 
-  const onClickRegionCard = (idx, regionName, regionObj) => () => {
+  // 현재 위치로 변경
+  const onClickCurrentRegion = async () => {
     setIsShowToast(false);
-    if (isEditMode) {
-      addDeleteList(idx, regionName, regionObj);
-    } else {
-      selectRegion(regionName);
-    }
-  };
-
-  const onClickCurrentRegion = () => {
-    setIsShowToast(false);
-    // clearTimeout(timerState);
     if (isEditMode) return;
-    localStorage.removeItem('current-region');
+
+    await localStorage.removeItem('current-region');
     setSelectedRegion(currentRegion);
     openToast('현재 위치로 변경했습니다');
 
     dispatch(weatherActions.getWeatherInfo());
+  };
+  // 편집 - 취소 버튼 이벤트
+  const onClickEditButton = () => {
+    if (isEditMode) {
+      cancleEdit();
+    } else {
+      toggleEditMode();
+    }
+  };
+  // 편집버튼 event
+  const toggleEditMode = () => {
+    setIsEditMode(!isEditMode);
+  };
+  // 취소버튼 event
+  const cancleEdit = () => {
+    setDeleteList([]);
+    toggleEditMode();
+  };
+  // 추가/완료 버튼
+  const onClickAddButton = () => {
+    if (isEditMode) {
+      // 편집 완료 버튼 이벤트
+      deleteLocation();
+    } else {
+      // 추가 버튼 이벤트
+      goToAddPage();
+    }
+  };
+
+  // 지역 추가 페이지로 이동
+  const goToAddPage = () => {
+    history.push('/setting/location/add');
+  };
+
+  // 지역 목록 삭제
+  const deleteLocation = async () => {
+    if (deleteList.length > 0) {
+      const oftenSeenRegions = userLocationInfo.oftenSeenRegions.filter((regObj, idx) => {
+        return !deleteList.includes(idx);
+      });
+
+      await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions }));
+      setDeleteList([]);
+      dispatch(locationActions.fetchUserRegion());
+
+      await openToast(null); // redux msg 사용
+    }
+
+    toggleEditMode();
   };
 
   const IconComponent = () => {
@@ -118,6 +185,7 @@ const LocationSetting = (props) => {
     return <HiCheck className="check" />;
   };
 
+  // card 목록 컴포넌트 list 렌더링
   const locationCardList = userLocationInfo?.oftenSeenRegions?.reduce((acc, cur, idx) => {
     const fullRegionName = `${cur.bigRegionName} ${cur.smallRegionName}`;
     const regionObj = { bigRegionName: cur.bigRegionName, smallRegionName: cur.smallRegionName };
@@ -137,51 +205,6 @@ const LocationSetting = (props) => {
 
     return acc;
   }, []);
-
-  const onClickEditButton = () => {
-    if (isEditMode) {
-      cancleEdit();
-    } else {
-      toggleEditMode();
-    }
-  };
-
-  const toggleEditMode = () => {
-    setIsEditMode(!isEditMode);
-  };
-
-  const cancleEdit = () => {
-    setDeleteList([]);
-    toggleEditMode();
-  };
-
-  const onClickAddButton = () => {
-    if (isEditMode) {
-      removeLocationList();
-    } else {
-      goToAddPage();
-    }
-  };
-
-  const goToAddPage = () => {
-    history.push('/setting/location/add');
-  };
-
-  const removeLocationList = async () => {
-    if (deleteList.length > 0) {
-      const oftenSeenRegions = userLocationInfo.oftenSeenRegions.filter((regObj, idx) => {
-        return !deleteList.includes(idx);
-      });
-
-      await dispatch(locationActions.fetchUpdateUserRegion({ oftenSeenRegions }));
-      setDeleteList([]);
-      dispatch(locationActions.fetchUserRegion());
-
-      await openToast(null);
-    }
-
-    await toggleEditMode();
-  };
 
   return (
     <>
@@ -210,7 +233,6 @@ const LocationSetting = (props) => {
         </Wrapper>
         <Footer history={history} />
       </Container>
-
       {isShowToast && <Toast>{toastMsg}</Toast>}
       <BeatLoader color="#738FFF" loading={loading} css={spinnerStyle} />
     </>
@@ -220,7 +242,6 @@ const LocationSetting = (props) => {
 const Container = styled.div`
   width: 360px;
   height: 100%;
-  // padding: 1rem;
 `;
 
 const Header = styled.div`
