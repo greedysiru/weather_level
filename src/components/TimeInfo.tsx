@@ -44,13 +44,24 @@ const TimeInfo = (props: TimeInfoType) => {
     // 점수 값 복사
     let scoreInfo = info;
     // 가장 큰 값
-    const maxScore = Math.max.apply(null, scoreInfo);
-    // 가장 큰 값 지우기
-    scoreInfo = scoreInfo.filter((item) => {
-      return item !== maxScore
-    })
+    let maxScore = Math.max.apply(null, scoreInfo);
     // 두번째 큰 값
-    const secondScore = Math.max.apply(null, scoreInfo);
+    let secondScore = -1
+    // 50점 미만일 때는 표시하지 않기
+    if (maxScore < 50) {
+      maxScore = -1
+    } else if (maxScore >= 50) {
+      // 가장 큰 값 지우기
+      scoreInfo = scoreInfo.filter((item) => {
+        return item !== maxScore
+      })
+      // 두번째 큰 값
+      secondScore = Math.max.apply(null, scoreInfo);
+      // 50점 미만일 때는 표시하지 않기
+      if (secondScore < 50) {
+        secondScore = -1
+      }
+    }
     return (
       <ElTimeInfo
         {...style}
