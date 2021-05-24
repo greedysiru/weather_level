@@ -1,0 +1,14 @@
+[
+      {
+            "relation": [
+                  "delegate_permission/common.handle_all_urls"
+            ],
+            "target": {
+                  "namespace": "android_app",
+                  "package_name": "theweatherlevel.com",
+                  "sha256_cert_fingerprints": [
+                        "62:92:2A:A6:8A:F4:74:9E:C0:A4:97:0E:8F:3C:EC:AE:60:3E:A7:F2:BE:34:E8:A5:A0:2C:32:11:C7:54:E6:4C"
+                  ]
+            }
+      }
+]
