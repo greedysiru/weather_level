@@ -11,7 +11,9 @@ import BeatLoader from 'react-spinners/BeatLoader';
 
 const LocationAdd = (props) => {
   const { history } = props;
+
   const dispatch = useDispatch();
+
   const [selectedBigRegion, setSelectedBigRegion] = useState<string>();
   const [selectedSmallRegion, setSelectedSmallRegion] = useState<string>();
   const [smallRegionList, setSmallRegionList] = useState<any>();

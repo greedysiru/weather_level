@@ -67,12 +67,12 @@ const fetchAllResions = () => async (dispatch, getState, { history }) => {
     dispatch(commonActions.setLoading(false));
     dispatch(setAllRegion(res.data));
   } catch (error) {
-    // 에러페이지로 이동??
     console.error(error);
     dispatch(commonActions.setLoading(false));
   }
 };
 
+// 사용자 지역정보 가져오기
 const fetchUserRegion = () => async (dispatch, getState, { history }) => {
   try {
     dispatch(commonActions.setLoading(true));
@@ -90,6 +90,7 @@ const fetchUserRegion = () => async (dispatch, getState, { history }) => {
 export type regionType = {
   region: string;
 };
+// 지역 추가 - 삭제
 const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) => {
   try {
     dispatch(commonActions.setLoading(true));
@@ -99,7 +100,6 @@ const fetchUpdateUserRegion = (data) => async (dispatch, getState, { history }) 
     dispatch(commonActions.setMsg('선택한 위치를 삭제했습니다'));
     dispatch(commonActions.setLoading(false));
   } catch (error) {
-    // 에러페이지로 이동??
     console.error(error);
     dispatch(commonActions.setMsg('삭제에 실패했습니다'));
     dispatch(commonActions.setLoading(false));
