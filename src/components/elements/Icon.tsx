@@ -6,7 +6,7 @@ import { ReactComponent as Adjust } from '../../icons/adjust.svg';
 import { ReactComponent as Airbad } from '../../icons/air_bad.svg';
 import { ReactComponent as Airgood } from '../../icons/air_good.svg';
 import { ReactComponent as Airusually } from '../../icons/air_usually.svg';
-import { ReactComponent as Airverybad } from '../../icons/air_veryBad.svg';
+import { ReactComponent as AirveryBad } from '../../icons/air_veryBad.svg';
 import { ReactComponent as Asthma } from '../../icons/asthma.svg';
 import { ReactComponent as Corona } from '../../icons/corona.svg';
 import { ReactComponent as Delete } from '../../icons/delete.svg';
@@ -87,7 +87,7 @@ const Icon = (props: IconType) => {
     Airgood,
     Airusually,
     Airbad,
-    AirveryBad: Airverybad,
+    AirveryBad,
     '01d': ClearDay,
     '01n': ClearNight,
     '02d': CloudsDay,
@@ -127,7 +127,6 @@ const Icon = (props: IconType) => {
 
   // 호출된 아이콘
   const ElIcon = IconsList[name];
-  console.log('ddf', name);
 
   // 날씨 관련 아이콘
   if (isWeather) {

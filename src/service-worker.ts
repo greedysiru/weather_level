@@ -92,21 +92,21 @@ self.addEventListener('message', (event) => {
 });
 
 // 이전 캐시 삭제
-self.addEventListener("activate", event => {
-  console.log('activate');
-  // delete any unexpected caches
-  event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter(key => {
-          return key
-        }).map((key) => {
-          if (`weather-service-precache-${CURRENTVERSION}` != key && 'images' != key) {
-            caches.delete(key);
-          }
-          return
-        })
-      );
-    })
-  );
-});
+// self.addEventListener("activate", event => {
+//   console.log('activate');
+//   // delete any unexpected caches
+//   event.waitUntil(
+//     caches.keys().then((keys) => {
+//       return Promise.all(
+//         keys.filter(key => {
+//           return key
+//         }).map((key) => {
+//           if (`weather-service-precache-${CURRENTVERSION}` != key && 'images' != key) {
+//             caches.delete(key);
+//           }
+//           return
+//         })
+//       );
+//     })
+//   );
+// });
