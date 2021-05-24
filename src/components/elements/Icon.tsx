@@ -52,8 +52,6 @@ import { ReactComponent as Longsleeve } from '../../icons/longsleeve.svg';
 import { ReactComponent as Shortsleeve } from '../../icons/shortsleeve.svg';
 import { ReactComponent as Sleeveless } from '../../icons/sleeveless.svg';
 
-
-
 type IconType = {
   name?: string;
   size?: number;
@@ -89,7 +87,7 @@ const Icon = (props: IconType) => {
     Airgood,
     Airusually,
     Airbad,
-    Airverybad,
+    AirveryBad: Airverybad,
     '01d': ClearDay,
     '01n': ClearNight,
     '02d': CloudsDay,
@@ -108,18 +106,18 @@ const Icon = (props: IconType) => {
     '13n': SnowNight,
     '50d': MistDay,
     '50n': MistNight,
-    'muffler': Muffler,
-    'coat': Coat,
-    'filed': Filed,
-    'hoodie': Hoodie,
-    'cardigan': Cardigan,
-    'longsleeve': Longsleeve,
-    'shortsleeve': Shortsleeve,
-    'sleeveless': Sleeveless,
+    muffler: Muffler,
+    coat: Coat,
+    filed: Filed,
+    hoodie: Hoodie,
+    cardigan: Cardigan,
+    longsleeve: Longsleeve,
+    shortsleeve: Shortsleeve,
+    sleeveless: Sleeveless,
   };
   // 아이콘 이름을 지정하지 않았으면 null
   if (!name) {
-    return null
+    return null;
   }
 
   // 미세먼지인 경우
@@ -129,7 +127,7 @@ const Icon = (props: IconType) => {
 
   // 호출된 아이콘
   const ElIcon = IconsList[name];
-
+  console.log('ddf', name);
 
   // 날씨 관련 아이콘
   if (isWeather) {
@@ -173,6 +171,5 @@ const WeatherIconWrap = styled.div<IconType>`
     fill: ${(props) => props.color};
   }
 `;
-
 
 export default Icon;
