@@ -50,6 +50,7 @@ const PreSetting = (props) => {
     return () => {
       wrapper.removeEventListener('touchstart', stopTouchStart);
       wrapper.removeEventListener('mousedown', stopTouchStart);
+      setIsShowToast(false);
       clearTimeout(timer);
     };
   }, []);

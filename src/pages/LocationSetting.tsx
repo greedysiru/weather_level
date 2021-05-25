@@ -46,6 +46,7 @@ const LocationSetting = (props) => {
     dispatch(locationActions.fetchUserRegion());
 
     return () => {
+      setIsShowToast(false);
       clearTimeout(timerState);
     };
   }, []);
@@ -61,16 +62,9 @@ const LocationSetting = (props) => {
     }
   }, [userLocationInfo]);
 
-  // 서버 통신 결과로 store에 변경된 msg가 있을 때
-  /*  useEffect(() => {
-    setToastMsg(msg);
-  }, [msg]); */
-
   // toast event
   const openToast = (selfMsg) => {
-    if (timerState) {
-      clearTimeout(timerState);
-    }
+    clearTimeout(timerState);
 
     if (selfMsg) {
       setToastMsg(selfMsg); // 메서드 parameter로 전달하는 msg
