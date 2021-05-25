@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
-import SwiperCore, { Pagination } from 'swiper/core';
+import SwiperCore, { Pagination, History } from 'swiper/core';
 // Swipter styles
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
@@ -28,10 +28,11 @@ import Logo from '../components/Logo';
 import { RootState } from '../redux/modules';
 
 // install Swiper modules
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination, History]);
 
 const Main = (props) => {
   const { history } = props;
+  const swipe = useRef(null);
   // 날씨 정보 로드 여부 가져오기
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
   const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
@@ -40,6 +41,19 @@ const Main = (props) => {
   if (!isLoaded) {
     return <Logo />;
   }
+  const mySwiper = document.querySelector('.mySwiper');
+  console.log('my', mySwiper);
+  const swiperEvent = (s) => {};
+
+  const onSwiper = (swiper) => {
+    console.log(swiper.translate);
+    setTimeout(() => {
+      swiper.translateTo(0, 1, true, true);
+
+      console.log('힝');
+    }, 1000);
+  };
+
   // 날씨정보 로드 후
   // 데스크탑 모드
   if (isDesktopMode) {
@@ -72,12 +86,14 @@ const Main = (props) => {
         {/* 헤더 height: 10% */}
         <Header />
         <Swiper
-          pagination
+          pagination={{ clickable: true }} //*
+          /* onSwiper={onSwiper} */
           className="mySwiper"
           style={{
             width: '100%',
             height: '80%',
           }}
+          onSlideChange={onSwiper}
         >
           {/* 첫번째 슬라이드 */}
           <SwiperSlide
