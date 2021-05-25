@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
@@ -32,7 +32,10 @@ SwiperCore.use([Pagination, History]);
 
 const Main = (props) => {
   const { history } = props;
-  const swipe = useRef(null);
+
+  useEffect(() => {}, []);
+  const [swiper, setSwiper] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   // 날씨 정보 로드 여부 가져오기
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
   const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
@@ -41,17 +44,15 @@ const Main = (props) => {
   if (!isLoaded) {
     return <Logo />;
   }
-  const mySwiper = document.querySelector('.mySwiper');
-  console.log('my', mySwiper);
-  const swiperEvent = (s) => {};
 
   const onSwiper = (swiper) => {
-    console.log(swiper.translate);
-    setTimeout(() => {
-      swiper.translateTo(0, 1, true, true);
+    setCurrentIndex(swiper.realIndex);
+  };
 
-      console.log('힝');
-    }, 1000);
+  const moveCurrentSlide = (idx) => {
+    console.log('야홍');
+    swiper.slideTo(idx, 2, true);
+    swiper.slideReset();
   };
 
   // 날씨정보 로드 후
@@ -86,9 +87,9 @@ const Main = (props) => {
         {/* 헤더 height: 10% */}
         <Header />
         <Swiper
-          pagination={{ clickable: true }} //*
-          /* onSwiper={onSwiper} */
-          className="mySwiper"
+          pagination={{ clickable: true }}
+          className="swiper"
+          onSwiper={setSwiper}
           style={{
             width: '100%',
             height: '80%',
@@ -130,7 +131,7 @@ const Main = (props) => {
               padding: '2rem 2rem 0 2rem',
             }}
           >
-            <PreSetting isMain />
+            <PreSetting isMain moveToMain={() => moveCurrentSlide(0)} />
             <PagenationWrap />
           </SwiperSlide>
         </Swiper>
