@@ -33,7 +33,7 @@ SwiperCore.use([Pagination, History]);
 const Main = (props) => {
   const { history } = props;
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   const [swiper, setSwiper] = useState(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   // 날씨 정보 로드 여부 가져오기
@@ -51,7 +51,7 @@ const Main = (props) => {
 
   const moveCurrentSlide = (idx) => {
     console.log('야홍');
-    swiper.slideTo(idx, 2, true);
+    swiper.slideTo(idx, 500, true);
     swiper.slideReset();
   };
 
