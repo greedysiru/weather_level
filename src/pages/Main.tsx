@@ -39,7 +39,6 @@ const Main = (props) => {
   const { curIndex } = useSelector((state: RootState) => state.slider);
 
   const [swiper, setSwiper] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
   // 날씨 정보 로드 여부 가져오기
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
   const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
@@ -52,7 +51,6 @@ const Main = (props) => {
 
   // 현재 슬라이더 인덱스 스토어에 저장
   const onSwiper = (swiper) => {
-    setCurrentIndex(swiper.realIndex);
     dispatch(sliderActions.setSliderIndex(swiper.realIndex));
   };
 
