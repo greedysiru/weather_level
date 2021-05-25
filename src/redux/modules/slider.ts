@@ -1,6 +1,6 @@
 import { createReducer, createAction, PayloadAction } from '@reduxjs/toolkit';
 
-// 슬라이더의 위치를 설정하는 모듈
+// 슬라이더의 위치를 기록하는 모듈
 
 // slider 타입 선언
 type sliderType = {

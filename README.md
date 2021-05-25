@@ -73,6 +73,9 @@
 - 사용자의 현재 GPS 정보를 기반으로한 날씨 정보 제공
 
 ## 핵심 트러블 슈팅
+
+🚀 [더 많은 트러블 슈팅](https://www.notion.so/43dedf827ea94022bbfc01b87c57e0c9)
+
 ### range event 버블링
 - 세번째 슬라이더에서 range를 조절할 때 슬라이더가 같이 움직여버리는 이슈
 - onChange에 stopPropagation을 넣어도 해결이 안 되었음
@@ -162,67 +165,154 @@ const [timerState, setTimerState] = useState(null);
 - cloud front 캐시 문제
 [CloudFront에서 특정 파일 캐시 방지](https://aws.amazon.com/ko/premiumsupport/knowledge-center/prevent-cloudfront-from-caching-files/)
 
-- service-worker 캐시 문제 - cache 삭제 로직 추가
-``` jsx
-// service-worker.ts
-self.addEventListener("activate", event => {
-  console.log('activate');
-  // delete any unexpected caches
-  event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter(key => {
-          return key
-        }).map((key) => {
-          if (`weather-service-precache-${CURRENTVERSION}` != key && 'images' != key) {
-            caches.delete(key);
-          }
-          return
-        })
-      );
-    })
-  );
-});
-
-```
 
 
 
-## 개발 타임라인
+### swiper index 이슈
 
-| 일자       | 진행 목록 |
-| ---------- | --------- |
-| 2021.04.09 |           |
-| 2021.04.10 |           |
-| 2021.04.12 |           |
-| 2021.04.13 |           |
-| 2021.04.14 |           |
-| 2021.04.15 |           |
-| 2021.04.16 |           |
-| 2021.04.17 |           |
-| 2021.04.18 |           |
-| 2021.04.19 |           |
-| 2021.04.20 |           |
-| 2021.04.21 |           |
+- swiper index 이슈
+
+  - 메인컨텐츠에서 preference를 조절하고 저장 이후 첫 슬라이더로 이동이 되었으면 좋겠다는 피드백
+  - 카드 상세 페이지에서 이전 버튼 클릭 시 무조건 첫 번째 인덱스로만 보여주는 문제
+  - 설정페이지, 지역 설정 페이지에서 다시 메인으로 돌아갔을 때 무조건 첫 번째 인덱스로 보여주는 문제
+
+  
+
+  1. swiper 객체 생성
+
+     ```jsx
+     ...
+     // swiper 객체를 생성하기 위한 useState
+     const [swiper, setSwiper] = useState(null);
+     // Swiper의 onSwiper props로 setSwiper를 넘기면 객체 생성
+     ...
+     <Swiper
+               pagination={{ clickable: true }}
+               className="swiper"
+               onSwiper={setSwiper}
+               style={{
+                 width: '100%',
+                 height: '80%',
+               }}
+               onSlideChange={onSwiper}
+             >
+     ...
+     ```
+
+  2. moveCurrentSlide 선언 후 Presetting 컴포넌트에 moveToMain props로 넘기기
+
+     - 저장 버튼을 클릭시 넘겨 받은 moveToMain props의 함수 실행
+     - preference 저장 시, 0번 인덱스(처음)으로 이동
+
+     ```jsx
+     // 슬라이더 인덱스 이동
+       const moveCurrentSlide = (idx) => {
+         swiper.slideTo(idx, 250, true);
+         swiper.slideReset();
+       };
+     ...
+     <SwiperSlide>
+     ...
+     // 
+     <PreSetting isMain moveToMain={() => moveCurrentSlide(0)} />
+     ...
+     </SwiperSlide>
+     ```
+
+  3. slider의 index를 저장하는 모듈 생성
+
+     ```jsx
+     // slider.ts
+     
+     // 슬라이더의 인덱스를 받아오는 액션
+     const setSliderIndex = createAction<unknown>('slider/SET_SLIDERINDEX');
+     
+     const slider = createReducer(initialState, {
+       [setSliderIndex.type]: (state: sliderType, action: PayloadAction<number>) => {
+         state.curIndex = action.payload;
+       },
+     });
+     
+     export const sliderActions = {
+       setSliderIndex,
+     };
+     
+     export default slider;
+     ```
+
+  4. 현재 슬라이더를 인덱스 스토어에 저장하는 함수 선언(Main.tsx)
+
+     ```jsx
+     // 현재 슬라이더 인덱스 스토어에 저장
+       const onSwiper = (swiper) => {
+         dispatch(sliderActions.setSliderIndex(swiper.realIndex));
+       };
+     ```
+
+  5. Swiper의 onSlideChage props에 onSwiper 넘기기
+
+  - 슬라이드가 될 때마다 onSwiper 실행
+
+  ```jsx
+  ...
+  <Swiper
+            pagination={{ clickable: true }}
+            className="swiper"
+            onSwiper={setSwiper}
+            style={{
+              width: '100%',
+              height: '80%',
+            }}
+            onSlideChange={onSwiper}
+          >
+  ...
+  ```
+
+  6. Main.tsx가 렌더링 되었을 때 해당 인덱스로 이동시키기
+
+  ```jsx
+  // swiper 객체가 생겼을 때 실행
+    useEffect(() => {
+      if (swiper) {
+        moveCurrentSlide(curIndex);
+      }
+    }, [swiper]);
+  ```
+
+  ## Reference
+
+  [Swiper API](https://swiperjs.com/swiper-api#methods-and-properties)
+
+
+
+
 
 ## Contetnts
 
-### 반응형 디자인(스마트폰)
+### 사용 예시(스마트폰)
+
+![0](readme_images/0.gif)
 
 
+
+![1](readme_images/1.gif)
+
+
+
+![2](readme_images/2.gif)
+
+
+
+![3](readme_images/3.gif)
+
+
+
+![4](readme_images/4.gif)
 
 
 
 ### 반응형 디자인 (태블릿)
 
+![tablet-desktop](readme_images/tablet-desktop.png)
 
 
-## License
-
-
-
-### MIT
-
-
-
-## Reference

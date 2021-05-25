@@ -18,12 +18,9 @@ import { WorkboxError } from 'workbox-core/_private';
 
 // 캐시 이름
 // 빌드 일시 2021-05-20 19:16
-// build/asset-manifest4json 의 index.html 삭제하기
-// 최신버전
-// const CURRENTVERSION = 'v2021-05-21-4'
+
 setCacheNameDetails({
   prefix: 'weather-service',
-  // suffix: CURRENTVERSION,
   precache: 'precache',
 });
 
