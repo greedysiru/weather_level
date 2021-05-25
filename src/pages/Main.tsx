@@ -10,7 +10,9 @@ import 'swiper/components/pagination/pagination.min.css';
 import styled from 'styled-components';
 
 // 리덕스
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import slider, { sliderActions } from '../redux/modules/slider';
+
 
 // page
 import PreSetting from './PreSetting';
@@ -32,28 +34,40 @@ SwiperCore.use([Pagination, History]);
 
 const Main = (props) => {
   const { history } = props;
+  const dispatch = useDispatch();
+  // 현재 인덱스
+  const { curIndex } = useSelector((state: RootState) => state.slider);
 
-  useEffect(() => { }, []);
   const [swiper, setSwiper] = useState(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   // 날씨 정보 로드 여부 가져오기
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
   const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
 
+  // swiper 객체가 생겼을 때 실행
+  useEffect(() => {
+    moveCurrentSlide(curIndex);
+  }, [swiper])
+
   // 날씨정보 로드 전
   if (!isLoaded) {
     return <Logo />;
   }
 
-  const onSwiper = (swiper) => {
-    setCurrentIndex(swiper.realIndex);
-  };
-
+  // 슬라이더 인덱스 이동
   const moveCurrentSlide = (idx) => {
-    console.log('야홍');
     swiper.slideTo(idx, 500, true);
     swiper.slideReset();
   };
+
+  // 현재 슬라이더 인덱스 스토어에 저장
+  const onSwiper = (swiper) => {
+    setCurrentIndex(swiper.realIndex);
+    dispatch(sliderActions.setSliderIndex(swiper.realIndex));
+  };
+
+
+
 
   // 날씨정보 로드 후
   // 데스크탑 모드
