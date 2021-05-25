@@ -44,16 +44,6 @@ const Main = (props) => {
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
   const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
 
-  // swiper 객체가 생겼을 때 실행
-  useEffect(() => {
-    moveCurrentSlide(curIndex);
-  }, [swiper])
-
-  // 날씨정보 로드 전
-  if (!isLoaded) {
-    return <Logo />;
-  }
-
   // 슬라이더 인덱스 이동
   const moveCurrentSlide = (idx) => {
     swiper.slideTo(idx, 500, true);
@@ -66,8 +56,17 @@ const Main = (props) => {
     dispatch(sliderActions.setSliderIndex(swiper.realIndex));
   };
 
+  // swiper 객체가 생겼을 때 실행
+  useEffect(() => {
+    if (swiper) {
+      moveCurrentSlide(curIndex);
+    }
+  }, [swiper]);
 
-
+  // 날씨정보 로드 전
+  if (!isLoaded) {
+    return <Logo />;
+  }
 
   // 날씨정보 로드 후
   // 데스크탑 모드
