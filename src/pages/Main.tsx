@@ -46,7 +46,7 @@ const Main = (props) => {
 
   // 슬라이더 인덱스 이동
   const moveCurrentSlide = (idx) => {
-    swiper.slideTo(idx, 500, true);
+    swiper.slideTo(idx, 250, true);
     swiper.slideReset();
   };
 
