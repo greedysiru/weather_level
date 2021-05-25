@@ -15,7 +15,7 @@ import { RootState } from '../redux/modules';
 const PreSetting = (props) => {
   let timer;
 
-  const { history, isMain } = props;
+  const { history, isMain, moveToMain } = props;
   const dispatch = useDispatch();
 
   const { preference } = useSelector((state: RootState) => state.weather);
@@ -102,6 +102,10 @@ const PreSetting = (props) => {
     await dispatch(weatherActions.fetchUpdatePreference(data));
     setIsHidden(true);
     openToast();
+
+    if (isMain) {
+      moveToMain();
+    }
   };
 
   const goBack = () => {

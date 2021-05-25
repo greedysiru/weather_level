@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
-import SwiperCore, { Pagination } from 'swiper/core';
+import SwiperCore, { Pagination, History } from 'swiper/core';
 // Swipter styles
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
@@ -28,10 +28,14 @@ import Logo from '../components/Logo';
 import { RootState } from '../redux/modules';
 
 // install Swiper modules
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination, History]);
 
 const Main = (props) => {
   const { history } = props;
+
+  useEffect(() => { }, []);
+  const [swiper, setSwiper] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   // 날씨 정보 로드 여부 가져오기
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
   const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
@@ -40,6 +44,17 @@ const Main = (props) => {
   if (!isLoaded) {
     return <Logo />;
   }
+
+  const onSwiper = (swiper) => {
+    setCurrentIndex(swiper.realIndex);
+  };
+
+  const moveCurrentSlide = (idx) => {
+    console.log('야홍');
+    swiper.slideTo(idx, 500, true);
+    swiper.slideReset();
+  };
+
   // 날씨정보 로드 후
   // 데스크탑 모드
   if (isDesktopMode) {
@@ -72,12 +87,14 @@ const Main = (props) => {
         {/* 헤더 height: 10% */}
         <Header />
         <Swiper
-          pagination
-          className="mySwiper"
+          pagination={{ clickable: true }}
+          className="swiper"
+          onSwiper={setSwiper}
           style={{
             width: '100%',
             height: '80%',
           }}
+          onSlideChange={onSwiper}
         >
           {/* 첫번째 슬라이드 */}
           <SwiperSlide
@@ -114,7 +131,7 @@ const Main = (props) => {
               padding: '2rem 2rem 0 2rem',
             }}
           >
-            <PreSetting isMain />
+            <PreSetting isMain moveToMain={() => moveCurrentSlide(0)} />
             <PagenationWrap />
           </SwiperSlide>
         </Swiper>
