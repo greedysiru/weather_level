@@ -100,14 +100,7 @@ export type preferenceType = {
   foodPoisonWeight: string;
 };
 
-// export const initialState: weatherType = {
-//   // 날씨 정보
-//   weatherInfo: null,
-//   // 날씨 정보 로드 상태
-//   isLoaded: false,
-//   preference: [],
-//   cardsInfo: [],
-// }
+
 
 export const initialState: weatherType = {
   // 날씨 정보

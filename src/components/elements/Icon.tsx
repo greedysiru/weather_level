@@ -6,7 +6,7 @@ import { ReactComponent as Adjust } from '../../icons/adjust.svg';
 import { ReactComponent as Airbad } from '../../icons/air_bad.svg';
 import { ReactComponent as Airgood } from '../../icons/air_good.svg';
 import { ReactComponent as Airusually } from '../../icons/air_usually.svg';
-import { ReactComponent as Airverybad } from '../../icons/air_veryBad.svg';
+import { ReactComponent as AirveryBad } from '../../icons/air_veryBad.svg';
 import { ReactComponent as Asthma } from '../../icons/asthma.svg';
 import { ReactComponent as Corona } from '../../icons/corona.svg';
 import { ReactComponent as Delete } from '../../icons/delete.svg';
@@ -52,8 +52,6 @@ import { ReactComponent as Longsleeve } from '../../icons/longsleeve.svg';
 import { ReactComponent as Shortsleeve } from '../../icons/shortsleeve.svg';
 import { ReactComponent as Sleeveless } from '../../icons/sleeveless.svg';
 
-
-
 type IconType = {
   name?: string;
   size?: number;
@@ -89,7 +87,7 @@ const Icon = (props: IconType) => {
     Airgood,
     Airusually,
     Airbad,
-    Airverybad,
+    AirveryBad,
     '01d': ClearDay,
     '01n': ClearNight,
     '02d': CloudsDay,
@@ -108,18 +106,18 @@ const Icon = (props: IconType) => {
     '13n': SnowNight,
     '50d': MistDay,
     '50n': MistNight,
-    'muffler': Muffler,
-    'coat': Coat,
-    'filed': Filed,
-    'hoodie': Hoodie,
-    'cardigan': Cardigan,
-    'longsleeve': Longsleeve,
-    'shortsleeve': Shortsleeve,
-    'sleeveless': Sleeveless,
+    muffler: Muffler,
+    coat: Coat,
+    filed: Filed,
+    hoodie: Hoodie,
+    cardigan: Cardigan,
+    longsleeve: Longsleeve,
+    shortsleeve: Shortsleeve,
+    sleeveless: Sleeveless,
   };
   // 아이콘 이름을 지정하지 않았으면 null
   if (!name) {
-    return null
+    return null;
   }
 
   // 미세먼지인 경우
@@ -129,7 +127,6 @@ const Icon = (props: IconType) => {
 
   // 호출된 아이콘
   const ElIcon = IconsList[name];
-
 
   // 날씨 관련 아이콘
   if (isWeather) {
@@ -173,6 +170,5 @@ const WeatherIconWrap = styled.div<IconType>`
     fill: ${(props) => props.color};
   }
 `;
-
 
 export default Icon;

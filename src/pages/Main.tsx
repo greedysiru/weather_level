@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
-import SwiperCore, { Pagination } from 'swiper/core';
+import SwiperCore, { Pagination, History } from 'swiper/core';
 // Swipter styles
 import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
@@ -10,7 +10,9 @@ import 'swiper/components/pagination/pagination.min.css';
 import styled from 'styled-components';
 
 // 리덕스
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import slider, { sliderActions } from '../redux/modules/slider';
+
 
 // page
 import PreSetting from './PreSetting';
@@ -28,18 +30,42 @@ import Logo from '../components/Logo';
 import { RootState } from '../redux/modules';
 
 // install Swiper modules
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination, History]);
 
 const Main = (props) => {
   const { history } = props;
+  const dispatch = useDispatch();
+  // 현재 인덱스
+  const { curIndex } = useSelector((state: RootState) => state.slider);
+
+  const [swiper, setSwiper] = useState(null);
   // 날씨 정보 로드 여부 가져오기
   const isLoaded = useSelector((state: RootState) => state.weather.isLoaded);
   const isDesktopMode = useSelector((state: RootState) => state.common.isDesktopMode);
+
+  // 슬라이더 인덱스 이동
+  const moveCurrentSlide = (idx) => {
+    swiper.slideTo(idx, 250, true);
+    swiper.slideReset();
+  };
+
+  // 현재 슬라이더 인덱스 스토어에 저장
+  const onSwiper = (swiper) => {
+    dispatch(sliderActions.setSliderIndex(swiper.realIndex));
+  };
+
+  // swiper 객체가 생겼을 때 실행
+  useEffect(() => {
+    if (swiper) {
+      moveCurrentSlide(curIndex);
+    }
+  }, [swiper]);
 
   // 날씨정보 로드 전
   if (!isLoaded) {
     return <Logo />;
   }
+
   // 날씨정보 로드 후
   // 데스크탑 모드
   if (isDesktopMode) {
@@ -72,12 +98,14 @@ const Main = (props) => {
         {/* 헤더 height: 10% */}
         <Header />
         <Swiper
-          pagination
-          className="mySwiper"
+          pagination={{ clickable: true }}
+          className="swiper"
+          onSwiper={setSwiper}
           style={{
             width: '100%',
             height: '80%',
           }}
+          onSlideChange={onSwiper}
         >
           {/* 첫번째 슬라이드 */}
           <SwiperSlide
@@ -114,7 +142,7 @@ const Main = (props) => {
               padding: '2rem 2rem 0 2rem',
             }}
           >
-            <PreSetting isMain />
+            <PreSetting isMain moveToMain={() => moveCurrentSlide(0)} />
             <PagenationWrap />
           </SwiperSlide>
         </Swiper>

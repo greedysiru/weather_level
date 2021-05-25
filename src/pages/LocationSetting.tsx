@@ -46,7 +46,6 @@ const LocationSetting = (props) => {
     dispatch(locationActions.fetchUserRegion());
 
     return () => {
-      console.log(timerState);
       clearTimeout(timerState);
     };
   }, []);

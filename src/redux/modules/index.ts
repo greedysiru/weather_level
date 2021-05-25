@@ -9,6 +9,7 @@ import weather from './weather';
 import time from './time';
 import location from './location';
 import common from './common';
+import slider from './slider';
 
 export const history = createBrowserHistory();
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   time,
   location,
   common,
+  slider,
   router: connectRouter(history),
 });
 

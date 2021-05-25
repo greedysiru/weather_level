@@ -11,7 +11,9 @@ import { Button, Grid, Range, Toast } from '../components/elements';
 import { RootState } from '../redux/modules';
 
 const PreSetting = (props) => {
-  const { history, isMain } = props;
+  // let timer;
+
+  const { history, isMain, moveToMain } = props;
   const dispatch = useDispatch();
 
   const { preference } = useSelector((state: RootState) => state.weather);
@@ -80,6 +82,10 @@ const PreSetting = (props) => {
     dispatch(weatherActions.getWeatherInfo());
     setIsHidden(true);
     openToast();
+
+    if (isMain) {
+      moveToMain();
+    }
   };
 
   const handleRangeHidden = () => {
