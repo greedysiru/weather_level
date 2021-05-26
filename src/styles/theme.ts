@@ -1,5 +1,7 @@
 import { DefaultTheme } from 'styled-components';
 
+// styled-component 테마
+// 정해진 컬러시스템을 사용
 const theme: DefaultTheme = {
   color: {
     main: '#F6F7FB',

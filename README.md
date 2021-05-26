@@ -4,13 +4,13 @@
 
 😊[사이트 링크](https://theweatherlevel.com)
 
-🎬 [유튜브 링크]()
+🎬 [유튜브 링크](https://www.youtube.com/watch?v=WWQWBb_dLu0)
 
 📁 [백엔드 Repositroy 링크](https://github.com/joychae/SpringBoot-Project-WeatherService)
 
 📕[팀 노션](https://www.notion.so/2004f97193f04be080e06e08898dfa9b)
 
-**weather_level 프로젝트의 프론트 엔드 Repositroy 입니다.**
+**weather_level 프로젝트의 프론트 엔드 Repository 입니다.**
 
 ## 개요
 
@@ -314,5 +314,4 @@ const [timerState, setTimerState] = useState(null);
 ### 반응형 디자인 (태블릿)
 
 ![tablet-desktop](readme_images/tablet-desktop.png)
-
 

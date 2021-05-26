@@ -7,6 +7,7 @@ import { commonActions } from '../redux/modules/common';
 
 import Footer from './Footer';
 
+// 앱을 구성하는 레이아웃을 설정한 컴포넌트
 function AppLayout(props) {
   const { children } = props;
   const dispatch = useDispatch();

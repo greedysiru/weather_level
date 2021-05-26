@@ -24,6 +24,7 @@ const Setting = (props) => {
   const description = `오늘 날씨는 ${weatherDiscription}, 외출 점수는 ${todayScore}점 입니다!`;
   // 카카오 공유
   const shareKakao = (description) => {
+    // s3 버킷에 접근해서 오늘 날씨의 아이콘 불러오기
     const imageUrl = `https://weather-service-images.s3.ap-northeast-2.amazonaws.com/${todayWeather[3]}.png`;
     Kakao.Link.sendDefault({
       objectType: 'feed',

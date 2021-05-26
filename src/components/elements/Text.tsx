@@ -10,8 +10,9 @@ type TextType = {
   children?: any;
 }
 
+// 일반 텍스트 컴포넌트
+// 굵기, 색상, 사이즈, 마진값 조정 가능
 const Text = (props: TextType) => {
-
   const { bold, color, size, children, margin } = props;
   const styles = { bold, color, size, margin };
   return (

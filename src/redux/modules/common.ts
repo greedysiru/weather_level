@@ -1,7 +1,7 @@
 import { createReducer, createAction, PayloadAction } from '@reduxjs/toolkit';
 import { complainAPI } from 'src/shared/api';
 
-// 시간 정보를 관리하는 모듈
+// 반응형 디자인, 불편사항 접수를 관리하는 모듈
 
 // type 선언
 // 초기 상태 type
