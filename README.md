@@ -315,7 +315,7 @@ const [timerState, setTimerState] = useState(null);
 
 
 
-## Contetnts
+## Contents
 
 ### 사용 예시(스마트폰)
 
@@ -345,7 +345,7 @@ const [timerState, setTimerState] = useState(null);
 
 
 
-## 고객반응 및 성과
+## 고객 반응 및 성과
 
  **24일 (Release Day) 이후 4일간 구글애널리틱스 기준 사용자 4100명 달성**
 
