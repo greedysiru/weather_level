@@ -1,3 +1,5 @@
+
+
 # weather_level
 
 ![logo](readme_images/logo.png)
@@ -11,6 +13,20 @@
 📕[팀 노션](https://www.notion.so/2004f97193f04be080e06e08898dfa9b)
 
 **weather_level 프로젝트의 프론트 엔드 Repository 입니다.**
+
+## 목차
+
+[1. 개요](#개요)
+
+[2. 프로젝트 특징](#프로젝트-특징)
+
+[3. 사용 패키지](#사용-패키지)
+
+[4. 핵심 트러블 슈팅](#핵심-트러블-슈팅)
+
+[5. Contents](#Contents)
+
+[6. 고객 반응 및 성과](#고객 반응 및 성과)
 
 ## 개요
 
@@ -35,7 +51,6 @@
 
   - 날씨 정보와 사용자의 선호도를 토대로, 알고리즘을 통해 날씨 점수를 제공하는 서비스
   - 직관적이고 알아보기 쉬운 날씨 정보 큐레이팅
-
 - 프론트엔드와 백엔드를 분리하여 프로젝트 개발
 
   - 각 파트별로 Repository를 생성 후 작업
@@ -45,22 +60,16 @@
     - API 명세서에 따라 API호출 및 응답 확인
   - HTTPS 통신
     - SSL 인증서 적용
-
 - 사용자의 현재 GPS 정보를 기반으로한 날씨 정보 제공
 
   - 사용자가 원하는 지역 선택 가능
-
 - 사용자가 설정한 우선순위에따라서 날씨 정보 카드를 우선적으로 보여줌
-
 - 카카오톡으로 자신의 오늘 날씨 점수를 공유
-
 - 뉴모피즘과 귀여운 날씨 캐릭터가 가미된 UI
-
 - 반응형 디자인
 
   - 포터블 모드: 주요 모델 지원 UI
   - 데스크탑 모드: 데스크탑 환경에서 한눈에 볼 수 있는 UI
-
 - PWA
 
   - Progressive Web Apps
@@ -68,9 +77,28 @@
   - 안드로이드 -크롬, iOS - 사파리에서 홈 화면에 바로가기 설치 가능
   - 안드로이드 플레이 스토어 배포 예정
 
-  
-
 - 사용자의 현재 GPS 정보를 기반으로한 날씨 정보 제공
+
+
+
+## 사용 패키지
+
+* **reduxjs/toolkit**
+  - 데이터 전역 관리를 위한 리덕스 관리 패키지
+* **styled-components**
+  - 컴포넌트의 스타일을 설정하는 패키지
+* **axios**
+  - 서버 통신을 위한 패키지
+* **connected-react-router, history**
+  - 라우팅 및 페이지 이동을 위한 패키지
+* **react-spinners**
+  - 로딩 화면(스피너)를 구현하는 패키지
+* **swiper**
+  - 슬라이더를 구현하는 패키지
+* **workbox**
+  * serviceworker를 다루는 패키지
+* **eslint, prettier**
+  * 코드 컨벤션을 적용하기 위한 패키지
 
 ## 핵심 트러블 슈팅
 
@@ -314,4 +342,16 @@ const [timerState, setTimerState] = useState(null);
 ### 반응형 디자인 (태블릿)
 
 ![tablet-desktop](readme_images/tablet-desktop.png)
+
+
+
+## 고객반응 및 성과
+
+ **24일 (Release Day) 이후 4일간 구글애널리틱스 기준 사용자 4100명 달성**
+
+![result1](readme_images/result1.png)
+
+
+
+![result1](readme_images/result2.png)
 
