@@ -8,7 +8,7 @@
 
 🎬 [유튜브 링크](https://www.youtube.com/watch?v=WWQWBb_dLu0)
 
-📁 [백엔드 Repositroy 링크](https://github.com/joychae/SpringBoot-Project-WeatherService)
+📁 [백엔드 Repository 링크](https://github.com/joychae/SpringBoot-Project-WeatherService)
 
 📕[팀 노션](https://www.notion.so/2004f97193f04be080e06e08898dfa9b)
 
@@ -39,7 +39,7 @@
 - 주요 기능
   - 사용자의 선호도를 토대로 알고리즘을 통해 날씨 점수 출력
   - 날씨 정보 큐레이팅
-- 개발 언어 : JavaScript
+- 개발 언어 : JavaScript, TypeScript
 - 개발 라이브러리 : React.js
 - 형상 관리 툴 : git
 - 협업 툴 : [notion](https://www.notion.so/2004f97193f04be080e06e08898dfa9b), [구글 스프레드 시트](https://docs.google.com/spreadsheets/d/1Wbv10czlXBtes6mJF3kTe4gOyI3SjJDe1Q8nZSkBa2A/edit#gid=0), 구글 드라이브
