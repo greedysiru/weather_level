@@ -8,7 +8,7 @@ import DetailWeekly from 'src/components/DetailWeekly';
 import Fit from 'src/components/Fit';
 import { Button, Grid } from 'src/components/elements';
 import styled from 'styled-components';
-import { RootState } from '../redux/modules';
+import { RootState } from '../../redux/modules';
 
 const Detail = (props) => {
   const { match, history } = props;

@@ -14,7 +14,7 @@ import Footer from 'src/components/Footer';
 import { css } from '@emotion/core';
 import BeatLoader from 'react-spinners/BeatLoader';
 
-import { RootState } from '../redux/modules';
+import { RootState } from '../../redux/modules';
 
 const LocationSetting = (props) => {
   const { history } = props;

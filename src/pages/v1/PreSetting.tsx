@@ -5,10 +5,10 @@ import { css } from '@emotion/core';
 import BeatLoader from 'react-spinners/BeatLoader';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { weatherActions } from '../redux/modules/weather';
-import { Button, Grid, Range, Toast } from '../components/elements';
+import { weatherActions } from '../../redux/modules/weather';
+import { Button, Grid, Range, Toast } from '../../components/elements';
 
-import { RootState } from '../redux/modules';
+import { RootState } from '../../redux/modules';
 
 const PreSetting = (props) => {
   // let timer;
