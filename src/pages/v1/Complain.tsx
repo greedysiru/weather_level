@@ -10,8 +10,7 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { useDispatch, useSelector } from 'react-redux';
 // RootState
 import { commonActions } from 'src/redux/modules/common';
-import { RootState } from '../redux/modules';
-
+import { RootState } from '../../redux/modules';
 
 // 로고 불러오기
 const logo = '/assets/logo/logo_circle.png';
@@ -116,7 +115,7 @@ const ElLogo = styled.div`
   height: 7.4rem;
   background-size: contain;
   background-position: center center;
-`
+`;
 
 const spinnerStyle = css`
   display: block;

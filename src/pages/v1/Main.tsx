@@ -11,23 +11,22 @@ import styled from 'styled-components';
 
 // 리덕스
 import { useSelector, useDispatch } from 'react-redux';
-import slider, { sliderActions } from '../redux/modules/slider';
-
+import slider, { sliderActions } from '../../redux/modules/slider';
 
 // page
 import PreSetting from './PreSetting';
 
 // elements
-import { Grid, Button, Image, Input, Text, Range } from '../components/elements';
+import { Grid, Button, Image, Input, Text, Range } from '../../components/elements';
 
 // components
-import Header from '../components/Header';
-import Score from '../components/Score';
-import MainContents from '../components/MainContents';
-import Logo from '../components/Logo';
+import Header from '../../components/Header';
+import Score from '../../components/Score';
+import MainContents from '../../components/MainContents';
+import Logo from '../../components/Logo';
 
 // RootState
-import { RootState } from '../redux/modules';
+import { RootState } from '../../redux/modules';
 
 // install Swiper modules
 SwiperCore.use([Pagination, History]);
@@ -62,9 +61,9 @@ const Main = (props) => {
   }, [swiper]);
 
   // 날씨정보 로드 전
-  if (!isLoaded) {
-    return <Logo />;
-  }
+  // if (!isLoaded) {
+  //   return <Logo />;
+  // }
 
   // 날씨정보 로드 후
   // 데스크탑 모드
