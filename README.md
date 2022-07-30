@@ -5,6 +5,7 @@
 ![logo](readme_images/logo.png)
 
 🎬 [유튜브 링크](https://www.youtube.com/watch?v=WWQWBb_dLu0)
+	- 날씨 정보를 받아오는 일부 open API 서비스 종료로 인해 개발 중단합니다. 영상 참고 부탁드립니다!
 
 📁 [백엔드 Repository 링크](https://github.com/joychae/SpringBoot-Project-WeatherService)
 
