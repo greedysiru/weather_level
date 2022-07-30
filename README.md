@@ -4,8 +4,6 @@
 
 ![logo](readme_images/logo.png)
 
-😊 ~~[사이트 링크](https://theweatherlevel.com)~~날씨 정보를 받아오는 일부 open API 서비스 종료로 인해 개발 중단합니다.유튜브 링크를 참고 부탁드려요!
-
 🎬 [유튜브 링크](https://www.youtube.com/watch?v=WWQWBb_dLu0)
 
 📁 [백엔드 Repository 링크](https://github.com/joychae/SpringBoot-Project-WeatherService)
