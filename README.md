@@ -4,13 +4,13 @@
 
 ![logo](readme_images/logo.png)
 
-😊[사이트 링크](https://theweatherlevel.com)
+😊 [사이트 링크]~~(https://theweatherlevel.com)~~날씨 정보를 받아오는 일부 open API 서비스 종료로 인해 개발 중단합니다.유튜브 링크를 참고 부탁드려요!
 
 🎬 [유튜브 링크](https://www.youtube.com/watch?v=WWQWBb_dLu0)
 
 📁 [백엔드 Repository 링크](https://github.com/joychae/SpringBoot-Project-WeatherService)
 
-📕[팀 노션](https://www.notion.so/2004f97193f04be080e06e08898dfa9b)
+📕 [팀 노션](https://www.notion.so/2004f97193f04be080e06e08898dfa9b)
 
 **weather_level 프로젝트의 프론트 엔드 Repository 입니다.**
 
@@ -35,7 +35,8 @@
   - Front end: **전재민, 조윤경**
   - Back end: **채수연, 강상연, 김동현**
   - Designer: **공은지**
-- 개발 기간 : 2021.04.23 ~
+- 개발 기간 : 2021.04.23 ~ 2022.07.04
+  - 날씨 정보를 받아오는 일부 open API 서비스 종료로 인해 개발 중단합니다.🙏
 - 주요 기능
   - 사용자의 선호도를 토대로 알고리즘을 통해 날씨 점수 출력
   - 날씨 정보 큐레이팅
